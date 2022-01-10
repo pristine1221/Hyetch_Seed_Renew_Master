@@ -438,7 +438,7 @@ public class LotsDueforInspectionFragment extends Fragment implements ReportOrga
     }
 
     @Override
-    public void onItemClick(int pos) {
+    public void onOrgClick(int pos) {
         frame_layout_organizer_report_list.setVisibility(View.GONE);
         dueInspectionModel = lotsDueInspectionModelList_gl.get(pos);
         if (dueInspectionModel != null) {

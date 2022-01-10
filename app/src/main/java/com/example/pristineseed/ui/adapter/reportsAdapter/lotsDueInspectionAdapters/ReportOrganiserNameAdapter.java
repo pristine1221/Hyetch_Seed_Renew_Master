@@ -21,7 +21,7 @@ public class ReportOrganiserNameAdapter extends RecyclerView.Adapter<ReportOrgan
     public ReportOrganiserNameAdapter.OnItemClickListner onItemClickListner;
 
     public interface OnItemClickListner {
-        void onItemClick(int pos );
+        void onOrgClick(int pos );
     }
 
     public ReportOrganiserNameAdapter(@NonNull Context context, List<LotsDueInspectionModel> items) {
@@ -45,7 +45,7 @@ public class ReportOrganiserNameAdapter extends RecyclerView.Adapter<ReportOrgan
         holder.tv_name.setText(data.organizer_name);
 
         holder.tv_name.setOnClickListener(v -> {
-            onItemClickListner.onItemClick(position);
+            onItemClickListner.onOrgClick(position);
         });
     }
 

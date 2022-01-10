@@ -115,8 +115,7 @@ import com.example.pristineseed.sql_lite_process.model.User;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {User.class, ExceptionTableModel.class, SyncMasterTable.class
-        , Distribution_master_table.class
+@Database(entities = {User.class, ExceptionTableModel.class, SyncMasterTable.class, Distribution_master_table.class
         , GeoghraphicalTable.class, RegionMasterTable.class, StateMasterTable.class, TalukaMasterTable.class,
         ZoneMasterTable.class, DistricMasterTable.class, AreaMasterTable.class, Scheduler_Header_Table.class
         , SchedulerInspectionLineTable.class, GerminationInspection1_Table.class, SeedlingInspectionTable.class,
@@ -130,7 +129,7 @@ import java.util.concurrent.Executors;
         CropHytechMasterTable.class, RoleMasterTable.class, BankMasterTable.class, UomTable.class, BookingUnitPriceTable.class,
         ShipToAddressDataTable.class, PlantingLineLotListTable.class, FsioBsioSaleOrderNoTable.class
         , EmployeeAttendanceTable.class
-}, version = 1, exportSchema = false)
+}, version = 1, exportSchema = false)  //52 table classes....
 public abstract class PristineDatabase extends RoomDatabase {
 
     public abstract UserDao userDao();
