@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/colorWhite"
+    android:orientation="vertical">
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="@dimen/_250sdp"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="@dimen/_5sdp"
+        app:strokeColor="@color/chip_ripple"
+        app:strokeWidth="@dimen/_1sdp"
+        android:layout_gravity="center">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:background="@color/gray4"
+            android:padding="@dimen/_5sdp"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/close_pop_up"
+                android:layout_width="wrap_content"
+                android:layout_gravity="right"
+                android:src="@drawable/circle_close"
+                android:layout_height="wrap_content"/>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:paddingLeft="@dimen/_15sdp"
+                        android:gravity="start">
+
+                        <TextView
+                            android:id="@+id/title_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/product_sans_regular"
+                            android:textSize="@dimen/_10sdp"
+                            android:textStyle="bold"
+                            android:textColor="@color/text_color_hint" />
+
+                    </LinearLayout>
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="4dp"
+                    android:hint="Alloted %"
+                    android:visibility="gone"
+                    android:id="@+id/alloted_per_input_layout"
+                    android:layout_below="@+id/booking_qty_input_layout"
+                    app:boxCornerRadiusBottomEnd="15dp"
+                    app:boxCornerRadiusTopStart="15dp">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/ed_allotd_per"
+                        android:inputType="number"
+                        android:singleLine="true"
+                        android:maxLength="3"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_10sdp"
+                        android:lines="1" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="5dp">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="4dp"
+                        android:visibility="gone"
+                        android:hint="Booking Alloted Qty"
+                        android:id="@+id/booking_allloted_qty_input_layout"
+                        android:layout_below="@+id/alloted_per_input_layout"
+                        app:boxCornerRadiusBottomEnd="15dp"
+                        app:boxCornerRadiusTopStart="15dp">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/ed_booking_alloted_qty"
+                            android:inputType="numberDecimal"
+                            android:singleLine="true"
+                            android:enabled="false"
+                            android:editable="false"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_10sdp"
+                            android:lines="1" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+
+
+
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/reason_layout"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="4dp"
+                        android:hint="Enter reason"
+                        android:visibility="gone"
+                        app:boxCornerRadiusBottomEnd="15dp"
+                        app:boxCornerRadiusTopStart="15dp">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/ed_reason"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:maxLines="1" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom"
+                        android:layout_marginLeft="4dp"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:layout_marginRight="4dp"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/approve_btn"
+                            android:layout_width="wrap_content"
+                            android:layout_height="@dimen/_35sdp"
+                            android:fontFamily="@font/product_sans_regular"
+                            android:text="Approve"
+                            android:textAllCaps="false"
+                            app:rippleColor="@color/chip_ripple"
+                            android:shadowRadius="10"
+                            android:layout_marginRight="@dimen/_8sdp"
+                            android:shadowColor="@color/chip_ripple"
+                            app:cornerRadius="@dimen/_12sdp"
+                            android:textSize="12dp" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/reject_btn"
+                            android:layout_width="wrap_content"
+                            android:layout_height="@dimen/_35sdp"
+                            android:fontFamily="@font/product_sans_regular"
+                            android:text="Reject"
+                            android:layout_marginLeft="@dimen/_8sdp"
+                            android:textColor="@color/my_app_error_color"
+                            android:backgroundTint="@color/white_chip_border"
+                            app:rippleColor="@color/my_app_error_color"
+                            android:textAllCaps="false"
+                            app:cornerRadius="@dimen/_12sdp"
+                            android:textSize="12dp" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+</LinearLayout>

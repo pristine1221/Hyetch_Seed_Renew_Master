@@ -1,0 +1,1013 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/my_app_background_color">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="50dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_height="wrap_content">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_close_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:elevation="2dp"
+                    app:chipBackgroundColor="@color/my_app_background_color"
+                    app:chipIcon="@drawable/ic_baseline_close_24"
+                    app:chipIconTint="@color/colorPrimary"
+                    app:chipStrokeColor="@color/chip_border"
+                    app:chipStrokeWidth="1dp"
+                    app:textStartPadding="0dp"
+                    app:rippleColor="@color/chip_ripple"
+                    app:textEndPadding="0dp"
+                    app:chipStartPadding="4dp"
+                    app:chipEndPadding="4dp">
+
+                </com.google.android.material.chip.Chip>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:text="Add Expense Line"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/product_sans_regular"
+                    android:textSize="@dimen/_14sdp"
+                    android:gravity="center"
+                    android:paddingTop="@dimen/_8sdp"
+                    android:paddingBottom="@dimen/_8sdp"
+                    android:layout_height="wrap_content"/>
+
+            </FrameLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:background="@color/gray4"
+                android:layout_marginLeft="@dimen/_5sdp"
+                android:layout_marginRight="@dimen/_5sdp"
+                android:layout_height="@dimen/_1sdp"/>
+
+            <ProgressBar
+                android:visibility="gone"
+                android:id="@+id/add_expence_content_loading"
+                android:layout_width="@dimen/_20sdp"
+                android:layout_gravity="center"
+                android:indeterminateTint="@color/text_color_hint"
+                android:layout_height="@dimen/_20sdp"/>
+
+        </LinearLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:scrollbars="none"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:id="@+id/expenses_add_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginLeft="@dimen/_7sdp"
+                android:layout_marginRight="@dimen/_7sdp">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="4dp"
+                    android:layout_weight="1"
+                    android:hint="Date"
+                    app:boxCornerRadiusBottomEnd="15dp"
+                    app:boxCornerRadiusTopStart="15dp">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_date"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:clickable="true"
+                        android:editable="false"
+                        android:fontFamily="@font/product_sans_regular"
+                        android:textSize="@dimen/_10sdp"
+                        android:drawableEnd="@drawable/ic_baseline_today_24"
+                        android:textColor="@color/black" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_4sdp"
+                    android:orientation="vertical">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="4dp"
+                        android:layout_weight="1"
+                        android:hint="From City"
+                        app:boxCornerRadiusBottomEnd="15dp"
+                        app:boxCornerRadiusTopStart="15dp">
+
+                        <AutoCompleteTextView
+                            android:id="@+id/from_city"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/product_sans_regular"
+                            android:editable="true"
+                            android:textSize="@dimen/_10sdp"
+                            android:textColor="@color/black" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                        android:textColorHint="@color/text_color_hint"
+                        app:hintTextAppearance="@style/spinner_hint_text"
+                        app:boxStrokeColor="@color/colorPrimary"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/product_sans_regular"
+                        app:boxCornerRadiusBottomEnd="15dp"
+                        app:boxCornerRadiusTopStart="15dp"
+                        android:hint="To City">
+
+                        <AutoCompleteTextView
+                            android:id="@+id/to_city"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/product_sans_regular"
+                            android:editable="true"
+                            android:textSize="@dimen/_10sdp"
+                            android:textColor="@color/black" />
+                    </com.google.android.material.textfield.TextInputLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_4sdp"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                        android:fontFamily="@font/product_sans_regular"
+                        app:boxStrokeColor="@color/colorPrimary"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        app:boxCornerRadiusBottomEnd="15dp"
+                        app:boxCornerRadiusTopStart="15dp"
+                        android:hint="Departure">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/et_departure"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:editable="false"
+                            android:fontFamily="@font/product_sans_regular"
+                            android:textSize="@dimen/_10sdp"
+                            android:drawableRight="@drawable/ic_baseline_access_time_24"
+                            android:textColor="@color/black" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                        app:boxCornerRadiusBottomEnd="15dp"
+                        app:boxCornerRadiusTopStart="15dp"
+                        android:fontFamily="@font/product_sans_regular"
+                        app:boxStrokeColor="@color/colorPrimary"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginLeft="@dimen/_8sdp"
+                        android:hint="Arrival">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/et_arrival"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:editable="false"
+                            android:fontFamily="@font/product_sans_regular"
+                            android:textSize="@dimen/_10sdp"
+                            android:drawableRight="@drawable/ic_baseline_access_time_24"
+                            android:textColor="@color/black" />
+                    </com.google.android.material.textfield.TextInputLayout>
+                </LinearLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    app:boxCornerRadiusBottomEnd="15dp"
+                    app:boxCornerRadiusTopStart="15dp"
+                    android:layout_marginTop="@dimen/_4sdp"
+                    android:fontFamily="@font/product_sans_regular"
+                    app:boxStrokeColor="@color/colorPrimary"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Fare">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_fare"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="numberDecimal"
+                        android:maxLines="1"
+                        android:fontFamily="@font/product_sans_regular"
+                        android:textSize="@dimen/_10sdp"
+                        android:textColor="@color/black" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                    app:boxCornerRadiusBottomEnd="15dp"
+                    app:boxCornerRadiusTopStart="15dp"
+                    app:boxStrokeColor="@color/colorPrimary"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_4sdp"
+                    android:fontFamily="@font/product_sans_regular"
+                    android:hint="@string/mode_of_travel">
+
+                    <AutoCompleteTextView
+                        android:id="@+id/mode_of_travel_drop"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/_10sdp"
+                        android:fontFamily="@font/product_sans_regular"
+                        android:textColor="@color/black" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                    app:boxCornerRadiusBottomEnd="15dp"
+                    app:boxCornerRadiusTopStart="15dp"
+                    app:boxStrokeColor="@color/colorPrimary"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_4sdp"
+                    android:fontFamily="@font/product_sans_regular"
+                    android:hint=" Expense Type">
+
+                    <AutoCompleteTextView
+                        android:id="@+id/expense_type"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:editable="false"
+                        android:textSize="@dimen/_10sdp"
+                        android:fontFamily="@font/product_sans_regular"
+                        android:textColor="@color/black" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                        app:boxCornerRadiusBottomEnd="15dp"
+                        app:boxCornerRadiusTopStart="15dp"
+                        android:layout_marginTop="@dimen/_4sdp"
+                        app:boxStrokeColor="@color/colorPrimary"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="5dp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/product_sans_regular"
+                        android:hint="Toll Tax Expense">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/et_toll_tax_expense"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="numberDecimal"
+                            android:maxLines="1"
+                            android:fontFamily="@font/product_sans_regular"
+                            android:textSize="@dimen/_10sdp"
+                            android:textColor="@color/black" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                        app:boxCornerRadiusBottomEnd="15dp"
+                        app:boxCornerRadiusTopStart="15dp"
+                        android:layout_marginTop="@dimen/_4sdp"
+                        android:fontFamily="@font/product_sans_regular"
+                        app:boxStrokeColor="@color/colorPrimary"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:hint="Courier/Parcel">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/et_courier_and_parcel"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="numberDecimal"
+                            android:maxLines="1"
+                            android:fontFamily="@font/product_sans_regular"
+                            android:textSize="@dimen/_10sdp"
+                            android:textColor="@color/black" />
+                    </com.google.android.material.textfield.TextInputLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:id="@+id/linear_to_from_km"
+                    android:layout_marginTop="@dimen/_3sdp"
+                    android:orientation="vertical">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                        app:boxCornerRadiusBottomEnd="15dp"
+                        app:boxCornerRadiusTopStart="15dp"
+                        android:fontFamily="@font/product_sans_regular"
+                        app:boxStrokeColor="@color/colorPrimary"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="From(km)">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/et_from_km"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="numberDecimal"
+                            android:maxLines="1"
+                            android:fontFamily="@font/product_sans_regular"
+                            android:textSize="@dimen/_10sdp"
+                            android:textColor="@color/black" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                        app:boxCornerRadiusBottomEnd="15dp"
+                        app:boxCornerRadiusTopStart="15dp"
+                        android:layout_marginTop="@dimen/_3sdp"
+                        android:fontFamily="@font/product_sans_regular"
+                        app:boxStrokeColor="@color/colorPrimary"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="To(km)">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/et_to_km"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="numberDecimal"
+                            android:maxLines="1"
+                            android:fontFamily="@font/product_sans_regular"
+                            android:textAppearance="@style/edit_text"
+                            android:textSize="@dimen/_10sdp"
+                            android:textColor="@color/black" />
+                    </com.google.android.material.textfield.TextInputLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="4dp"
+                    android:visibility="gone"
+                    android:id="@+id/linear_ttl_km"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/product_sans_regular"
+                        android:textSize="@dimen/_10sdp"
+                        android:text="Total(km)" />
+
+                    <TextView
+                        android:id="@+id/tv_ttl_km"
+                        android:textAlignment="textEnd"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:inputType="numberDecimal"
+                        android:fontFamily="@font/product_sans_regular"
+                        android:textSize="@dimen/_10sdp"
+                        android:paddingLeft="5dp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="4dp"
+                    android:visibility="gone"
+                    android:id="@+id/linear_rs_per_km"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/product_sans_regular"
+                        android:textSize="@dimen/_10sdp"
+                        android:text="Rs.per(km)" />
+
+                    <TextView
+                        android:id="@+id/tv_rs_per_km"
+                        android:textAlignment="textEnd"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/product_sans_regular"
+                        android:textSize="@dimen/_10sdp"
+                        android:inputType="numberDecimal"
+                        android:paddingLeft="5dp" />
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="4dp"
+                    android:visibility="gone"
+                    android:id="@+id/linear_ttl_km_amt"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/product_sans_regular"
+                        android:textSize="@dimen/_10sdp"
+                        android:text="Total Amount(km)" />
+
+                    <TextView
+                        android:id="@+id/tv_ttl_km_amnt"
+                        android:textAlignment="textEnd"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:inputType="numberDecimal"
+                        android:fontFamily="@font/product_sans_regular"
+                        android:textSize="@dimen/_10sdp"
+                        android:paddingLeft="5dp" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tv_travel_modelrate"
+                    android:layout_gravity="center_vertical"
+                    android:padding="4dp"
+                    android:layout_width="match_parent"
+                    android:fontFamily="@font/product_sans_regular"
+                    android:textColor="@color/black"
+                    android:layout_height="wrap_content">
+
+                </TextView>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@color/gray3">
+
+                </View>
+               <!-- <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="4dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/product_sans_regular"
+                        android:textSize="@dimen/_10sdp"
+                        android:text="Maximum Lodging" />
+
+                    <TextView
+                        android:id="@+id/tv_maximum_Lodging"
+                        android:textAlignment="textEnd"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/product_sans_regular"
+                        android:textSize="@dimen/_10sdp"
+                        android:paddingLeft="5dp" />
+                </LinearLayout>-->
+
+              <!--  <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="4dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/product_sans_regular"
+                        android:textSize="@dimen/_10sdp"
+                        android:text="Full DA" />
+
+                    <TextView
+                        android:id="@+id/tv_full_da_amount"
+                        android:textAlignment="textEnd"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/product_sans_regular"
+                        android:textSize="@dimen/_10sdp"
+                        android:paddingLeft="5dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="4dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/product_sans_regular"
+                        android:textSize="@dimen/_10sdp"
+                        android:text="Half DA" />
+
+                    <TextView
+                        android:id="@+id/tv_half_da_amount"
+                        android:textAlignment="textEnd"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/product_sans_regular"
+                        android:textSize="@dimen/_10sdp"
+                        android:paddingLeft="5dp" />
+                </LinearLayout>-->
+
+               <!-- <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="4dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/product_sans_regular"
+                        android:textSize="@dimen/_10sdp"
+                        android:text="Time Diffrence" />
+
+                    <TextView
+                        android:id="@+id/tv_time_diffrence"
+                        android:textAlignment="textEnd"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/product_sans_regular"
+                        android:textSize="@dimen/_10sdp"
+                        android:paddingLeft="5dp" />
+                </LinearLayout>-->
+               <!-- <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@color/gray3">
+
+                </View>-->
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    app:boxCornerRadiusBottomEnd="15dp"
+                    app:boxCornerRadiusTopStart="15dp"
+                    android:layout_marginTop="@dimen/_4sdp"
+                    app:boxStrokeColor="@color/colorPrimary"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/product_sans_regular"
+                    android:hint="Lodging Cost">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_lodging_cost"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="numberDecimal"
+                        android:maxLines="1"
+                        android:fontFamily="@font/product_sans_regular"
+                        android:textSize="@dimen/_10sdp"
+                        android:textColor="@color/black" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    app:boxCornerRadiusBottomEnd="15dp"
+                    app:boxCornerRadiusTopStart="15dp"
+                    android:layout_marginTop="@dimen/_4sdp"
+                    app:boxStrokeColor="@color/colorPrimary"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/product_sans_regular"
+                    android:hint="Food Expence /DA">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/ed_food_expences"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="numberDecimal"
+                        android:maxLines="1"
+                        android:fontFamily="@font/product_sans_regular"
+                        android:textSize="@dimen/_10sdp"
+                        android:textColor="@color/black" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    app:boxCornerRadiusBottomEnd="15dp"
+                    app:boxCornerRadiusTopStart="15dp"
+                    android:layout_marginTop="@dimen/_4sdp"
+                    app:boxStrokeColor="@color/colorPrimary"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/product_sans_regular"
+                    android:hint="Pristing &amp; Stationary">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/ed_pring_stationary"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="numberDecimal"
+                        android:maxLines="1"
+                        android:fontFamily="@font/product_sans_regular"
+                        android:textSize="@dimen/_10sdp"
+                        android:textColor="@color/black" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    app:boxCornerRadiusBottomEnd="15dp"
+                    app:boxCornerRadiusTopStart="15dp"
+                    android:layout_marginTop="@dimen/_4sdp"
+                    app:boxStrokeColor="@color/colorPrimary"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/product_sans_regular"
+                    android:hint="Telephone Expenses">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/ed_teliphone_expences"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="numberDecimal"
+                        android:maxLines="1"
+                        android:fontFamily="@font/product_sans_regular"
+                        android:textSize="@dimen/_10sdp"
+                        android:textColor="@color/black" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                        app:boxCornerRadiusBottomEnd="15dp"
+                        app:boxCornerRadiusTopStart="15dp"
+                        android:layout_marginTop="@dimen/_4sdp"
+                        app:boxStrokeColor="@color/colorPrimary"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="5dp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/product_sans_regular"
+                        android:hint="Loading In Any">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/et_loading_in_any"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="numberDecimal"
+                            android:maxLines="1"
+                            android:fontFamily="@font/product_sans_regular"
+                            android:textSize="@dimen/_10sdp"
+                            android:textColor="@color/black" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                        app:boxCornerRadiusBottomEnd="15dp"
+                        app:boxCornerRadiusTopStart="15dp"
+                        android:layout_marginTop="@dimen/_4sdp"
+                        android:fontFamily="@font/product_sans_regular"
+                        app:boxStrokeColor="@color/colorPrimary"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:hint="Distance(km)">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/et_distance_km"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="numberDecimal"
+                            android:maxLines="1"
+                            android:fontFamily="@font/product_sans_regular"
+                            android:textSize="@dimen/_10sdp"
+                            android:textColor="@color/black" />
+                    </com.google.android.material.textfield.TextInputLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_4sdp"
+                    android:orientation="vertical">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                        app:boxCornerRadiusBottomEnd="15dp"
+                        app:boxCornerRadiusTopStart="15dp"
+                        android:layout_marginTop="@dimen/_3sdp"
+                        android:fontFamily="@font/product_sans_regular"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        app:boxStrokeColor="@color/colorPrimary"
+                        android:hint="Fuel Vehicle Expense">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/et_fuel_vehicle_expance"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="numberDecimal"
+                            android:maxLines="1"
+                            android:textSize="@dimen/_10sdp"
+                            android:fontFamily="@font/product_sans_regular"
+                            android:textColor="@color/black" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                  <!--  <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                        app:boxCornerRadiusBottomEnd="15dp"
+                        app:boxCornerRadiusTopStart="15dp"
+                        android:layout_marginTop="@dimen/_4sdp"
+                        android:fontFamily="@font/product_sans_regular"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        app:boxStrokeColor="@color/colorPrimary"
+                        android:hint="Daily Expense">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/et_daily_express"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="numberDecimal"
+                            android:maxLines="1"
+                            android:textSize="@dimen/_10sdp"
+                            android:fontFamily="@font/product_sans_regular"
+                            android:textColor="@color/black" />
+                    </com.google.android.material.textfield.TextInputLayout>-->
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_4sdp"
+                    android:orientation="vertical">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                        app:boxCornerRadiusBottomEnd="15dp"
+                        app:boxCornerRadiusTopStart="15dp"
+                        android:layout_marginTop="@dimen/_4sdp"
+                        android:fontFamily="@font/product_sans_regular"
+                        app:boxStrokeColor="@color/colorPrimary"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:hint="Vehicle Repairing">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/et_vehicle_repairing"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="numberDecimal"
+                            android:maxLines="1"
+                            android:textSize="@dimen/_10sdp"
+                            android:fontFamily="@font/product_sans_regular"
+                            android:textColor="@color/black" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                        app:boxCornerRadiusBottomEnd="15dp"
+                        app:boxCornerRadiusTopStart="15dp"
+                        android:layout_marginTop="@dimen/_4sdp"
+                        android:fontFamily="@font/product_sans_regular"
+                        app:boxStrokeColor="@color/colorPrimary"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:hint="Local Conveyance">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/et_local_convance"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="numberDecimal"
+                            android:maxLines="1"
+                            android:textSize="@dimen/_10sdp"
+                            android:fontFamily="@font/product_sans_regular"
+                            android:textColor="@color/black" />
+                    </com.google.android.material.textfield.TextInputLayout>
+                </LinearLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    app:boxCornerRadiusBottomEnd="15dp"
+                    app:boxCornerRadiusTopStart="15dp"
+                    android:layout_marginTop="@dimen/_4sdp"
+                    android:fontFamily="@font/product_sans_regular"
+                    app:boxStrokeColor="@color/colorPrimary"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Other Expenses">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_other_expenses"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="numberDecimal"
+                        android:maxLines="1"
+                        android:textSize="@dimen/_10sdp"
+                        android:fontFamily="@font/product_sans_regular"
+                        android:textColor="@color/black" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    app:boxCornerRadiusBottomEnd="15dp"
+                    app:boxCornerRadiusTopStart="15dp"
+                    android:layout_marginTop="@dimen/_4sdp"
+                    android:fontFamily="@font/product_sans_regular"
+                    app:boxStrokeColor="@color/colorPrimary"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Remarks">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_remarks"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:maxLines="1"
+                        android:fontFamily="@font/product_sans_regular"
+                        android:textSize="@dimen/_10sdp"
+                        android:textColor="@color/black" />
+                </com.google.android.material.textfield.TextInputLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_4sdp"
+                    android:layout_marginBottom="@dimen/_10sdp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/product_sans_bold"
+                        android:textColor="@color/dark_gray"
+                        android:textSize="@dimen/_12sdp"
+                        android:text="Total Expanse" />
+
+                    <TextView
+                        android:id="@+id/tv_totalApplyExpenceAmmount"
+                        android:fontFamily="@font/product_sans_regular"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_12sdp"
+                        android:paddingLeft="5dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_4sdp"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="@dimen/_10sdp"
+                    android:gravity="right">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:layout_height="wrap_content">
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/add_imge"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:chipIconTint="@color/colorPrimaryDark"
+                            android:fontFamily="@font/product_sans_bold"
+                            android:textSize="@dimen/_9sdp"
+                            app:strokeColor="@color/chip_border"
+                            app:strokeWidth="@dimen/_1sdp"
+                            android:textAllCaps="false"
+                            app:rippleColor="@color/chip_ripple"
+                            app:chipStrokeWidth="@dimen/_1sdp"
+                            android:textColor="@color/colorPrimaryDark"
+                            app:chipStrokeColor="@color/chip_ripple"
+                            app:chipBackgroundColor="@color/my_app_background_color"
+                            android:textAppearance="@style/chipText"
+                            app:chipStartPadding="4dp"
+                            app:chipEndPadding="4dp"
+                            app:chipIconSize="@dimen/_15sdp"
+                            app:chipMinHeight="@dimen/_30sdp"
+                            app:chipIcon="@drawable/add_image"
+                            android:text="Add Image"/>
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/clear_img"
+                            android:layout_width="wrap_content"
+                            android:text="Delete"
+                            app:chipBackgroundColor="@color/my_app_background_color"
+                            app:chipStrokeWidth="@dimen/_1sdp"
+                            app:chipIcon="@drawable/delete"
+                            app:chipIconTint="@color/my_app_error_color"
+                            app:chipStrokeColor="@color/my_app_error_color"
+                            android:textColor="@color/my_app_error_color"
+                            android:visibility="gone"
+                            app:rippleColor="@color/my_app_error_color"
+                            android:layout_height="wrap_content"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/linear_imge"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_margin="@dimen/_5sdp"
+                        android:gravity="center_horizontal">
+
+                        <FrameLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <ImageView
+                                android:id="@+id/vp_image"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/_120sdp"
+                                android:scaleType="fitXY"
+                                android:layout_margin="5dp"/>
+                        </FrameLayout>
+
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </ScrollView>
+    </LinearLayout>
+
+    <ProgressBar
+        android:visibility="gone"
+        android:id="@+id/insert_line_loading"
+        android:layout_width="wrap_content"
+        android:layout_gravity="center"
+        android:layout_height="wrap_content"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/submitPage"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="@font/product_sans_bold"
+            android:textAllCaps="false"
+            app:cornerRadius="@dimen/_8sdp"
+            android:text="Submit Expense"
+            android:textSize="@dimen/_12sdp" />
+    </LinearLayout>
+</FrameLayout>

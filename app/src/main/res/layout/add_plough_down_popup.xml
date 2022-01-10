@@ -1,0 +1,375 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/rl_custom_layout"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:focusable="true"
+    android:background="@color/my_app_background_color"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/bottom_button"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/top_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp">
+
+            <ImageView
+                android:id="@+id/close_dilog_bt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:elevation="2dp"
+                android:src="@drawable/ic_baseline_close_24"/>
+
+            <TextView
+                android:id="@+id/add_pld_title"
+                style="@style/TextAppearance.MaterialComponents.Headline6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|center_horizontal"
+                android:text="Add Plough Down (PLD)"
+                android:textAlignment="center"/>
+
+            <TextView
+                android:id="@+id/tv_pld_update_title"
+                style="@style/TextAppearance.MaterialComponents.Headline6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:layout_gravity="center_vertical|center_horizontal"
+                android:textAlignment="center"/>
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="6dp"
+            android:background="@drawable/bottom_shadow_gradient"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+           <!-- <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">-->
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:id="@+id/pld_input_details"
+                    android:padding="5dp">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/ac_lot_number_layout"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="4dp"
+                        android:hint="Lot Number"
+                        android:enabled="true"
+                        android:focusableInTouchMode="true"
+                        app:boxCornerRadiusBottomEnd="15dp"
+                        app:boxCornerRadiusTopStart="15dp"
+                        app:startIconDrawable="@drawable/ic_search_black_24dp"
+                        app:startIconTint="@color/color_trans_gray">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/ac_lot_no"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:maxLines="1"
+                            android:textColor="@color/black" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/frame_layout_lot_num_card_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/ac_lot_number_layout"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:visibility="gone"
+                        app:cardBackgroundColor="@color/colorWhite"
+                        app:cardCornerRadius="@dimen/_5sdp"
+                        app:cardElevation="@dimen/_5sdp"
+                        app:rippleColor="@color/chip_ripple"
+                        app:strokeColor="@color/gray1"
+                        app:strokeWidth="@dimen/_1sdp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/colorWhite"
+                            android:orientation="vertical">
+
+                            <ProgressBar
+                                android:id="@+id/loading_item"
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:layout_gravity="center|top"
+                                android:indeterminateTint="@color/chip_ripple"
+                                android:visibility="gone" />
+
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/rv_search_lot_num_list"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/_5sdp"
+                                android:layout_marginBottom="@dimen/_10sdp"
+                                android:background="@color/colorWhite"
+                                android:divider="@null"
+                                android:nestedScrollingEnabled="false"
+                                android:scrollbars="none" />
+                        </LinearLayout>
+
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="4dp"
+                        android:hint="Lot Number"
+                        android:id="@+id/lot_no_layout"
+                        android:visibility="gone"
+                        app:boxCornerRadiusBottomEnd="15dp"
+                        app:boxCornerRadiusTopStart="15dp">
+
+                        <AutoCompleteTextView
+                            android:id="@+id/ac_lot_no2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:maxLines="1"
+                            android:editable="true"
+                            android:textColor="@color/black" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/ac_loy_status_layout"
+                        android:layout_marginBottom="4dp"
+                        android:layout_below="@+id/ac_lot_number_layout"
+                        android:hint="Lot Status"
+                        app:boxCornerRadiusBottomEnd="15dp"
+                        app:boxCornerRadiusTopStart="15dp">
+
+                        <AutoCompleteTextView
+                            android:id="@+id/ac_lot_status"
+                            android:layout_width="match_parent"
+                            android:fontFamily="@font/product_sans_regular"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black"
+                            android:maxLines="1" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/pld_reson"
+                        android:layout_below="@+id/ac_loy_status_layout"
+                        android:layout_marginBottom="4dp"
+                        android:hint="Reason For PLD"
+                        app:boxCornerRadiusBottomEnd="15dp"
+                        app:boxCornerRadiusTopStart="15dp">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/ed_reason_"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:lines="2" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/pld_sown_acre_layout"
+                        android:layout_marginBottom="4dp"
+                        android:hint="Sown Acre"
+                        android:layout_below="@+id/pld_reson"
+                        app:boxCornerRadiusBottomEnd="15dp"
+                        app:boxCornerRadiusTopStart="15dp">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/ed_sown_acre"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:enabled="false"
+                            android:textColor="@color/black"
+                            android:lines="1" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="4dp"
+                        android:id="@+id/pld_acre_layout"
+                        android:layout_below="@+id/pld_sown_acre_layout"
+                        android:hint="PLD Acre"
+                        app:boxCornerRadiusBottomEnd="15dp"
+                        app:boxCornerRadiusTopStart="15dp">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/ed_pld_acre"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="numberDecimal"
+                            android:lines="1" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="4dp"
+                        android:id="@+id/pld_date_layout"
+                        android:layout_below="@+id/pld_acre_layout"
+                        android:hint="Date of PLD"
+                        app:boxCornerRadiusBottomEnd="15dp"
+                        app:boxCornerRadiusTopStart="15dp">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/ed_pld_date"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:drawableRight="@drawable/ic_baseline_today_24"
+                            android:editable="false"
+                            android:maxLines="1" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_below="@+id/pld_date_layout">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/btn_layouts"
+                            android:orientation="horizontal">
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/_btn_selct_img"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/_8sdp"
+                                android:fontFamily="@font/product_sans_regular"
+                                android:text="Select Image"
+                                android:textAllCaps="false"
+                                android:textSize="@dimen/_12sdp"
+                                app:rippleColor="@color/chip_ripple" />
+
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/clear_image_btn"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/_8sdp"
+                                android:layout_marginTop="@dimen/_8sdp"
+                                android:backgroundTint="@color/my_app_error_color"
+                                android:fontFamily="@font/product_sans_regular"
+                                android:text="Delete"
+                                android:textAllCaps="false"
+                                android:textSize="@dimen/_12sdp"
+                                android:visibility="gone"
+                                app:rippleColor="@color/chip_ripple" />
+
+                        </LinearLayout>
+
+                        <androidx.cardview.widget.CardView
+                            android:id="@+id/img_card"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_130sdp"
+                            android:layout_marginLeft="@dimen/_10sdp"
+                            android:layout_marginRight="@dimen/_10sdp"
+                            android:layout_below="@+id/btn_layouts"
+                            android:visibility="gone"
+                            app:cardCornerRadius="@dimen/_8sdp">
+
+                            <FrameLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+
+                                <ImageView
+                                    android:id="@+id/vp_image"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:scaleType="fitXY" />
+                            </FrameLayout>
+                        </androidx.cardview.widget.CardView>
+                    </RelativeLayout>
+
+                </RelativeLayout>
+
+<!--            </ScrollView>-->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/bottom_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/my_app_background_color"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/update_detail"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:text="Update"
+                android:textAllCaps="false"
+                android:visibility="gone"
+                android:textColor="@color/colorPrimary"/>
+
+            <Button
+                android:id="@+id/filter_apply_bt"
+                style="@style/Widget.MaterialComponents.Button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:text="Save"
+                android:textAllCaps="false"/>
+        </FrameLayout>
+    </LinearLayout>
+</RelativeLayout>

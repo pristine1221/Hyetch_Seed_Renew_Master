@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_dashboard">
+
+    <fragment
+        android:id="@+id/nav_header_line"
+        android:name="com.example.pristineseed.ui.header_line.HeaderLineFragment"
+        android:label="@string/menu_header_line"
+        tools:layout="@layout/fragment_header_line" />
+    <fragment
+        android:id="@+id/nav_list"
+        android:name="com.example.pristineseed.ui.list.ListFragment"
+        android:label="List"
+        tools:layout="@layout/fragment_list" />
+    <fragment
+        android:id="@+id/nav_dashboard"
+        android:name="com.example.pristineseed.ui.dashboard.DashboardFragment"
+        android:label="Dashboard"
+        tools:layout="@layout/fragment_dashboard" />
+
+    <fragment
+        android:id="@+id/nav_image_capture"
+        android:name="com.example.pristineseed.ui.image.ImageCaptureFragment"
+        android:label="@string/menu_slideshow"
+        tools:layout="@layout/fragment_image_capture" />
+</navigation>

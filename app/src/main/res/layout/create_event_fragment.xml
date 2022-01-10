@@ -1,0 +1,527 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.eventManagement.createEvent.CreateEventFragment">
+
+
+    <LinearLayout
+        android:id="@+id/create_event_title_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/title_text"
+            android:layout_width="wrap_content"
+            android:layout_gravity="center"
+            android:textSize="@dimen/_13sdp"
+            android:paddingTop="@dimen/_4sdp"
+            android:visibility="gone"
+            android:textColor="@color/dark_gray"
+            android:layout_height="wrap_content"/>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_margin="5dp"
+                    android:layout_height="match_parent">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:padding="5dp"
+                        android:orientation="vertical">
+                        <me.zhanghai.android.materialprogressbar.MaterialProgressBar
+                            android:id="@+id/content_loading"
+                            style="@style/Widget.MaterialProgressBar.ProgressBar.Horizontal"
+                            android:layout_width="fill_parent"
+                            android:layout_height="@dimen/_11sdp"
+                            android:indeterminate="true"
+                            android:visibility="gone"
+                            android:layout_gravity="center"
+                            android:indeterminateTint="@color/colorPrimary"
+                            app:mpb_progressStyle="horizontal" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginTop="@dimen/_5sdp"
+                            android:layout_marginBottom="5dp"
+                            android:background="#1D000000" />
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="4dp"
+                            app:boxCornerRadiusTopStart="@dimen/_15sdp"
+                            app:boxCornerRadiusBottomEnd="@dimen/_15sdp"
+                            android:hint="Event Description">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/et_event_desc"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:maxLines="3"
+                                android:textColor="@color/black" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="4dp"
+                            app:boxCornerRadiusTopStart="@dimen/_15sdp"
+                            app:boxCornerRadiusBottomEnd="@dimen/_15sdp"
+                            android:hint="Event Date">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/et_event_date"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:clickable="true"
+                                android:drawableRight="@drawable/ic_baseline_today_24"
+                                android:drawableTint="@color/colorPrimary"
+                                android:editable="true"
+                                android:textColor="@color/black" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="4dp"
+                            app:boxCornerRadiusTopStart="@dimen/_15sdp"
+                            app:boxCornerRadiusBottomEnd="@dimen/_15sdp"
+                            android:hint="Event Type">
+
+                            <AutoCompleteTextView
+                                android:id="@+id/dropdown_event_type"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:editable="false"
+                                android:textColor="@color/black" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="4dp"
+                            app:boxCornerRadiusTopStart="@dimen/_15sdp"
+                            app:boxCornerRadiusBottomEnd="@dimen/_15sdp"
+                            android:hint="Crop">
+
+                            <AutoCompleteTextView
+                                android:id="@+id/dropdown_crop"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/black" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="4dp"
+                            app:boxCornerRadiusTopStart="@dimen/_15sdp"
+                            app:boxCornerRadiusBottomEnd="@dimen/_15sdp"
+                            android:hint="Crop Hybrid">
+
+                            <AutoCompleteTextView
+                                android:id="@+id/dropdown_variety"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:editable="false"
+                                android:textColor="@color/black" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginBottom="10dp"
+                            android:background="#1D000000" />
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="4dp"
+                            app:boxCornerRadiusTopStart="@dimen/_15sdp"
+                            app:boxCornerRadiusBottomEnd="@dimen/_15sdp"
+                            android:hint="State">
+
+                            <AutoCompleteTextView
+                                android:id="@+id/dropdown_state"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/black" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="4dp"
+                            app:boxCornerRadiusTopStart="@dimen/_15sdp"
+                            app:boxCornerRadiusBottomEnd="@dimen/_15sdp"
+                            android:hint="District">
+
+                            <AutoCompleteTextView
+                                android:id="@+id/dropdown_district"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/black" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="4dp"
+                            app:boxCornerRadiusTopStart="@dimen/_15sdp"
+                            app:boxCornerRadiusBottomEnd="@dimen/_15sdp"
+                            android:hint="Taluka">
+
+                            <AutoCompleteTextView
+                                android:id="@+id/dropdown_taluka"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/black" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="4dp"
+                            app:boxCornerRadiusTopStart="@dimen/_15sdp"
+                            app:boxCornerRadiusBottomEnd="@dimen/_15sdp"
+                            android:hint="Zone">
+
+                            <AutoCompleteTextView
+                                android:id="@+id/drop_down_zone"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/black" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="4dp"
+                            app:boxCornerRadiusTopStart="@dimen/_15sdp"
+                            app:boxCornerRadiusBottomEnd="@dimen/_15sdp"
+                            android:hint="Village">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/et_village"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:maxLines="3"
+                                android:textColor="@color/black" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+
+
+                        <TextView
+                            style="@style/TextAppearance.MaterialComponents.Headline6"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="@dimen/_13sdp"
+                            android:paddingLeft="@dimen/_5sdp"
+                            android:text="No. of village covered : " />
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginTop="10dp"
+
+                            android:layout_marginBottom="10dp"
+                            android:background="#1D000000" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="5dp"
+                                android:layout_marginBottom="4dp"
+                                android:layout_weight="1"
+                                app:boxCornerRadiusTopStart="@dimen/_15sdp"
+                                app:boxCornerRadiusBottomEnd="@dimen/_15sdp"
+                                android:hint="Farmer Name">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/et_farmer_name"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:maxLines="3"
+                                    android:textColor="@color/black" />
+
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="4dp"
+                                android:layout_weight="1"
+                                app:boxCornerRadiusTopStart="@dimen/_15sdp"
+                                app:boxCornerRadiusBottomEnd="@dimen/_15sdp"
+                                android:hint="Farmer Contact No">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/et_farmer_contact_no"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:maxLines="3"
+                                    android:inputType="number"
+                                    android:textColor="@color/black" />
+
+                            </com.google.android.material.textfield.TextInputLayout>
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginTop="10dp"
+                            android:visibility="gone"
+                            android:layout_marginBottom="10dp"
+                            android:background="#1D000000" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="4dp"
+                            android:orientation="horizontal">
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="5dp"
+                                android:layout_weight="1"
+                                app:boxCornerRadiusTopStart="@dimen/_15sdp"
+                                app:boxCornerRadiusBottomEnd="@dimen/_15sdp"
+                                android:hint="Expected Farmers">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/et_expected_farmers"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:inputType="number"
+                                    android:maxLines="1"
+                                    android:textColor="@color/black" />
+
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                app:boxCornerRadiusTopStart="@dimen/_15sdp"
+                                app:boxCornerRadiusBottomEnd="@dimen/_15sdp"
+                                android:hint="Expected Dealers">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/et_expected_dealers"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:inputType="numberDecimal"
+                                    android:maxLines="1"
+                                    android:textColor="@color/black" />
+
+                            </com.google.android.material.textfield.TextInputLayout>
+                        </LinearLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="4dp"
+                            app:boxCornerRadiusTopStart="@dimen/_15sdp"
+                            app:boxCornerRadiusBottomEnd="@dimen/_15sdp"
+                            android:hint="Expected Distributers">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/et_expected_distributers"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="numberDecimal"
+                                android:maxLines="1"
+                                android:textColor="@color/black" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="4dp"
+                            android:orientation="horizontal">
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <com.google.android.material.textfield.TextInputLayout
+                                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:hint="Village Name"
+                                    app:boxCornerRadiusTopStart="@dimen/_15sdp"
+                                    app:boxCornerRadiusBottomEnd="@dimen/_15sdp"
+                                    app:counterMaxLength="10">
+
+                                    <androidx.appcompat.widget.AppCompatEditText
+                                        android:id="@+id/et_village_covered_name"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        app:layout_constraintStart_toStartOf="parent" />
+                                </com.google.android.material.textfield.TextInputLayout>
+
+                                <ImageView
+                                    android:id="@+id/add_village_name_button"
+                                    android:layout_width="30dp"
+                                    android:layout_height="30dp"
+                                    android:layout_alignParentRight="true"
+                                    android:layout_marginTop="14dp"
+                                    android:layout_marginRight="10dp"
+                                    android:background="?attr/selectableItemBackgroundBorderless"
+                                    android:clickable="true"
+                                    android:src="@drawable/ic_add_black_box_24dp"></ImageView>
+                            </RelativeLayout>
+                        </LinearLayout>
+
+                        <HorizontalScrollView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:scrollbars="none">
+
+                            <com.google.android.material.chip.ChipGroup
+                                android:id="@+id/selected_no_odvillageCovered_chipgroup"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content" />
+                        </HorizontalScrollView>
+
+                        <LinearLayout
+                            android:id="@+id/create_approval_section"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:visibility="gone"
+                            android:layout_marginBottom="10dp"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="4dp"
+                                android:orientation="horizontal">
+
+                                <com.google.android.material.textfield.TextInputLayout
+                                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginRight="5dp"
+                                    android:layout_weight="1"
+                                    android:hint="Actual Farmers">
+
+                                    <com.google.android.material.textfield.TextInputEditText
+                                        android:id="@+id/et_Actual_farmers"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:inputType="number"
+                                        android:maxLines="1"
+                                        android:textColor="@color/black" />
+
+                                </com.google.android.material.textfield.TextInputLayout>
+
+                                <com.google.android.material.textfield.TextInputLayout
+                                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:hint="Actual Dealers">
+
+                                    <com.google.android.material.textfield.TextInputEditText
+                                        android:id="@+id/et_Actual_dealers"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:inputType="number"
+                                        android:maxLines="1"
+                                        android:textColor="@color/black" />
+
+                                </com.google.android.material.textfield.TextInputLayout>
+                            </LinearLayout>
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="4dp"
+                                android:hint="Actual Distributers">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/et_Actual_distributers"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:inputType="number"
+                                    android:maxLines="1"
+                                    android:textColor="@color/black" />
+
+                            </com.google.android.material.textfield.TextInputLayout>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:id="@+id/bottom_layout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentBottom="true"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="5dp"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <Button
+                                android:id="@+id/submitPage"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Create Event"
+                                android:textAllCaps="false"
+                                android:textSize="12dp"/>
+
+                            <Button
+                                android:id="@+id/add_eventExpense"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Next"
+                                android:textSize="12dp"
+                                android:textAllCaps="false"
+                                android:visibility="gone" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+</RelativeLayout>

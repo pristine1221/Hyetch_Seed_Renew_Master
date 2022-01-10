@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:id="@+id/view_detail_event_list_layout"
+    android:padding="8dp">
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TableRow>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.2"
+                android:fontFamily="@font/product_sans_regular"
+                android:textColor="@color/dark_gray"
+                android:textSize="@dimen/_11sdp"
+                android:text="Code: " />
+
+            <TextView
+                android:id="@+id/event_code"
+                android:fontFamily="@font/product_sans_regular"
+                android:textColor="@color/black"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/_11sdp"
+                android:layout_weight="0.5" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.2"
+                android:fontFamily="@font/product_sans_regular"
+                android:textSize="@dimen/_11sdp"
+                android:textColor="@color/dark_gray"
+                android:text="Date: " />
+
+            <TextView
+                android:id="@+id/event_date"
+                android:fontFamily="@font/product_sans_regular"
+                android:textColor="@color/black"
+                android:layout_width="0dp"
+                android:textSize="@dimen/_11sdp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5" />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.2"
+                android:fontFamily="@font/product_sans_regular"
+                android:textColor="@color/dark_gray"
+                android:textSize="@dimen/_11sdp"
+                android:text="Crop: " />
+
+            <TextView
+                android:id="@+id/crop_name"
+                android:fontFamily="@font/product_sans_regular"
+                android:textColor="@color/black"
+                android:layout_width="0dp"
+                android:textSize="@dimen/_11sdp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.2"
+                android:fontFamily="@font/product_sans_regular"
+                android:textColor="@color/dark_gray"
+                android:textSize="@dimen/_11sdp"
+                android:text="Hybrid: " />
+
+            <TextView
+                android:id="@+id/variety_name"
+                android:fontFamily="@font/product_sans_regular"
+                android:textColor="@color/black"
+                android:layout_width="0dp"
+                android:textSize="@dimen/_11sdp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5" />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.2"
+                android:fontFamily="@font/product_sans_regular"
+                android:textColor="@color/dark_gray"
+                android:textSize="@dimen/_11sdp"
+                android:text="Type: " />
+
+            <TextView
+                android:id="@+id/event_type"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/product_sans_regular"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_11sdp"
+                android:layout_weight="0.5" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.2"
+                android:fontFamily="@font/product_sans_regular"
+                android:textColor="@color/dark_gray"
+                android:textSize="@dimen/_11sdp"
+                android:text="Budget: " />
+
+            <TextView
+                android:id="@+id/event_budget"
+                android:fontFamily="@font/product_sans_regular"
+                android:textColor="@color/black"
+                android:layout_width="0dp"
+                android:textSize="@dimen/_11sdp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5" />
+        </TableRow>
+
+
+        <TableRow android:visibility="gone">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.2"
+                android:fontFamily="@font/product_sans_regular"
+                android:textColor="@color/dark_gray"
+                android:text="State: " />
+
+            <TextView
+                android:id="@+id/state_name"
+                android:fontFamily="@font/product_sans_regular"
+                android:textColor="@color/black"
+                android:layout_width="0dp"
+                android:textSize="@dimen/_11sdp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.2"
+                android:fontFamily="@font/product_sans_regular"
+                android:textColor="@color/dark_gray"
+                android:textSize="@dimen/_11sdp"
+                android:text="District: " />
+
+            <TextView
+                android:id="@+id/district_name"
+                android:fontFamily="@font/product_sans_regular"
+                android:textColor="@color/black"
+                android:layout_width="0dp"
+                android:textSize="@dimen/_11sdp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5" />
+        </TableRow>
+
+        <TableRow android:visibility="gone">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.2"
+                android:fontFamily="@font/product_sans_regular"
+                android:textColor="@color/dark_gray"
+                android:textSize="@dimen/_11sdp"
+                android:text="Taluka: " />
+
+            <TextView
+                android:id="@+id/taluka_name"
+                android:fontFamily="@font/product_sans_regular"
+                android:textColor="@color/black"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/_11sdp"
+                android:layout_weight="0.5" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.2"
+                android:fontFamily="@font/product_sans_regular"
+                android:textColor="@color/dark_gray"
+                android:textSize="@dimen/_11sdp"
+                android:text="Village: " />
+
+            <TextView
+                android:id="@+id/village"
+                android:fontFamily="@font/product_sans_regular"
+                android:textColor="@color/black"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/_11sdp"
+                android:layout_weight="0.5" />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.09"
+                android:fontFamily="@font/product_sans_regular"
+                android:textColor="@color/dark_gray"
+                android:textSize="@dimen/_11sdp"
+                android:text="Desc: " />
+
+            <TextView
+                android:id="@+id/event_desc"
+                android:fontFamily="@font/product_sans_regular"
+                android:textColor="@color/black"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/_11sdp"
+                android:layout_weight="0.5" />
+        </TableRow>
+    </TableLayout>
+
+    <LinearLayout
+        android:id="@+id/lineylayouAddRemove"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:layout_marginRight="5dp"
+            android:orientation="vertical"
+            android:textSize="@dimen/_11sdp"
+            android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/event_date_detail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/product_sans_regular"
+            android:textSize="@dimen/_10sdp"
+            android:textColor="@color/profileEditTextColor"/>
+
+        <TextView
+            android:id="@+id/event_status"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/product_sans_regular"
+            android:textSize="@dimen/_10sdp"
+            android:textColor="@color/dark_gray"/>
+
+    </LinearLayout>
+
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/chip_group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/_8sdp"
+            android:paddingTop="@dimen/_5sdp"
+            android:paddingBottom="@dimen/_5sdp"
+            android:paddingRight="@dimen/_8sdp"
+            android:layout_gravity="end"
+            app:singleLine="true">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/approve_order"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Approve"
+                android:textColor="@color/colorPrimary"
+                app:chipBackgroundColor="@color/gray4"
+                app:chipIcon="@drawable/approve_order"
+                android:textAppearance="@style/small_chip_text_size"
+                android:clickable="true"
+                app:chipStartPadding="@dimen/_5sdp"
+                app:chipEndPadding="@dimen/_5sdp"
+                app:rippleColor="@color/chip_ripple">
+
+            </com.google.android.material.chip.Chip>
+
+            <com.google.android.material.chip.Chip
+                android:layout_marginLeft="@dimen/_5sdp"
+                android:id="@+id/reject_order"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Reject"
+                android:textColor="@color/my_app_error_color"
+                app:chipBackgroundColor="@color/gray4"
+                app:chipIconTint="@color/my_app_error_color"
+                app:chipIcon="@drawable/reject_order"
+                android:textAppearance="@style/small_chip_text_size"
+                android:clickable="true"
+                app:chipStartPadding="@dimen/_5sdp"
+                app:chipEndPadding="@dimen/_5sdp"
+                app:rippleColor="@color/chip_ripple">
+            </com.google.android.material.chip.Chip>
+        </com.google.android.material.chip.ChipGroup>
+
+    </LinearLayout>
+</LinearLayout>

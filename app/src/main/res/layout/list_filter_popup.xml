@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/rl_custom_layout"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/my_app_background_color"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/bottom_button"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp">
+
+            <ImageView
+                android:id="@+id/close_dilog_bt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:elevation="2dp"
+                android:src="@drawable/ic_baseline_close_24"></ImageView>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|center_horizontal"
+                android:text="Filters"
+                android:fontFamily="@font/product_sans_bold"
+                android:textSize="20sp"
+                android:textColor="@color/black"
+                android:textAlignment="center"></TextView>
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="6dp"
+            android:background="@drawable/bottom_shadow_gradient"></View>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="5dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/product_sans_bold"
+                android:text="Sort By"></TextView>
+
+            <com.google.android.material.button.MaterialButtonToggleGroup
+                android:id="@+id/toggleButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:singleSelection="true">
+
+                <Button
+                    android:id="@+id/button1"
+                    style="?attr/materialButtonOutlinedStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Button 1"
+                    android:fontFamily="@font/product_sans_regular"
+                    android:textAllCaps="false" />
+
+                <Button
+                    android:id="@+id/button2"
+                    style="?attr/materialButtonOutlinedStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Button 2"
+                    android:fontFamily="@font/product_sans_regular"
+                    android:textAllCaps="false" />
+
+                <Button
+                    android:id="@+id/button3"
+                    style="?attr/materialButtonOutlinedStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Button 3"
+                    android:fontFamily="@font/product_sans_regular"
+                    android:textAllCaps="false" />
+            </com.google.android.material.button.MaterialButtonToggleGroup>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/product_sans_bold"
+                android:text="Rating"></TextView>
+
+            <com.google.android.material.button.MaterialButtonToggleGroup
+                android:id="@+id/ratingtoggleButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:singleSelection="true">
+
+                <Button
+                    android:id="@+id/button_any"
+                    style="?attr/materialButtonOutlinedStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Any"
+                    android:fontFamily="@font/product_sans_regular"
+                    android:textAllCaps="false" />
+
+                <Button
+                    android:id="@+id/rate_35"
+                    style="?attr/materialButtonOutlinedStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/product_sans_regular"
+                    android:text="3.5" />
+
+                <Button
+                    android:id="@+id/rating4"
+                    style="?attr/materialButtonOutlinedStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/product_sans_regular"
+                    android:text="4.0" />
+
+                <Button
+                    android:id="@+id/rating45"
+                    style="?attr/materialButtonOutlinedStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/product_sans_regular"
+                    android:text="4.5" />
+            </com.google.android.material.button.MaterialButtonToggleGroup>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/product_sans_bold"
+                android:text="Other Filter"></TextView>
+
+            <com.google.android.material.chip.ChipGroup
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dp">
+
+                <com.google.android.material.chip.Chip
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Filter0"
+                    android:textColor="@color/colorPrimary"
+                    app:chipBackgroundColor="@color/my_app_background_color"
+                    app:chipIcon="@drawable/filter_icon"
+                    app:chipIconTint="@color/colorPrimary"
+                    app:chipStrokeColor="@color/chip_border"
+                    android:fontFamily="@font/product_sans_bold"
+                    app:chipStrokeWidth="1dp"
+                    app:rippleColor="@color/chip_ripple"></com.google.android.material.chip.Chip>
+
+                <com.google.android.material.chip.Chip
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Filter1"
+                    android:textColor="@color/colorPrimary"
+                    app:chipBackgroundColor="@color/my_app_background_color"
+                    app:chipIcon="@drawable/filter_icon"
+                    app:chipIconTint="@color/colorPrimary"
+                    app:chipStrokeColor="@color/chip_border"
+                    android:fontFamily="@font/product_sans_bold"
+                    app:chipStrokeWidth="1dp"
+                    app:rippleColor="@color/chip_ripple"></com.google.android.material.chip.Chip>
+
+                <com.google.android.material.chip.Chip
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Filter2"
+                    android:fontFamily="@font/product_sans_bold"
+                    android:textColor="@color/colorPrimary"
+                    app:chipBackgroundColor="@color/my_app_background_color"
+                    app:chipIcon="@drawable/filter_icon"
+                    app:chipIconTint="@color/colorPrimary"
+                    app:chipStrokeColor="@color/chip_border"
+                    app:chipStrokeWidth="1dp"
+                    app:rippleColor="@color/chip_ripple"></com.google.android.material.chip.Chip>
+
+                <com.google.android.material.chip.Chip
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Filter3"
+                    android:fontFamily="@font/product_sans_bold"
+                    android:textColor="@color/colorPrimary"
+                    app:chipBackgroundColor="@color/my_app_background_color"
+                    app:chipIcon="@drawable/filter_icon"
+                    app:chipIconTint="@color/colorPrimary"
+                    app:chipStrokeColor="@color/chip_border"
+                    app:chipStrokeWidth="1dp"
+                    app:rippleColor="@color/chip_ripple"></com.google.android.material.chip.Chip>
+
+                <com.google.android.material.chip.Chip
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Filter4"
+                    android:textColor="@color/colorPrimary"
+                    android:fontFamily="@font/product_sans_bold"
+                    app:chipBackgroundColor="@color/my_app_background_color"
+                    app:chipIcon="@drawable/filter_icon"
+                    app:chipIconTint="@color/colorPrimary"
+                    app:chipStrokeColor="@color/chip_border"
+                    app:chipStrokeWidth="1dp"
+                    app:rippleColor="@color/chip_ripple"></com.google.android.material.chip.Chip>
+
+                <com.google.android.material.chip.Chip
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Filter5"
+                    android:fontFamily="@font/product_sans_bold"
+                    android:textColor="@color/colorPrimary"
+                    app:chipBackgroundColor="@color/my_app_background_color"
+                    app:chipIcon="@drawable/filter_icon"
+                    app:chipIconTint="@color/colorPrimary"
+                    app:chipStrokeColor="@color/chip_border"
+                    app:chipStrokeWidth="1dp"
+                    app:rippleColor="@color/chip_ripple"></com.google.android.material.chip.Chip>
+
+                <com.google.android.material.chip.Chip
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Filter6"
+                    android:textColor="@color/colorPrimary"
+                    android:fontFamily="@font/product_sans_bold"
+                    app:chipBackgroundColor="@color/my_app_background_color"
+                    app:chipIcon="@drawable/filter_icon"
+                    app:chipIconTint="@color/colorPrimary"
+                    app:chipStrokeColor="@color/chip_border"
+                    app:chipStrokeWidth="1dp"
+                    app:rippleColor="@color/chip_ripple"></com.google.android.material.chip.Chip>
+
+                <com.google.android.material.chip.Chip
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Filter 7"
+                    android:textColor="@color/colorPrimary"
+                    android:fontFamily="@font/product_sans_bold"
+                    app:chipBackgroundColor="@color/my_app_background_color"
+                    app:chipIcon="@drawable/filter_icon"
+                    app:chipIconTint="@color/colorPrimary"
+                    app:chipStrokeColor="@color/chip_border"
+                    app:chipStrokeWidth="1dp"
+                    app:rippleColor="@color/chip_ripple"></com.google.android.material.chip.Chip>
+
+                <com.google.android.material.chip.Chip
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Filter 8"
+                    android:textColor="@color/colorPrimary"
+                    android:fontFamily="@font/product_sans_bold"
+                    app:chipBackgroundColor="@color/my_app_background_color"
+                    app:chipIcon="@drawable/filter_icon"
+                    app:chipIconTint="@color/colorPrimary"
+                    app:chipStrokeColor="@color/chip_border"
+                    app:chipStrokeWidth="1dp"
+                    app:rippleColor="@color/chip_ripple"></com.google.android.material.chip.Chip>
+
+            </com.google.android.material.chip.ChipGroup>
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/bottom_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/my_app_background_color"
+        android:orientation="vertical">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="6dp"
+            android:background="@drawable/top_shadow_gradient"></View>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:text="Clear"
+                android:textAllCaps="false"
+                android:fontFamily="@font/product_sans_bold"
+                android:textColor="@color/colorPrimary"></Button>
+
+            <Button
+                android:id="@+id/filter_apply_bt"
+                style="@style/Widget.MaterialComponents.Button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:text="Apply"
+                android:fontFamily="@font/product_sans_bold"
+                android:textAllCaps="false"></Button>
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>

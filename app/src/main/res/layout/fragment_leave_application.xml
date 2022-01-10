@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/approval_fragment"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"
+        android:gravity="start"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"/>
+
+        <com.google.android.material.chip.ChipGroup
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="5dp">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_add_new_applied_list"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/_10sdp"
+                android:elevation="2dp"
+                android:fontFamily="@font/product_sans_bold"
+                android:text="New"
+                android:textColor="@color/colorPrimary"
+                app:chipBackgroundColor="@color/my_app_background_color"
+                app:chipIcon="@drawable/ic_baseline_add_24"
+                app:chipIconTint="@color/colorPrimary"
+                app:chipStrokeColor="@color/chip_border"
+                app:chipStrokeWidth="1dp"
+                app:rippleColor="@color/chip_ripple"/>
+        </com.google.android.material.chip.ChipGroup>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="50dp"
+        android:background="#ffffff"
+        android:visibility="visible">
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/leave_list_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+    </LinearLayout>
+
+</FrameLayout>

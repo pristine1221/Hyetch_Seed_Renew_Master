@@ -1,0 +1,2 @@
+include ':app'
+rootProject.name = "Hyetch_Seed_Renew_Master"

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!--the shadow comes from here-->
+    <item
+        android:bottom="0dp"
+        android:drawable="@drawable/sync_custom"
+        android:left="0dp"
+        android:right="0dp"
+        android:top="0dp">
+    </item>
+
+
+    <item
+        android:bottom="5dp"
+        android:left="5dp"
+        android:right="5dp"
+        android:top="5dp">
+        <!--BackGround Color -->
+        <shape android:shape="oval">
+
+            <solid android:color="@color/gray4" />
+
+        </shape>
+    </item>
+
+    <!-- <item
+         android:bottom="@dimen/_35sdp"
+         android:left="@dimen/_35sdp"
+         android:right="@dimen/_35sdp"
+         android:top="@dimen/_35sdp">
+         &lt;!&ndash;BackGround Color &ndash;&gt;
+         <shape android:shape="oval">
+
+
+
+             <solid android:color="@color/white" />
+
+         </shape>
+     </item>-->
+</layer-list>

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.inspection.planting.ShowingDetailFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:fontFamily="@font/product_sans_bold"
+                android:maxLines="1"
+                android:padding="6dp"
+                android:text="Fertiliser Recommendation Info"
+                android:textColor="@color/black"
+                android:textSize="15sp" />
+
+            <com.google.android.material.chip.ChipGroup
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dp">
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_add_planting"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:elevation="2dp"
+                    android:fontFamily="@font/product_sans_regular"
+                    android:text="Add Fertiliser"
+                    android:textColor="@color/colorPrimary"
+                    android:textStyle="bold"
+                    app:chipBackgroundColor="@color/my_app_background_color"
+                    app:chipIcon="@drawable/ic_add_black"
+                    app:chipIconTint="@color/colorPrimary"
+                    app:chipStrokeColor="@color/chip_border"
+                    app:chipStrokeWidth="1dp"
+                    app:rippleColor="@color/chip_ripple"></com.google.android.material.chip.Chip>
+            </com.google.android.material.chip.ChipGroup>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2.5dp"
+            android:background="@drawable/bottom_shadow_gradient"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView"></View>
+
+        <ExpandableListView
+            android:id="@+id/schedule_inspection_expnd_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/my_app_background_color"
+            android:childDivider="#fff"
+            android:choiceMode="singleChoice"
+            android:divider="@color/gray3"
+            android:dividerHeight="1dp"
+            android:groupIndicator="@null" />
+
+    </LinearLayout>
+
+
+</FrameLayout>

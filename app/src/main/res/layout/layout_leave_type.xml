@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:background="@color/gray4"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginLeft="@dimen/_3sdp"
+        android:layout_marginRight="@dimen/_3sdp"
+        android:layout_marginTop="@dimen/_1sdp"
+        android:layout_marginBottom="@dimen/_1sdp"
+        android:background="@drawable/border_file_white"
+        android:paddingLeft="@dimen/_2sdp"
+        android:paddingTop="5dp"
+        android:paddingRight="@dimen/_2sdp">
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="3dp">
+
+            <TableRow>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/product_sans_bold"
+                    android:text="Leave Code :  "
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/leave_code"
+                    style="@style/TextAppearance.MaterialComponents.Subtitle2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/product_sans_regular"
+                    android:textSize="12sp" />
+
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/product_sans_bold"
+                    android:text="Desc.:  "
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/leave_desc"
+                    style="@style/TextAppearance.MaterialComponents.Subtitle2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/product_sans_regular"
+                    android:textSize="@dimen/_10sdp" />
+            </TableRow>
+        </TableLayout>
+    </LinearLayout>
+</LinearLayout>
+

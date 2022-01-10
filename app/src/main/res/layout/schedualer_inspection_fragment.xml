@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent">
+
+    <ExpandableListView
+        android:id="@+id/scheduler_inspection"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/my_app_background_color"
+        android:childDivider="#fff"
+        android:choiceMode="singleChoice"
+        android:divider="@color/gray3"
+        android:dividerHeight="1dp"
+        android:groupIndicator="@null" />
+
+</LinearLayout>

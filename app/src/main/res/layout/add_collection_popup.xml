@@ -1,0 +1,449 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/rl_custom_layout"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/my_app_background_color"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+
+        android:layout_height="match_parent"
+        android:layout_above="@+id/bottom_button"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:id="@+id/title_layout_il"
+            android:padding="10dp">
+
+            <LinearLayout
+                android:id="@+id/title_layout"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/close_dilog_bt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:clickable="true"
+                    android:elevation="2dp"
+                    android:src="@drawable/ic_baseline_close_24">
+
+                </ImageView>
+
+                <TextView
+                    style="@style/TextAppearance.MaterialComponents.Headline6"
+                    android:layout_width="match_parent"
+                    android:textSize="@dimen/_13sdp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical|center_horizontal"
+                    android:text="Add Collection"
+                    android:textAlignment="center">
+                </TextView>
+
+            </LinearLayout>
+           <!-- <ProgressBar
+                android:layout_toRightOf="@id/title_layout"
+                android:id="@+id/bank_loading_progress"
+                android:indeterminateTint="@color/text_color_hint"
+                android:layout_width="@dimen/_25sdp"
+                android:visibility="gone"
+                android:layout_height="@dimen/_25sdp"/>-->
+
+        </LinearLayout>
+
+        <View
+            android:id="@+id/view_line_layout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_1sdp"
+            android:layout_below="@+id/title_layout_il"
+            android:background="@drawable/bottom_shadow_gradient">
+
+        </View>
+
+        <me.zhanghai.android.materialprogressbar.MaterialProgressBar
+            android:id="@+id/bank_loading_progress"
+            style="@style/Widget.MaterialProgressBar.ProgressBar.Horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="@dimen/_11sdp"
+            android:indeterminate="true"
+            android:visibility="gone"
+            android:layout_gravity="center"
+            android:layout_below="@+id/view_line_layout"
+            android:indeterminateTint="@color/colorPrimary"
+            app:mpb_progressStyle="horizontal" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/bank_loading_progress"
+            android:orientation="vertical">
+
+            <androidx.core.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:fillViewport="true"
+                android:layout_height="match_parent">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fillViewport="true"
+                    android:orientation="vertical"
+                    android:padding="5dp">
+
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="4dp"
+                        android:hint="Date"
+                        android:id="@+id/tl_date"
+                        app:boxCornerRadiusBottomEnd="15dp"
+                        app:boxCornerRadiusTopStart="15dp">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/et_date"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:drawableRight="@drawable/ic_baseline_today_24"
+                            android:editable="false"
+                            android:imeOptions="actionGo"
+                            android:maxLines="1" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/party_input_layout"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/tl_date"
+                        android:layout_marginBottom="4dp"
+                        android:hint="Search Party Name"
+                        app:boxCornerRadiusBottomEnd="15dp"
+                        app:boxCornerRadiusTopStart="15dp"
+                        app:startIconDrawable="@drawable/ic_search_black_24dp"
+                        app:startIconTint="@color/color_trans_gray">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/ac_party_name"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:imeOptions="actionGo"
+                            android:textColor="@color/black"/>
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+                    <RelativeLayout
+                        android:id="@+id/frame_layout_org_list"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/party_input_layout"
+                        android:background="@color/colorWhite"
+                        android:elevation="@dimen/_5sdp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:visibility="gone">
+
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:rippleColor="@color/chip_ripple">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@color/colorWhite"
+                                android:orientation="vertical">
+
+                                <ProgressBar
+                                    android:id="@+id/loading_item"
+                                    android:layout_width="30dp"
+                                    android:layout_height="30dp"
+                                    android:layout_gravity="center|top"
+                                    android:indeterminateTint="@color/chip_ripple"
+                                    android:visibility="gone" />
+
+                                <androidx.recyclerview.widget.RecyclerView
+                                    android:id="@+id/lv_cust_dist_list"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:background="@color/colorWhite"
+                                    android:divider="@null"
+                                    android:nestedScrollingEnabled="false"
+                                    android:scrollbars="none" />
+                                <!--android:layout_marginTop="@dimen/_5sdp"
+                                    android:layout_marginBottom="@dimen/_10sdp"-->
+                            </LinearLayout>
+
+                        </androidx.cardview.widget.CardView>
+                    </RelativeLayout>
+
+
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="4dp"
+                        android:layout_weight="1"
+                        android:layout_below="@+id/party_input_layout"
+                        android:hint="Place"
+                        android:id="@+id/place_input_layout"
+                        app:boxCornerRadiusBottomEnd="15dp"
+                        app:boxCornerRadiusTopStart="15dp">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/ac_place"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:imeOptions="actionGo"
+                            android:maxLines="1" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/chg_dd_rtgs_input_layout"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/place_input_layout"
+                        android:layout_marginBottom="4dp"
+                        android:hint="Chq/DD/RTGS.NO"
+                        app:boxCornerRadiusBottomEnd="15dp"
+                        app:boxCornerRadiusTopStart="15dp">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/chq_address"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:imeOptions="actionGo"
+                            android:maxLines="1" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="4dp"
+                        android:layout_below="@+id/chg_dd_rtgs_input_layout"
+                        android:hint="Drawn On Bank Name"
+                        android:id="@+id/drwn_bank_name"
+                        app:boxCornerRadiusBottomEnd="15dp"
+                        app:boxCornerRadiusTopStart="15dp">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/drawn_bank"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:imeOptions="actionGo"
+                            android:maxLines="1" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="4dp"
+                        android:hint="Deposited Bank"
+                        android:id="@+id/deposite_bank_input_layout"
+                        android:layout_below="@+id/drwn_bank_name"
+                        app:boxCornerRadiusBottomEnd="15dp"
+                        app:boxCornerRadiusTopStart="15dp">
+
+                        <AutoCompleteTextView
+                            android:id="@+id/ac_deposite_bank"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="none"
+                            android:textColor="@color/black"
+                            android:imeOptions="actionGo"
+                            android:maxLines="1" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="4dp"
+                        android:hint="Deposited AT"
+                        android:id="@+id/deposite_at_layout"
+                        android:layout_below="@+id/deposite_bank_input_layout"
+                        app:boxCornerRadiusBottomEnd="15dp"
+                        app:boxCornerRadiusTopStart="15dp">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/deposite_at"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:imeOptions="actionGo"
+                            android:maxLines="1" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="4dp"
+                        android:layout_weight="1"
+                        android:layout_below="@+id/deposite_at_layout"
+                        android:hint="Payment Type"
+                        android:id="@+id/payment_input_layout"
+                        app:boxCornerRadiusBottomEnd="15dp"
+                        app:boxCornerRadiusTopStart="15dp">
+
+                        <AutoCompleteTextView
+                            android:id="@+id/payment_type"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:inputType="none"
+                            android:textColor="@color/black"
+                            android:imeOptions="actionGo"
+                            android:maxLines="1" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="4dp"
+                        android:hint="Bank"
+                        android:id="@+id/bank_input_layout"
+                        android:layout_below="@+id/payment_input_layout"
+                        app:boxCornerRadiusBottomEnd="15dp"
+                        app:boxCornerRadiusTopStart="15dp">
+
+                        <AutoCompleteTextView
+                            android:id="@+id/ac_bank"
+                            android:layout_width="match_parent"
+                            android:textColor="@color/black"
+                            android:imeOptions="actionGo"
+                            android:layout_height="wrap_content" />
+                        <!--android:enabled="false"-->
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="4dp"
+                        android:hint="Date of Receipt"
+                        android:layout_below="@+id/bank_input_layout"
+                        android:id="@+id/date_of_receipt_layout"
+                        app:boxCornerRadiusBottomEnd="15dp"
+                        app:boxCornerRadiusTopStart="15dp">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/et_date_of_receipt"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:imeOptions="actionDone"
+                            android:drawableRight="@drawable/ic_baseline_today_24" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="4dp"
+                        android:hint="Amount"
+                        android:id="@+id/amount_input_layout"
+                        android:layout_below="@+id/date_of_receipt_layout"
+                        app:boxCornerRadiusBottomEnd="15dp"
+                        app:boxCornerRadiusTopStart="15dp">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/ed_amount"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:imeOptions="actionNext"
+                            android:inputType="numberDecimal" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="4dp"
+                        android:hint="Remarks"
+                        android:layout_below="@+id/amount_input_layout"
+                        app:boxCornerRadiusBottomEnd="15dp"
+                        app:boxCornerRadiusTopStart="15dp">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/remark"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:imeOptions="actionDone"
+                            android:lines="2" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+                </RelativeLayout>
+            </androidx.core.widget.NestedScrollView>
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/bottom_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/my_app_background_color"
+        android:orientation="vertical">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="6dp"
+            android:background="@drawable/top_shadow_gradient"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/clear_data"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:text="Clear"
+                android:textAllCaps="false"
+                android:textColor="@color/colorPrimary"/>
+
+            <Button
+                android:id="@+id/filter_apply_bt"
+                style="@style/Widget.MaterialComponents.Button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:text="Save"
+                android:textAllCaps="false"/>
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>

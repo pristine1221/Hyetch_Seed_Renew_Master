@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_weight="1"
+        android:layout_height="0dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:padding="@dimen/_6sdp"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="0dp"
+            android:text="Planting Detail : "
+            android:textStyle="bold"
+            android:layout_weight="1"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_13sdp"
+            android:layout_height="wrap_content"/>
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/add_planting_header"
+            android:layout_width="wrap_content"
+            android:text="Add Header"
+            app:chipBackgroundColor="@color/white_chip_border"
+            android:textColor="@color/colorPrimary"
+            app:chipStrokeWidth="@dimen/_1sdp"
+            app:chipStrokeColor="@color/colorPrimaryDark"
+            app:rippleColor="@color/chip_ripple"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:background="@color/gray4"
+        android:layout_height="@dimen/_3sdp"/>
+
+    <ExpandableListView
+        android:id="@+id/planting_detail_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_marginLeft="@dimen/_5sdp"
+        android:layout_marginRight="@dimen/_5sdp"
+        android:visibility="gone"
+        android:layout_height="wrap_content">
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/prevBtn"
+            android:text="Previous"
+            android:textAllCaps="false"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:layout_height="@dimen/_1sdp"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/nextBtn"
+            android:text="Next"
+            android:textAllCaps="false"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+</LinearLayout>

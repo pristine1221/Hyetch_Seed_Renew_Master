@@ -1,0 +1,397 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:id="@+id/item_container"
+    android:background="@color/gray4"
+    android:layout_marginBottom="@dimen/_4sdp"
+    android:padding="5dp">
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:background="@color/my_app_background_color"
+        android:paddingLeft="@dimen/_5sdp"
+        android:paddingBottom="@dimen/_5sdp"
+        android:paddingTop="@dimen/_4sdp"
+        android:layout_height="wrap_content">
+
+        <TableRow>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textColor="@color/dark_gray"
+                android:fontFamily="@font/product_sans_regular"
+                android:textSize="@dimen/_10sdp"
+                android:layout_weight="0.4"
+
+                android:text="Date  : " />
+
+            <TextView
+                android:id="@+id/tv_date"
+                android:layout_width="0dp"
+                android:textColor="@color/profileEditTextColor"
+                android:fontFamily="@font/product_sans_regular"
+                android:textSize="@dimen/_10sdp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.4"
+                android:textColor="@color/dark_gray"
+                android:fontFamily="@font/product_sans_regular"
+                android:textSize="@dimen/_10sdp"
+                android:text="From  : " />
+
+            <TextView
+                android:id="@+id/tv_from_loc"
+                android:textColor="@color/profileEditTextColor"
+                android:fontFamily="@font/product_sans_regular"
+                android:textSize="@dimen/_10sdp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5" />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.4"
+                android:textColor="@color/dark_gray"
+                android:fontFamily="@font/product_sans_regular"
+                android:textSize="@dimen/_10sdp"
+                android:text="To  : " />
+
+            <TextView
+                android:id="@+id/tv_to_loc"
+                android:layout_width="0dp"
+                android:textColor="@color/profileEditTextColor"
+                android:fontFamily="@font/product_sans_regular"
+                android:textSize="@dimen/_10sdp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.4"
+                android:textColor="@color/dark_gray"
+                  android:fontFamily="@font/product_sans_regular"
+                android:textSize="@dimen/_10sdp"
+                android:text="Departure  : " />
+
+            <TextView
+                android:id="@+id/tv_Departure"
+                android:textColor="@color/profileEditTextColor"
+                android:fontFamily="@font/product_sans_regular"
+                android:textSize="@dimen/_10sdp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5" />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.4"
+                android:textColor="@color/dark_gray"
+                android:fontFamily="@font/product_sans_regular"
+                android:textSize="@dimen/_10sdp"
+                android:text="Arrival  : " />
+
+            <TextView
+                android:id="@+id/tv_Arrival"
+                android:textColor="@color/profileEditTextColor"
+                android:fontFamily="@font/product_sans_regular"
+                android:textSize="@dimen/_10sdp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.4"
+                android:textColor="@color/dark_gray"
+                android:fontFamily="@font/product_sans_regular"
+                android:textSize="@dimen/_10sdp"
+                android:text="Fare  : " />
+
+            <TextView
+                android:id="@+id/tv_Fare"
+                android:textColor="@color/profileEditTextColor"
+                android:fontFamily="@font/product_sans_regular"
+                android:textSize="@dimen/_10sdp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5" />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.4"
+                android:textColor="@color/dark_gray"
+                android:fontFamily="@font/product_sans_regular"
+                android:textSize="@dimen/_10sdp"
+                android:text="Fuel expense  : " />
+
+            <TextView
+                android:id="@+id/tv_fuelVehicleExpanse"
+                android:textColor="@color/profileEditTextColor"
+                android:fontFamily="@font/product_sans_regular"
+                android:textSize="@dimen/_10sdp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5" />
+
+            <View android:layout_width="0dp"
+                android:layout_height="2dp"
+                android:layout_weight="0.9"/>
+
+           <!-- <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.4"
+                android:textColor="@color/dark_gray"
+                android:fontFamily="@font/product_sans_regular"
+                android:textSize="@dimen/_10sdp"
+                android:text="Daily expenses  : " />
+
+            <TextView
+                android:id="@+id/tv_Daily_Express"
+                android:textColor="@color/profileEditTextColor"
+                android:fontFamily="@font/product_sans_regular"
+                android:textSize="@dimen/_10sdp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5" />-->
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.4"
+                android:textColor="@color/dark_gray"
+                android:fontFamily="@font/product_sans_regular"
+                android:textSize="@dimen/_10sdp"
+                android:text="Vehicle rep.  : " />
+
+            <TextView
+                android:id="@+id/tv_VehicleRepairing"
+                android:textColor="@color/profileEditTextColor"
+                android:fontFamily="@font/product_sans_regular"
+                android:textSize="@dimen/_10sdp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.4"
+                android:textColor="@color/dark_gray"
+                android:fontFamily="@font/product_sans_regular"
+                android:textSize="@dimen/_10sdp"
+                android:text="Local con.  : " />
+
+            <TextView
+                android:id="@+id/tv_local_convance"
+                android:textColor="@color/profileEditTextColor"
+                android:fontFamily="@font/product_sans_regular"
+                android:textSize="@dimen/_10sdp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5" />
+        </TableRow>
+
+
+        <TableRow>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.4"
+                android:textColor="@color/dark_gray"
+                android:fontFamily="@font/product_sans_regular"
+                android:textSize="@dimen/_10sdp"
+                android:text="MOT  : " />
+
+            <TextView
+                android:id="@+id/tv_mode_of_travel"
+                android:textColor="@color/profileEditTextColor"
+                android:fontFamily="@font/product_sans_regular"
+                android:textSize="@dimen/_10sdp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.4" />
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.4"
+                android:textColor="@color/dark_gray"
+                android:fontFamily="@font/product_sans_regular"
+                android:textSize="@dimen/_10sdp"
+                android:text="Toll tax exp  : " />
+
+            <TextView
+                android:id="@+id/tv_toll_tax_expense"
+                android:textColor="@color/profileEditTextColor"
+                android:fontFamily="@font/product_sans_regular"
+                android:textSize="@dimen/_10sdp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.4"
+                android:textColor="@color/dark_gray"
+                android:fontFamily="@font/product_sans_regular"
+                android:textSize="@dimen/_10sdp"
+                android:text="Courier  : " />
+
+            <TextView
+                android:id="@+id/tv_courier_or_parcel"
+                android:textColor="@color/profileEditTextColor"
+                android:fontFamily="@font/product_sans_regular"
+                android:textSize="@dimen/_10sdp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5" />
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.4"
+                android:textColor="@color/dark_gray"
+                android:fontFamily="@font/product_sans_regular"
+                android:textSize="@dimen/_10sdp"
+                android:text="Loading  : " />
+
+            <TextView
+                android:id="@+id/tv_Loading"
+                android:textColor="@color/profileEditTextColor"
+                android:fontFamily="@font/product_sans_regular"
+                android:textSize="@dimen/_10sdp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.4"
+                android:textColor="@color/dark_gray"
+                android:fontFamily="@font/product_sans_regular"
+                android:textSize="@dimen/_10sdp"
+                android:text="Food exp.  : " />
+
+            <TextView
+                android:id="@+id/tv_food_exp"
+                android:textColor="@color/profileEditTextColor"
+                android:fontFamily="@font/product_sans_regular"
+                android:textSize="@dimen/_10sdp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5" />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.4"
+                android:textColor="@color/dark_gray"
+                android:fontFamily="@font/product_sans_regular"
+                android:textSize="@dimen/_10sdp"
+                android:text="Ttl km amt.  : " />
+
+            <TextView
+                android:id="@+id/tv_total_km_amt"
+                android:textColor="@color/profileEditTextColor"
+                android:fontFamily="@font/product_sans_regular"
+                android:textSize="@dimen/_10sdp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.4"
+                android:textColor="@color/dark_gray"
+                android:fontFamily="@font/product_sans_regular"
+                android:textSize="@dimen/_10sdp"
+                android:text="Total km.  : " />
+
+            <TextView
+                android:id="@+id/tv_total_km"
+                android:textColor="@color/profileEditTextColor"
+                android:fontFamily="@font/product_sans_regular"
+                android:textSize="@dimen/_10sdp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5" />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.4"
+                android:textColor="@color/dark_gray"
+                android:fontFamily="@font/product_sans_regular"
+                android:textSize="@dimen/_10sdp"
+                android:text="Other exp.  : " />
+
+            <TextView
+                android:id="@+id/tv_Other_Expenses"
+                android:textColor="@color/profileEditTextColor"
+                android:fontFamily="@font/product_sans_regular"
+                android:textSize="@dimen/_10sdp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.4"
+                android:textColor="@color/dark_gray"
+                android:fontFamily="@font/product_sans_regular"
+                android:textSize="@dimen/_10sdp"
+                android:text="Total exp.  : " />
+
+            <TextView
+                android:id="@+id/tv_Total_Expanse"
+                android:textColor="@color/profileEditTextColor"
+                android:fontFamily="@font/product_sans_regular"
+                android:textSize="@dimen/_10sdp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5" />
+        </TableRow>
+
+    </TableLayout>
+</LinearLayout>

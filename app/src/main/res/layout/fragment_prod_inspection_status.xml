@@ -1,0 +1,373 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/parent_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/main_layout_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:focusableInTouchMode="true"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/card_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginRight="5dp"
+                    android:background="@color/my_app_background_color"
+                    android:elevation="5dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/text_view_name"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_weight="0.5"
+                                android:fontFamily="@font/product_sans_bold"
+                                android:maxLines="1"
+                                android:padding="6dp"
+                                android:text="Prod Inspection List "
+                                android:textColor="@color/black"
+                                android:textSize="15sp" />
+
+                            <ImageView
+                                android:id="@+id/iv_refresh_details"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/ic_refresh"
+                                android:layout_marginRight="@dimen/_4sdp"
+                                android:layout_marginTop="@dimen/_2sdp"/>
+
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="#72AAAAAA"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/imageView" />
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <RelativeLayout
+                    android:id="@+id/search_prod_item_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/card_view"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:visibility="visible">
+
+                    <RelativeLayout
+                        android:id="@+id/sdn_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <LinearLayout
+                            android:id="@+id/search_items_list"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/_3sdp"
+                            android:orientation="horizontal">
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/prod_organser_name_input_layout"
+                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="4dp"
+                                android:layout_marginBottom="4dp"
+                                android:layout_weight="1"
+                                android:hint="Organiser Name"
+                                android:enabled="true"
+                                app:boxCornerRadiusBottomEnd="15dp"
+                                app:boxCornerRadiusBottomStart="15dp"
+                                app:boxCornerRadiusTopEnd="15dp"
+                                app:boxCornerRadiusTopStart="15dp"
+                                app:startIconDrawable="@drawable/ic_search_black_24dp"
+                                app:startIconTint="@color/color_trans_gray">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/et_prod_organizer_name"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:maxLines="1"
+                                    android:textColor="@color/black" />
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                            <View
+                                android:layout_width="7dp"
+                                android:layout_height="match_parent" />
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/prod_item_name_input_layout"
+                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="4dp"
+                                android:layout_marginBottom="4dp"
+                                android:layout_weight="1"
+                                android:hint="Item Name"
+                                app:boxCornerRadiusBottomEnd="15dp"
+                                app:boxCornerRadiusBottomStart="15dp"
+                                app:boxCornerRadiusTopEnd="15dp"
+                                app:boxCornerRadiusTopStart="15dp"
+                                android:enabled="true"
+                                app:startIconDrawable="@drawable/ic_search_black_24dp"
+                                app:startIconTint="@color/color_trans_gray">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/et_prod_item_name"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:maxLines="1"
+                                    android:textColor="@color/black" />
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/submit_filter_layout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/search_items_list"
+                            android:orientation="horizontal">
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/search_items_list"
+                                android:layout_weight="1"
+                                android:gravity="end|center">
+
+                                <com.google.android.material.button.MaterialButton
+                                    android:id="@+id/submit_report_name"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@+id/item_name_input_layout"
+                                    android:layout_alignParentEnd="true"
+                                    android:layout_marginRight="@dimen/_4sdp"
+                                    android:text="Submit"
+                                    android:textAllCaps="false"
+                                    android:visibility="visible" />
+
+                                <com.google.android.material.button.MaterialButton
+                                    android:id="@+id/clear_report_name"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@+id/item_name_input_layout"
+                                    android:layout_alignParentEnd="true"
+                                    android:layout_marginRight="@dimen/_4sdp"
+                                    android:text="Clear"
+                                    android:textAllCaps="false"
+                                    android:visibility="gone" />
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/search_items_list"
+                            android:orientation="horizontal"
+                            android:visibility="visible"
+                            android:elevation="@dimen/_5sdp">
+
+                            <com.google.android.material.card.MaterialCardView
+                                android:id="@+id/frame_layout_organizer_prod_list"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/organser_name_input_layout"
+                                android:layout_alignParentEnd="true"
+                                android:layout_marginLeft="5dp"
+                                android:layout_marginRight="5dp"
+                                android:layout_weight="1"
+                                android:elevation="@dimen/_5sdp"
+                                android:visibility="gone"
+                                app:cardBackgroundColor="@color/colorWhite"
+                                app:cardCornerRadius="@dimen/_5sdp"
+                                app:cardElevation="@dimen/_5sdp"
+                                app:rippleColor="@color/chip_ripple"
+                                app:strokeColor="@color/gray1"
+                                app:strokeWidth="@dimen/_1sdp">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:background="@color/colorWhite"
+                                    android:orientation="vertical">
+
+                                    <ProgressBar
+                                        android:id="@+id/loading_item"
+                                        android:layout_width="30dp"
+                                        android:layout_height="30dp"
+                                        android:layout_gravity="center|top"
+                                        android:indeterminateTint="@color/chip_ripple"
+                                        android:visibility="gone" />
+
+                                    <androidx.recyclerview.widget.RecyclerView
+                                        android:id="@+id/rv_organiser_list_items"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="@dimen/_5sdp"
+                                        android:layout_marginBottom="@dimen/_10sdp"
+                                        android:background="@color/colorWhite"
+                                        android:divider="@null"
+                                        android:nestedScrollingEnabled="false"
+                                        android:scrollbars="none" />
+                                </LinearLayout>
+
+                            </com.google.android.material.card.MaterialCardView>
+
+                            <View
+                                android:id="@+id/view_weight"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:visibility="visible"
+                                android:layout_height="wrap_content"/>
+
+                            <com.google.android.material.card.MaterialCardView
+                                android:id="@+id/frame_layout_prod_item_list"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/item_name_input_layout"
+                                android:layout_alignParentEnd="true"
+                                android:layout_marginLeft="5dp"
+                                android:layout_marginRight="5dp"
+                                android:layout_weight="1"
+                                android:elevation="5dp"
+                                android:visibility="gone"
+                                app:cardBackgroundColor="@color/colorWhite"
+                                app:cardCornerRadius="@dimen/_5sdp"
+                                app:cardElevation="@dimen/_5sdp"
+                                app:rippleColor="@color/chip_ripple"
+                                app:strokeColor="@color/gray1"
+                                app:strokeWidth="@dimen/_1sdp">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:background="@color/colorWhite"
+                                    android:orientation="vertical">
+
+                                    <ProgressBar
+                                        android:id="@+id/loading_item2"
+                                        android:layout_width="30dp"
+                                        android:layout_height="30dp"
+                                        android:layout_gravity="center|top"
+                                        android:indeterminateTint="@color/chip_ripple"
+                                        android:visibility="gone" />
+
+                                    <androidx.recyclerview.widget.RecyclerView
+                                        android:id="@+id/rv_item_list_items"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="@dimen/_5sdp"
+                                        android:layout_marginBottom="@dimen/_10sdp"
+                                        android:background="@color/colorWhite"
+                                        android:divider="@null"
+                                        android:nestedScrollingEnabled="false"
+                                        android:scrollbars="none" />
+
+                                </LinearLayout>
+
+                            </com.google.android.material.card.MaterialCardView>
+
+                        </LinearLayout>
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/prod_recycler_view_list"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:dividerHeight="1dp"
+                            android:layout_below="@+id/submit_filter_layout"
+                            android:visibility="visible" />
+
+                    </RelativeLayout>
+
+                </RelativeLayout>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/filter_download_floating_btn"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_gravity="end|bottom"
+            android:layout_margin="15dp"
+            android:backgroundTint="@color/colorPrimaryDark"
+            android:clickable="true"
+            android:src="@drawable/ic_file_download"
+            android:visibility="gone"
+            app:fabCustomSize="35dp">
+
+
+        </com.google.android.material.floatingactionbutton.FloatingActionButton>
+
+
+        <FrameLayout
+            android:layout_width="@dimen/_80sdp"
+            android:layout_gravity="bottom|end"
+            android:layout_height="@dimen/_80sdp">
+            <ProgressBar
+                android:id="@+id/progressBar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:indeterminate="false"
+                android:visibility="gone"
+                android:progressDrawable="@drawable/progress_drwable"
+                android:background="@drawable/circle_shape"
+                style="?android:attr/progressBarStyleHorizontal"/>
+
+            <TextView
+                android:id="@+id/progress_percentage_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/_12sdp"
+                android:text="0"
+                android:visibility="gone"
+                android:layout_gravity="center_vertical|center_horizontal"
+                android:textColor="@color/colorPrimary"/>
+            <TextView
+                android:id="@+id/text_percent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/_12sdp"
+                android:text="%"
+                android:layout_marginLeft="@dimen/_11sdp"
+                android:visibility="gone"
+                android:layout_gravity="center_vertical|center_horizontal"
+                android:textColor="@color/colorPrimary"/>
+
+        </FrameLayout>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</LinearLayout>

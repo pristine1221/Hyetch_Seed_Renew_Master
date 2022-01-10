@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="5dp">
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="2dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:fontFamily="@font/product_sans_bold"
+                    android:text="Lot no. : "
+                    android:textColor="@color/profileEditTextColor"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:id="@+id/tv_lot_no"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:fontFamily="@font/product_sans_regular"
+                    android:textColor="@color/black"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:fontFamily="@font/product_sans_bold"
+                    android:text="Hybrid : "
+                    android:textColor="@color/profileEditTextColor"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:id="@+id/tv_Hybrid"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:fontFamily="@font/product_sans_regular"
+                    android:text=""
+                    android:textColor="@color/black"
+                    android:textSize="13sp" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="2dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:fontFamily="@font/product_sans_bold"
+                    android:text="Farmer name : "
+                    android:textColor="@color/profileEditTextColor"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:id="@+id/tv_Farmer_name"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:fontFamily="@font/product_sans_regular"
+                    android:textColor="@color/black"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:fontFamily="@font/product_sans_bold"
+                    android:text="Village : "
+                    android:textColor="@color/profileEditTextColor"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:id="@+id/tv_Village"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:fontFamily="@font/product_sans_regular"
+                    android:text=""
+                    android:textColor="@color/black"
+                    android:textSize="13sp" />
+
+            </TableRow>
+        </TableLayout>
+
+        <ImageView
+            android:id="@+id/arrow_up_down"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical" />
+    </LinearLayout>
+
+
+</LinearLayout>

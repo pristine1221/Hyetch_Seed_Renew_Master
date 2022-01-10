@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:background="@color/gray4"
+    android:layout_height="wrap_content">
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_weight="1"
+        android:padding="5dp"
+        android:layout_height="wrap_content">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:padding="2dp"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.4"
+                android:text="Book no. :"
+                android:fontFamily="@font/product_sans_bold"
+                android:textColor="@color/profileEditTextColor"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/tv_book_no"
+                android:layout_weight="1"
+                android:textSize="12sp"
+                android:layout_width="0dp"
+                android:fontFamily="@font/product_sans_regular"
+                android:textColor="@color/black"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.4"
+                android:text="Crop :"
+                android:fontFamily="@font/product_sans_bold"
+                android:textColor="@color/profileEditTextColor"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/tv_crop"
+                android:layout_weight="1"
+                android:textSize="12sp"
+                android:layout_width="0dp"
+                android:fontFamily="@font/product_sans_regular"
+                android:textColor="@color/black"
+                android:layout_height="wrap_content"/>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:padding="2dp"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Booking qty : "
+                    android:layout_weight="1"
+                    android:fontFamily="@font/product_sans_bold"
+                    android:textColor="@color/profileEditTextColor"
+                    android:textSize="12sp"/>
+
+                <TextView
+                    android:id="@+id/tv_booking_qty"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:fontFamily="@font/product_sans_bold"
+                    android:textColor="@color/profileEditTextColor"
+                    android:textSize="12sp"/>
+            </LinearLayout>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:padding="2dp"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:textSize="12sp"
+                android:layout_width="0dp"
+                android:fontFamily="@font/product_sans_bold"
+                android:textColor="@color/profileEditTextColor"
+                android:layout_weight="1"
+                android:text="Variety code"
+                android:layout_height="wrap_content"/>
+
+
+            <TextView
+                android:id="@+id/tv_variety"
+                android:textSize="12sp"
+                android:layout_width="0dp"
+                android:fontFamily="@font/product_sans_regular"
+                android:textColor="@color/profileEditTextColor"
+                android:layout_weight="3"
+                android:layout_height="wrap_content"/>
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:textSize="12sp"
+                android:layout_width="match_parent"
+                android:fontFamily="@font/product_sans_regular"
+                android:textColor="@color/profileEditTextColor"
+
+                android:layout_height="wrap_content"/>
+
+
+        </TableRow>
+    </TableLayout>
+
+
+
+
+
+</LinearLayout>

@@ -1,0 +1,509 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rl_custom_layout"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/my_app_background_color"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/bottom_button"
+        android:layout_margin="@dimen/_5sdp"
+
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp">
+
+            <ImageView
+                android:id="@+id/close_dilog_bt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:elevation="2dp"
+                android:src="@drawable/ic_baseline_close_24"
+                tools:ignore="SpeakableTextPresentCheck" />
+
+            <TextView
+                android:id="@+id/yield_estimate_title"
+                style="@style/TextAppearance.MaterialComponents.Headline6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|center_horizontal"
+                android:text="Add Yield Estimate"
+                android:textAlignment="center" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/top_layout"
+            android:orientation="vertical">
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="5dp">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:id="@+id/lot_linear_layout">
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="4dp"
+                            android:id="@+id/lot_num_layout"
+                            android:hint="Lot Number"
+                            android:visibility="gone"
+                            app:boxCornerRadiusBottomEnd="15dp"
+                            app:boxCornerRadiusTopStart="15dp">
+
+                            <AutoCompleteTextView
+                                android:id="@+id/ac_lot_no2"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/product_sans_regular"
+                                android:maxLines="1"
+                                android:textColor="@color/black" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/ac_lot_number_layout"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="4dp"
+                            android:enabled="true"
+                            android:hint="Lot Number"
+                            android:focusableInTouchMode="true"
+                            app:boxCornerRadiusBottomEnd="15dp"
+                            app:boxCornerRadiusTopStart="15dp"
+                            app:startIconDrawable="@drawable/ic_search_black_24dp"
+                            app:startIconTint="@color/color_trans_gray">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/ac_lot_no"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:maxLines="1"
+                                android:textColor="@color/black" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.chip.ChipGroup
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_below="@+id/ac_lot_number_layout"
+                            android:layout_marginRight="5dp"
+                            android:visibility="gone">
+
+                            <com.google.android.material.chip.Chip
+                                android:id="@+id/submit_lot_no_chip"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:elevation="2dp"
+                                app:chipBackgroundColor="@color/my_app_background_color"
+                                app:chipEndPadding="4dp"
+                                app:chipIcon="@drawable/ic_baseline_arrow_forward_24"
+                                app:chipIconTint="@color/colorPrimary"
+                                app:chipStartPadding="4dp"
+                                app:chipStrokeColor="@color/chip_border"
+                                app:chipStrokeWidth="1dp"
+                                app:rippleColor="@color/chip_ripple"
+                                app:textEndPadding="0dp"
+                                app:textStartPadding="0dp" />
+                        </com.google.android.material.chip.ChipGroup>
+                    </RelativeLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_below="@+id/lot_linear_layout">
+
+                        <LinearLayout
+                            android:id="@+id/lotdetail_section"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:visibility="gone">
+
+                            <TextView
+                                style="@style/TextAppearance.MaterialComponents.Subtitle2"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:padding="5dp"
+                                android:text="Lot Detail : " />
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"
+                                android:layout_marginTop="2dp"
+                                android:layout_marginBottom="2dp"
+                                android:layout_weight="1"
+                                android:background="#72AAAAAA" />
+
+                            <TableLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:padding="5dp">
+
+                                <TableRow
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:padding="2dp">
+
+                                    <TextView
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1"
+                                        android:fontFamily="@font/product_sans_bold"
+                                        android:text="Farmer :"
+                                        android:textColor="@color/profileEditTextColor"
+                                        android:textSize="13sp" />
+
+                                    <TextView
+                                        android:id="@+id/farmer_details"
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="3"
+                                        android:fontFamily="@font/product_sans_regular"
+                                        android:text=" "
+                                        android:textColor="@color/black"
+                                        android:textSize="13sp" />
+
+                                </TableRow>
+
+                                <TableRow
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:padding="2dp">
+
+                                    <TextView
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1"
+                                        android:fontFamily="@font/product_sans_bold"
+                                        android:text="FS Female: "
+                                        android:textColor="@color/profileEditTextColor"
+                                        android:textSize="13sp" />
+
+                                    <TextView
+                                        android:id="@+id/fs_female"
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="3"
+                                        android:fontFamily="@font/product_sans_regular"
+                                        android:text=""
+                                        android:textColor="@color/black"
+                                        android:textSize="13sp" />
+
+                                </TableRow>
+
+                                <TableRow
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:padding="2dp"
+                                    android:visibility="gone">
+
+                                    <TextView
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="0.25"
+                                        android:fontFamily="@font/product_sans_bold"
+                                        android:text="Village :"
+
+                                        android:textColor="@color/profileEditTextColor"
+                                        android:textSize="13sp" />
+
+                                    <TextView
+                                        android:id="@+id/tv_farmer_vill"
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1"
+                                        android:fontFamily="@font/product_sans_regular"
+                                        android:text="village name , address , taluka , State , City , Taluka ,Zone "
+                                        android:textColor="@color/black"
+                                        android:textSize="13sp" />
+
+                                </TableRow>
+
+                                <TableRow
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:padding="2dp">
+
+
+                                    <TextView
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1"
+                                        android:fontFamily="@font/product_sans_bold"
+                                        android:text="FS Male : "
+                                        android:textColor="@color/profileEditTextColor"
+                                        android:textSize="13sp" />
+
+                                    <TextView
+                                        android:id="@+id/tv_fs_male"
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="3"
+                                        android:fontFamily="@font/product_sans_regular"
+                                        android:text=""
+                                        android:textColor="@color/black"
+                                        android:textSize="13sp" />
+
+                                </TableRow>
+
+                                <TableRow
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:padding="2dp">
+
+                                    <TextView
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1"
+                                        android:fontFamily="@font/product_sans_bold"
+                                        android:text="Sow. M.: "
+                                        android:textColor="@color/profileEditTextColor"
+                                        android:textSize="13sp" />
+
+                                    <TextView
+                                        android:id="@+id/tv_sowing_m"
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="3"
+                                        android:fontFamily="@font/product_sans_regular"
+                                        android:text=""
+                                        android:textColor="@color/black"
+                                        android:textSize="13sp" />
+
+                                </TableRow>
+
+                                <TableRow
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:padding="2dp">
+
+                                    <TextView
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1"
+                                        android:fontFamily="@font/product_sans_bold"
+                                        android:text="Sow. F.: "
+                                        android:textColor="@color/profileEditTextColor"
+                                        android:textSize="13sp" />
+
+                                    <TextView
+                                        android:id="@+id/tv_sowing_f"
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="3"
+                                        android:fontFamily="@font/product_sans_regular"
+                                        android:text=""
+                                        android:textColor="@color/black"
+                                        android:textSize="13sp" />
+
+                                </TableRow>
+
+                            </TableLayout>
+                        </LinearLayout>
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <TextView
+                                style="@style/TextAppearance.MaterialComponents.Subtitle2"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:padding="5dp"
+                                android:text="Yield Submission Fields : " />
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"
+                                android:layout_marginTop="2dp"
+                                android:layout_marginBottom="2dp"
+                                android:layout_weight="1"
+                                android:background="#72AAAAAA" />
+                        </LinearLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="4dp"
+                            android:hint="Yield Estimate Date"
+                            app:boxCornerRadiusBottomEnd="15dp"
+                            app:boxCornerRadiusTopStart="15dp">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/ed_yield_estimate_date"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawableRight="@drawable/ic_baseline_today_24"
+                                android:editable="false"
+                                android:fontFamily="@font/product_sans_regular"
+                                android:maxLines="1"
+                                android:textColor="@color/black" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="4dp"
+                            android:hint="Estimated Yield"
+                            app:boxCornerRadiusBottomEnd="15dp"
+                            app:boxCornerRadiusTopStart="15dp">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/ed_yield_estimate"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/product_sans_regular"
+                                android:maxLines="1"
+                                android:textColor="@color/black" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="4dp"
+                            android:hint="Remark"
+                            app:boxCornerRadiusBottomEnd="15dp"
+                            app:boxCornerRadiusTopStart="15dp">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/ed_remarks"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/product_sans_regular"
+                                android:lines="2"
+                                android:textColor="@color/black" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+                    </LinearLayout>
+
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/lot_linear_layout">
+
+                        <com.google.android.material.card.MaterialCardView
+                            android:id="@+id/frame_layout_lot_num_card_view"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="5dp"
+                            android:visibility="gone"
+                            app:cardBackgroundColor="@color/colorWhite"
+                            app:cardCornerRadius="@dimen/_5sdp"
+                            app:cardElevation="@dimen/_5sdp"
+                            app:rippleColor="@color/chip_ripple"
+                            app:strokeColor="@color/gray1"
+                            app:strokeWidth="@dimen/_1sdp">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@color/colorWhite"
+                                android:orientation="vertical">
+
+                                <ProgressBar
+                                    android:id="@+id/loading_item"
+                                    android:layout_width="30dp"
+                                    android:layout_height="30dp"
+                                    android:layout_gravity="center|top"
+                                    android:indeterminateTint="@color/chip_ripple"
+                                    android:visibility="gone" />
+
+                                <androidx.recyclerview.widget.RecyclerView
+                                    android:id="@+id/rv_search_lot_num_list"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/_5sdp"
+                                    android:layout_marginBottom="@dimen/_10sdp"
+                                    android:background="@color/colorWhite"
+                                    android:divider="@null"
+                                    android:nestedScrollingEnabled="false"
+                                    android:scrollbars="none" />
+                            </LinearLayout>
+
+                        </com.google.android.material.card.MaterialCardView>
+                    </RelativeLayout>
+                </RelativeLayout>
+            </ScrollView>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/bottom_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/my_app_background_color"
+        android:orientation="vertical"
+        android:visibility="visible">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_1sdp"
+            android:background="@drawable/top_shadow_gradient" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/clear_data"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:text="Clear"
+                android:textAllCaps="false"
+                android:textColor="@color/colorPrimary"
+                android:visibility="gone" />
+
+            <Button
+                android:id="@+id/filter_apply_bt"
+                style="@style/Widget.MaterialComponents.Button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:text="Save"
+                android:textAllCaps="false" />
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>

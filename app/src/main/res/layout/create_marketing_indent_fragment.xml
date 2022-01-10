@@ -1,0 +1,1333 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:background="@color/my_app_background_color"
+                android:elevation="5dp"
+                android:visibility="visible"
+                app:cardCornerRadius="3dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="@dimen/_5sdp">
+
+                        <LinearLayout
+                            android:id="@+id/back_button_go_topreviousPage"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="@dimen/_5sdp"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            android:gravity="center">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:src="@drawable/green_back_arrow" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/tv_header_title_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginLeft="@dimen/_3sdp"
+                            android:fontFamily="@font/product_sans_bold"
+                            android:maxLines="1"
+                            android:paddingTop="@dimen/_5sdp"
+                            android:paddingBottom="@dimen/_5sdp"
+                            android:text="Marketing Indent Header :"
+                            android:textColor="@color/black"
+                            android:textSize="15sp" />
+
+                        <TextView
+                            android:id="@+id/tv_header_no"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center|start"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/product_sans_bold"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_8sdp" />
+
+                        <com.google.android.material.chip.ChipGroup
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+                            <com.google.android.material.chip.Chip
+                                android:id="@+id/complete_header"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:elevation="2dp"
+                                android:fontFamily="@font/product_sans_regular"
+                                android:gravity="center"
+                                android:text="Complete"
+                                android:textColor="@color/colorPrimary"
+                                android:textStyle="bold"
+                                android:visibility="gone"
+                                app:chipBackgroundColor="@color/my_app_background_color"
+                                app:chipIcon="@drawable/ic_baseline_done_all_24"
+                                app:chipIconTint="@color/colorPrimary"
+                                app:chipStrokeColor="@color/chip_border"
+                                app:chipStrokeWidth="1dp"
+                                app:rippleColor="@color/chip_ripple"></com.google.android.material.chip.Chip>
+
+                        </com.google.android.material.chip.ChipGroup>
+
+                    </LinearLayout>
+
+                    <ProgressBar
+                        android:id="@+id/loading_content"
+                        android:layout_width="@dimen/_20sdp"
+                        android:layout_height="@dimen/_20sdp"
+                        android:layout_gravity="center"
+                        android:indeterminateTint="@color/color_trans_gray"
+                        android:visibility="gone" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_3sdp"
+                        android:layout_weight="1"
+                        android:background="@color/gray4"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/imageView">
+
+                    </View>
+
+                    <LinearLayout
+                        android:id="@+id/header_create_section"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:visibility="visible">
+
+                        <androidx.core.widget.NestedScrollView
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="1">
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:padding="10dp">
+
+
+                                <com.google.android.material.textfield.TextInputLayout
+                                    android:id="@+id/cust_input_layout"
+                                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="4dp"
+                                    android:layout_weight="1"
+                                    android:hint="Customer Type"
+                                    app:boxCornerRadiusBottomEnd="15dp"
+                                    app:boxCornerRadiusTopStart="15dp">
+
+                                    <AutoCompleteTextView
+                                        android:id="@+id/ac_customer_type"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:editable="false"
+                                        android:inputType="none"
+                                        android:maxLines="1"
+                                        android:textColor="@color/black"
+                                        android:textSize="@dimen/_10sdp" />
+
+                                </com.google.android.material.textfield.TextInputLayout>
+
+
+                                <com.google.android.material.textfield.TextInputLayout
+                                    android:id="@+id/search_cust_input_layout"
+                                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@+id/cust_input_layout"
+                                    android:layout_marginBottom="4dp"
+                                    android:layout_weight="1"
+                                    android:hint="Search Customer no."
+                                    app:boxCornerRadiusBottomEnd="15dp"
+                                    app:boxCornerRadiusTopStart="15dp"
+                                    app:startIconDrawable="@drawable/ic_search_black_24dp"
+                                    app:startIconTint="@color/color_trans_gray">
+
+                                    <com.google.android.material.textfield.TextInputEditText
+                                        android:id="@+id/ac_cust_no"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:ellipsize="end"
+                                        android:lines="1"
+                                        android:maxLines="1"
+                                        android:textColor="@color/black"
+                                        android:textSize="@dimen/_10sdp" />
+
+                                </com.google.android.material.textfield.TextInputLayout>
+
+
+                                <com.google.android.material.card.MaterialCardView
+                                    android:id="@+id/frame_layout_org_list"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@+id/search_cust_input_layout"
+                                    android:layout_marginLeft="5dp"
+                                    android:layout_marginRight="5dp"
+                                    android:elevation="5dp"
+                                    android:visibility="gone"
+                                    app:cardBackgroundColor="@color/colorWhite"
+                                    app:cardCornerRadius="@dimen/_5sdp"
+                                    app:cardElevation="@dimen/_5sdp"
+                                    app:rippleColor="@color/chip_ripple"
+                                    app:strokeColor="@color/gray1"
+                                    app:strokeWidth="@dimen/_1sdp">
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:background="@color/colorWhite"
+                                        android:orientation="vertical">
+
+                                        <ProgressBar
+                                            android:id="@+id/loading_item"
+                                            android:layout_width="30dp"
+                                            android:layout_height="30dp"
+                                            android:layout_gravity="center|top"
+                                            android:indeterminateTint="@color/chip_ripple"
+                                            android:visibility="gone" />
+
+                                        <androidx.recyclerview.widget.RecyclerView
+                                            android:id="@+id/lv_cust_dist_list"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginTop="@dimen/_5sdp"
+                                            android:layout_marginBottom="@dimen/_10sdp"
+                                            android:background="@color/colorWhite"
+                                            android:divider="@null"
+                                            android:nestedScrollingEnabled="false"
+                                            android:scrollbars="none" />
+                                    </LinearLayout>
+
+                                </com.google.android.material.card.MaterialCardView>
+
+
+                                <LinearLayout
+                                    android:id="@+id/name_detail_layout"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@+id/search_cust_input_layout"
+                                    android:orientation="vertical"
+                                    android:paddingLeft="@dimen/_5sdp"
+                                    android:paddingBottom="@dimen/_4sdp"
+                                    android:visibility="gone">
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal"
+                                        android:paddingTop="@dimen/_3sdp">
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:fontFamily="@font/product_sans_regular"
+                                            android:text="Name :  "
+                                            android:textColor="@color/dark_gray"
+                                            android:textSize="@dimen/_10sdp" />
+
+                                        <TextView
+                                            android:id="@+id/name"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:fontFamily="@font/product_sans_regular"
+                                            android:textColor="@color/dark_gray"
+                                            android:textSize="@dimen/_10sdp" />
+
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal"
+                                        android:paddingTop="@dimen/_3sdp">
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:fontFamily="@font/product_sans_regular"
+                                            android:text="Name2 : "
+                                            android:textColor="@color/dark_gray"
+                                            android:textSize="@dimen/_10sdp" />
+
+                                        <TextView
+                                            android:id="@+id/name_2"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:fontFamily="@font/product_sans_regular"
+                                            android:textColor="@color/dark_gray"
+                                            android:textSize="@dimen/_10sdp" />
+
+                                    </LinearLayout>
+
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal"
+                                        android:paddingTop="@dimen/_3sdp">
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:fontFamily="@font/product_sans_regular"
+                                            android:text="Address :  "
+                                            android:textColor="@color/dark_gray"
+                                            android:textSize="@dimen/_10sdp" />
+
+                                        <TextView
+                                            android:id="@+id/address"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:fontFamily="@font/product_sans_regular"
+                                            android:textColor="@color/dark_gray"
+                                            android:textSize="@dimen/_10sdp" />
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal"
+                                        android:paddingTop="@dimen/_3sdp">
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:fontFamily="@font/product_sans_regular"
+                                            android:text="Address2 :  "
+                                            android:textColor="@color/dark_gray"
+                                            android:textSize="@dimen/_10sdp" />
+
+                                        <TextView
+                                            android:id="@+id/address_2"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:fontFamily="@font/product_sans_regular"
+                                            android:textColor="@color/dark_gray"
+                                            android:textSize="@dimen/_10sdp" />
+                                    </LinearLayout>
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:id="@+id/il_customer_layout"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@+id/name_detail_layout"
+                                    android:orientation="vertical"
+                                    android:visibility="gone">
+
+                                    <TextView
+                                        android:id="@+id/tv_name"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:textColor="@color/dark_gray"
+                                        android:textSize="@dimen/_12sdp" />
+
+                                    <TextView
+                                        android:id="@+id/tv_name2"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:textSize="@dimen/_12sdp" />
+
+                                    <TextView
+                                        android:id="@+id/tv_address"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:textSize="@dimen/_12sdp" />
+
+                                    <TextView
+                                        android:id="@+id/tv_addres_2"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:textSize="@dimen/_12sdp" />
+                                </LinearLayout>
+
+
+                                <com.google.android.material.textfield.TextInputLayout
+                                    android:id="@+id/state_input_layout"
+                                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@+id/il_customer_layout"
+                                    android:layout_marginBottom="4dp"
+                                    android:layout_weight="1"
+                                    android:hint="State"
+                                    app:boxCornerRadiusBottomEnd="15dp"
+                                    app:boxCornerRadiusTopStart="15dp">
+
+                                    <com.google.android.material.textfield.TextInputEditText
+                                        android:id="@+id/ed_state"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:editable="false"
+                                        android:enabled="false"
+                                        android:maxLines="1"
+                                        android:textColor="@color/black"
+                                        android:textSize="@dimen/_10sdp" />
+
+                                </com.google.android.material.textfield.TextInputLayout>
+
+
+                                <com.google.android.material.textfield.TextInputLayout
+                                    android:id="@+id/zone_input_layout"
+                                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@+id/state_input_layout"
+                                    android:layout_marginBottom="4dp"
+                                    android:layout_weight="1"
+                                    android:hint="Zone "
+                                    app:boxCornerRadiusBottomEnd="15dp"
+                                    app:boxCornerRadiusTopStart="15dp">
+
+                                    <com.google.android.material.textfield.TextInputEditText
+                                        android:id="@+id/ed_zone"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:editable="false"
+                                        android:enabled="false"
+                                        android:maxLines="1"
+                                        android:textColor="@color/black"
+                                        android:textSize="@dimen/_10sdp" />
+
+                                </com.google.android.material.textfield.TextInputLayout>
+
+                                <com.google.android.material.textfield.TextInputLayout
+                                    android:id="@+id/region_input_layout"
+                                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@+id/zone_input_layout"
+                                    android:layout_marginBottom="4dp"
+                                    android:layout_weight="1"
+                                    android:hint="Region "
+                                    app:boxCornerRadiusBottomEnd="15dp"
+                                    app:boxCornerRadiusTopStart="15dp">
+
+                                    <com.google.android.material.textfield.TextInputEditText
+                                        android:id="@+id/ed_resgion"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:editable="false"
+                                        android:enabled="false"
+                                        android:maxLines="1"
+                                        android:textColor="@color/black"
+                                        android:textSize="@dimen/_10sdp" />
+
+                                </com.google.android.material.textfield.TextInputLayout>
+
+
+                                <com.google.android.material.textfield.TextInputLayout
+                                    android:id="@+id/area_input_layout"
+                                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@+id/region_input_layout"
+                                    android:layout_marginBottom="4dp"
+                                    android:layout_weight="1"
+                                    android:hint="Area "
+                                    app:boxCornerRadiusBottomEnd="15dp"
+                                    app:boxCornerRadiusTopStart="15dp">
+
+                                    <com.google.android.material.textfield.TextInputEditText
+                                        android:id="@+id/ac_area"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:editable="false"
+                                        android:enabled="false"
+                                        android:inputType="none"
+                                        android:maxLines="1"
+                                        android:textColor="@color/black"
+                                        android:textSize="@dimen/_10sdp" />
+
+                                </com.google.android.material.textfield.TextInputLayout>
+
+                                <com.google.android.material.textfield.TextInputLayout
+                                    android:id="@+id/tertry_input_layout"
+                                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@+id/area_input_layout"
+                                    android:layout_marginBottom="4dp"
+                                    android:layout_weight="1"
+                                    android:hint="Terriory "
+                                    app:boxCornerRadiusBottomEnd="15dp"
+                                    app:boxCornerRadiusTopStart="15dp">
+
+                                    <com.google.android.material.textfield.TextInputEditText
+                                        android:id="@+id/ed_tluka"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:editable="false"
+                                        android:enabled="false"
+                                        android:maxLines="1"
+                                        android:textColor="@color/black"
+                                        android:textSize="@dimen/_10sdp" />
+
+                                </com.google.android.material.textfield.TextInputLayout>
+
+
+                                <!--<com.google.android.material.textfield.TextInputLayout
+                                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="4dp"
+                                    android:layout_weight="1"
+                                    android:hint="Dispatch loc. "
+                                    android:id="@+id/dispatch_loc_input_layout"
+                                    android:layout_below="@+id/tertry_input_layout"
+                                    app:boxCornerRadiusBottomEnd="15dp"
+                                    app:boxCornerRadiusTopStart="15dp">
+
+                                    <AutoCompleteTextView
+                                        android:id="@+id/ac_location"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:editable="false"
+                                        android:inputType="none"
+                                        android:textColor="@color/black"
+                                        android:textSize="@dimen/_10sdp"
+                                        android:maxLines="1" />
+
+                                </com.google.android.material.textfield.TextInputLayout>
+
+-->
+                                <com.google.android.material.textfield.TextInputLayout
+                                    android:id="@+id/date_input_layout"
+                                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@+id/tertry_input_layout"
+                                    android:layout_marginBottom="4dp"
+                                    android:hint="Date"
+                                    app:boxCornerRadiusBottomEnd="15dp"
+                                    app:boxCornerRadiusTopStart="15dp">
+
+                                    <com.google.android.material.textfield.TextInputEditText
+                                        android:id="@+id/ed_date_"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:drawableRight="@drawable/ic_baseline_today_24"
+                                        android:drawableTint="@color/colorPrimary"
+                                        android:editable="false"
+                                        android:enabled="false"
+                                        android:maxLines="1"
+                                        android:textColor="@color/black"
+                                        android:textSize="@dimen/_10sdp" />
+                                </com.google.android.material.textfield.TextInputLayout>
+
+                                <com.google.android.material.textfield.TextInputLayout
+                                    android:id="@+id/dispatch_input_layout"
+                                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@+id/date_input_layout"
+                                    android:layout_marginBottom="4dp"
+                                    android:hint="Dispatch Date"
+                                    app:boxCornerRadiusBottomEnd="15dp"
+                                    app:boxCornerRadiusTopStart="15dp">
+
+                                    <com.google.android.material.textfield.TextInputEditText
+                                        android:id="@+id/ed_dispatch_date"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:drawableRight="@drawable/ic_baseline_today_24"
+                                        android:drawableTint="@color/colorPrimary"
+                                        android:editable="false"
+                                        android:maxLines="1"
+                                        android:textColor="@color/black"
+                                        android:textSize="@dimen/_10sdp" />
+
+                                </com.google.android.material.textfield.TextInputLayout>
+
+                                <com.google.android.material.textfield.TextInputLayout
+                                    android:id="@+id/shipment_date_input_layout"
+                                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@+id/dispatch_input_layout"
+                                    android:layout_marginBottom="4dp"
+                                    android:hint="Shipment Date"
+                                    app:boxCornerRadiusBottomEnd="15dp"
+                                    app:boxCornerRadiusTopStart="15dp">
+
+                                    <com.google.android.material.textfield.TextInputEditText
+                                        android:id="@+id/ed_shipment_date"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:drawableRight="@drawable/ic_baseline_today_24"
+                                        android:drawableTint="@color/colorPrimary"
+                                        android:editable="false"
+                                        android:maxLines="1"
+                                        android:textColor="@color/black"
+                                        android:textSize="@dimen/_10sdp" />
+
+                                </com.google.android.material.textfield.TextInputLayout>
+
+                                <com.google.android.material.textfield.TextInputLayout
+                                    android:id="@+id/season_input_layout"
+                                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@+id/shipment_date_input_layout"
+                                    android:layout_marginBottom="4dp"
+                                    android:layout_weight="1"
+                                    android:hint="Season"
+                                    app:boxCornerRadiusBottomEnd="15dp"
+                                    app:boxCornerRadiusTopStart="15dp">
+
+                                    <AutoCompleteTextView
+                                        android:id="@+id/ac_season"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:editable="false"
+                                        android:maxLines="1"
+                                        android:textColor="@color/black"
+                                        android:textSize="@dimen/_10sdp" />
+
+                                </com.google.android.material.textfield.TextInputLayout>
+
+                                <com.google.android.material.textfield.TextInputLayout
+                                    android:id="@+id/sale_type_layout"
+                                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@+id/season_input_layout"
+                                    android:layout_marginBottom="4dp"
+                                    android:layout_weight="1"
+                                    android:hint="Sales Type"
+                                    app:boxCornerRadiusBottomEnd="15dp"
+                                    app:boxCornerRadiusTopStart="15dp">
+
+                                    <AutoCompleteTextView
+                                        android:id="@+id/ac_sales"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:editable="false"
+                                        android:maxLines="1"
+                                        android:textColor="@color/black"
+                                        android:textSize="@dimen/_10sdp" />
+
+                                </com.google.android.material.textfield.TextInputLayout>
+
+                                <LinearLayout
+                                    android:id="@+id/posted_layout"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@+id/sale_type_layout"
+                                    android:orientation="horizontal">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical"
+                                        android:fontFamily="@font/product_sans_regular"
+                                        android:paddingLeft="@dimen/_5sdp"
+                                        android:text="Posted :"
+                                        android:textColor="@color/dark_gray"
+                                        android:textSize="@dimen/_12sdp" />
+
+                                    <RadioGroup
+                                        android:id="@+id/posted_radio_grp"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginLeft="@dimen/_20sdp"
+                                        android:orientation="horizontal">
+
+                                        <androidx.appcompat.widget.AppCompatRadioButton
+                                            android:id="@+id/posted_yes"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="1"
+                                            android:buttonTint="@color/colorPrimaryDark"
+                                            android:text="Yes"
+                                            android:textColor="@color/colorPrimaryDark" />
+
+                                        <androidx.appcompat.widget.AppCompatRadioButton
+                                            android:id="@+id/posted_no"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="1"
+                                            android:buttonTint="@color/colorPrimaryDark"
+                                            android:text="No"
+                                            android:textColor="@color/colorPrimaryDark" />
+                                    </RadioGroup>
+                                </LinearLayout>
+
+                                <TextView
+                                    android:id="@+id/info_ship_layout"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@+id/posted_layout"
+                                    android:fontFamily="@font/product_sans_regular"
+                                    android:paddingLeft="@dimen/_5sdp"
+                                    android:paddingTop="@dimen/_5sdp"
+                                    android:paddingBottom="@dimen/_5sdp"
+                                    android:text="Shipping : "
+                                    android:textColor="@color/dark_gray"
+                                    android:textSize="@dimen/_12sdp" />
+
+                                <com.google.android.material.textfield.TextInputLayout
+                                    android:id="@+id/ship_to_input_layout"
+                                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@+id/info_ship_layout"
+                                    android:layout_marginBottom="4dp"
+                                    android:hint="Search Ship code "
+                                    app:boxCornerRadiusBottomEnd="15dp"
+                                    app:boxCornerRadiusTopStart="15dp"
+                                    app:startIconDrawable="@drawable/ic_search_black_24dp"
+                                    app:startIconTint="@color/color_trans_gray">
+
+                                    <com.google.android.material.textfield.TextInputEditText
+                                        android:id="@+id/ac_ship_to"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:ellipsize="end"
+                                        android:lines="1"
+                                        android:maxLines="1"
+                                        android:textColor="@color/black"
+                                        android:textSize="@dimen/_10sdp" />
+
+                                </com.google.android.material.textfield.TextInputLayout>
+
+                                <com.google.android.material.card.MaterialCardView
+                                    android:id="@+id/ship_code_search_layout"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@+id/ship_to_input_layout"
+                                    android:layout_marginLeft="5dp"
+                                    android:layout_marginRight="5dp"
+                                    android:elevation="5dp"
+                                    android:visibility="gone"
+                                    app:cardBackgroundColor="@color/colorWhite"
+                                    app:cardCornerRadius="@dimen/_5sdp"
+                                    app:cardElevation="@dimen/_5sdp"
+                                    app:rippleColor="@color/chip_ripple"
+                                    app:strokeColor="@color/gray1"
+                                    app:strokeWidth="@dimen/_1sdp">
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:background="@color/colorWhite"
+                                        android:orientation="vertical">
+
+                                        <ProgressBar
+                                            android:id="@+id/loading_item_ship"
+                                            android:layout_width="30dp"
+                                            android:layout_height="30dp"
+                                            android:layout_gravity="center|top"
+                                            android:indeterminateTint="@color/chip_ripple"
+                                            android:visibility="gone" />
+
+                                        <androidx.recyclerview.widget.RecyclerView
+                                            android:id="@+id/ship_address_list"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginTop="@dimen/_5sdp"
+                                            android:layout_marginBottom="@dimen/_10sdp"
+                                            android:background="@color/colorWhite"
+                                            android:divider="@null"
+                                            android:nestedScrollingEnabled="false"
+                                            android:scrollbars="none" />
+                                    </LinearLayout>
+
+                                </com.google.android.material.card.MaterialCardView>
+
+
+                                <com.google.android.material.textfield.TextInputLayout
+                                    android:id="@+id/ship_name_layout"
+                                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@+id/ship_to_input_layout"
+                                    android:layout_marginBottom="4dp"
+                                    android:hint="Ship to name"
+                                    app:boxCornerRadiusBottomEnd="15dp"
+                                    app:boxCornerRadiusTopStart="15dp">
+
+                                    <com.google.android.material.textfield.TextInputEditText
+                                        android:id="@+id/ed_ship_toname"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:editable="false"
+                                        android:maxLines="1"
+                                        android:textColor="@color/black"
+                                        android:textSize="@dimen/_10sdp" />
+
+                                </com.google.android.material.textfield.TextInputLayout>
+
+                                <com.google.android.material.textfield.TextInputLayout
+                                    android:id="@+id/shipto_name2_layout"
+                                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@+id/ship_name_layout"
+                                    android:layout_marginBottom="4dp"
+                                    android:hint="Ship to name2"
+                                    app:boxCornerRadiusBottomEnd="15dp"
+                                    app:boxCornerRadiusTopStart="15dp">
+
+                                    <com.google.android.material.textfield.TextInputEditText
+                                        android:id="@+id/ed_ship_toname2"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:editable="false"
+                                        android:maxLines="1"
+                                        android:textColor="@color/black"
+                                        android:textSize="@dimen/_10sdp" />
+
+                                </com.google.android.material.textfield.TextInputLayout>
+
+
+                                <com.google.android.material.textfield.TextInputLayout
+                                    android:id="@+id/ship_address_layout"
+                                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@+id/shipto_name2_layout"
+                                    android:layout_marginBottom="4dp"
+                                    android:hint="Ship to Address"
+                                    app:boxCornerRadiusBottomEnd="15dp"
+                                    app:boxCornerRadiusTopStart="15dp">
+
+                                    <com.google.android.material.textfield.TextInputEditText
+                                        android:id="@+id/ed_ship_to_address"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:editable="false"
+                                        android:maxLines="1"
+                                        android:textColor="@color/black"
+                                        android:textSize="@dimen/_10sdp" />
+
+                                </com.google.android.material.textfield.TextInputLayout>
+
+
+                                <com.google.android.material.textfield.TextInputLayout
+                                    android:id="@+id/ship2_address_layout"
+                                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@+id/ship_address_layout"
+                                    android:layout_marginBottom="4dp"
+                                    android:hint="Ship to Address2"
+                                    app:boxCornerRadiusBottomEnd="15dp"
+                                    app:boxCornerRadiusTopStart="15dp">
+
+                                    <com.google.android.material.textfield.TextInputEditText
+                                        android:id="@+id/ed_ship_to_address2"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:editable="false"
+                                        android:maxLines="1"
+                                        android:textColor="@color/black"
+                                        android:textSize="@dimen/_10sdp" />
+
+                                </com.google.android.material.textfield.TextInputLayout>
+
+                                <com.google.android.material.textfield.TextInputLayout
+                                    android:id="@+id/ship_to_code_layput"
+                                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@+id/ship2_address_layout"
+                                    android:layout_marginBottom="4dp"
+                                    android:layout_weight="1"
+                                    android:hint="Ship to_post_code"
+                                    app:boxCornerRadiusBottomEnd="15dp"
+                                    app:boxCornerRadiusTopStart="15dp">
+
+                                    <com.google.android.material.textfield.TextInputEditText
+                                        android:id="@+id/ed_ship_post_code"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:editable="false"
+                                        android:maxLines="1"
+                                        android:textColor="@color/black"
+                                        android:textSize="@dimen/_10sdp" />
+
+                                </com.google.android.material.textfield.TextInputLayout>
+
+
+                                <com.google.android.material.textfield.TextInputLayout
+                                    android:id="@+id/ship_city_layout"
+                                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@+id/ship_to_code_layput"
+                                    android:layout_marginBottom="4dp"
+                                    android:hint="Ship to city"
+                                    app:boxCornerRadiusBottomEnd="15dp"
+                                    app:boxCornerRadiusTopStart="15dp">
+
+                                    <com.google.android.material.textfield.TextInputEditText
+                                        android:id="@+id/ed_ship_to_city"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:editable="false"
+                                        android:maxLines="1"
+                                        android:textColor="@color/black"
+                                        android:textSize="@dimen/_10sdp" />
+
+                                </com.google.android.material.textfield.TextInputLayout>
+
+
+                                <com.google.android.material.textfield.TextInputLayout
+                                    android:id="@+id/contact_layout"
+                                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@+id/ship_city_layout"
+                                    android:layout_marginBottom="4dp"
+                                    android:hint="Contact"
+                                    app:boxCornerRadiusBottomEnd="15dp"
+                                    app:boxCornerRadiusTopStart="15dp">
+
+                                    <com.google.android.material.textfield.TextInputEditText
+                                        android:id="@+id/ed_ship_to_contact"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:editable="false"
+                                        android:maxLines="1"
+                                        android:textColor="@color/black"
+                                        android:textSize="@dimen/_10sdp" />
+
+                                </com.google.android.material.textfield.TextInputLayout>
+
+                                <com.google.android.material.textfield.TextInputLayout
+                                    android:id="@+id/ship_to_code_method_layot"
+                                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@+id/contact_layout"
+                                    android:layout_marginBottom="4dp"
+                                    android:hint="Ship to method code"
+                                    app:boxCornerRadiusBottomEnd="15dp"
+                                    app:boxCornerRadiusTopStart="15dp">
+
+                                    <com.google.android.material.textfield.TextInputEditText
+                                        android:id="@+id/ed_ship_to_method"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:editable="false"
+                                        android:maxLines="1"
+                                        android:textColor="@color/black"
+                                        android:textSize="@dimen/_10sdp" />
+
+                                </com.google.android.material.textfield.TextInputLayout>
+
+                                <com.google.android.material.textfield.TextInputLayout
+                                    android:id="@+id/shipto_gst_rg_layout"
+                                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@+id/ship_to_code_method_layot"
+                                    android:layout_marginBottom="4dp"
+                                    android:hint="Ship to gst Reg. "
+                                    app:boxCornerRadiusBottomEnd="15dp"
+                                    app:boxCornerRadiusTopStart="15dp">
+
+                                    <com.google.android.material.textfield.TextInputEditText
+                                        android:id="@+id/ed_ship_gst_reg"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:editable="false"
+                                        android:maxLines="1"
+                                        android:textColor="@color/black"
+                                        android:textSize="@dimen/_10sdp" />
+
+                                </com.google.android.material.textfield.TextInputLayout>
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@+id/shipto_gst_rg_layout"
+                                    android:layout_alignParentStart="true"
+                                    android:layout_alignParentEnd="true"
+                                    android:layout_alignParentBottom="true"
+                                    android:layout_gravity="bottom"
+                                    android:layout_marginTop="@dimen/_10sdp"
+                                    android:layout_marginBottom="@dimen/_10sdp"
+                                    android:orientation="horizontal">
+
+                                    <Button
+                                        android:id="@+id/view_header_detail"
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1"
+                                        android:backgroundTint="@color/white_chip_border"
+                                        android:elevation="2dp"
+                                        android:fontFamily="@font/product_sans_regular"
+                                        android:text="View Header Detail"
+                                        android:textAllCaps="false"
+                                        android:textColor="@color/colorPrimaryDark"
+                                        android:visibility="gone"
+                                        app:rippleColor="@color/chip_ripple" />
+
+
+                                    <Button
+                                        android:id="@+id/create_header_btn"
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginLeft="@dimen/_5sdp"
+                                        android:layout_weight="1"
+                                        android:elevation="2dp"
+                                        android:fontFamily="@font/product_sans_regular"
+                                        android:text="Save Header"
+                                        android:textAllCaps="false"
+                                        android:textColor="@color/white_chip_border"
+                                        android:textStyle="bold"
+                                        app:rippleColor="@color/chip_ripple" />
+
+                                </LinearLayout>
+
+                            </RelativeLayout>
+
+                        </androidx.core.widget.NestedScrollView>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/getting_order_detail_header_section"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
+                        <TableLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="10dp">
+
+                            <TableRow
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:padding="2dp">
+
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:fontFamily="@font/product_sans_bold"
+                                    android:text="Cust. name : "
+                                    android:textColor="@color/profileEditTextColor"
+                                    android:textSize="13sp" />
+
+                                <TextView
+                                    android:id="@+id/tv_cust_name"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:fontFamily="@font/product_sans_regular"
+                                    android:textColor="@color/black"
+                                    android:textSize="13sp" />
+
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:fontFamily="@font/product_sans_bold"
+                                    android:text="Date :"
+                                    android:textColor="@color/profileEditTextColor"
+                                    android:textSize="13sp" />
+
+                                <TextView
+                                    android:id="@+id/tv_date"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:fontFamily="@font/product_sans_regular"
+                                    android:textColor="@color/black"
+                                    android:textSize="13sp" />
+
+                            </TableRow>
+
+                            <TableRow android:padding="2dp">
+
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:fontFamily="@font/product_sans_bold"
+                                    android:text="Sale Type :"
+                                    android:textColor="@color/profileEditTextColor"
+                                    android:textSize="13sp" />
+
+                                <TextView
+                                    android:id="@+id/tv_sale_type"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:fontFamily="@font/product_sans_regular"
+                                    android:textColor="@color/black"
+                                    android:textSize="13sp" />
+
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:fontFamily="@font/product_sans_bold"
+                                    android:text="Address : "
+                                    android:textColor="@color/profileEditTextColor"
+                                    android:textSize="13sp" />
+
+                                <TextView
+                                    android:id="@+id/tv_address_detail"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:ellipsize="end"
+                                    android:fontFamily="@font/product_sans_regular"
+                                    android:textColor="@color/black"
+                                    android:textSize="13sp" />
+
+                            </TableRow>
+
+                            <TableRow android:padding="2dp">
+
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:fontFamily="@font/product_sans_bold"
+                                    android:text="Cust no. :"
+                                    android:textColor="@color/profileEditTextColor"
+                                    android:textSize="13sp" />
+
+                                <TextView
+                                    android:id="@+id/tv_cust_no"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:fontFamily="@font/product_sans_regular"
+                                    android:textColor="@color/black"
+                                    android:textSize="13sp" />
+
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:fontFamily="@font/product_sans_bold"
+                                    android:text="Cust Type : "
+                                    android:textColor="@color/profileEditTextColor"
+                                    android:textSize="13sp" />
+
+                                <TextView
+                                    android:id="@+id/tv_cust_type"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:ellipsize="end"
+                                    android:fontFamily="@font/product_sans_regular"
+                                    android:textColor="@color/black"
+                                    android:textSize="13sp" />
+
+                            </TableRow>
+
+                            <TableRow
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:padding="2dp">
+
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:fontFamily="@font/product_sans_bold"
+                                    android:text="Ship to :"
+                                    android:textColor="@color/profileEditTextColor"
+                                    android:textSize="13sp" />
+
+                                <TextView
+                                    android:id="@+id/tv_ship_to"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:fontFamily="@font/product_sans_regular"
+                                    android:textColor="@color/black"
+                                    android:textSize="13sp" />
+
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:fontFamily="@font/product_sans_bold"
+                                    android:text="Ship Date : "
+                                    android:textColor="@color/profileEditTextColor"
+                                    android:textSize="13sp" />
+
+                                <TextView
+                                    android:id="@+id/tv_ship_date"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:fontFamily="@font/product_sans_regular"
+                                    android:textColor="@color/black"
+                                    android:textSize="13sp" />
+                            </TableRow>
+                        </TableLayout>
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <com.google.android.material.chip.ChipGroup
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/_5sdp"
+                                android:layout_weight="1">
+
+                                <com.google.android.material.chip.Chip
+                                    android:id="@+id/delete_header"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:elevation="2dp"
+                                    android:fontFamily="@font/product_sans_regular"
+                                    android:text="Delete Header"
+                                    android:textColor="@color/colorPrimary"
+                                    android:textStyle="bold"
+                                    android:visibility="visible"
+                                    app:chipBackgroundColor="@color/my_app_background_color"
+                                    app:chipIcon="@drawable/ic_baseline_done_all_24"
+                                    app:chipIconTint="@color/colorPrimary"
+                                    app:chipStrokeColor="@color/chip_border"
+                                    app:chipStrokeWidth="1dp"
+                                    app:rippleColor="@color/chip_ripple" />
+
+                            </com.google.android.material.chip.ChipGroup>
+
+                            <com.google.android.material.chip.ChipGroup
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/_5sdp"
+                                android:layout_weight="1"
+                                android:gravity="center">
+
+                                <com.google.android.material.chip.Chip
+                                    android:id="@+id/update_header"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:elevation="2dp"
+                                    android:fontFamily="@font/product_sans_regular"
+                                    android:text="Update Header"
+                                    android:textColor="@color/colorPrimary"
+                                    android:textStyle="bold"
+                                    android:visibility="gone"
+                                    app:chipBackgroundColor="@color/my_app_background_color"
+                                    app:chipIcon="@drawable/update_icon"
+                                    app:chipIconTint="@color/colorPrimary"
+                                    app:chipStrokeColor="@color/chip_border"
+                                    app:chipStrokeWidth="1dp"
+                                    app:rippleColor="@color/chip_ripple" />
+
+                            </com.google.android.material.chip.ChipGroup>
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <LinearLayout
+                android:id="@+id/line_cardview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/product_sans_bold"
+                        android:maxLines="1"
+                        android:padding="6dp"
+                        android:text="Line Detail :"
+                        android:textColor="@color/black"
+                        android:textSize="15sp" />
+
+                    <com.google.android.material.chip.ChipGroup
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="5dp">
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/chip_add_line_booking"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:elevation="2dp"
+                            android:fontFamily="@font/product_sans_bold"
+                            android:text="Add Line"
+                            android:textColor="@color/colorPrimary"
+                            app:chipBackgroundColor="@color/my_app_background_color"
+                            app:chipIcon="@drawable/ic_baseline_add_24"
+                            app:chipIconTint="@color/colorPrimary"
+                            app:chipStrokeColor="@color/chip_border"
+                            app:chipStrokeWidth="1dp"
+                            app:rippleColor="@color/chip_ripple">
+
+                        </com.google.android.material.chip.Chip>
+                    </com.google.android.material.chip.ChipGroup>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#72AAAAAA"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/imageView"></View>
+
+                <ListView
+                    android:id="@+id/line_listview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:dividerHeight="1dp" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

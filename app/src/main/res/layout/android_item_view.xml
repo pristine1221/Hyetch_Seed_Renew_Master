@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView
+    android:ellipsize="marquee"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:singleLine="true"
+    style="?android:attr/dropDownItemStyle"
+    android:id="@+id/text_view"
+    android:padding="@dimen/_8sdp"
+    android:textSize="@dimen/_10sdp"
+    android:fontFamily="@font/product_sans_regular"
+    android:textColor="@color/black"
+    xmlns:android="http://schemas.android.com/apk/res/android"/>

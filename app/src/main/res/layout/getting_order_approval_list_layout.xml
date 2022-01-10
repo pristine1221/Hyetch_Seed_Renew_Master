@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:paddingLeft="@dimen/_10sdp"
+        android:paddingRight="@dimen/_10sdp"
+        android:paddingTop="@dimen/_5sdp"
+        android:paddingBottom="@dimen/_5sdp"
+        android:orientation="vertical"
+        android:layout_height="wrap_content">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_width="0dp"
+                android:orientation="horizontal"
+                android:layout_weight="1"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:text="MKT. no.  :   "
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:fontFamily="@font/product_sans_regular"
+                    android:textSize="@dimen/_10sdp"
+                    android:textColor="@color/dark_gray"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:id="@+id/mkt_no"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:fontFamily="@font/product_sans_regular"
+                    android:textColor="@color/black"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:orientation="horizontal"
+                android:layout_weight="1"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:text="Cust. no. :   "
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:fontFamily="@font/product_sans_regular"
+                    android:textSize="@dimen/_10sdp"
+                    android:textColor="@color/dark_gray"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:id="@+id/tv_cust_no"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:fontFamily="@font/product_sans_regular"
+                    android:textColor="@color/black"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+        </LinearLayout>
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:text="Address  :   "
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:fontFamily="@font/product_sans_regular"
+                    android:textSize="@dimen/_10sdp"
+                    android:textColor="@color/dark_gray"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:id="@+id/tv_address"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:fontFamily="@font/product_sans_regular"
+                    android:textColor="@color/black"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:text="Cust type  :   "
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:fontFamily="@font/product_sans_regular"
+                    android:textSize="@dimen/_10sdp"
+                    android:textColor="@color/dark_gray"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:id="@+id/tv_cust_type"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:fontFamily="@font/product_sans_regular"
+                    android:textColor="@color/black"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:visibility="gone"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:text="Ship to :   "
+                android:layout_width="wrap_content"
+                android:fontFamily="@font/product_sans_regular"
+                android:textSize="@dimen/_10sdp"
+                android:textColor="@color/dark_gray"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/tv_ship_to"
+                android:layout_width="wrap_content"
+                android:fontFamily="@font/product_sans_regular"
+                android:textColor="@color/black"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/tv_status"
+                android:layout_width="wrap_content"
+                android:text="Pending"
+                app:chipBackgroundColor="@color/gray4"
+                android:fontFamily="@font/product_sans_regular"
+                android:textColor="@color/pending_color"
+                android:textSize="@dimen/_10sdp"
+                android:layout_height="wrap_content"/>
+
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:orientation="horizontal"
+                android:gravity="right"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tv_date"
+                    android:layout_width="wrap_content"
+                    android:layout_gravity="right"
+                    android:fontFamily="@font/product_sans_regular"
+                    android:textColor="@color/text_color_hint"
+                    android:textSize="@dimen/_10sdp"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:background="@color/gray1"
+        android:layout_marginBottom="@dimen/_3sdp"
+        android:layout_marginTop="@dimen/_3sdp"
+        android:layout_height="@dimen/_1sdp"/>
+
+</LinearLayout>

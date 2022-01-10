@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/cart"
+        android:icon="@drawable/ic_baseline_shopping_cart_24"
+        android:title="Cart"
+        android:contentDescription="Cart Desc"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/logout"
+        android:icon="@drawable/ic_baseline_power_settings_new_24"
+        android:title="Log Out"
+        android:contentDescription="Log Out Desc"
+        app:showAsAction="ifRoom" />
+
+<!--    <item-->
+<!--        android:id="@+id/more"-->
+<!--        android:title="@string/more"-->
+<!--        android:contentDescription="@string/content_description_more"-->
+<!--        app:showAsAction="never" />-->
+
+</menu>

@@ -1,0 +1,1081 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/rl_custom_layout"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/my_app_background_color"
+    android:focusableInTouchMode="true"
+    android:descendantFocusability="beforeDescendants"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/bottom_button"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="10dp">
+
+            <FrameLayout
+                android:id="@+id/close_dilog_bt"
+                android:layout_width="@dimen/_80ssp"
+                android:elevation="2dp"
+                android:clickable="true"
+                style="@style/SelectableItemBackground"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/green_back_arrow">
+                </ImageView>
+
+            </FrameLayout>
+
+            <TextView
+                style="@style/TextAppearance.MaterialComponents.Headline6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|center_horizontal"
+                android:text="Nicking2 Inspection"
+                android:textAlignment="center">
+
+            </TextView>
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_3sdp"
+            android:background="@color/gray4"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView">
+
+        </View>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="5dp">
+
+                    <TextView
+                        style="@style/TextAppearance.MaterialComponents.Subtitle2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="5dp"
+                        android:text="Header Detail">
+
+                    </TextView>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="2dp"
+                        android:layout_marginBottom="2dp"
+                        android:layout_weight="1"
+                        android:background="#72AAAAAA">
+
+                    </View>
+
+                    <TableLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="5dp">
+
+                        <TableRow
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="2dp">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_bold"
+                                android:text="Date:"
+                                android:textColor="@color/profileEditTextColor"
+                                android:textSize="13sp" />
+
+                            <TextView
+                                android:id="@+id/tv_date"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_regular"
+                                android:textColor="@color/black"
+                                android:textSize="13sp" />
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_bold"
+                                android:text="Season: "
+                                android:textColor="@color/profileEditTextColor"
+                                android:textSize="13sp" />
+
+                            <TextView
+                                android:id="@+id/tv_season"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_regular"
+                                android:textColor="@color/black"
+                                android:textSize="13sp" />
+                        </TableRow>
+
+                        <TableRow
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="2dp">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:visibility="gone"
+                                android:fontFamily="@font/product_sans_bold"
+                                android:text="Season name: "
+                                android:textColor="@color/profileEditTextColor"
+                                android:textSize="13sp" />
+
+                            <TextView
+                                android:id="@+id/season_name"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:visibility="gone"
+                                android:fontFamily="@font/product_sans_regular"
+                                android:textColor="@color/black"
+                                android:textSize="13sp" />
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_bold"
+                                android:text="Prod.cnt : "
+                                android:textColor="@color/profileEditTextColor"
+                                android:textSize="13sp" />
+
+                            <TextView
+                                android:id="@+id/prod_cent_name"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="3"
+                                android:fontFamily="@font/product_sans_regular"
+                                android:textColor="@color/black"
+                                android:textSize="13sp" />
+
+                        </TableRow>
+
+                        <TableRow
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:visibility="gone"
+                            android:padding="2dp">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_bold"
+                                android:text="Prod. center:"
+                                android:textColor="@color/profileEditTextColor"
+                                android:textSize="13sp" />
+
+                            <TextView
+                                android:id="@+id/prod_center"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="3"
+                                android:fontFamily="@font/product_sans_regular"
+                                android:textColor="@color/black"
+                                android:textSize="13sp" />
+
+                        </TableRow>
+
+                    </TableLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:orientation="horizontal"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            style="@style/TextAppearance.MaterialComponents.Subtitle2"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:padding="5dp"
+                            android:text="Production Lot Details"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="5dp"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:fontFamily="@font/product_sans_regular"
+                            android:text="Prod Lot No : "/>
+
+                        <TextView
+                            android:id="@+id/prod_lot"
+                            android:paddingRight="@dimen/_5sdp"
+                            android:textColor="@color/colorPrimary"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textStyle="bold"
+                            android:fontFamily="@font/product_sans_regular"
+                            android:padding="5dp"
+                            />
+                    </LinearLayout>
+
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="2dp"
+                        android:layout_marginBottom="2dp"
+                        android:layout_weight="1"
+                        android:background="#72AAAAAA">
+
+                    </View>
+
+                    <TableLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="5dp">
+
+                        <TableRow
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="2dp">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_bold"
+                                android:text="Org. name: "
+                                android:textColor="@color/profileEditTextColor"
+                                android:textSize="13sp" />
+
+                            <TextView
+                                android:id="@+id/org_name"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="3"
+                                android:fontFamily="@font/product_sans_regular"
+                                android:textColor="@color/black"
+                                android:textSize="13sp" />
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:visibility="gone"
+                                android:fontFamily="@font/product_sans_bold"
+                                android:text="Org. code : "
+                                android:textColor="@color/profileEditTextColor"
+                                android:textSize="13sp" />
+
+                            <TextView
+                                android:id="@+id/org_code"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:visibility="gone"
+                                android:fontFamily="@font/product_sans_regular"
+                                android:textColor="@color/black"
+                                android:textSize="13sp" />
+
+                        </TableRow>
+
+                        <TableRow
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="2dp">
+
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_bold"
+                                android:text="Crop Code : "
+                                android:textColor="@color/profileEditTextColor"
+                                android:textSize="13sp" />
+
+                            <TextView
+                                android:id="@+id/crop_code"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_regular"
+                                android:textColor="@color/black"
+                                android:textSize="13sp" />
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_bold"
+                                android:text="Varity Code : "
+                                android:textColor="@color/profileEditTextColor"
+                                android:textSize="13sp" />
+
+                            <TextView
+                                android:id="@+id/variety_code"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_regular"
+                                android:textColor="@color/black"
+                                android:textSize="13sp" />
+
+                        </TableRow>
+
+                        <TableRow
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="2dp">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_bold"
+                                android:text="It. prodGrp cd. : "
+                                android:textColor="@color/profileEditTextColor"
+                                android:textSize="13sp" />
+
+                            <TextView
+                                android:id="@+id/item_prodGrp_code"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_regular"
+                                android:textColor="@color/black"
+                                android:textSize="13sp" />
+
+
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_bold"
+                                android:text="ItmclsofSds : "
+                                android:textColor="@color/profileEditTextColor"
+                                android:textSize="13sp" />
+
+                            <TextView
+                                android:id="@+id/item_class_of_seed"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_regular"
+                                android:textColor="@color/black"
+                                android:textSize="13sp" />
+
+
+                        </TableRow>
+
+                        <TableRow
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:visibility="gone"
+                            android:padding="2dp">
+
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_bold"
+                                android:text="Crop typ : "
+                                android:textColor="@color/profileEditTextColor"
+                                android:textSize="13sp" />
+
+                            <TextView
+                                android:id="@+id/crop_type"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_regular"
+                                android:textColor="@color/black"
+                                android:textSize="13sp" />
+
+                        </TableRow>
+
+                        <TableRow
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="2dp">
+
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_bold"
+                                android:text="S.D.M.: "
+                                android:textColor="@color/profileEditTextColor"
+                                android:textSize="13sp" />
+
+                            <TextView
+                                android:id="@+id/tv_sd_male"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_regular"
+                                android:textColor="@color/black"
+                                android:textSize="13sp" />
+
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_bold"
+                                android:text="S.D.F: "
+                                android:textColor="@color/profileEditTextColor"
+                                android:textSize="13sp" />
+
+                            <TextView
+                                android:id="@+id/tv_sd_female"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_regular"
+                                android:textColor="@color/black"
+                                android:textSize="13sp" />
+
+                        </TableRow>
+
+                        <TableRow
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="2dp">
+                            <TextView
+                                android:id="@+id/grwer_name"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_bold"
+                                android:text="Farmer :"
+                                android:textColor="@color/profileEditTextColor"
+                                android:textSize="13sp" />
+
+
+                            <TextView
+                                android:id="@+id/farmer_name"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="3"
+                                android:fontFamily="@font/product_sans_regular"
+                                android:textColor="@color/black"
+                                android:textSize="13sp" />
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_bold"
+                                android:text="Item n. :"
+                                android:visibility="gone"
+                                android:textColor="@color/profileEditTextColor"
+                                android:textSize="13sp" />
+
+                            <TextView
+                                android:id="@+id/item_name"
+                                android:layout_width="0dp"
+                                android:visibility="gone"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_regular"
+                                android:textColor="@color/black"
+                                android:textSize="13sp" />
+                        </TableRow>
+                        <TableRow
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="2dp">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_bold"
+                                android:text="Village : "
+                                android:textColor="@color/profileEditTextColor"
+                                android:textSize="13sp" />
+
+                            <TextView
+                                android:id="@+id/tv_vill_"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="3"
+                                android:fontFamily="@font/product_sans_regular"
+                                android:textColor="@color/black"
+                                android:textSize="13sp" />
+
+                        </TableRow>
+
+                        <TableRow android:layout_marginTop="5dp">
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:orientation="vertical">
+                                <TextView
+                                    android:id="@+id/posting_error"
+                                    android:visibility="gone"
+                                    android:layout_width="match_parent"
+                                    android:fontFamily="@font/product_sans_regular"
+                                    android:textColor="@color/my_app_error_color"
+                                    android:layout_height="wrap_content"/>
+
+                                <TextView
+                                    style="@style/TextAppearance.MaterialComponents.Subtitle2"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:padding="5dp"
+                                    android:text="Nicking2 Fields">
+
+                                </TextView>
+
+                                <View
+                                    android:layout_width="match_parent"
+                                    android:layout_height="1dp"
+                                    android:layout_marginTop="2dp"
+                                    android:layout_marginBottom="2dp"
+                                    android:layout_weight="1"
+                                    android:background="#72AAAAAA">
+
+                                </View>
+                            </LinearLayout>
+                        </TableRow>
+
+
+                        <LinearLayout
+                            android:layout_marginTop="4dp"
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="4dp">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:src="@drawable/ic_baseline_verified_user_24"
+                                android:padding="10dp">
+
+                            </ImageView>
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                app:boxCornerRadiusBottomEnd="15dp"
+                                app:boxCornerRadiusTopStart="15dp"
+                                android:hint="Date of inspection">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/date_of_inspection"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:editable="false"
+                                    android:textColor="@color/black"
+                                    android:maxLines="1" />
+
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:layout_marginBottom="4dp">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:src="@drawable/ic_baseline_today_24"
+                                android:padding="10dp">
+                            </ImageView>
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                app:boxCornerRadiusBottomEnd="15dp"
+                                app:boxCornerRadiusTopStart="15dp"
+                                android:hint="Date of action">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/date_of_action"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:editable="false"
+                                    android:textColor="@color/black"
+                                    android:maxLines="1" />
+
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:layout_marginBottom="4dp">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:src="@drawable/ic_baseline_today_24"
+                                android:padding="10dp">
+
+                            </ImageView>
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                app:boxCornerRadiusBottomEnd="15dp"
+                                app:boxCornerRadiusTopStart="15dp"
+                                android:hint="Wether recmndn done">
+
+                                <AutoCompleteTextView
+                                    android:id="@+id/wther_remmndtn"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:inputType="none"
+                                    android:textColor="@color/black"
+                                    android:maxLines="1" />
+
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:layout_marginBottom="4dp">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:src="@drawable/ic_baseline_today_24"
+                                android:padding="10dp">
+
+                            </ImageView>
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                app:boxCornerRadiusBottomEnd="15dp"
+                                app:boxCornerRadiusTopStart="15dp"
+                                android:hint="Actual Date">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/ed_actual_date"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:inputType="none"
+                                    android:textColor="@color/black"
+                                    android:maxLines="1" />
+
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:src="@drawable/ic_baseline_verified_user_24"
+                                android:padding="10dp">
+
+                            </ImageView>
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="4dp"
+                                android:layout_weight="1"
+                                app:boxCornerRadiusBottomEnd="15dp"
+                                app:boxCornerRadiusTopStart="15dp"
+                                android:hint="Remarks">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/tv_Remarks"
+                                    android:layout_width="match_parent"
+                                    app:boxCornerRadiusBottomEnd="15dp"
+                                    app:boxCornerRadiusTopStart="15dp"
+                                    android:layout_height="wrap_content"
+                                    android:lines="2"
+                                    android:textColor="@color/black"
+                                    android:maxLines="1" />
+
+                            </com.google.android.material.textfield.TextInputLayout>
+                        </LinearLayout>
+
+
+                        <LinearLayout
+                            android:layout_marginTop="4dp"
+                            android:layout_marginRight="4dp"
+                            android:visibility="gone"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="4dp">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:src="@drawable/ic_baseline_verified_user_24"
+                                android:padding="10dp">
+
+                            </ImageView>
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                app:boxCornerRadiusBottomEnd="15dp"
+                                app:boxCornerRadiusTopStart="15dp"
+                                android:hint="Seed Setting">
+
+                                <AutoCompleteTextView
+                                    android:id="@+id/ed_seed_setting"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:inputType="number"
+                                    android:editable="false"
+                                    android:enabled="false"
+                                    android:maxLines="1" />
+
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/til_seed_setng"
+                            android:visibility="gone"
+                            android:layout_width="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="4dp">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:src="@drawable/ic_baseline_verified_user_24"
+                                android:padding="10dp">
+
+                            </ImageView>
+                            <com.google.android.material.textfield.TextInputLayout
+                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                app:boxCornerRadiusBottomEnd="15dp"
+                                app:boxCornerRadiusTopStart="15dp"
+                                android:hint="Seed Setting %">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/ed_seed_stng_per"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:inputType="number"
+                                    android:maxLines="1" />
+
+                            </com.google.android.material.textfield.TextInputLayout>
+                        </LinearLayout>
+
+
+                        <LinearLayout
+                            android:id="@+id/til_receipt_male"
+                            android:visibility="gone"
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="4dp">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:src="@drawable/ic_baseline_verified_user_24"
+                                android:padding="10dp">
+
+                            </ImageView>
+                            <com.google.android.material.textfield.TextInputLayout
+                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                app:boxCornerRadiusBottomEnd="15dp"
+                                app:boxCornerRadiusTopStart="15dp"
+                                android:hint="Male Receipt No">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/receipt_no_male"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:enabled="false"
+                                    android:editable="false"
+                                    android:maxLines="1" />
+
+                            </com.google.android.material.textfield.TextInputLayout>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/til_receipt_female"
+                            android:visibility="gone"
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="4dp">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:src="@drawable/ic_baseline_verified_user_24"
+                                android:padding="10dp">
+
+                            </ImageView>
+                            <com.google.android.material.textfield.TextInputLayout
+                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                app:boxCornerRadiusBottomEnd="15dp"
+                                app:boxCornerRadiusTopStart="15dp"
+                                android:hint="Female Receipt N0">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/receipt_no_female"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:enabled="false"
+                                    android:editable="false"
+                                    android:maxLines="1" />
+
+                            </com.google.android.material.textfield.TextInputLayout>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/til_other_receipt"
+                            android:visibility="gone"
+                            android:layout_margin="4dp">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:src="@drawable/ic_baseline_verified_user_24"
+                                android:padding="10dp">
+
+                            </ImageView>
+                            <com.google.android.material.textfield.TextInputLayout
+                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                app:boxCornerRadiusBottomEnd="15dp"
+                                app:boxCornerRadiusTopStart="15dp"
+                                android:hint="Other Receipt">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/receipt_no_other"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:editable="false"
+                                    android:enabled="false"
+                                    android:maxLines="1" />
+
+                            </com.google.android.material.textfield.TextInputLayout>
+                        </LinearLayout>
+
+
+
+                        <TableRow
+                            android:orientation="horizontal"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginBottom="4dp"
+                            android:layout_width="match_parent">
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:orientation="vertical"
+                                android:layout_height="wrap_content">
+                            <com.google.android.material.chip.Chip
+                                android:id="@+id/add_attachment"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/_40sdp"
+                                android:layout_marginLeft="@dimen/_4sdp"
+                                app:chipStrokeColor="@color/colorPrimary"
+                                app:chipStrokeWidth="0.5dp"
+                                app:rippleColor="@color/chip_ripple"
+                                android:text="Add Image"
+                                android:textColor="@color/colorPrimary"
+                                app:chipBackgroundColor="@color/my_app_background_color">
+
+                            </com.google.android.material.chip.Chip>
+
+                                <com.google.android.material.chip.Chip
+                                    android:id="@+id/clear_img"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="@dimen/_4sdp"
+                                    app:chipStrokeColor="@color/my_app_error_color"
+                                    app:chipStrokeWidth="0.5dp"
+                                    app:rippleColor="@color/profilePrimaryDark"
+                                    android:text="Dlt img."
+                                    android:visibility="gone"
+                                    app:chipIcon="@drawable/delete"
+                                    app:chipIconTint="@color/my_app_error_color"
+                                    android:textColor="@color/my_app_error_color"
+                                    app:chipBackgroundColor="@color/my_app_background_color">
+
+                                </com.google.android.material.chip.Chip>
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/image_layout"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:orientation="vertical"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:visibility="gone"
+                                android:layout_height="wrap_content">
+
+
+                                <androidx.cardview.widget.CardView
+                                    android:id="@+id/card_layout"
+                                    android:layout_marginLeft="@dimen/_15sdp"
+                                    android:layout_width="wrap_content"
+                                    app:cardCornerRadius="@dimen/_5sdp"
+
+                                    android:layout_height="wrap_content">
+                                <FrameLayout
+                                    android:layout_width="match_parent"
+                                    android:visibility="visible"
+                                    android:id="@+id/frame_layout"
+                                    android:layout_height="wrap_content">
+
+                                    <ImageView
+                                        android:id="@+id/image_view"
+                                        android:layout_width="match_parent"
+                                        android:scaleType="fitXY"
+                                        android:visibility="gone"
+                                        android:layout_height="@dimen/_120sdp"/>
+
+                                </FrameLayout>
+                                </androidx.cardview.widget.CardView>
+
+                            </LinearLayout>
+
+
+                        </TableRow>
+                    </TableLayout>
+
+                </LinearLayout>
+            </ScrollView>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/bottom_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/my_app_background_color"
+        android:orientation="vertical">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="6dp"
+            android:background="@drawable/top_shadow_gradient">
+
+        </View>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/complete_btn"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:text="Complete"
+                android:textAllCaps="false"
+                android:visibility="gone"
+                android:textColor="@color/colorPrimary">
+
+            </Button>
+
+            <Button
+                android:id="@+id/save_record"
+                style="@style/Widget.MaterialComponents.Button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:visibility="gone"
+                android:text="Save Record"
+                android:textAllCaps="false">
+
+            </Button>
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+xmlns:app="http://schemas.android.com/apk/res-auto">
+
+<LinearLayout
+    android:id="@+id/date_filter"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:visibility="visible"
+    android:orientation="horizontal">
+
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="5dp"
+        android:visibility="gone"
+        android:layout_marginBottom="4dp"
+        android:layout_weight="1"
+        android:hint="Select Date"
+        app:boxCornerRadiusBottomEnd="15dp"
+        app:boxCornerRadiusTopStart="15dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_attendance_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableRight="@drawable/ic_baseline_today_24"
+            android:drawableTint="@color/colorPrimary"
+            android:editable="false"
+            android:maxLines="1" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+ <!--   <ImageView
+        android:id="@+id/cross"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:background="@drawable/cross"
+        android:visibility="gone"
+        android:backgroundTint="@color/colorPrimary"
+        android:layout_gravity="center"/>-->
+
+</LinearLayout>
+
+<LinearLayout
+    android:id="@+id/r2"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="5dp"
+    android:visibility="gone"
+    android:orientation="horizontal">
+
+ <!--   <LinearLayout
+        android:id="@+id/dd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:background="@drawable/border_line"
+        android:orientation="vertical">
+
+        <SearchView
+            android:id="@+id/searchView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="fill_vertical"
+            android:iconifiedByDefault="false"
+            android:queryBackground="@color/white"
+            android:visibility="gone"
+            android:queryHint="Search By Date" />
+    </LinearLayout>-->
+
+</LinearLayout>
+
+
+<androidx.recyclerview.widget.RecyclerView
+    android:id="@+id/dailyActivityList"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_below="@id/date_filter">
+</androidx.recyclerview.widget.RecyclerView>
+</RelativeLayout>

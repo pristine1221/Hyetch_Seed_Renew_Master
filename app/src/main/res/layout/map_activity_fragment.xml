@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+<fragment
+    android:id="@+id/map"
+    android:name="com.google.android.gms.maps.SupportMapFragment"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"/>
+
+    <ImageButton
+        android:id="@+id/back_btn"
+        android:layout_width="@dimen/_25sdp"
+        android:textSize="@dimen/_12sdp"
+        android:src="@drawable/back_btn_black"
+        android:layout_marginTop="@dimen/_40sdp"
+        android:layout_marginLeft="@dimen/_10sdp"
+        android:textColor="@color/black"
+        android:background="@color/my_app_background_color"
+        android:fontFamily="@font/product_sans_bold"
+        android:layout_height="@dimen/_25sdp"/>
+</FrameLayout>

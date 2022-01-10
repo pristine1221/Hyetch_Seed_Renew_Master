@@ -1,0 +1,480 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.eventManagement.createEvent.CreateEventFragment">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="5dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:padding="5dp">
+
+                        <TextView
+                            android:id="@+id/tfa_code_detail"
+                            style="@style/TextAppearance.MaterialComponents.Headline6"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="TFA Detail ( TFA-002 ) " />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginTop="10dp"
+                            android:background="#1D000000" />
+
+                        <TableLayout
+
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="5dp">
+
+                            <TableRow
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:padding="2dp">
+
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:text="TFA(Name)"
+                                    android:fontFamily="@font/product_sans_bold"
+                                    android:textColor="@color/profileEditTextColor"
+                                    android:textSize="13sp" />
+
+                                <TextView
+                                    android:id="@+id/tv_name_tfa"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:fontFamily="@font/product_sans_regular"
+                                    android:textColor="@color/black"
+                                    android:textSize="13sp" />
+
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:fontFamily="@font/product_sans_bold"
+                                    android:text="State:"
+                                    android:textColor="@color/profileEditTextColor"
+                                    android:textSize="13sp" />
+
+                                <TextView
+                                    android:id="@+id/tv_state"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:fontFamily="@font/product_sans_regular"
+                                    android:textColor="@color/black"
+                                    android:textSize="13sp" />
+
+                            </TableRow>
+
+                            <TableRow android:padding="2dp">
+
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:fontFamily="@font/product_sans_bold"
+                                    android:text="District : "
+                                    android:textColor="@color/profileEditTextColor"
+                                    android:textSize="13sp" />
+
+                                <TextView
+                                    android:id="@+id/tv_district"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:fontFamily="@font/product_sans_regular"
+                                    android:textColor="@color/black"
+                                    android:textSize="13sp" />
+
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:fontFamily="@font/product_sans_bold"
+                                    android:text="Place : "
+                                    android:textColor="@color/profileEditTextColor"
+                                    android:textSize="13sp" />
+
+                                <TextView
+                                    android:id="@+id/tv_place"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:fontFamily="@font/product_sans_regular"
+                                    android:text=""
+                                    android:textColor="@color/black"
+                                    android:textSize="13sp" />
+
+                            </TableRow>
+
+                            <TableRow android:padding="2dp">
+
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:fontFamily="@font/product_sans_bold"
+                                    android:text="DOJ : "
+                                    android:textColor="@color/profileEditTextColor"
+                                    android:textSize="13sp" />
+
+                                <TextView
+                                    android:id="@+id/tv_doj"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:fontFamily="@font/product_sans_regular"
+                                    android:textColor="@color/black"
+                                    android:textSize="13sp" />
+
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:fontFamily="@font/product_sans_bold"
+                                    android:text="Dod: "
+                                    android:textColor="@color/profileEditTextColor"
+                                    android:textSize="13sp" />
+
+                                <TextView
+                                    android:id="@+id/tv_dod"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:fontFamily="@font/product_sans_regular"
+                                    android:textColor="@color/black"
+                                    android:textSize="13sp" />
+
+                            </TableRow>
+
+                            <TableRow
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:padding="2dp">
+
+
+
+                            </TableRow>
+
+                            <TableRow android:padding="2dp">
+
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:fontFamily="@font/product_sans_bold"
+                                    android:text="Mobile : "
+                                    android:textColor="@color/profileEditTextColor"
+                                    android:textSize="13sp" />
+
+                                <TextView
+                                    android:id="@+id/tv_mobile"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:fontFamily="@font/product_sans_regular"
+                                    android:text=""
+                                    android:textColor="@color/black"
+                                    android:textSize="13sp" />
+
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:fontFamily="@font/product_sans_bold"
+                                    android:text="Salary: "
+                                    android:textColor="@color/profileEditTextColor"
+                                    android:textSize="13sp" />
+
+                                <TextView
+                                    android:id="@+id/tv_salary"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:fontFamily="@font/product_sans_regular"
+                                    android:textColor="@color/black"
+                                    android:textSize="13sp" />
+
+                            </TableRow>
+                        </TableLayout>
+
+                        <TextView
+                            style="@style/TextAppearance.MaterialComponents.Subtitle2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Account Detail"/>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:background="#1D000000" />
+
+                        <TableLayout
+
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="5dp">
+
+                            <TableRow
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:padding="2dp">
+
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="0.3"
+                                    android:fontFamily="@font/product_sans_bold"
+                                    android:text="Bank Name : "
+                                    android:textColor="@color/profileEditTextColor"
+                                    android:textSize="13sp" />
+
+                                <TextView
+                                    android:id="@+id/tv_bank_name"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:fontFamily="@font/product_sans_regular"
+                                    android:textColor="@color/black"
+                                    android:textSize="13sp" />
+
+
+                            </TableRow>
+
+                            <TableRow
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:padding="2dp">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/product_sans_bold"
+                                    android:text="Account No. : "
+                                    android:textColor="@color/profileEditTextColor"
+                                    android:textSize="13sp" />
+
+                                <TextView
+                                    android:id="@+id/tv_accont_no"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/product_sans_regular"
+                                    android:textColor="@color/black"
+                                    android:textSize="13sp" />
+
+
+                            </TableRow>
+
+                            <TableRow
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:padding="2dp">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/product_sans_bold"
+                                    android:text="IFSC Code : "
+                                    android:textColor="@color/profileEditTextColor"
+                                    android:textSize="13sp" />
+
+                                <TextView
+                                    android:id="@+id/tv_ifsc_code"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/product_sans_regular"
+                                    android:textColor="@color/black"
+                                    android:textSize="13sp" />
+                            </TableRow>
+                        </TableLayout>
+                        <TextView
+                            style="@style/TextAppearance.MaterialComponents.Subtitle2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Salary Provide :"/>
+
+
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:background="#1D000000" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:gravity="right"
+                            android:orientation="vertical"
+                            android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:background="@color/my_app_background_color"
+        android:layout_marginBottom="?actionBarSize"
+        android:id="@+id/line_detail_layout"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="Add Line TFA : "
+            android:layout_gravity="start"
+            android:textSize="@dimen/_10sdp"
+            android:textColor="@color/black"
+            android:paddingTop="@dimen/_5sdp"
+            android:paddingBottom="@dimen/_5sdp"
+            android:layout_height="wrap_content"/>
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="2dp">
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="4dp"
+                    android:layout_weight="1"
+                    android:hint="Salary Month"
+                    app:boxCornerRadiusBottomEnd="15dp"
+                    app:boxCornerRadiusTopStart="15dp">
+
+                    <AutoCompleteTextView
+                        android:id="@+id/edt_salary_month"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:enabled="false"
+                        android:textColor="@color/black"
+                        android:maxLines="1" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </TableRow>
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="2dp">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="4dp"
+                    android:layout_weight="1"
+                    android:hint="Enter Salary Amount"
+                    app:boxCornerRadiusBottomEnd="15dp"
+                    app:boxCornerRadiusTopStart="15dp">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edt_salary_amnt"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="numberDecimal"
+                        android:maxLines="1" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+            </TableRow>
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="2dp">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="4dp"
+                    android:layout_weight="1"
+                    android:hint="Enter Remarks"
+                    app:boxCornerRadiusBottomEnd="15dp"
+                    app:boxCornerRadiusTopStart="15dp">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edt_remarks"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:maxLines="1" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+            </TableRow>
+
+        </TableLayout>
+    </LinearLayout>
+
+</LinearLayout>
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+            </LinearLayout>
+        </ScrollView>
+
+    <RelativeLayout
+        android:id="@+id/bottom_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_alignParentBottom="true"
+        android:gravity="center"
+        android:visibility="visible"
+        android:orientation="vertical">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/submit_tfa_header_line"
+            android:layout_width="match_parent"
+            android:text="Submit TfA Line"
+            android:layout_marginLeft="@dimen/_2sdp"
+            android:layout_marginRight="@dimen/_2sdp"
+            app:rippleColor="@color/chip_ripple"
+            android:layout_height="wrap_content"/>
+
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/update_tfa_line"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Update TFA Line "
+            android:visibility="gone"
+            android:textAllCaps="false"
+            android:textSize="12dp" />
+
+        <Button
+            android:id="@+id/add_eventExpense"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Next"
+            android:textAllCaps="false"
+            android:textSize="12dp"
+            android:visibility="gone" />
+
+    </RelativeLayout>
+</RelativeLayout>

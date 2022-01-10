@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="5dp">
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="2dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:fontFamily="@font/product_sans_bold"
+                    android:text="Dispatch No : "
+                    android:textColor="@color/profileEditTextColor"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:id="@+id/tv_SDN_Number"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:fontFamily="@font/product_sans_regular"
+                    android:textColor="@color/black"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:fontFamily="@font/product_sans_bold"
+                    android:text="Name:"
+                    android:textColor="@color/profileEditTextColor"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:id="@+id/tv_date"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:fontFamily="@font/product_sans_regular"
+                    android:text=""
+                    android:textColor="@color/black"
+                    android:textSize="13sp" />
+
+            </TableRow>
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="2dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:fontFamily="@font/product_sans_bold"
+                    android:text="Date: "
+                    android:textColor="@color/profileEditTextColor"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:id="@+id/tv_From_Location"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:fontFamily="@font/product_sans_regular"
+                    android:textColor="@color/black"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:fontFamily="@font/product_sans_bold"
+                    android:text="Crop Code:"
+                    android:textColor="@color/profileEditTextColor"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:id="@+id/tv_To_Location"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:fontFamily="@font/product_sans_regular"
+                    android:text=""
+                    android:textColor="@color/black"
+                    android:textSize="13sp" />
+
+            </TableRow>
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="2dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:fontFamily="@font/product_sans_bold"
+                    android:text="Season: "
+                    android:textColor="@color/profileEditTextColor"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:id="@+id/tv_Transporter"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:fontFamily="@font/product_sans_regular"
+                    android:textColor="@color/black"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:fontFamily="@font/product_sans_bold"
+                    android:text="Item No.:"
+                    android:textColor="@color/profileEditTextColor"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:id="@+id/tv_Truck_Number"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:fontFamily="@font/product_sans_regular"
+                    android:text=""
+                    android:textColor="@color/black"
+                    android:textSize="13sp" />
+
+            </TableRow>
+        </TableLayout>
+
+
+        <ImageView
+            android:id="@+id/arrow_up_down"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical" />
+    </LinearLayout>
+
+
+</LinearLayout>

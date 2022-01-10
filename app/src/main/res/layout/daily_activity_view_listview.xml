@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="3dp"
+    android:id="@+id/card_layout"
+    app:cardElevation="2dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="3dp">
+
+        <ImageView
+            android:id="@+id/itemImage"
+            android:layout_width="@dimen/_30sdp"
+            android:layout_height="@dimen/_30sdp"
+            android:adjustViewBounds="true"
+            android:background="@drawable/circle_shadow"
+            android:layout_marginTop="8dp"
+            android:src="@drawable/daily_activity"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+
+        <TextView
+            android:id="@+id/activity_no"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/product_sans_regular"
+            android:textColor="@color/dark_gray"
+
+            app:layout_constraintLeft_toRightOf="@id/itemImage"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+
+        <TextView
+            android:id="@+id/contact_no_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawablePadding="10dp"
+            android:fontFamily="@font/product_sans_regular"
+            android:textColor="@color/profileEditTextColor"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            app:layout_constraintStart_toStartOf="@+id/activity_no"
+            app:layout_constraintTop_toBottomOf="@+id/activity_no" />
+        <TextView
+            android:id="@+id/paymentCollected"
+            android:fontFamily="@font/product_sans_regular"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawablePadding="10dp"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toStartOf="@+id/contact_no_tv"
+            app:layout_constraintTop_toBottomOf="@+id/contact_no_tv" />
+        <LinearLayout
+            android:id="@+id/lineylayouAddRemove"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_15sdp"
+            android:gravity="right"
+            android:orientation="horizontal"
+            app:layout_constraintLeft_toRightOf="@+id/paymentCollected"
+            app:layout_constraintTop_toBottomOf="@id/contact_no_tv">
+
+
+                <TextView
+                    android:id="@+id/created_on"
+                    android:fontFamily="@font/product_sans_regular"
+                    android:textColor="@color/profileEditTextColor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="left|center"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="@dimen/_40sdp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_weight="1"
+                    android:textSize="@dimen/_8sdp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+                <TextView
+                    android:id="@+id/order_collected_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:gravity="center|right"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/product_sans_regular" />
+            </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>

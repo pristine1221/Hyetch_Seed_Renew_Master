@@ -1,0 +1,794 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:background="@color/my_app_background_color"
+            android:elevation="5dp"
+            app:cardCornerRadius="3dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+                    <ImageView
+                        android:id="@+id/back_button_go_topreviousPage"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="5dp"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:clickable="true"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/green_back_arrow"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:textColor="@color/black"
+                        android:text="Seed Dispatch Note/VIHAMA:"
+                        android:gravity="center"
+                        android:textSize="@dimen/_12sdp"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:id="@+id/tv_header_dispatch_no"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="@dimen/_1sdp"
+                        android:layout_weight="1"
+                        android:gravity="start"
+                        android:fontFamily="@font/product_sans_bold"
+                        android:maxLines="1"
+                        android:padding="6dp"
+                        android:textColor="@color/black"
+                        android:textSize="15sp" />
+
+                </LinearLayout>
+
+
+                <com.google.android.material.chip.ChipGroup
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_marginRight="5dp">
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/complete_header"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/product_sans_regular"
+                        android:text="Complete"
+                        android:textColor="@color/colorPrimary"
+                        android:textStyle="bold"
+                        android:visibility="gone"
+                        app:chipBackgroundColor="@color/my_app_background_color"
+                        app:chipIcon="@drawable/ic_baseline_done_all_24"
+                        app:chipIconTint="@color/colorPrimary"
+                        app:chipStrokeColor="@color/chip_border"
+                        app:chipStrokeWidth="1dp"
+                        app:rippleColor="@color/chip_ripple">
+
+                    </com.google.android.material.chip.Chip>
+
+                </com.google.android.material.chip.ChipGroup>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_weight="1"
+                    android:background="#72AAAAAA"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/imageView">
+                </View>
+
+                <me.zhanghai.android.materialprogressbar.MaterialProgressBar
+                    android:id="@+id/content_loading"
+                    style="@style/Widget.MaterialProgressBar.ProgressBar.Horizontal"
+                    android:layout_width="fill_parent"
+                    android:layout_height="@dimen/_11sdp"
+                    android:indeterminate="true"
+                    android:visibility="gone"
+                    android:layout_gravity="center"
+                    android:indeterminateTint="@color/colorPrimary"
+                    app:mpb_progressStyle="horizontal" />
+
+               <!-- <ProgressBar
+                    android:id="@+id/content_loading"
+                    android:visibility="gone"
+                    android:indeterminateTint="@color/text_color_hint"
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_gravity="center"
+                    android:layout_height="@dimen/_20sdp"/>-->
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    android:padding="@dimen/_2sdp"
+                    android:layout_height="wrap_content">
+                    <androidx.core.widget.NestedScrollView
+                        android:layout_width="match_parent"
+                        android:layout_weight="1"
+                        android:scrollbars="none"
+                        android:layout_height="0dp">
+                <RelativeLayout
+                    android:id="@+id/header_create_section"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="visible"
+                    android:padding="10dp">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="4dp"
+                        android:hint="Date"
+                        android:id="@+id/date_input_layout"
+                        app:boxCornerRadiusBottomEnd="15dp"
+                        app:boxCornerRadiusTopStart="15dp">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edit_date"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:drawableRight="@drawable/ic_baseline_today_24"
+                            android:drawableTint="@color/colorPrimary"
+                            android:maxLines="1" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="4dp"
+                        android:layout_weight="1"
+                        android:id="@+id/from_location_layout"
+                        android:layout_below="@+id/date_input_layout"
+                        android:hint="From Location"
+                        app:boxCornerRadiusBottomEnd="15dp"
+                        app:boxCornerRadiusTopStart="15dp">
+
+                        <AutoCompleteTextView
+                            android:id="@+id/ac_from_location"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:ellipsize="end"
+                            android:lines="1"
+                            android:singleLine="true"
+                            android:scrollHorizontally="true"
+                            android:editable="false"
+                            android:maxLines="1" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="4dp"
+                        android:layout_weight="1"
+                        android:layout_below="@+id/from_location_layout"
+                        android:id="@+id/tolocation_input_layout"
+                        android:hint="To Location"
+                        app:boxCornerRadiusBottomEnd="15dp"
+                        app:boxCornerRadiusTopStart="15dp">
+
+                        <AutoCompleteTextView
+                            android:id="@+id/ac_to_location"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:editable="false"
+                            android:ellipsize="end"
+                            android:singleLine="true"
+                            android:maxLines="1" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="4dp"
+                        android:layout_weight="1"
+                        android:hint="Season"
+                        android:id="@+id/season_input_layout"
+                        android:layout_below="@+id/tolocation_input_layout"
+                        app:boxCornerRadiusBottomEnd="15dp"
+                        app:boxCornerRadiusTopStart="15dp">
+
+                        <AutoCompleteTextView
+                            android:id="@+id/ac_season"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:editable="false"
+                            android:ellipsize="end"
+                            android:singleLine="true"
+                            android:maxLines="1" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="4dp"
+                        android:layout_weight="1"
+                        android:hint="Search Organiser"
+                        android:layout_below="@+id/season_input_layout"
+                        android:id="@+id/search_input_layout"
+                        app:endIconDrawable="@drawable/ic_search_black_24dp"
+                        app:endIconMode="custom"
+                        app:endIconTint="@color/color_trans_gray"
+                        app:boxCornerRadiusBottomEnd="15dp"
+
+                        app:boxCornerRadiusTopStart="15dp">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/ac_organise"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:singleLine="true"
+                            android:lines="1"
+                            android:ellipsize="end"
+                            android:maxLines="1" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/frame_layout_org_list"
+                        android:layout_below="@+id/search_input_layout"
+                        android:elevation="5dp"
+                        android:visibility="gone"
+                        android:layout_width="match_parent"
+                        android:layout_marginLeft="5dp"
+                        app:cardElevation="@dimen/_5sdp"
+                        android:layout_marginRight="5dp"
+                        app:cardBackgroundColor="@color/colorWhite"
+                        app:rippleColor="@color/chip_ripple"
+                        app:cardCornerRadius="@dimen/_5sdp"
+                        app:strokeWidth="@dimen/_1sdp"
+                        app:strokeColor="@color/gray1"
+                        android:layout_height="wrap_content">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:orientation="vertical"
+                            android:background="@color/colorWhite"
+                            android:layout_height="wrap_content">
+                            <ProgressBar
+                                android:id="@+id/loading_item"
+                                android:layout_width="30dp"
+                                android:visibility="gone"
+                                android:indeterminateTint="@color/chip_ripple"
+                                android:layout_gravity="center|top"
+                                android:layout_height="30dp"/>
+
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/lv_cust_dist_list"
+                                android:layout_width="match_parent"
+                                android:layout_marginTop="@dimen/_5sdp"
+                                android:layout_marginBottom="@dimen/_10sdp"
+                                android:scrollbars="none"
+                                android:divider="@null"
+                                android:nestedScrollingEnabled="false"
+                                android:background="@color/colorWhite"
+                                android:layout_height="wrap_content"/>
+                        </LinearLayout>
+
+                    </com.google.android.material.card.MaterialCardView>
+
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="4dp"
+                        android:hint="Supervisor"
+                        android:id="@+id/superwise_input_layout"
+                        android:layout_below="@+id/search_input_layout"
+                        app:boxCornerRadiusBottomEnd="15dp"
+                        app:boxCornerRadiusTopStart="15dp">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edit_Supervisor"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:singleLine="true"
+                            android:maxLines="1" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="4dp"
+                        android:hint="Transporter"
+                        android:id="@+id/transport_input_layout"
+                        android:layout_below="@+id/superwise_input_layout"
+                        app:boxCornerRadiusBottomEnd="15dp"
+                        app:boxCornerRadiusTopStart="15dp">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edit_Transporter"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:singleLine="true"
+                            android:maxLines="1" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="4dp"
+                        android:hint="Truck Number"
+                        android:id="@+id/truck_no_input_layput"
+                        android:layout_below="@+id/transport_input_layout"
+                        app:boxCornerRadiusBottomEnd="15dp"
+                        app:boxCornerRadiusTopStart="15dp">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edit_Truck_Number"
+                            android:layout_width="match_parent"
+                            android:ellipsize="end"
+                            android:singleLine="true"
+                            android:layout_height="wrap_content"
+                            android:maxLines="1" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="4dp"
+                        android:hint="Camp at "
+                        android:id="@+id/camp_at_input_layout"
+                        android:layout_below="@+id/truck_no_input_layput"
+                        app:boxCornerRadiusBottomEnd="15dp"
+                        app:boxCornerRadiusTopStart="15dp">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/ed_camp_at"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:singleLine="true"
+                            android:lines="1"
+                            android:maxLines="1" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="4dp"
+                        android:layout_weight="1"
+                        android:hint="Doc Type"
+                        android:id="@+id/doc_type_input_layout"
+                        android:layout_below="@+id/camp_at_input_layout"
+                        app:boxCornerRadiusBottomEnd="15dp"
+                        app:boxCornerRadiusTopStart="15dp">
+
+                        <AutoCompleteTextView
+                            android:id="@+id/ac_doc_doc_type"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:editable="false"
+                            android:ellipsize="end"
+                            android:singleLine="true"
+                            android:maxLines="1" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="4dp"
+                        android:hint="Reference No. "
+                        android:id="@+id/reference_no_input_layout"
+                        android:layout_below="@+id/doc_type_input_layout"
+                        app:boxCornerRadiusBottomEnd="15dp"
+                        app:boxCornerRadiusTopStart="15dp">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/ed_reference_no"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:singleLine="true"
+                            android:maxLines="1" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="4dp"
+                        android:hint="Remarks "
+                        android:layout_below="@+id/reference_no_input_layout"
+                        android:id="@+id/remarks_layout"
+                        app:boxCornerRadiusBottomEnd="15dp"
+                        app:boxCornerRadiusTopStart="15dp">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/ed_remarks"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:maxLines="1" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+                    <com.google.android.material.chip.ChipGroup
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/remarks_layout"
+                        android:layout_marginBottom="@dimen/_5sdp"
+                        android:layout_marginRight="5dp">
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/chip_create_planting_header"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:elevation="2dp"
+                            android:fontFamily="@font/product_sans_regular"
+                            android:text="Submit Header"
+                            android:textColor="@color/colorPrimary"
+                            android:textStyle="bold"
+                            app:chipBackgroundColor="@color/my_app_background_color"
+                            app:chipIcon="@drawable/ic_add_black"
+                            app:chipIconTint="@color/colorPrimary"
+                            app:chipStrokeColor="@color/chip_border"
+                            app:chipStrokeWidth="1dp"
+                            app:rippleColor="@color/chip_ripple">
+
+                        </com.google.android.material.chip.Chip>
+                    </com.google.android.material.chip.ChipGroup>
+                </RelativeLayout>
+                    </androidx.core.widget.NestedScrollView>
+                </LinearLayout>
+
+                <TableLayout
+                    android:id="@+id/dispatch_detail_header_section"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:visibility="gone">
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="2dp">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.5"
+                            android:fontFamily="@font/product_sans_bold"
+                            android:text="Supv. : "
+                            android:textColor="@color/profileEditTextColor"
+                            android:textSize="13sp" />
+
+                        <TextView
+                            android:id="@+id/tv_superviser"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.5"
+                            android:fontFamily="@font/product_sans_regular"
+                            android:textColor="@color/black"
+                            android:textSize="13sp" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.5"
+                            android:fontFamily="@font/product_sans_bold"
+                            android:text="Date :"
+                            android:textColor="@color/profileEditTextColor"
+                            android:textSize="13sp" />
+
+                        <TextView
+                            android:id="@+id/tv_date"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.5"
+                            android:fontFamily="@font/product_sans_regular"
+                            android:textColor="@color/black"
+                            android:textSize="13sp" />
+
+                    </TableRow>
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="2dp">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.5"
+                            android:fontFamily="@font/product_sans_bold"
+                            android:text="FrmLoc. : "
+                            android:textColor="@color/profileEditTextColor"
+                            android:textSize="13sp" />
+
+                        <TextView
+                            android:id="@+id/tv_From_Location"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.5"
+                            android:fontFamily="@font/product_sans_regular"
+                            android:textColor="@color/black"
+                            android:textSize="13sp" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.5"
+                            android:fontFamily="@font/product_sans_bold"
+                            android:text="ToLoc. :"
+                            android:textColor="@color/profileEditTextColor"
+                            android:textSize="13sp" />
+
+                        <TextView
+                            android:id="@+id/tv_To_Location"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.5"
+                            android:fontFamily="@font/product_sans_regular"
+                            android:textColor="@color/black"
+                            android:textSize="13sp" />
+
+                    </TableRow>
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="2dp">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.5"
+                            android:fontFamily="@font/product_sans_bold"
+                            android:text="TPT. : "
+                            android:textColor="@color/profileEditTextColor"
+                            android:textSize="13sp" />
+
+                        <TextView
+                            android:id="@+id/tv_Transporter"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.5"
+                            android:fontFamily="@font/product_sans_regular"
+                            android:textColor="@color/black"
+                            android:textSize="13sp" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.5"
+                            android:fontFamily="@font/product_sans_bold"
+                            android:text="Truck no. :"
+                            android:textColor="@color/profileEditTextColor"
+                            android:textSize="13sp" />
+
+                        <TextView
+                            android:id="@+id/tv_Truck_Number"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.5"
+                            android:fontFamily="@font/product_sans_regular"
+                            android:textColor="@color/black"
+                            android:textSize="13sp" />
+
+                    </TableRow>
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="2dp">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.5"
+                            android:fontFamily="@font/product_sans_bold"
+                            android:text="Org. name : "
+                            android:textColor="@color/profileEditTextColor"
+                            android:textSize="13sp" />
+
+                        <TextView
+                            android:id="@+id/tv_org_name"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.5"
+                            android:fontFamily="@font/product_sans_regular"
+                            android:textColor="@color/black"
+                            android:textSize="13sp" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.5"
+                            android:fontFamily="@font/product_sans_bold"
+                            android:text="Org. code:"
+                            android:textColor="@color/profileEditTextColor"
+                            android:textSize="13sp" />
+
+                        <TextView
+                            android:id="@+id/tv_org_code"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.5"
+                            android:fontFamily="@font/product_sans_regular"
+                            android:textColor="@color/black"
+                            android:textSize="13sp" />
+
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="2dp">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.5"
+                            android:fontFamily="@font/product_sans_bold"
+                            android:text="Doc. Type : "
+                            android:textColor="@color/profileEditTextColor"
+                            android:textSize="13sp" />
+
+                        <TextView
+                            android:id="@+id/tv_doc_type"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1.5"
+                            android:fontFamily="@font/product_sans_regular"
+                            android:textColor="@color/black"
+                            android:textSize="13sp" />
+
+                    </TableRow>
+
+                    <com.google.android.material.chip.ChipGroup
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="5dp">
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/delete_header_chip"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:elevation="2dp"
+                            android:fontFamily="@font/product_sans_bold"
+                            android:text="Delete Header"
+                            android:textColor="@color/colorPrimary"
+                            app:chipBackgroundColor="@color/my_app_background_color"
+                            app:chipIcon="@drawable/ic_baseline_add_24"
+                            app:chipIconTint="@color/colorPrimary"
+                            app:chipStrokeColor="@color/chip_border"
+                            app:chipStrokeWidth="1dp"
+                            app:rippleColor="@color/chip_ripple">
+
+                        </com.google.android.material.chip.Chip>
+                    </com.google.android.material.chip.ChipGroup>
+                </TableLayout>
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/line_cardview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:background="@color/my_app_background_color"
+            android:elevation="5dp"
+            android:visibility="gone"
+            app:cardCornerRadius="3dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/product_sans_bold"
+                        android:maxLines="1"
+                        android:padding="6dp"
+                        android:text="Dispatch Line Detail : "
+                        android:textColor="@color/black"
+                        android:textSize="15sp" />
+
+                    <com.google.android.material.chip.ChipGroup
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="5dp">
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/chip_add_line_production_lot_number"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:elevation="2dp"
+                            android:fontFamily="@font/product_sans_bold"
+                            android:text="Add Line"
+                            android:textColor="@color/colorPrimary"
+                            app:chipBackgroundColor="@color/my_app_background_color"
+                            app:chipIcon="@drawable/ic_baseline_add_24"
+                            app:chipIconTint="@color/colorPrimary"
+                            app:chipStrokeColor="@color/chip_border"
+                            app:chipStrokeWidth="1dp"
+                            app:rippleColor="@color/chip_ripple">
+
+                        </com.google.android.material.chip.Chip>
+                    </com.google.android.material.chip.ChipGroup>
+                </LinearLayout>
+
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#72AAAAAA"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/imageView">
+
+                </View>
+
+                    <ListView
+                        android:id="@+id/listview"
+                        android:scrollbars="none"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:dividerHeight="1dp"/>
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+    </LinearLayout>
+</FrameLayout>

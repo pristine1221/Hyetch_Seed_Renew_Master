@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="9"
+    android:background="@color/my_app_background_color">
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:fillViewport="true"
+        android:layout_weight="9"
+        android:layout_height="0dp">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="8dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="Contact No."
+                                app:boxStrokeColor="@color/colorPrimary"
+                                app:boxCornerRadiusBottomEnd="15dp"
+                                app:boxCornerRadiusTopStart="15dp"
+                                android:fontFamily="@font/product_sans_regular"
+                                app:counterMaxLength="10">
+
+                                <androidx.appcompat.widget.AppCompatEditText
+                                    android:id="@+id/contact_no"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:inputType="number"
+                                    android:maxLength="10"
+                                    android:fontFamily="@font/product_sans_regular"
+                                    app:layout_constraintStart_toStartOf="parent" />
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                            <ImageView
+                                android:id="@+id/add_Contact_bt"
+                                android:layout_width="30dp"
+                                android:layout_centerVertical="true"
+                                android:layout_height="30dp"
+                                android:layout_centerInParent="true"
+                                android:layout_alignParentRight="true"
+                                android:layout_marginRight="10dp"
+                                android:background="?attr/selectableItemBackgroundBorderless"
+                                android:clickable="true"
+                                android:src="@drawable/ic_add_black">
+
+                            </ImageView>
+                        </RelativeLayout>
+                    </LinearLayout>
+
+                    <HorizontalScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/_1sdp"
+                        android:scrollbars="none">
+                        <com.google.android.material.chip.ChipGroup
+                            android:id="@+id/selected_contact_chipgroup"
+                            android:layout_width="match_parent"
+                            android:textAppearance="@style/chipText"
+                            app:rippleColor="@color/chip_ripple"
+                            android:layout_height="wrap_content" />
+
+                    </HorizontalScrollView>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:orientation="horizontal">
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="5dp"
+                            android:layout_weight="1"
+                            app:boxStrokeColor="@color/colorPrimary"
+                            app:boxCornerRadiusBottomEnd="15dp"
+                            app:boxCornerRadiusTopStart="15dp"
+                            android:fontFamily="@font/product_sans_regular"
+                            android:hint="Order Collected">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/order_collected"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="number"
+                                android:maxLines="1"
+                                android:fontFamily="@font/product_sans_regular"
+                                android:textColor="@color/black" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            app:boxStrokeColor="@color/colorPrimary"
+                            app:boxCornerRadiusBottomEnd="15dp"
+                            app:boxCornerRadiusTopStart="15dp"
+                            android:fontFamily="@font/product_sans_regular"
+                            android:hint="Payment Collected">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/payment_collected"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="numberDecimal"
+                                android:maxLines="1"
+                                android:fontFamily="@font/product_sans_regular"
+                                android:textColor="@color/black" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+                    </LinearLayout>
+
+
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/next_buttonForAddLines"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Add Line"
+                        app:chipStartPadding="@dimen/_5sdp"
+                        app:chipEndPadding="@dimen/_5sdp"
+                        android:layout_gravity="right"
+                        android:textColor="@color/colorPrimary"
+                        app:chipBackgroundColor="@color/gray4"
+                        app:chipStrokeColor="@color/gray4"
+                        app:chipStrokeWidth="1dp"
+                        app:chipIcon="@drawable/ic_baseline_add_24"
+                        android:textAppearance="@style/chipText"
+                        app:rippleColor="@color/chip_ripple"/>
+                </LinearLayout>
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/listview_add_line"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="50dp"
+            android:layout_marginLeft="@dimen/_2sdp"
+            android:layout_marginRight="@dimen/_2sdp"
+            android:nestedScrollingEnabled="false">
+        </androidx.recyclerview.widget.RecyclerView>
+
+    </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/clear_Design"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:visibility="gone"
+            android:textSize="12dp"
+            android:fontFamily="@font/product_sans_regular"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:text="Clear Screen"/>
+        <Button
+            android:id="@+id/submitPage"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:textSize="12dp"
+            android:fontFamily="@font/product_sans_regular"
+            android:layout_height="wrap_content"
+            android:text="Submit Data" />
+    </LinearLayout>
+
+
+</LinearLayout>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <color name="colorPrimary">#009D48</color>
+    <color name="colorPrimaryDark">#007E35</color>
+    <color name="colorAccent">#03DAC5</color>
+    <color name="my_app_error_color">#F44336</color>
+    <color name="my_app_background_color">#FFF</color>
+    <color name="white">#ffffff</color>
+
+    <color name="black_overlay">#66000000</color>
+
+    <!--colors for modern ui-->
+    <color name="loginBkColor">#f0f0f0</color>
+
+    <!--colros for card-->
+    <color name="black">#000</color>
+    <color name="chip_border">#52009D48</color>
+    <color name="chip_ripple">#2F009D48</color>
+    <color name="white_chip_border">#CDFFFFFF</color>
+    <color name="whitechip_ripple">#A9FFFFFF</color>
+    <!--    color gray-->
+    <color name="gray1">#DADADA</color>
+    <color name="gray2">#DADADA</color>
+    <color name="gray3">#DADADA</color>
+    <color name="gray4">#48DADADA</color>
+
+    <!--colors for profile-->
+    <color name="profilePrimaryDark">#FF3B30</color>
+    <color name="profileAccentColor">#F7F7F7</color>
+    <color name="profileBackground">#fff</color>
+    <color name="blackTextColor">#000</color>
+    <color name="profileEditTextColor">#707070</color>
+    <color name="button_background">#000</color>
+    <color name="box_strock_color">#FFF</color>
+
+    <color name="color_trans_gray">#41000000</color>
+
+    <color name="dark_gray">#363837</color>
+
+        <color name="text_color_hint">#80000000</color>
+
+    <color name="pending_color">#E0C620</color>
+    <color name="dark_green">#007E35</color>
+    <color name="v_light_green">#f5fff9</color>
+    <color name="ripple_touch_color">#9DA7E1</color>
+</resources>

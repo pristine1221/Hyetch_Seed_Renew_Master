@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/my_app_background_color"
+    android:layout_height="match_parent">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:gravity="center|start"
+        android:padding="@dimen/_8sdp"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/back_button"
+            android:layout_width="wrap_content"
+            android:layout_gravity="center"
+            android:src="@drawable/close_select_ripple_img"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:text="Fs Retrun Header Details : "
+            android:layout_width="wrap_content"
+            android:fontFamily="@font/product_sans_regular"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_12sdp"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:layout_gravity="center|start"
+            android:layout_height="wrap_content"/>
+
+
+        <TextView
+            android:id="@+id/fs_return_code_title"
+            android:layout_width="wrap_content"
+            android:fontFamily="@font/product_sans_regular"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_12sdp"
+            android:textStyle="bold"
+            android:layout_gravity="center"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+    <View
+        android:background="@color/gray1"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/_1sdp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:layout_height="0dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content">
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#ffffff"
+                android:paddingLeft="8dp"
+                android:paddingTop="10dp"
+                android:paddingRight="8dp"
+                android:paddingBottom="10dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/product_sans_bold"
+                    android:text="Fs Code: "
+                    android:textColor="@color/black"
+                    android:textSize="13dp">
+
+                </TextView>
+
+                <TextView
+                    android:id="@+id/tv_fs_retrurn_code"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/product_sans_regular"
+                    android:paddingLeft="5dp"
+                    android:textColor="@color/profileEditTextColor"
+                    android:textSize="12dp">
+
+                </TextView>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/product_sans_bold"
+                    android:paddingLeft="5dp"
+                    android:text="Loc :"
+                    android:textColor="@color/black"
+                    android:textSize="13dp">
+
+                </TextView>
+
+                <TextView
+                    android:id="@+id/tv_fs_loc"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/product_sans_regular"
+                    android:paddingLeft="5dp"
+                    android:textColor="@color/profileEditTextColor"
+                    android:textSize="12dp">
+
+                </TextView>
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:background="#ffffff"
+                android:paddingLeft="8dp"
+                android:paddingTop="10dp"
+                android:paddingRight="8dp"
+                android:paddingBottom="10dp">
+
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/product_sans_bold"
+                    android:text="Doc Sale No"
+                    android:textColor="@color/black"
+                    android:textSize="13dp">
+
+                </TextView>
+
+                <TextView
+                    android:id="@+id/tv_fs_doc_sale_no"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:fontFamily="@font/product_sans_regular"
+                    android:paddingLeft="5dp"
+                    android:textColor="@color/profileEditTextColor"
+                    android:textSize="12dp">
+
+                </TextView>
+                <TextView
+                    android:id="@+id/tv_header_update"
+                    android:layout_gravity="right|center"
+                    android:layout_width="wrap_content"
+                    android:text="Header Update"
+                    android:padding="@dimen/_5sdp"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:layout_height="wrap_content"/>
+
+
+            </TableRow>
+
+        </TableLayout>
+
+    </LinearLayout>
+
+
+            <View
+                android:layout_width="match_parent"
+                android:background="@color/gray1"
+                android:layout_height="@dimen/_1sdp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:layout_marginLeft="@dimen/_5sdp"
+        android:layout_marginRight="@dimen/_5sdp"
+        android:orientation="horizontal"
+        android:gravity="center|start"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:text="Line Details : "
+            android:layout_width="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="@font/product_sans_regular"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_12sdp"
+            android:layout_height="wrap_content"/>
+
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip_add_line"
+            android:layout_gravity="right"
+            android:layout_width="wrap_content"
+            android:text="add Line"
+            android:textColor="@color/colorPrimaryDark"
+            android:backgroundTint="@color/chip_ripple"
+            app:rippleColor="@color/chip_ripple"
+            app:chipStrokeColor="@color/colorPrimaryDark"
+            app:chipStrokeWidth="@dimen/_1sdp"
+            android:layout_height="wrap_content"/>
+
+      </LinearLayout>
+
+            <ListView
+                android:id="@+id/fs_return_line_listview"
+                android:layout_width="match_parent"
+                android:nestedScrollingEnabled="false"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/complete_fs_return_btn"
+        android:layout_width="match_parent"
+        android:text="Complete"
+        android:textAllCaps="false"
+        android:fontFamily="@font/product_sans_regular"
+        android:textColorHighlight="@color/my_app_background_color"
+        android:layout_marginLeft="@dimen/_5sdp"
+        android:layout_marginRight="@dimen/_5sdp"
+        android:layout_marginBottom="@dimen/_5sdp"
+        android:layout_height="wrap_content"/>
+
+</LinearLayout>

@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.login2.Login2Activity">
+
+    <ImageView
+        android:id="@+id/loginBackgound"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:adjustViewBounds="true"
+        android:background="@drawable/loginbackgoundimage"
+        android:scaleType="centerCrop"></ImageView>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#CD007E35">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="25dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginRight="25dp"
+                android:orientation="vertical">
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="40dp"
+                    android:fontFamily="@font/product_sans_regular"
+                    android:text="Welcome to"
+                    android:textAlignment="center"
+                    android:textColor="#EBFFFFFF"
+                    android:textSize="18sp" />
+
+                <LinearLayout
+                    style="@style/loginCard"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/loginViewsMargin"
+                    android:layout_marginBottom="@dimen/loginViewsMargin"
+                    android:elevation="5dp">
+
+
+                    <LinearLayout
+                        style="@style/linearParent"
+                        android:layout_gravity="center"
+                        android:padding="@dimen/loginViewsMargin">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="40dp"
+                            android:gravity="center_horizontal"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="85dp"
+                                android:layout_height="66dp"
+                                android:layout_gravity="center"
+                                android:adjustViewBounds="true"
+                                android:background="@drawable/hytech_logo"
+                                android:contentDescription="PristineFulFil" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginLeft="10dp"
+                                android:fontFamily="@font/product_sans_bold"
+                                android:text="Hytech"
+                                android:textColor="@color/my_app_background_color"
+                                android:textSize="35sp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginBottom="20dp"
+                            android:background="@color/box_strock_color"
+                            android:gravity="center_horizontal"
+                            android:orientation="horizontal"
+                            android:padding="13dp">
+
+                            <ImageView
+                                android:layout_width="15dp"
+                                android:layout_height="15dp"
+                                android:src="@drawable/ic_facebook_app_symbol"></ImageView>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="10dp"
+                                android:fontFamily="@font/product_sans_bold"
+                                android:text="Login with facebook"
+                                android:textColor="#4267B2"
+                                android:textSize="13dp"></TextView>
+                        </LinearLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/ti_email_layout"
+                            style="@style/LoginTextInputLayoutStyle"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/loginViewsMargin"
+                            android:layout_marginBottom="10dp"
+                            android:hint="@string/login_email_hint"
+                            app:boxCornerRadiusBottomEnd="15dp"
+                            app:boxCornerRadiusTopStart="15dp"
+                            app:errorEnabled="true">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/editTextEmail"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/product_sans_regular"
+                                android:maxLines="1"
+                                android:textColor="@color/box_strock_color" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/ti_password_layout"
+                            style="@style/LoginTextInputLayoutStyle"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="7dp"
+                            android:layout_marginBottom="10dp"
+                            android:hint="@string/login_password_hint"
+                            app:boxCornerRadiusBottomEnd="15dp"
+                            app:boxCornerRadiusTopStart="15dp"
+                            app:endIconMode="password_toggle"
+                            app:endIconTint="@color/box_strock_color"
+                            app:errorEnabled="true">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/editTextPassword"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/product_sans_regular"
+                                android:maxLines="1" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <TextView
+                            style="@style/viewParent"
+                            android:layout_gravity="end"
+                            android:layout_marginTop="0dp"
+                            android:fontFamily="@font/product_sans_bold"
+                            android:text="Forgot Password?"
+                            android:textColor="@color/box_strock_color"
+                            android:textSize="@dimen/newsMoreTextSize" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginBottom="20dp"
+                            android:background="@color/box_strock_color"
+                            android:gravity="center_horizontal"
+                            android:orientation="horizontal"
+                            android:padding="13dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="10dp"
+                                android:fontFamily="@font/product_sans_bold"
+                                android:text="Login"
+                                android:textColor="@color/black"
+                                android:textSize="18dp"></TextView>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:orientation="horizontal"
+                            android:gravity="center_horizontal"
+                            android:layout_height="wrap_content">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="15dp"
+                                android:fontFamily="@font/product_sans_regular"
+                                android:text="Don\'t have an account?"
+                                android:textAlignment="center"
+                                android:textColor="@color/box_strock_color"
+                                android:textStyle="bold" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="15dp"
+                                android:fontFamily="@font/product_sans_regular"
+                                android:text="REGISTER NOW"
+                                android:layout_marginLeft="5dp"
+                                android:textAlignment="center"
+                                android:textColor="#FF9800"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+                </LinearLayout>
+
+            </LinearLayout>
+        </LinearLayout>
+    </RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/rl_custom_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/my_app_background_color"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+  <!--      <RelativeLayout
+            android:layout_width="match_parent"
+            android:visibility="gone"
+            android:layout_height="wrap_content"
+            android:padding="15dp">
+
+            <ImageView
+                android:id="@+id/close_dilog_bt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:elevation="2dp"
+                android:src="@drawable/ic_arrow_back_black_24dp">
+
+            </ImageView>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="40dp"
+                android:fontFamily="@font/product_sans_bold"
+                android:text="All Categories"
+                android:textColor="#716E6E"
+                android:textSize="30dp">
+
+            </TextView>
+        </RelativeLayout>-->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/_5sdp"
+            android:orientation="vertical">
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/layout_container_menu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:rippleColor="@color/chip_ripple"
+                    android:orientation="vertical"
+                    app:cardCornerRadius="@dimen/_5sdp"
+                    app:strokeWidth="@dimen/_1sdp"
+                    app:strokeColor="@color/gray4"
+                    android:layout_margin="@dimen/_5sdp">
+
+
+                            <LinearLayout
+                                android:id="@+id/general_id"
+                                android:layout_width="match_parent"
+                                android:layout_weight="1"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:layout_margin="5dp">
+
+                                <ImageView
+                                    android:id="@+id/group_img"
+                                    android:layout_width="@dimen/_90sdp"
+                                    android:layout_height="@dimen/_90sdp"
+                                    android:layout_gravity="center"
+                                    android:scaleType="fitCenter"
+                                    android:paddingTop="@dimen/_25sdp">
+                                </ImageView>
+
+                                <TextView
+                                    android:id="@+id/title_group"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:textAlignment="center"
+                                    android:padding="@dimen/_12sdp"
+                                    android:textColor="@color/colorPrimary"
+                                    android:textSize="15dp"
+                                    android:text="">
+
+                                </TextView>
+                            </LinearLayout>
+
+
+
+
+
+                </com.google.android.material.card.MaterialCardView>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/bottom_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:layout_alignParentBottom="true"
+        android:background="@color/my_app_background_color"
+        android:orientation="vertical">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="6dp"
+            android:background="@drawable/top_shadow_gradient">
+
+        </View>
+
+    </LinearLayout>
+</RelativeLayout>

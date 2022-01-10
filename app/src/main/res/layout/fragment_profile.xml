@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/my_app_background_color"
+    android:fitsSystemWindows="true"
+    tools:context=".ui.bootmMainScreen.ui.profile.ProfileFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:background="@drawable/profile_bk"
+            android:padding="20dp"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+            <LinearLayout
+                android:id="@+id/logout_profile"
+                android:layout_width="wrap_content"
+                android:layout_gravity="end"
+                android:clickable="true"
+                android:gravity="center"
+                android:background="@drawable/round_img_backgraund"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_width="11dp"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_baseline_power_settings_new_24" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                
+                <ImageView
+                    android:id="@+id/profile_pic"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_marginTop="20dp"
+                    android:adjustViewBounds="true"
+                    android:background="@drawable/circle_shadow"
+                    android:clickable="true"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:padding="4dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_baseline_person_pin_24" />
+
+                <TextView
+                    android:id="@+id/tv_main_user_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/product_sans_bold"
+                    android:textColor="@color/my_app_background_color"
+                    android:textSize="20sp"/>
+            </LinearLayout>
+            </FrameLayout>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="8dp"
+            android:layout_alignParentTop="true"
+            android:background="@drawable/bottom_shadow_gradient" />
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            tools:context="com.shopping.ballelingeries.ui.user_profile.GalleryFragment"
+            tools:showIn="@layout/fragment_profile">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="20dp"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/headerTextprof"
+                    android:layout_marginBottom="20dp"
+                    android:text="Account Info" />
+
+                <RelativeLayout style="@style/profileDetailsLayout">
+
+                    <ImageView
+                        android:id="@+id/nameImageView"
+                        style="@style/profileDetailsImage"
+                        android:src="@drawable/ic_name" />
+
+                    <TextView
+                        style="@style/profileDetailsTextMain"
+                        android:layout_toRightOf="@id/nameImageView"
+                        android:text="User Name" />
+
+                    <TextView
+                        android:id="@+id/tv_username"
+                        style="@style/profileDetailsMiniText"
+                        android:layout_toRightOf="@id/nameImageView" />
+
+                </RelativeLayout>
+
+                <View style="@style/proifleDetailsView"
+                    android:visibility="gone"/>
+
+                <RelativeLayout style="@style/profileDetailsLayout"
+                    android:visibility="gone">
+
+                    <ImageView
+                        android:id="@+id/mobileImageView"
+                        style="@style/profileDetailsImage"
+                        android:src="@drawable/ic_mobile" />
+
+                    <TextView
+                        style="@style/profileDetailsTextMain"
+                        android:layout_toRightOf="@id/mobileImageView"
+                        android:text="Mobile No" />
+
+                    <TextView
+                        android:id="@+id/tv_user_mobile_no"
+                        style="@style/profileDetailsMiniText"
+                        android:layout_toRightOf="@id/mobileImageView" />
+
+                </RelativeLayout>
+
+                <View style="@style/proifleDetailsView" />
+
+
+                <RelativeLayout style="@style/profileDetailsLayout"
+                    android:visibility="gone">
+
+                    <ImageView
+                        android:id="@+id/salepersonImageView"
+                        style="@style/profileDetailsImage"
+                        android:src="@drawable/ic_name" />
+
+                    <TextView
+                        style="@style/profileDetailsTextMain"
+                        android:layout_toRightOf="@id/salepersonImageView"
+                        android:text="Email Id" />
+
+                    <TextView
+                        android:id="@+id/tv_user_email"
+                        style="@style/profileDetailsMiniText"
+                        android:layout_toRightOf="@id/salepersonImageView" />
+
+                </RelativeLayout>
+
+                <View style="@style/proifleDetailsView"
+                    android:visibility="gone"/>
+
+                <LinearLayout
+                    android:id="@+id/sycn_data"
+                    android:layout_width="match_parent"
+                    android:orientation="horizontal"
+                    android:gravity="center|start"
+                    android:clickable="true"
+                    android:layout_marginTop="3dp"
+                    android:foreground="?attr/selectableItemBackgroundBorderless"
+                    android:focusable="true"
+                    android:layout_height="wrap_content">
+
+                    <!--   android:background="@drawable/ripple_effect_widget"-->
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:src="@drawable/sync_custom"
+                        android:layout_gravity="start|center"
+                        android:background="@drawable/image_ripple_effect"
+                        android:layout_height="40dp"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:textSize="17sp"
+                        android:layout_gravity="start|center"
+                        android:text="Manual Sync "
+                        android:layout_marginLeft="10dp"
+                        android:fontFamily="@font/product_sans_regular"
+                        android:textColor="@color/black"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+    </LinearLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

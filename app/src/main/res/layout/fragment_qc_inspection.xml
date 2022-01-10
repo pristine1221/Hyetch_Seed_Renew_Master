@@ -1,0 +1,1291 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/rl_custom_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/my_app_background_color"
+    android:focusableInTouchMode="true"
+    android:descendantFocusability="beforeDescendants"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/bottom_button"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp">
+
+
+            <FrameLayout
+                android:id="@+id/close_dilog_bt"
+                android:layout_width="@dimen/_80ssp"
+                android:elevation="2dp"
+                android:clickable="true"
+                style="@style/SelectableItemBackground"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/green_back_arrow">
+                </ImageView>
+
+            </FrameLayout>
+
+            <TextView
+                style="@style/TextAppearance.MaterialComponents.Headline6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|center_horizontal"
+                android:text="QC Inspection"
+                android:textAlignment="center">
+
+            </TextView>
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_3sdp"
+            android:background="@color/gray4">
+
+        </View>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            android:orientation="vertical">
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:fillViewport="true"
+                android:animateLayoutChanges="true"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:isScrollContainer="true"
+                    android:padding="5dp">
+
+                    <TextView
+                        style="@style/TextAppearance.MaterialComponents.Subtitle2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="5dp"
+                        android:text="Header Detail">
+
+                    </TextView>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="2dp"
+                        android:layout_marginBottom="2dp"
+                        android:layout_weight="1"
+                        android:background="#72AAAAAA">
+
+                    </View>
+
+                    <TableLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="5dp">
+
+                        <TableRow
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="2dp">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_bold"
+                                android:text="Date:"
+                                android:textColor="@color/profileEditTextColor"
+                                android:textSize="13sp" />
+
+                            <TextView
+                                android:id="@+id/tv_date"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_regular"
+                                android:textColor="@color/black"
+                                android:textSize="13sp" />
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_bold"
+                                android:text="Season: "
+                                android:textColor="@color/profileEditTextColor"
+                                android:textSize="13sp" />
+
+                            <TextView
+                                android:id="@+id/tv_season"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_regular"
+                                android:textColor="@color/black"
+                                android:textSize="13sp" />
+                        </TableRow>
+
+                        <TableRow
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="2dp">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_bold"
+                                android:text="Season name: "
+                                android:visibility="gone"
+                                android:textColor="@color/profileEditTextColor"
+                                android:textSize="13sp" />
+
+                            <TextView
+                                android:id="@+id/season_name"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:visibility="gone"
+                                android:fontFamily="@font/product_sans_regular"
+                                android:textColor="@color/black"
+                                android:textSize="13sp" />
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_bold"
+                                android:text="Prod.cnt name: "
+                                android:textColor="@color/profileEditTextColor"
+                                android:textSize="13sp" />
+
+                            <TextView
+                                android:id="@+id/prod_cent_name"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_regular"
+                                android:textColor="@color/black"
+                                android:textSize="13sp" />
+
+                        </TableRow>
+
+                        <TableRow
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:visibility="gone"
+                            android:padding="2dp">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_bold"
+                                android:text="Prod. center:"
+                                android:visibility="gone"
+                                android:textColor="@color/profileEditTextColor"
+                                android:textSize="13sp" />
+
+                            <TextView
+                                android:id="@+id/prod_center"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="3"
+                                android:fontFamily="@font/product_sans_regular"
+                                android:textColor="@color/black"
+                                android:textSize="13sp" />
+
+                        </TableRow>
+
+                    </TableLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:orientation="horizontal"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            style="@style/TextAppearance.MaterialComponents.Subtitle2"
+                            android:layout_width="0dp"
+                            android:layout_weight="2"
+                            android:layout_height="wrap_content"
+                            android:text="Production Lot Details"/>
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/product_sans_bold"
+                            android:text="Prod Lot No : "
+                            android:gravity="end"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textSize="13sp"/>
+
+                        <TextView
+                            android:id="@+id/prod_lot_no"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/product_sans_regular"
+                            android:textColor="@color/colorPrimary"
+                            android:textStyle="bold"
+                            android:textSize="13sp" />
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="2dp"
+                        android:layout_marginBottom="2dp"
+                        android:layout_weight="1"
+                        android:background="#72AAAAAA"/>
+
+                    <TableLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="5dp">
+
+
+
+                        <TableRow
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="2dp">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_bold"
+                                android:text="Org. name: "
+                                android:textColor="@color/profileEditTextColor"
+                                android:textSize="13sp" />
+
+                            <TextView
+                                android:id="@+id/org_name"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="3"
+                                android:fontFamily="@font/product_sans_regular"
+                                android:textColor="@color/black"
+                                android:textSize="13sp" />
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:visibility="gone"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_bold"
+                                android:text="Org. code : "
+                                android:textColor="@color/profileEditTextColor"
+                                android:textSize="13sp" />
+
+                            <TextView
+                                android:id="@+id/org_code"
+                                android:layout_width="0dp"
+                                android:visibility="gone"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_regular"
+                                android:textColor="@color/black"
+                                android:textSize="13sp" />
+
+                        </TableRow>
+
+                        <TableRow
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="2dp">
+
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_bold"
+                                android:text="Crop Code : "
+                                android:textColor="@color/profileEditTextColor"
+                                android:textSize="13sp" />
+
+                            <TextView
+                                android:id="@+id/crop_code"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_regular"
+                                android:textColor="@color/black"
+                                android:textSize="13sp" />
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_bold"
+                                android:text="Varity Code : "
+                                android:textColor="@color/profileEditTextColor"
+                                android:textSize="13sp" />
+
+                            <TextView
+                                android:id="@+id/variety_code"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_regular"
+                                android:textColor="@color/black"
+                                android:textSize="13sp" />
+
+                        </TableRow>
+
+                        <TableRow
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="2dp">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_bold"
+                                android:text="It. prodGrp cd. : "
+                                android:textColor="@color/profileEditTextColor"
+                                android:textSize="13sp" />
+
+                            <TextView
+                                android:id="@+id/item_prodGrp_code"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_regular"
+                                android:textColor="@color/black"
+                                android:textSize="13sp" />
+
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_bold"
+                                android:text="ItmclsofSds : "
+                                android:textColor="@color/profileEditTextColor"
+                                android:textSize="13sp" />
+
+                            <TextView
+                                android:id="@+id/item_class_of_seed"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_regular"
+                                android:textColor="@color/black"
+                                android:textSize="13sp" />
+
+                        </TableRow>
+
+                        <TableRow
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:visibility="gone"
+                            android:padding="2dp">
+
+
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_bold"
+                                android:text="Crop typ : "
+                                android:textColor="@color/profileEditTextColor"
+                                android:textSize="13sp" />
+
+                            <TextView
+                                android:id="@+id/crop_type"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_regular"
+                                android:textColor="@color/black"
+                                android:textSize="13sp" />
+
+                        </TableRow>
+
+                        <TableRow
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="2dp">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_bold"
+                                android:text="S.D.M.: "
+                                android:textColor="@color/profileEditTextColor"
+                                android:textSize="13sp" />
+
+                            <TextView
+                                android:id="@+id/tv_sd_male"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_regular"
+                                android:textColor="@color/black"
+                                android:textSize="13sp" />
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_bold"
+                                android:text="S.D.F.: "
+                                android:textColor="@color/profileEditTextColor"
+                                android:textSize="13sp" />
+
+                            <TextView
+                                android:id="@+id/tv_sd_female"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_regular"
+                                android:textColor="@color/black"
+                                android:textSize="13sp" />
+
+                        </TableRow>
+
+                        <TableRow
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="2dp">
+                            <TextView
+                                android:id="@+id/grwer_name"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_bold"
+                                android:text="Farmer :"
+                                android:textColor="@color/profileEditTextColor"
+                                android:textSize="13sp" />
+
+
+                            <TextView
+                                android:id="@+id/farmer_name"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="3"
+                                android:fontFamily="@font/product_sans_regular"
+                                android:textColor="@color/black"
+                                android:textSize="13sp" />
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:visibility="gone"
+                                android:fontFamily="@font/product_sans_bold"
+                                android:text="Item n. :"
+                                android:textColor="@color/profileEditTextColor"
+                                android:textSize="13sp" />
+
+
+                            <TextView
+                                android:id="@+id/item_name"
+                                android:layout_width="0dp"
+                                android:visibility="gone"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_regular"
+                                android:textColor="@color/black"
+                                android:textSize="13sp" />
+                        </TableRow>
+                        <TableRow
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="2dp">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_bold"
+                                android:text="Village : "
+                                android:textColor="@color/profileEditTextColor"
+                                android:textSize="13sp" />
+
+                            <TextView
+                                android:id="@+id/vill_address"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="3"
+                                android:fontFamily="@font/product_sans_regular"
+                                android:textSize="@dimen/_12sdp"
+                                android:textColor="@color/black" />
+
+                        </TableRow>
+
+                        <TableRow android:layout_marginTop="5dp">
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:id="@+id/posting_error"
+                                    android:visibility="gone"
+                                    android:layout_width="match_parent"
+                                    android:fontFamily="@font/product_sans_regular"
+                                    android:textColor="@color/my_app_error_color"
+                                    android:layout_height="wrap_content"/>
+
+                                <TextView
+                                    style="@style/TextAppearance.MaterialComponents.Subtitle2"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:padding="5dp"
+                                    android:text="Qc Fields">
+
+                                </TextView>
+
+                                <View
+                                    android:layout_width="match_parent"
+                                    android:layout_height="1dp"
+                                    android:layout_marginTop="2dp"
+                                    android:layout_marginBottom="2dp"
+                                    android:layout_weight="1"
+                                    android:background="#72AAAAAA">
+
+                                </View>
+                            </LinearLayout>
+                        </TableRow>
+
+
+                        <TableRow>
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                app:boxCornerRadiusBottomEnd="15dp"
+                                app:boxCornerRadiusTopStart="15dp"
+                                android:hint="Crop Condtion">
+
+                                <AutoCompleteTextView
+                                    android:id="@+id/ac_crop_condition"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:editable="false"
+                                    android:textSize="@dimen/_12sdp"
+                                    android:textColor="@color/black"
+                                    android:enabled="false"
+                                    android:maxLines="1" />
+
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:layout_marginLeft="@dimen/_5sdp"
+                                app:boxCornerRadiusBottomEnd="15dp"
+                                app:boxCornerRadiusTopStart="15dp"
+                                android:hint="Crop Stage">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/ac_crop_stage"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:editable="false"
+                                    android:textColor="@color/black"
+                                    android:maxLines="1" />
+
+                            </com.google.android.material.textfield.TextInputLayout>
+
+
+
+                        </TableRow>
+
+                        <TableRow
+                            android:layout_margin="@dimen/_4sdp"
+                            android:visibility="gone">
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                app:boxCornerRadiusBottomEnd="15dp"
+                                app:boxCornerRadiusTopStart="15dp"
+                                android:hint="Crop">
+
+                                <AutoCompleteTextView
+                                    android:id="@+id/ac_crop"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:editable="false"
+                                    android:maxLines="1" />
+
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                        </TableRow>
+
+                        <TableRow>
+                            <com.google.android.material.textfield.TextInputLayout
+                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:hint="Date of inspection"
+                                app:boxCornerRadiusBottomEnd="15dp"
+                                app:boxCornerRadiusTopStart="15dp">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/ed_date_of_insp"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="@dimen/_12sdp"
+                                    android:textColor="@color/black"
+                                    android:drawableRight="@drawable/ic_baseline_today_24"
+                                    android:drawableTint="@color/colorPrimary"
+                                    android:maxLines="1" />
+
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:layout_marginLeft="@dimen/_5sdp"
+                                app:boxCornerRadiusBottomEnd="15dp"
+                                app:boxCornerRadiusTopStart="15dp"
+                                android:hint="Date Of Field Updated">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/ed_date_field_updated"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="@dimen/_12sdp"
+                                    android:drawableRight="@drawable/ic_baseline_today_24"
+                                    android:drawableTint="@color/colorPrimary"
+                                    android:textColor="@color/black"
+                                    android:maxLines="1" />
+
+                            </com.google.android.material.textfield.TextInputLayout>
+
+
+                        </TableRow>
+
+                        <TableRow>
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                app:boxCornerRadiusBottomEnd="15dp"
+                                app:boxCornerRadiusTopStart="15dp"
+                                android:hint="Offtyp per male parent">
+
+                                <AutoCompleteTextView
+                                    android:id="@+id/ed_off_type_parent_male"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:inputType="number"
+                                    android:editable="false"
+                                    android:enabled="false"
+                                    android:textSize="@dimen/_12sdp"
+                                    android:textColor="@color/black"
+                                    android:maxLines="1" />
+
+                            </com.google.android.material.textfield.TextInputLayout>
+
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/_4sdp"
+                                android:layout_weight="1"
+                                app:boxCornerRadiusBottomEnd="15dp"
+                                app:boxCornerRadiusTopStart="15dp"
+                                android:hint="Offtyp per female parent">
+
+                                <AutoCompleteTextView
+                                    android:id="@+id/off_type_female_parent"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:editable="false"
+                                    android:inputType="none"
+                                    android:textSize="@dimen/_12sdp"
+                                    android:textColor="@color/black"
+                                    android:maxLines="1" />
+                            </com.google.android.material.textfield.TextInputLayout>
+                        </TableRow>
+
+                        <TableRow>
+                            <com.google.android.material.textfield.TextInputLayout
+                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                app:boxCornerRadiusBottomEnd="15dp"
+                                app:boxCornerRadiusTopStart="15dp"
+                                android:hint="polln shedr or shedding tessl">
+
+                                <AutoCompleteTextView
+                                    android:id="@+id/pollen_shedd_tssl"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="@dimen/_12sdp"
+                                    android:inputType="none"
+                                    android:fontFamily="@font/product_sans_regular"
+                                    android:textColor="@color/black"
+                                    android:maxLines="1" />
+
+                            </com.google.android.material.textfield.TextInputLayout>
+
+
+                        </TableRow>
+
+                        <TableRow>
+                            <com.google.android.material.textfield.TextInputLayout
+                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                app:boxCornerRadiusBottomEnd="15dp"
+                                app:boxCornerRadiusTopStart="15dp"
+                                android:hint="Flag Status">
+
+                                <AutoCompleteTextView
+                                    android:id="@+id/ac_flag_status"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:editable="false"
+                                    android:inputType="none"
+                                    android:textSize="@dimen/_12sdp"
+                                    android:textColor="@color/black"
+                                    android:maxLines="1" />
+
+                            </com.google.android.material.textfield.TextInputLayout>
+
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="5dp"
+                                android:layout_marginBottom="4dp"
+                                android:layout_weight="1"
+                                android:hint="Nick per "
+                                app:boxCornerRadiusBottomEnd="15dp"
+                                app:boxCornerRadiusTopStart="15dp">
+
+                                <AutoCompleteTextView
+                                    android:id="@+id/ed_nick_per"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:inputType="none"
+                                    android:textSize="@dimen/_12sdp"
+                                    android:textColor="@color/black"
+                                    android:maxLines="1" />
+
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                        </TableRow>
+                        <TableRow>
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="4dp"
+                                android:layout_weight="1"
+                                android:hint="Isolation"
+                                android:visibility="gone"
+                                app:boxCornerRadiusBottomEnd="15dp"
+                                app:boxCornerRadiusTopStart="15dp">
+
+
+                                <AutoCompleteTextView
+                                    android:id="@+id/ac_isolation"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:enabled="false"
+                                    android:textSize="@dimen/_12sdp"
+                                    android:maxLines="1" />
+
+                            </com.google.android.material.textfield.TextInputLayout>
+                        </TableRow>
+
+
+                        <TableRow>
+                            <com.google.android.material.textfield.TextInputLayout
+                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="4dp"
+                                android:layout_weight="1"
+                                android:hint="Iso Distance"
+                                android:visibility="visible"
+                                android:id="@+id/iso_dis_show"
+                                app:boxCornerRadiusBottomEnd="15dp"
+                                app:boxCornerRadiusTopStart="15dp">
+
+                                <AutoCompleteTextView
+                                    android:id="@+id/ed_distance"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:inputType="number"
+                                    android:textColor="@color/black"
+                                    android:maxLines="1" />
+
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                        </TableRow>
+
+
+                        <TableRow>
+                            <com.google.android.material.textfield.TextInputLayout
+                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="4dp"
+                                android:layout_weight="1"
+                                android:hint="Iso Time"
+                                android:visibility="visible"
+                                android:id="@+id/iso_time_show"
+                                app:boxCornerRadiusBottomEnd="15dp"
+                                app:boxCornerRadiusTopStart="15dp">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/ed_iso_tym"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="@color/black"
+                                    android:maxLines="1" />
+
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                        </TableRow>
+
+                        <TableRow>
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                app:boxCornerRadiusBottomEnd="15dp"
+                                android:visibility="visible"
+                                android:id="@+id/iso_grain_show"
+                                app:boxCornerRadiusTopStart="15dp"
+                                android:hint="Grain Remarks">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/ed_grain_remark"
+                                    android:layout_width="match_parent"
+                                    android:textColor="@color/black"
+                                    android:layout_height="wrap_content"
+                                    android:maxLines="1" />
+
+                            </com.google.android.material.textfield.TextInputLayout>
+                        </TableRow>
+
+                        <TableRow>
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="4dp"
+                                android:layout_weight="1"
+                                android:hint="Border rows"
+                                app:boxCornerRadiusBottomEnd="15dp"
+                                app:boxCornerRadiusTopStart="15dp">
+
+                                <AutoCompleteTextView
+                                    android:id="@+id/ed_border_rws"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:inputType="numberDecimal"
+                                    android:textSize="@dimen/_12sdp"
+                                    android:textColor="@color/black"
+                                    android:maxLines="1" />
+
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="4dp"
+                                android:layout_marginLeft="@dimen/_4sdp"
+                                android:layout_weight="1"
+                                android:hint="Wind direction"
+                                app:boxCornerRadiusBottomEnd="15dp"
+                                app:boxCornerRadiusTopStart="15dp">
+
+                                <AutoCompleteTextView
+                                    android:id="@+id/ed_wind_direction"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:inputType="none"
+                                    android:textColor="@color/black"
+                                    android:textSize="@dimen/_12sdp"
+                                    android:maxLines="1" />
+
+                            </com.google.android.material.textfield.TextInputLayout>
+
+
+                        </TableRow>
+
+
+                        <TableRow>
+                            <com.google.android.material.textfield.TextInputLayout
+                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                app:boxCornerRadiusBottomEnd="15dp"
+                                app:boxCornerRadiusTopStart="15dp"
+                                android:hint="Male stand ">
+
+                                <AutoCompleteTextView
+                                    android:id="@+id/ed_male_stand"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:inputType="none"
+                                    android:textSize="@dimen/_12sdp"
+                                    android:textColor="@color/black"
+                                    android:maxLines="1" />
+
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:layout_marginLeft="@dimen/_5sdp"
+                                app:boxCornerRadiusBottomEnd="15dp"
+                                android:visibility="gone"
+                                app:boxCornerRadiusTopStart="15dp"
+                                android:hint="Lot Recommend ">
+
+                                <AutoCompleteTextView
+                                    android:id="@+id/ac_lot_recommend"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:editable="false"
+                                    android:inputType="none"
+                                    android:textSize="@dimen/_12sdp"
+                                    android:textColor="@color/black"
+                                    android:maxLines="1" />
+
+                            </com.google.android.material.textfield.TextInputLayout>
+                        </TableRow>
+
+                        <TableRow>
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                app:boxCornerRadiusBottomEnd="15dp"
+                                android:visibility="visible"
+                                android:id="@+id/actual_date"
+                                app:boxCornerRadiusTopStart="15dp"
+                                android:hint="Actual Date">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/ed_actual_date_qc"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="@color/black"
+                                    android:drawableRight="@drawable/ic_baseline_today_24"
+                                    android:drawableTint="@color/colorPrimary"
+                                    android:maxLines="1" />
+
+                            </com.google.android.material.textfield.TextInputLayout>
+                        </TableRow>
+
+                        <TableRow
+                            android:layout_marginTop="4dp"
+                            android:layout_marginBottom="4dp"
+                            android:visibility="gone">
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:layout_marginLeft="@dimen/_4sdp"
+                                app:boxCornerRadiusBottomEnd="15dp"
+                                app:boxCornerRadiusTopStart="15dp"
+                                android:hint="Seed Setting">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/ed_seed_setting"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:editable="false"
+                                    android:maxLines="1" />
+
+                            </com.google.android.material.textfield.TextInputLayout>
+
+
+
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:layout_marginLeft="@dimen/_5sdp"
+                                app:boxCornerRadiusBottomEnd="15dp"
+                                app:boxCornerRadiusTopStart="15dp"
+                                android:hint="Seed Setting %">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/ed_seed_stng_per"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:maxLines="1" />
+
+                            </com.google.android.material.textfield.TextInputLayout>
+                        </TableRow>
+
+
+                        <TableRow
+                            android:visibility="gone"
+                            android:layout_marginTop="@dimen/_4sdp">
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="4dp"
+                                android:layout_weight="1"
+                                android:hint="Male Receipt No"
+                                app:boxCornerRadiusBottomEnd="15dp"
+                                app:boxCornerRadiusTopStart="15dp">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/receipt_no_male"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:enabled="false"
+                                    android:editable="false"
+                                    android:textSize="@dimen/_12sdp"
+                                    android:maxLines="2" />
+
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/_4sdp"
+                                android:layout_weight="1"
+                                android:hint="Female Receipt No"
+                                app:boxCornerRadiusBottomEnd="15dp"
+                                app:boxCornerRadiusTopStart="15dp">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/receipt_no_female"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:editable="false"
+                                    android:enabled="false"
+                                    android:textSize="@dimen/_12sdp"
+                                    android:maxLines="1" />
+
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                        </TableRow>
+
+
+                        <TableRow
+                            android:visibility="gone">
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="4dp"
+                                android:layout_weight="1"
+                                android:hint="Other Receipt No"
+                                app:boxCornerRadiusBottomEnd="15dp"
+                                app:boxCornerRadiusTopStart="15dp">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/receipt_no_other"
+                                    android:layout_width="match_parent"
+                                    android:enabled="false"
+                                    android:editable="false"
+                                    android:textSize="@dimen/_12sdp"
+                                    android:layout_height="wrap_content"
+                                    android:maxLines="2" />
+
+                            </com.google.android.material.textfield.TextInputLayout>
+                        </TableRow>
+
+
+
+
+                        <TableRow
+                            android:orientation="horizontal"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginBottom="4dp"
+                            android:layout_width="match_parent">
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:orientation="vertical"
+                                android:layout_height="wrap_content">
+
+                            <com.google.android.material.chip.Chip
+                                android:id="@+id/add_attachment"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/_40sdp"
+                                android:layout_marginLeft="@dimen/_4sdp"
+                                app:chipStrokeColor="@color/colorPrimary"
+                                app:chipStrokeWidth="0.5dp"
+                                app:rippleColor="@color/chip_ripple"
+                                android:text="Add Image"
+                                android:textColor="@color/colorPrimary"
+                                app:chipBackgroundColor="@color/my_app_background_color">
+
+                            </com.google.android.material.chip.Chip>
+
+                                <com.google.android.material.chip.Chip
+                                    android:id="@+id/clear_img"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="@dimen/_4sdp"
+                                    app:chipStrokeColor="@color/my_app_error_color"
+                                    app:chipStrokeWidth="0.5dp"
+                                    app:rippleColor="@color/profilePrimaryDark"
+                                    android:text="Dlt img."
+                                    android:visibility="gone"
+                                    app:chipIcon="@drawable/delete"
+                                    app:chipIconTint="@color/my_app_error_color"
+                                    android:textColor="@color/my_app_error_color"
+                                    app:chipBackgroundColor="@color/my_app_background_color">
+
+                                </com.google.android.material.chip.Chip>
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/image_layout"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:orientation="vertical"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:visibility="gone"
+                                android:layout_height="wrap_content">
+
+
+                                <androidx.cardview.widget.CardView
+                                    android:id="@+id/card_layout"
+                                    android:layout_width="wrap_content"
+                                    app:cardCornerRadius="@dimen/_5sdp"
+                                    android:layout_marginRight="@dimen/_5sdp"
+                                    android:layout_marginLeft="@dimen/_15sdp"
+                                    android:layout_height="wrap_content">
+
+                                <FrameLayout
+                                    android:layout_width="match_parent"
+                                    android:visibility="visible"
+                                    android:id="@+id/frame_layout"
+                                    android:layout_height="wrap_content">
+
+                                    <ImageView
+                                        android:id="@+id/image_view"
+                                        android:layout_width="match_parent"
+                                        android:scaleType="fitXY"
+                                        android:visibility="gone"
+                                        android:layout_height="@dimen/_120sdp"/>
+                                </FrameLayout>
+
+                                </androidx.cardview.widget.CardView>
+
+
+                            </LinearLayout>
+
+
+                        </TableRow>
+
+                    </TableLayout>
+
+                </LinearLayout>
+            </ScrollView>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/bottom_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/my_app_background_color"
+        android:orientation="vertical">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="6dp"
+            android:background="@drawable/top_shadow_gradient">
+
+        </View>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btn_cmplt"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:text="Complete"
+                android:visibility="gone"
+                android:textAllCaps="false"
+                android:textColor="@color/colorPrimary">
+            </Button>
+
+            <Button
+                android:id="@+id/btn_save_record"
+                style="@style/Widget.MaterialComponents.Button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:visibility="gone"
+                android:text="Save Record"
+                android:textAllCaps="false">
+
+            </Button>
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>

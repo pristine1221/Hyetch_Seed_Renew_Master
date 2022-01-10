@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:gravity="center"
+    android:id="@+id/custome_loading"
+    android:orientation="vertical">
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/prograss_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:background="@drawable/custome_loading_backgraund"
+            android:orientation="vertical">
+
+            <com.wang.avi.AVLoadingIndicatorView
+                android:id="@+id/avi"
+                android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/AVLoadingIndicatorView"
+            android:visibility="visible"
+            app:indicatorName="BallClipRotateMultipleIndicator"
+            app:indicatorColor="@color/colorPrimaryDark"
+            />
+
+        <!--   <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/loading_progress_bar"
+                android:layout_width="@dimen/_40sdp"
+                app:srcCompat="@drawable/ic_quarter_circle_loading"
+                android:layout_height="@dimen/_40sdp"/>
+            -->
+        </LinearLayout>
+
+    </FrameLayout>
+
+</LinearLayout>

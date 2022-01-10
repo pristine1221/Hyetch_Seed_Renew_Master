@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+
+    android:layout_height="wrap_content">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:padding="@dimen/_5sdp"
+            android:layout_height="wrap_content">
+
+            <TableRow>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/product_sans_regular"
+                    android:textColor="@color/dark_gray"
+                    android:text="Salary mnth: " />
+
+                <TextView
+                    android:id="@+id/salary_mnth"
+                    android:fontFamily="@font/product_sans_regular"
+                    android:textColor="@color/black"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+                <TextView
+
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/product_sans_regular"
+                    android:textColor="@color/dark_gray"
+                    android:text="Salary Amt.: " />
+
+                <TextView
+                    android:id="@+id/tv_salary_amt"
+                    android:fontFamily="@font/product_sans_regular"
+                    android:textColor="@color/black"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/product_sans_regular"
+                    android:textColor="@color/dark_gray"
+                    android:text="Remarks : " />
+
+                <TextView
+                        android:id="@+id/tv_remarks"
+                    android:fontFamily="@font/product_sans_regular"
+                    android:textColor="@color/black"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_gravity="right"
+                android:gravity="right">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/product_sans_regular"
+                    android:textColor="@color/dark_gray"
+                    android:text="Created on: " />
+
+                <TextView
+                    android:id="@+id/tv_date_"
+                    android:fontFamily="@font/product_sans_regular"
+                    android:textColor="@color/black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </TableRow>
+        </TableLayout>
+
+
+
+    </LinearLayout>
+
+
+
+
+
+
+</LinearLayout>

@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/gray4">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="3dp"
+        android:layout_marginTop="3dp"
+        android:layout_marginRight="3dp"
+        android:orientation="vertical"
+        android:paddingLeft="5dp"
+        android:background="@drawable/border_file_white"
+        android:paddingTop="5dp"
+        android:paddingRight="5dp">
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TableRow>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/product_sans_bold"
+                    android:text="Emp Name: "
+                    android:textColor="@color/black"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/tv_emp_name"
+                    style="@style/TextAppearance.MaterialComponents.Subtitle2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textColor="@color/profileEditTextColor"
+                    android:fontFamily="@font/product_sans_regular"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/product_sans_bold"
+                    android:text="No Of Days: "
+                    android:textColor="@color/black"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/tv_days"
+                    style="@style/TextAppearance.MaterialComponents.Subtitle2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textColor="@color/profileEditTextColor"
+                    android:fontFamily="@font/product_sans_regular"
+                    android:textSize="12sp" />
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/product_sans_bold"
+                    android:text="StartDate:   "
+                    android:textColor="@color/black"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/tv_start_date"
+                    style="@style/TextAppearance.MaterialComponents.Subtitle2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textColor="@color/profileEditTextColor"
+                    android:fontFamily="@font/product_sans_regular"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/product_sans_bold"
+                    android:text="EndDate:   "
+                    android:textColor="@color/black"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/tv_end_date"
+                    style="@style/TextAppearance.MaterialComponents.Subtitle2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textColor="@color/profileEditTextColor"
+                    android:fontFamily="@font/product_sans_regular"
+                    android:textSize="12sp" />
+
+            </TableRow>
+
+
+            <TableRow>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/product_sans_bold"
+                    android:text="Reason:   "
+                    android:textColor="@color/black"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/tv_reason"
+                    style="@style/TextAppearance.MaterialComponents.Subtitle2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/product_sans_regular"
+                    android:textColor="@color/profileEditTextColor"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/product_sans_bold"
+                    android:text="Type:   "
+                    android:textColor="@color/profileEditTextColor"
+                    android:visibility="gone"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/tv_type"
+                    style="@style/TextAppearance.MaterialComponents.Subtitle2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:visibility="gone"
+                    android:fontFamily="@font/product_sans_regular"
+                    android:textSize="12sp" />
+
+            </TableRow>
+        </TableLayout>
+
+        <LinearLayout
+            android:id="@+id/action_linear_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-10dp"
+            android:gravity="bottom|end"
+            android:orientation="horizontal"
+            android:paddingBottom="2dp">
+
+            <TextView
+                android:id="@+id/leave_pending_status"
+                style="@style/TextAppearance.MaterialComponents.Caption"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginTop="8dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/product_sans_regular"
+                android:gravity="bottom|end"
+                android:text=""
+                android:textSize="10sp" />
+
+            <ImageView
+                android:id="@+id/leave_pending_approval"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginRight="5dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:src="@drawable/ic_baseline_delete_forever_24"
+                android:visibility="gone"/>
+
+            <ImageView
+                android:id="@+id/attendance_delete"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginRight="5dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:src="@drawable/approve_order_reject_icon"
+                android:visibility="gone"/>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp" />
+
+        <LinearLayout
+            android:id="@+id/lineylayouAddRemove"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-10dp"
+            android:gravity="bottom|end"
+            android:orientation="horizontal"
+            android:paddingBottom="2dp">
+
+            <TextView
+                android:id="@+id/tv_travel_status"
+                style="@style/TextAppearance.MaterialComponents.Caption"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginRight="20dp"
+                android:fontFamily="@font/product_sans_regular"
+                android:gravity="center|end"
+                android:text="Action:"
+                android:textSize="10sp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/approve_order"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginRight="15dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:src="@drawable/approve_order_icon"
+                android:visibility="gone"/>
+
+            <ImageView
+                android:id="@+id/reject_order"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginRight="5dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:layout_marginBottom="10dp"
+                android:src="@drawable/approve_order_reject_icon"
+                android:visibility="gone"/>
+
+            <ImageView
+                android:id="@+id/approve_edit"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginRight="15dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:gravity="center|end"
+                android:src="@drawable/view"/>
+
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

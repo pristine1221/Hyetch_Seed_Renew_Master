@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="@dimen/_260sdp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        app:cardBackgroundColor="@color/my_app_background_color">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="@dimen/_5sdp"
+            android:orientation="vertical">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/my_app_background_color"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/_5sdp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:gravity="start">
+
+                        <TextView
+                            android:id="@+id/title_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/product_sans_regular"
+                            android:text="Do you really want to delete this item ?"
+                            android:textSize="@dimen/_12sdp"
+                            android:textColor="@color/profileEditTextColor" />
+
+                        <TextView
+                            android:id="@+id/dist_code"
+                            android:textSize="@dimen/_10sdp"
+                            android:layout_width="match_parent"
+                            android:paddingTop="@dimen/_2sdp"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/product_sans_regular"
+                            android:textColor="@color/black_overlay" />
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:id="@+id/expenses_add_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/my_app_background_color"
+                    android:orientation="vertical"
+                    android:padding="5dp">
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="bottom"
+                            android:layout_marginLeft="4dp"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:layout_marginRight="4dp"
+                            android:layout_marginBottom="@dimen/_10sdp"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <Button
+                                android:id="@+id/cancel_btn"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_regular"
+                                android:text="Cancel"
+                                android:backgroundTint="@color/my_app_background_color"
+                                android:textColor="@color/colorPrimaryDark"
+                                app:strokeWidth="0.5dp"
+                                app:strokeColor="@color/gray4"
+                                android:textAllCaps="false"
+                                android:textSize="12dp" />
+
+                            <Button
+                                android:id="@+id/ok_btn"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:layout_marginLeft="@dimen/_8sdp"
+                                android:fontFamily="@font/product_sans_regular"
+                                android:text="Ok"
+                                android:textAllCaps="false"
+                                android:textSize="12dp" />
+                        </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+</LinearLayout>

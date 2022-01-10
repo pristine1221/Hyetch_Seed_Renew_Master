@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="horizontal"
+    android:background="@color/gray4"
+    android:layout_height="wrap_content">
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_weight="1"
+        android:padding="5dp"
+        android:layout_height="wrap_content">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:paddingLeft="@dimen/_5sdp"
+            android:paddingRight="@dimen/_2sdp"
+            android:paddingTop="@dimen/_2sdp"
+            android:paddingBottom="@dimen/_2sdp"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Scheduler no : "
+                android:textStyle="bold"
+                android:textColor="@color/profileEditTextColor"
+                android:textSize="@dimen/_10sdp" />
+
+            <TextView
+                android:id="@+id/scheduler_no"
+                android:layout_weight="3.0"
+                android:textSize="@dimen/_10ssp"
+                android:layout_width="0dp"
+                android:fontFamily="@font/product_sans_regular"
+                android:textColor="@color/black"
+                android:paddingLeft="@dimen/_5sdp"
+                android:layout_height="wrap_content"/>
+
+        </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:paddingLeft="@dimen/_5sdp"
+            android:paddingRight="@dimen/_2sdp"
+            android:paddingTop="@dimen/_2sdp"
+            android:paddingBottom="@dimen/_2sdp"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Season : "
+                android:textStyle="bold"
+                android:textColor="@color/profileEditTextColor"
+                android:textSize="@dimen/_10sdp" />
+
+            <TextView
+                android:id="@+id/tv_season"
+                android:layout_weight="1"
+                android:textSize="@dimen/_10ssp"
+                android:layout_width="0dp"
+                android:fontFamily="@font/product_sans_regular"
+                android:textColor="@color/black"
+                android:paddingLeft="@dimen/_5sdp"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Season no. : "
+                android:textStyle="bold"
+                android:textColor="@color/profileEditTextColor"
+                android:textSize="@dimen/_10sdp" />
+
+            <TextView
+                android:id="@+id/season_name"
+                android:layout_weight="1"
+                android:textSize="@dimen/_10ssp"
+                android:layout_width="0dp"
+                android:fontFamily="@font/product_sans_regular"
+                android:textColor="@color/black"
+                android:paddingLeft="@dimen/_5sdp"
+                android:layout_height="wrap_content"/>
+        </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:paddingLeft="@dimen/_5sdp"
+            android:paddingRight="@dimen/_2sdp"
+            android:paddingTop="@dimen/_2sdp"
+            android:paddingBottom="@dimen/_2sdp"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Prod. center : "
+                android:textStyle="bold"
+                android:textColor="@color/profileEditTextColor"
+                android:textSize="@dimen/_10sdp" />
+
+            <TextView
+                android:id="@+id/tv_prod_no"
+                android:layout_weight="1"
+                android:textSize="@dimen/_10ssp"
+                android:layout_width="0dp"
+                android:fontFamily="@font/product_sans_regular"
+                android:textColor="@color/black"
+                android:paddingLeft="@dimen/_5sdp"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Date : "
+                android:textStyle="bold"
+                android:textColor="@color/profileEditTextColor"
+                android:textSize="@dimen/_10sdp"
+
+                />
+
+            <TextView
+                android:id="@+id/date_"
+                android:layout_weight="1"
+                android:textSize="@dimen/_10ssp"
+                android:layout_width="0dp"
+                android:fontFamily="@font/product_sans_regular"
+                android:textColor="@color/black"
+                android:paddingLeft="@dimen/_5sdp"
+                android:layout_height="wrap_content"/>
+        </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/_5sdp"
+            android:paddingRight="@dimen/_2sdp"
+            android:paddingTop="@dimen/_2sdp"
+            android:paddingBottom="@dimen/_2sdp">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Status : "
+                android:textStyle="bold"
+                android:textColor="@color/profileEditTextColor"
+                android:textSize="@dimen/_10sdp" />
+
+            <TextView
+                android:id="@+id/status"
+                android:layout_weight="3.0"
+                android:textSize="@dimen/_10ssp"
+                android:layout_width="0dp"
+                android:fontFamily="@font/product_sans_regular"
+                android:textColor="@color/black"
+                android:paddingLeft="@dimen/_5sdp"
+                android:layout_height="wrap_content"/>
+
+
+
+        </TableRow>
+    </TableLayout>
+
+
+    <ImageView
+        android:id="@+id/arrow_up_down"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical" />
+
+
+</LinearLayout>

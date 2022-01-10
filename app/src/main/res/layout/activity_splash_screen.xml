@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent"
+    android:orientation="vertical">
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_weight="1"
+        android:background="@color/my_app_background_color"
+        android:layout_height="0dp">
+
+        <ImageView
+            android:id="@+id/pristineImage"
+            android:src="@drawable/new_splsh_img"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:adjustViewBounds="false"/>
+
+        <LinearLayout
+            android:layout_width="@dimen/_100sdp"
+            android:orientation="vertical"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="50dp"
+            android:layout_gravity="center_vertical|end"
+            android:layout_height="match_parent">
+
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_120sdp"
+                android:src="@drawable/new_logo_hytch"
+                android:scaleType="fitCenter"
+                android:adjustViewBounds="true"/>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:orientation="vertical"
+                android:layout_gravity="center_vertical"
+                android:layout_marginTop="@dimen/_120sdp"
+                android:layout_height="wrap_content">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:text="Core Values:"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                android:paddingLeft="12dp"
+                android:textColor="@color/colorPrimaryDark"
+                android:layout_height="wrap_content"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:paddingTop="5dp"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="7dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/squar_dot_drawable"
+                    android:layout_height="7dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:text="Integrity"
+                    android:textSize="14dp"
+                    android:alpha="1"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="8dp"
+                    android:textColor="@color/colorPrimary"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:paddingTop="5dp"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="7dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/squar_dot_drawable"
+                    android:layout_height="7dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:text="Excellence"
+                    android:textSize="14dp"
+                    android:alpha="1"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="8dp"
+                    android:textColor="@color/colorPrimary"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:paddingTop="5dp"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="7dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/squar_dot_drawable"
+                    android:layout_height="7dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:text="Professionalism"
+                    android:textSize="14dp"
+                    android:alpha="1"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="8dp"
+                    android:textColor="@color/colorPrimary"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:paddingTop="5dp"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="7dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/squar_dot_drawable"
+                    android:layout_height="7dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:text="Optimism"
+                    android:textSize="14dp"
+                    android:alpha="1"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="8dp"
+                    android:textColor="@color/colorPrimary"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </FrameLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:layout_marginBottom="@dimen/_5sdp"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:layout_width="@dimen/_25sdp"
+            android:src="@mipmap/pristine_logo"
+            android:layout_gravity="center"
+            android:layout_height="@dimen/_25sdp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/_10sdp"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:fontFamily="@font/product_sans_regular"
+            android:text="Powered by Pristine"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_11sdp"
+            android:textStyle="italic" />
+
+
+    </LinearLayout>
+
+</LinearLayout>

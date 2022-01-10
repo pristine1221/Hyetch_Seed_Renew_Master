@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.example.pristineseed">
+
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission
+        android:name="android.permission.CAMERA"
+        android:required="true" />
+    <uses-permission
+        android:name="android.permission.GET_ACCOUNTS"
+        android:required="true" />
+    <uses-permission
+        android:name="android.permission.READ_PROFILE"
+        android:required="true" />
+    <uses-permission
+        android:name="android.permission.READ_CONTACTS"
+        android:required="true" />
+    <uses-permission
+        android:name="android.permission.INTERNET"
+        android:required="true" />
+    <uses-permission
+        android:name="android.permission.ACCESS_NETWORK_STATE"
+        android:required="true" />
+    <uses-permission
+        android:name="android.permission.ACCESS_WIFI_STATE"
+        android:required="true" />
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:required="true" />
+    <uses-permission
+        android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:required="true" />
+    <uses-permission
+        android:name="android.permission.WRITE_SYNC_SETTINGS"
+        android:required="true" />
+    <uses-permission
+        android:name="android.permission.INSTALL_PACKAGES"
+        android:required="true"
+        tools:ignore="ProtectedPermissions" />
+    <uses-permission
+        android:name="android.permission.REQUEST_INSTALL_PACKAGES"
+        android:required="true" />
+    <uses-permission
+        android:name="android.permission.READ_PHONE_STATE"
+        android:required="true" /> <!-- map permission -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES" />
+
+    <application
+        android:allowBackup="true"
+        android:clearTaskOnLaunch="true"
+        android:icon="@mipmap/hytech_logo"
+        android:label="@string/app_name"
+        android:largeHeap="true"
+        android:requestLegacyExternalStorage="true"
+        android:roundIcon="@mipmap/hytech_logo"
+        android:supportsRtl="true"
+        android:theme="@style/MainTheme"
+        android:usesCleartextTraffic="true">
+        <activity
+            android:name=".ui.login2.Login2Activity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.dashboard.newTheam.GogogleMapShowingFragment"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.bootmMainScreen.BottomMainActivity"
+            android:label="@string/title_activity_bottom_main"
+            android:windowSoftInputMode="adjustResize" /> <!-- android:theme="@style/AppTheme.NoActionBar" -->
+        <activity
+            android:name=".ui.slider_carousel.SliderCarouselActivity"
+            android:label="@string/title_activity_bottom_main"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.splashScreen.SplashScreenActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Base">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".LoginActivity"
+            android:screenOrientation="portrait" />
+
+        <service
+            android:name=".firebase_notification_service.MyNotification"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider>
+
+        <service
+            android:name=".ui.dashboard.newTheam.ServiceBg"
+            android:enabled="true"
+            android:exported="false"
+            android:stopWithTask="false" />
+
+        <receiver
+            android:name=".ui.dashboard.newTheam.Restarter"
+            android:enabled="true"
+            android:exported="false"
+            android:label="RestartServiceWhenStopped" />
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@drawable/default_img" />
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_color"
+            android:resource="@color/colorAccent" />
+    </application>
+
+</manifest>

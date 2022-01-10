@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="5dp"
+            android:background="@color/my_app_background_color"
+            android:elevation="5dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/product_sans_bold"
+                        android:maxLines="1"
+                        android:padding="6dp"
+                        android:text="FS return List"
+                        android:textColor="@color/black"
+                        android:textSize="15sp" />
+
+                    <com.google.android.material.chip.ChipGroup
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="5dp">
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/chip_filter_icon"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:elevation="2dp"
+                            app:chipBackgroundColor="@color/my_app_background_color"
+                            app:chipEndPadding="4dp"
+                            app:chipIcon="@drawable/filter_icon"
+                            app:chipIconTint="@color/colorPrimary"
+                            app:chipStartPadding="4dp"
+                            app:chipStrokeColor="@color/chip_border"
+                            app:chipStrokeWidth="1dp"
+                            app:rippleColor="@color/chip_ripple"
+                            app:textEndPadding="0dp"
+                            app:textStartPadding="0dp"/>
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/add_newItem"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:elevation="2dp"
+                            android:fontFamily="@font/product_sans_bold"
+                            android:text="Add"
+                            android:textColor="@color/colorPrimary"
+                            android:textStyle="bold"
+                            app:chipBackgroundColor="@color/my_app_background_color"
+                            app:chipIcon="@drawable/ic_baseline_add_24"
+                            app:chipIconTint="@color/colorPrimary"
+                            app:chipStrokeColor="@color/chip_border"
+                            app:chipStrokeWidth="1dp"
+                            app:rippleColor="@color/chip_ripple"/>
+                    </com.google.android.material.chip.ChipGroup>
+                </LinearLayout>
+
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#72AAAAAA"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/imageView"/>
+
+          <!--      <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+                    android:id="@+id/swipe_refresh_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">-->
+
+
+                <!--</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>-->
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+        <ListView
+            android:id="@+id/listview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:dividerHeight="1dp">
+
+        </ListView>
+
+    </LinearLayout>
+
+
+</FrameLayout>

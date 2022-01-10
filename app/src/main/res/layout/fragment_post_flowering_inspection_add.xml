@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.inspection.planting.createplanting.CreatePlantingFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:background="@color/my_app_background_color"
+            android:elevation="5dp"
+            app:cardCornerRadius="3dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/back_button_go_topreviousPage"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="5dp"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:clickable="true"
+                        android:src="@drawable/ic_arrow_back_black_24dp"></ImageView>
+
+                    <TextView
+                        android:id="@+id/tv_header_title_text"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="5dp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/product_sans_bold"
+                        android:maxLines="1"
+                        android:padding="6dp"
+                        android:textColor="@color/black"
+                        android:textSize="15sp" />
+
+                    <com.google.android.material.chip.ChipGroup
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="5dp">
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/complete_header"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:elevation="2dp"
+                            android:fontFamily="@font/product_sans_regular"
+                            android:text="Complete"
+                            android:textColor="@color/colorPrimary"
+                            android:textStyle="bold"
+                            android:visibility="gone"
+                            app:chipBackgroundColor="@color/my_app_background_color"
+                            app:chipIcon="@drawable/ic_baseline_done_all_24"
+                            app:chipIconTint="@color/colorPrimary"
+                            app:chipStrokeColor="@color/chip_border"
+                            app:chipStrokeWidth="1dp"
+                            app:rippleColor="@color/chip_ripple"></com.google.android.material.chip.Chip>
+                    </com.google.android.material.chip.ChipGroup>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_weight="1"
+                    android:background="#72AAAAAA"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/imageView"></View>
+
+                <LinearLayout
+                    android:id="@+id/header_create_section"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="10dp">
+
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="4dp"
+                        android:layout_weight="1"
+                        android:hint="Production Lot No"
+                        app:boxCornerRadiusBottomEnd="15dp"
+                        app:boxCornerRadiusTopStart="15dp">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edit_production_lot_not"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:maxLines="1" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.chip.ChipGroup
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="4dp">
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/chip_create_planting_header"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:elevation="2dp"
+                            android:fontFamily="@font/product_sans_regular"
+                            android:text="Add Lot"
+                            android:textColor="@color/colorPrimary"
+                            android:textStyle="bold"
+                            app:chipBackgroundColor="@color/my_app_background_color"
+                            app:chipIcon="@drawable/ic_add_black"
+                            app:chipIconTint="@color/colorPrimary"
+                            app:chipStrokeColor="@color/chip_border"
+                            app:chipStrokeWidth="1dp"
+                            app:rippleColor="@color/chip_ripple"></com.google.android.material.chip.Chip>
+                    </com.google.android.material.chip.ChipGroup>
+                </LinearLayout>
+
+                <TableLayout
+                    android:id="@+id/planting_detail_header_section"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:visibility="gone">
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="2dp">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.6"
+                            android:fontFamily="@font/product_sans_bold"
+                            android:text="Plant No : "
+                            android:textColor="@color/profileEditTextColor"
+                            android:textSize="13sp" />
+
+                        <TextView
+                            android:id="@+id/tv_palnting_no"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/product_sans_regular"
+                            android:text="Plant/001"
+                            android:textColor="@color/black"
+                            android:textSize="13sp" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.4"
+                            android:fontFamily="@font/product_sans_bold"
+                            android:text="Date:"
+                            android:textColor="@color/profileEditTextColor"
+                            android:textSize="13sp" />
+
+                        <TextView
+                            android:id="@+id/tv_date"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/product_sans_regular"
+                            android:text="12-12-2020"
+                            android:textColor="@color/black"
+                            android:textSize="13sp" />
+
+                    </TableRow>
+
+                    <TableRow>
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.6"
+                            android:fontFamily="@font/product_sans_bold"
+                            android:text="Insp. No : "
+                            android:textColor="@color/profileEditTextColor"
+                            android:textSize="13sp" />
+
+                        <TextView
+                            android:id="@+id/tv_inpection_no"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/product_sans_regular"
+                            android:text="INSP6-001"
+                            android:textColor="@color/black"
+                            android:textSize="13sp" />
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.4"
+                            android:fontFamily="@font/product_sans_bold"
+                            android:text="Season: "
+                            android:textColor="@color/profileEditTextColor"
+                            android:textSize="13sp" />
+
+                        <TextView
+                            android:id="@+id/arrno_season_code"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/product_sans_regular"
+                            android:text="Season-Name"
+                            android:textColor="@color/black"
+                            android:textSize="13sp" />
+
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="2dp">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.25"
+                            android:fontFamily="@font/product_sans_bold"
+                            android:text="Org. Name:"
+                            android:textColor="@color/profileEditTextColor"
+                            android:textSize="13sp" />
+
+                        <TextView
+                            android:id="@+id/org_no_contact_no"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/product_sans_regular"
+                            android:text="Organizer Test ( ORG-1 ) , 8506988092"
+                            android:textColor="@color/black"
+                            android:textSize="13sp" />
+
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="2dp">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.25"
+                            android:fontFamily="@font/product_sans_bold"
+                            android:text="Hybrid : "
+                            android:textColor="@color/profileEditTextColor"
+                            android:textSize="13sp" />
+
+                        <TextView
+                            android:id="@+id/tv_Hybrid"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/product_sans_regular"
+                            android:text="Hybrid Test"
+                            android:textColor="@color/black"
+                            android:textSize="13sp" />
+
+                    </TableRow>
+                </TableLayout>
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/line_cardview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:background="@color/my_app_background_color"
+            android:elevation="5dp"
+            android:visibility="gone"
+            app:cardCornerRadius="3dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+                    android:id="@+id/swipe_refresh_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ListView
+                        android:id="@+id/listview"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:dividerHeight="1dp"></ListView>
+                </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+    </LinearLayout>
+</FrameLayout>

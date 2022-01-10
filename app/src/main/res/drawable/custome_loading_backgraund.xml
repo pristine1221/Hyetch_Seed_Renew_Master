@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="oval">
+    <corners android:radius="7dp" />
+    <gradient
+        android:angle="45"
+        android:centerX="35%"
+        android:endColor="@color/my_app_background_color"
+        android:startColor="@color/my_app_background_color"
+        android:centerColor="@color/my_app_background_color"
+        android:type="linear" />
+
+    <size android:width="@dimen/_35sdp"
+        android:height="@dimen/_35sdp"/>
+
+    <!--troke android:color="@color/colorPrimaryDark" android:width="@dimen/_1sdp"/>-->
+</shape>

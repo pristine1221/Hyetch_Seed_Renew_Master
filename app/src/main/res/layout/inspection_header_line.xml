@@ -1,0 +1,953 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/insepction_lot_detail_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.header_line.HeaderLineFragment">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/my_app_background_color"
+            android:orientation="vertical">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="@dimen/_5sdp"
+                        android:paddingBottom="@dimen/_5sdp"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/back_btn"
+                            android:layout_width="@dimen/_30sdp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center|start"
+                            android:layout_marginLeft="8dp"
+                            android:background="@drawable/ripple_effect_widget"
+                            android:src="@drawable/green_back_arrow"
+                            android:visibility="gone" />
+
+                        <TextView
+                            android:id="@+id/tv_header_title"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/product_sans_bold"
+                            android:maxLines="1"
+                            android:padding="7dp"
+                            android:text="Header Detail"
+                            android:textColor="@color/black"
+                            android:textSize="15dp" />
+
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_2sdp"
+                        android:layout_weight="1"
+                        android:background="@color/gray4"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/imageView">
+
+                    </View>
+
+                    <TableLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp">
+
+                        <TableRow
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingTop="3dp"
+                            android:paddingBottom="3dp">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_bold"
+                                android:text="Scheduler no :"
+                                android:textColor="@color/dark_gray"
+                                android:textSize="13dp">
+
+                            </TextView>
+
+                            <TextView
+                                android:id="@+id/schduler_no"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_regular"
+                                android:textColor="@color/profileEditTextColor"
+                                android:textSize="14dp">
+
+                            </TextView>
+
+
+                        </TableRow>
+
+                        <TableRow
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingTop="3dp"
+                            android:paddingBottom="3dp">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_bold"
+                                android:text="User id  :"
+                                android:textColor="@color/dark_gray"
+                                android:textSize="13dp">
+
+                            </TextView>
+
+                            <TextView
+                                android:id="@+id/user_id"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_regular"
+                                android:textColor="@color/profileEditTextColor"
+                                android:textSize="14dp">
+
+                            </TextView>
+                        </TableRow>
+
+
+                        <TableRow
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingTop="3dp"
+                            android:paddingBottom="3dp">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_bold"
+                                android:text="Season :"
+                                android:textColor="@color/dark_gray"
+                                android:textSize="13dp">
+
+                            </TextView>
+
+                            <TextView
+                                android:id="@+id/season"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_regular"
+                                android:textColor="@color/profileEditTextColor"
+                                android:textSize="14dp">
+
+                            </TextView>
+                        </TableRow>
+
+                        <TableRow
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingTop="3dp"
+                            android:visibility="gone"
+                            android:paddingBottom="3dp">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_bold"
+                                android:text="Season name :"
+                                android:textColor="@color/dark_gray"
+                                android:textSize="13dp"></TextView>
+
+                            <TextView
+                                android:id="@+id/season_name"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_regular"
+                                android:textColor="@color/profileEditTextColor"
+                                android:textSize="14dp">
+
+                            </TextView>
+
+                        </TableRow>
+
+                        <TableRow
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingTop="3dp"
+                            android:paddingBottom="3dp"
+                            android:visibility="gone">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_bold"
+                                android:text="Organizer Name2 :"
+                                android:textColor="@color/dark_gray"
+                                android:textSize="13dp">
+
+                            </TextView>
+
+                            <TextView
+                                android:id="@+id/orgnizer_name_2"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_regular"
+                                android:textColor="@color/profileEditTextColor"
+                                android:textSize="14dp">
+
+                            </TextView>
+
+                        </TableRow>
+
+                        <TableRow
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingTop="3dp"
+                            android:paddingBottom="3dp">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_bold"
+                                android:text="Production center :"
+                                android:textColor="@color/dark_gray"
+                                android:textSize="13dp">
+
+                            </TextView>
+
+                            <TextView
+                                android:id="@+id/prod_center"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_regular"
+                                android:textColor="@color/profileEditTextColor"
+                                android:textSize="14dp">
+
+                            </TextView>
+                        </TableRow>
+
+
+                        <TableRow
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingTop="3dp"
+                            android:paddingBottom="3dp"
+                            android:visibility="gone">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_bold"
+                                android:text="Organizer Address 2 :"
+                                android:textColor="@color/dark_gray"
+                                android:textSize="13dp">
+
+                            </TextView>
+
+                            <TextView
+                                android:id="@+id/organizer_add_2"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_regular"
+                                android:textColor="@color/profileEditTextColor"
+                                android:textSize="14dp">
+
+                            </TextView>
+                        </TableRow>
+
+                        <TableRow
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingTop="3dp"
+                            android:visibility="gone"
+                            android:paddingBottom="3dp">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_bold"
+                                android:text="Prod. center name :"
+                                android:textColor="@color/dark_gray"
+                                android:textSize="13dp">
+
+                            </TextView>
+
+                            <TextView
+                                android:id="@+id/p_center_name"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_regular"
+                                android:textColor="@color/profileEditTextColor"
+                                android:textSize="14dp">
+
+                            </TextView>
+                        </TableRow>
+
+
+                        <TableRow
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingTop="3dp"
+                            android:paddingBottom="3dp">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_bold"
+                                android:text="Date :"
+                                android:textColor="@color/dark_gray"
+                                android:textSize="13dp">
+
+                            </TextView>
+
+                            <TextView
+                                android:id="@+id/date"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_regular"
+                                android:textColor="@color/profileEditTextColor"
+                                android:textSize="14dp">
+
+                            </TextView>
+                        </TableRow>
+
+                    </TableLayout>
+
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_5sdp"
+                        android:layout_weight="1"
+                        android:background="@color/gray4"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/imageView">
+
+                    </View>
+                </LinearLayout>
+
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scrollIndicators="none"
+                android:scrollbars="none">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <com.google.android.material.chip.ChipGroup
+                        android:id="@+id/chip_group"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="@dimen/_8sdp"
+                        android:paddingTop="@dimen/_2sdp"
+                        app:selectionRequired="true"
+                        android:paddingRight="@dimen/_8sdp"
+                        app:singleLine="true">
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/germination_insp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Germination Insp. "
+                            android:textAppearance="@style/chipText"
+                            android:textColor="@color/gray1"
+                            android:visibility="visible"
+                            app:chipBackgroundColor="@color/gray4"
+                            app:chipStrokeColor="@color/gray1"
+                            app:chipStrokeWidth="1dp"
+                            app:rippleColor="@color/gray1" >
+
+                        </com.google.android.material.chip.Chip>
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/seedling_insp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Seedling Insp."
+                            android:textAppearance="@style/chipText"
+                            android:textColor="@color/gray1"
+                            android:visibility="visible"
+                            app:chipBackgroundColor="@color/gray4"
+                            app:chipStrokeColor="@color/gray1"
+                            app:chipStrokeWidth="1dp"
+                            app:rippleColor="@color/gray1">
+
+                        </com.google.android.material.chip.Chip>
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/vegitative_insp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/product_sans_bold"
+                            android:text="Vegitative Insp."
+                            android:textAppearance="@style/chipText"
+                            android:textColor="@color/gray1"
+                            android:visibility="visible"
+                            app:chipBackgroundColor="@color/gray4"
+                            app:chipStrokeColor="@color/gray1"
+                            app:chipStrokeWidth="1dp"
+                            app:rippleColor="@color/gray1">
+
+                        </com.google.android.material.chip.Chip>
+
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/nicking_insp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Nicking Insp."
+                            android:textAppearance="@style/chipText"
+                            android:textColor="@color/gray1"
+                            android:visibility="visible"
+                            app:chipBackgroundColor="@color/gray4"
+                            app:chipStrokeColor="@color/gray1"
+                            app:chipStrokeWidth="1dp"
+                            app:rippleColor="@color/gray1">
+
+                        </com.google.android.material.chip.Chip>
+
+                    </com.google.android.material.chip.ChipGroup>
+
+                    <com.google.android.material.chip.ChipGroup
+                        android:id="@+id/chip_group2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="@dimen/_8sdp"
+                        android:paddingRight="@dimen/_8sdp"
+                        app:singleLine="true">
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/nicking2_insp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Nicking2 Insp."
+                            android:textAppearance="@style/chipText"
+                            android:textColor="@color/gray1"
+                            android:visibility="visible"
+                            app:chipBackgroundColor="@color/gray4"
+                            app:chipStrokeColor="@color/gray1"
+                            app:chipStrokeWidth="1dp"
+                            app:rippleColor="@color/gray1">
+
+                        </com.google.android.material.chip.Chip>
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/flowering_insp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/product_sans_bold"
+                            android:text="Flowering Insp."
+                            android:textAppearance="@style/chipText"
+                            android:textColor="@color/gray1"
+                            android:visibility="visible"
+                            app:chipBackgroundColor="@color/gray4"
+                            app:chipStrokeColor="@color/gray1"
+                            app:chipStrokeWidth="1dp"
+                            app:rippleColor="@color/gray1">
+
+                        </com.google.android.material.chip.Chip>
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/post_flowering_insp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/product_sans_bold"
+                            android:text="Post Flowering Insp."
+                            android:textAppearance="@style/chipText"
+                            android:textColor="@color/gray1"
+                            android:visibility="visible"
+                            app:chipBackgroundColor="@color/gray4"
+                            app:chipStrokeColor="@color/gray1"
+                            app:chipStrokeWidth="1dp"
+                            app:rippleColor="@color/gray1">
+
+                        </com.google.android.material.chip.Chip>
+
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/maturity_insp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/product_sans_bold"
+                            android:text="Maturity Insp."
+                            android:textAppearance="@style/chipText"
+                            android:textColor="@color/gray1"
+                            android:visibility="visible"
+                            app:chipBackgroundColor="@color/gray4"
+                            app:chipStrokeColor="@color/gray1"
+                            app:chipStrokeWidth="1dp"
+                            app:rippleColor="@color/gray1">
+
+                        </com.google.android.material.chip.Chip>
+
+                    </com.google.android.material.chip.ChipGroup>
+
+                    <com.google.android.material.chip.ChipGroup
+                        android:id="@+id/chip_group3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="@dimen/_8sdp"
+                        android:paddingRight="@dimen/_8sdp"
+                        android:paddingBottom="@dimen/_5sdp"
+                        app:singleLine="true">
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/harvesting_insp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Harvesting Insp."
+                            android:textAppearance="@style/chipText"
+                            android:textColor="@color/gray1"
+                            android:visibility="visible"
+                            app:chipBackgroundColor="@color/gray4"
+                            app:chipStrokeColor="@color/gray1"
+                            app:chipStrokeWidth="1dp"
+                            app:rippleColor="@color/gray1">
+
+                        </com.google.android.material.chip.Chip>
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/qc_insp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/product_sans_bold"
+                            android:text="Qc Insp."
+                            android:textAppearance="@style/chipText"
+                            android:textColor="@color/colorPrimary"
+                            android:visibility="gone"
+                            app:chipBackgroundColor="@color/gray4"
+                            app:chipStrokeColor="@color/gray1"
+                            app:chipStrokeWidth="1dp"
+                            app:rippleColor="@color/gray1">
+
+                        </com.google.android.material.chip.Chip>
+
+                    </com.google.android.material.chip.ChipGroup>
+
+                </LinearLayout>
+
+            </HorizontalScrollView>
+
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_3sdp"
+                android:background="@color/my_app_background_color"
+                android:elevation="5dp"
+                app:cardCornerRadius="3dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/profileAccentColor"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_weight="0.6"
+                            android:fontFamily="@font/product_sans_bold"
+                            android:maxLines="1"
+                            android:padding="6dp"
+                            android:text="Lot Details"
+                            android:textColor="@color/black"
+                            android:textSize="15dp" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:fontFamily="@font/product_sans_bold"
+                                android:padding="6dp"
+                                android:text="Status : "
+                                android:textColor="@color/black"
+                                android:textSize="15dp" />
+
+
+                            <TextView
+                                android:id="@+id/inspection_status"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:fontFamily="@font/product_sans_bold"
+                                android:lines="1"
+                                android:textColor="@color/dark_gray"
+                                android:textSize="12dp" />
+
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_weight="1"
+                        android:background="#72AAAAAA"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/imageView">
+
+                    </View>
+
+                    <TableLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/gray4">
+
+                        <TableRow
+                            android:layout_width="match_parent"
+
+                            android:layout_height="wrap_content"
+                            android:background="@color/my_app_background_color"
+                            android:paddingLeft="8dp"
+                            android:paddingTop="10dp"
+                            android:paddingRight="8dp"
+                            android:paddingBottom="10dp">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_bold"
+                                android:text="Lot No. "
+                                android:textColor="@color/dark_gray"
+                                android:textSize="13dp">
+
+                            </TextView>
+
+                            <TextView
+                                android:id="@+id/production_lot_no"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_regular"
+                                android:paddingLeft="5dp"
+                                android:textColor="@color/profileEditTextColor"
+                                android:textSize="12dp">
+
+                            </TextView>
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_bold"
+                                android:paddingLeft="5dp"
+                                android:text="PL. No."
+                                android:textColor="@color/dark_gray"
+                                android:textSize="13dp">
+
+                            </TextView>
+
+                            <TextView
+                                android:id="@+id/arrival_no"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_regular"
+                                android:paddingLeft="5dp"
+                                android:textColor="@color/profileEditTextColor"
+                                android:textSize="12dp">
+
+                            </TextView>
+                        </TableRow>
+
+                        <TableRow
+                            android:layout_width="match_parent"
+
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="1dp"
+                            android:background="@color/my_app_background_color"
+                            android:paddingLeft="8dp"
+                            android:paddingTop="10dp"
+                            android:paddingRight="8dp"
+                            android:paddingBottom="10dp">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_bold"
+                                android:text="Grower"
+                                android:textColor="@color/dark_gray"
+                                android:textSize="13dp"/>
+
+                            <TextView
+                                android:id="@+id/grower_name"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_regular"
+                                android:paddingLeft="5dp"
+                                android:textColor="@color/profileEditTextColor"
+                                android:textSize="12dp">
+
+                            </TextView>
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_bold"
+                                android:paddingLeft="5dp"
+                                android:text="Grower city"
+                                android:textColor="@color/dark_gray"
+                                android:textSize="13dp">
+
+                            </TextView>
+
+                            <TextView
+                                android:id="@+id/grower_city"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_regular"
+                                android:paddingLeft="5dp"
+                                android:textColor="@color/profileEditTextColor"
+                                android:textSize="12dp">
+
+                            </TextView>
+
+                        </TableRow>
+
+                        <TableRow
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="1dp"
+                            android:background="@color/my_app_background_color"
+                            android:paddingLeft="8dp"
+                            android:paddingTop="10dp"
+                            android:paddingRight="8dp"
+                            android:paddingBottom="10dp">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_bold"
+                                android:text="Item n."
+                                android:visibility="gone"
+                                android:textColor="@color/dark_gray"
+                                android:textSize="13dp">
+
+                            </TextView>
+
+                            <TextView
+                                android:id="@+id/item_name"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:visibility="gone"
+                                android:fontFamily="@font/product_sans_regular"
+                                android:textColor="@color/profileEditTextColor"
+                                android:textSize="12dp">
+
+                            </TextView>
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_bold"
+                                android:text="Crop cd."
+                                android:textColor="@color/dark_gray"
+                                android:textSize="13dp">
+
+                            </TextView>
+
+                            <TextView
+                                android:id="@+id/crop_code"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_regular"
+                                android:paddingLeft="5dp"
+                                android:textColor="@color/profileEditTextColor"
+                                android:textSize="12dp">
+
+                            </TextView>
+
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_bold"
+                                android:paddingLeft="5dp"
+                                android:text="Variety code "
+                                android:textColor="@color/dark_gray"
+                                android:textSize="13dp">
+
+                            </TextView>
+
+                            <TextView
+                                android:id="@+id/varity_code"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_regular"
+                                android:paddingLeft="5dp"
+                                android:textColor="@color/profileEditTextColor"
+                                android:textSize="12dp">
+
+                            </TextView>
+                        </TableRow>
+
+
+                        <TableRow
+                            android:layout_width="match_parent"
+
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="1dp"
+                            android:background="@color/my_app_background_color"
+                            android:paddingLeft="8dp"
+                            android:paddingTop="10dp"
+                            android:paddingRight="8dp"
+                            android:paddingBottom="10dp">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_bold"
+                                android:text="Crop type "
+                                android:textColor="@color/dark_gray"
+                                android:textSize="13dp">
+
+                            </TextView>
+
+                            <TextView
+                                android:id="@+id/crop_type"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_regular"
+                                android:paddingLeft="5dp"
+                                android:textColor="@color/profileEditTextColor"
+                                android:textSize="12dp">
+
+                            </TextView>
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_bold"
+                                android:paddingLeft="5dp"
+                                android:text="Clsofseeds "
+                                android:textColor="@color/dark_gray"
+                                android:textSize="13dp">
+
+                            </TextView>
+
+
+                            <TextView
+                                android:id="@+id/item_classfeed"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_regular"
+                                android:paddingLeft="5dp"
+                                android:textColor="@color/profileEditTextColor"
+                                android:textSize="12dp">
+
+                            </TextView>
+
+
+                        </TableRow>
+
+
+                        <TableRow
+                            android:layout_width="match_parent"
+                            android:visibility="gone"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="1dp"
+                            android:background="@color/my_app_background_color"
+                            android:paddingLeft="8dp"
+                            android:paddingTop="10dp"
+                            android:paddingRight="8dp"
+                            android:paddingBottom="10dp">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_bold"
+                                android:text="Gr.taluka mndl"
+                                android:textColor="@color/dark_gray"
+                                android:textSize="13dp">
+
+                            </TextView>
+
+                            <TextView
+                                android:id="@+id/tv_gwer_tluka_mndl"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_regular"
+                                android:paddingLeft="5dp"
+                                android:textColor="@color/profileEditTextColor"
+                                android:textSize="12dp">
+
+                            </TextView>
+
+                        </TableRow>
+
+                    </TableLayout>
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <!--   </LinearLayout>-->
+            <!--     </androidx.cardview.widget.CardView>
+         -->
+        </LinearLayout>
+    </ScrollView>
+</FrameLayout>

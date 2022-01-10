@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:descendantFocusability="afterDescendants"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:id="@+id/parent_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:focusable="false"
+        android:orientation="horizontal">
+        <FrameLayout
+            android:id="@+id/circuler_text_section"
+            android:layout_width="@dimen/_50sdp"
+            android:layout_height="@dimen/_50sdp"
+            android:elevation="2dp"
+            android:padding="5dp"
+            android:layout_margin="2dp"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/circle_yellow_icon">
+
+            <TextView
+                android:id="@+id/tv_character_ofImageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textColor="@color/my_app_background_color"
+                android:textSize="25dp"/>
+
+        </FrameLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:orientation="vertical"
+            android:paddingLeft="@dimen/_8sdp"
+            android:paddingTop="7dp">
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:layout_height="wrap_content">
+                <TableRow>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:text="Loc. name : "
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/product_sans_regular"
+                            android:textColor="@color/dark_gray"
+                            android:textSize="@dimen/_12ssp" />
+                        <TextView
+                            android:id="@+id/loc_name"
+                            android:layout_width="wrap_content"
+                            android:fontFamily="@font/product_sans_regular"
+                            android:textSize="@dimen/_10ssp"
+                            android:layout_height="wrap_content"/>
+                    </LinearLayout>
+
+
+                </TableRow>
+                <TableRow>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:text="Session : "
+                            android:fontFamily="@font/product_sans_regular"
+                            android:textColor="@color/dark_gray"
+                            android:textSize="@dimen/_12ssp"
+                            android:layout_height="wrap_content"/>
+                        <TextView
+                            android:id="@+id/tv_session"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="right"
+                            android:fontFamily="@font/product_sans_regular"
+                            android:layout_marginRight="5dp"
+                            android:textSize="@dimen/_10ssp" />
+                    </LinearLayout>
+                </TableRow>
+
+                <TableRow>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:text="Crop : "
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/product_sans_regular"
+                            android:textColor="@color/dark_gray"
+                            android:textSize="@dimen/_12ssp" />
+
+                        <TextView
+                            android:id="@+id/crop_"
+                            android:layout_width="wrap_content"
+                            android:fontFamily="@font/product_sans_regular"
+                            android:textSize="@dimen/_10ssp"
+                            android:layout_height="wrap_content"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:text="  Hybrid : "
+                            android:fontFamily="@font/product_sans_regular"
+                            android:textColor="@color/dark_gray"
+                            android:textSize="@dimen/_12ssp"
+
+                            android:layout_height="wrap_content"/>
+                        <TextView
+                            android:id="@+id/tv_hybrid"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="right"
+                            android:fontFamily="@font/product_sans_regular"
+                            android:layout_marginRight="5dp"
+                            android:textSize="@dimen/_10ssp"  />
+
+                    </LinearLayout>
+
+                </TableRow>
+
+                <TableRow>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:text="Remarks : "
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/product_sans_regular"
+                            android:textColor="@color/dark_gray"
+                            android:textSize="@dimen/_12ssp" />
+
+                        <TextView
+                            android:id="@+id/tv_remarks"
+                            android:layout_width="wrap_content"
+                            android:fontFamily="@font/product_sans_regular"
+                            android:textSize="@dimen/_10ssp"
+                            android:layout_height="wrap_content"/>
+
+                    </LinearLayout>
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingRight="@dimen/_5sdp"
+                    android:paddingBottom="@dimen/_5sdp"
+                    android:paddingTop="@dimen/_6sdp">
+                    <TextView
+                        android:id="@+id/status_fs_return"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:text="Pending"
+                        android:focusable="false"
+                        android:focusableInTouchMode="true"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/product_sans_regular"
+                        android:textColor="@color/pending_color"
+                        android:textSize="@dimen/_12sdp" />
+
+                    <TextView
+                        android:id="@+id/created_on"
+                        android:layout_gravity="right"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/product_sans_regular"
+                        android:textColor="@color/dark_gray"
+                        android:textSize="@dimen/_10ssp" />
+                </TableRow>
+
+            </TableLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>
