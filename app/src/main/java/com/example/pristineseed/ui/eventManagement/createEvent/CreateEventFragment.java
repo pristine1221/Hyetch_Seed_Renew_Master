@@ -683,9 +683,9 @@ public class CreateEventFragment  extends Fragment {
                 DistrictAdapter districtAdapter = new DistrictAdapter(getActivity(), R.layout.drop_down_textview, districtList);
                 dropdown_district.setAdapter(districtAdapter);
             }
-            else {
+            /*else {
                 Toast.makeText(getActivity(), "No Records Found On "+state_code , Toast.LENGTH_SHORT).show();
-            }
+            }*/
         }
     }
 

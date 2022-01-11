@@ -69,12 +69,12 @@ import retrofit2.Response;
 public class DealerMaster_Fragment extends Fragment implements RoleMasterAdapter.OnItemClickListner {
 
     private ListView dealer_listview;
+    private TextView no_record_found;
     private SessionManagement sessionManagement;
     private int page_no = 0;
     private List<DealerMasterModel> dealerlist;
     private DealerListAdapter dealerListAdapter;
     private Chip add_newItem;
-
     private List<TalukaMasterTable> talukaMasterTableList = null;
     private List<StateMasterTable> stateMasterTableList = null;
     private List<DistricMasterTable> districMasterTableList = null;
@@ -144,6 +144,7 @@ public class DealerMaster_Fragment extends Fragment implements RoleMasterAdapter
 
     private void initView(View view) {
         dealer_listview = view.findViewById(R.id.dealer_listview);
+        no_record_found = view.findViewById(R.id.no_data_found);
         add_newItem = view.findViewById(R.id.add_newItem);
     }
 
@@ -172,10 +173,13 @@ public class DealerMaster_Fragment extends Fragment implements RoleMasterAdapter
                                 bindDataWithLocal(dealer_list_response);
                             }
                         } else {
-                            Toast.makeText(getActivity(), dealer_list_response.size() > 0 && dealer_list_response.get(0).condition ? "No data found" : ". Error Code:" + response.code(), Toast.LENGTH_SHORT).show();
+                            no_record_found.setVisibility(View.VISIBLE);
+                            dealer_listview.setVisibility(View.GONE);
+//                            Toast.makeText(getActivity(), dealer_list_response.size() > 0 && dealer_list_response.get(0).condition ? "No data found" : ". Error Code:" + response.code(), Toast.LENGTH_SHORT).show();
                         }
                     } else {
                         progressDialog.hideDialog();
+//                        Toast.makeText(getActivity(), "No Record Found", Toast.LENGTH_SHORT).show();
                         Toast.makeText(getActivity(), response.message() + ". Error Code:" + response.code(), Toast.LENGTH_SHORT).show();
                     }
                 } catch (Exception e) {
@@ -652,7 +656,7 @@ public class DealerMaster_Fragment extends Fragment implements RoleMasterAdapter
                                 dialog.dismiss();
                                 Toast.makeText(getActivity(), distributionList.get(0).message, Toast.LENGTH_SHORT).show();
                             } else {
-                                Toast.makeText(getActivity(), distributionList.size() > 0 ? "No data found" : ". Error Code:" + response.code(), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getActivity(), distributionList.size() > 0 ? "No data found Dealer" : ". Error Code:" + response.code(), Toast.LENGTH_SHORT).show();
                             }
                         } else {
                             progressDialog.hideDialog();
@@ -737,9 +741,9 @@ public class DealerMaster_Fragment extends Fragment implements RoleMasterAdapter
             DistrictAdapter districtAdapter = new DistrictAdapter(getActivity(), R.layout.android_item_view, districMasterTableList);
             ac_district.setAdapter(districtAdapter);
         }
-        else {
+       /* else {
             Toast.makeText(getActivity(), "No Record Found On "+state_code, Toast.LENGTH_SHORT).show();
-        }
+        }*/
     }
 
     private List<DistricMasterTable> getdistricMasterTableList(String state_code) {

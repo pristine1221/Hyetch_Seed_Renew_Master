@@ -87,6 +87,7 @@ public class CustomerFragment extends Fragment {
    private SwipeRefreshLayout swipe_refresh_layout;
     private Chip add_newItem;
     private ListView listview;
+    private TextView no_record_found;
 
     private CustomerListAdapter customer_adapter;
     int init_page=0;
@@ -156,6 +157,7 @@ public class CustomerFragment extends Fragment {
 
     private void initView(View view) {
         listview = view.findViewById(R.id.listview);
+        no_record_found = view.findViewById(R.id.no_data_found);
         swipe_refresh_layout = view.findViewById(R.id.swipe_refresh_layout);
         add_newItem = view.findViewById(R.id.add_newItem);
     }
@@ -688,7 +690,9 @@ public class CustomerFragment extends Fragment {
                             customerList=distributionList;
                             bindDataWithAdapter(customerList);
                         } else {
-                            Toast.makeText(getActivity(), distributionList.size() > 0 ? "No data found" : ". Error Code:" + response.code(), Toast.LENGTH_SHORT).show();
+                            no_record_found.setVisibility(View.VISIBLE);
+                            swipe_refresh_layout.setVisibility(View.GONE);
+//                            Toast.makeText(getActivity(), distributionList.size() > 0 ? "No data found Customer"  : ". Error Code:" + response.code(), Toast.LENGTH_SHORT).show();
                         }
                     } else {
                         progressDialog.hideDialog();
@@ -790,7 +794,7 @@ public class CustomerFragment extends Fragment {
                                         Toast.makeText(getActivity(), distributionList.get(0).message, Toast.LENGTH_SHORT).show();
                                      }
                             else {
-                                Toast.makeText(getActivity(), distributionList.size() > 0 ? "No data found" : ". Error Code:" + response.code(), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getActivity(), distributionList.size() > 0 ? "No data found Collection" : ". Error Code:" + response.code(), Toast.LENGTH_SHORT).show();
                             }
                         } else {
                             progressDialog.hideDialog();
@@ -821,9 +825,9 @@ public class CustomerFragment extends Fragment {
             DistrictAdapter DistrictAdapter = new DistrictAdapter(getActivity(), R.layout.drop_down_textview, districMasterTableList);
             dropdown_District_Code.setAdapter(DistrictAdapter);
         }
-        else {
+       /* else {
             Toast.makeText(getActivity(), "No Record Found On "+state_code, Toast.LENGTH_SHORT).show();
-        }
+        }*/
     }
 
     private List<DistricMasterTable> getdistricMasterTableList(String state_code) {

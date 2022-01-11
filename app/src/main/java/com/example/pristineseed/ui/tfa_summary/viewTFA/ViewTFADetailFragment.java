@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -34,6 +35,7 @@ import retrofit2.Response;
 public class ViewTFADetailFragment extends Fragment {
     private SessionManagement sessionManagement;
     private ListView tfa_view_list;
+    private TextView no_record_found;
     private List<TFAHeaderModel> tfaLineModelList=new ArrayList<>();
     public static ViewTFADetailFragment newInstance() {
         return new ViewTFADetailFragment();
@@ -54,6 +56,7 @@ public class ViewTFADetailFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         tfa_view_list=view.findViewById(R.id.event_list);
+        no_record_found=view.findViewById(R.id.no_data_found);
         sessionManagement=new SessionManagement(getActivity());
 
         tfa_view_list.setOnItemClickListener((parent, view1, position, id) -> {
@@ -96,7 +99,9 @@ public class ViewTFADetailFragment extends Fragment {
                                 Toast.makeText(getActivity(), "Data fetch Successfully!", Toast.LENGTH_SHORT).show();
                             } else {
                                 progressDialogLoading.hideDialog();
-                                Toast.makeText(getContext(), responseList.size() > 0 ? responseList.get(0).message : "Record Not inserted.",Toast.LENGTH_SHORT ).show();
+                                no_record_found.setVisibility(View.VISIBLE);
+                                tfa_view_list.setVisibility(View.GONE);
+//                                Toast.makeText(getContext(), responseList.size() > 0 ? responseList.get(0).message : "Record Not inserted.",Toast.LENGTH_SHORT ).show();
                             }
                         } else {
                             progressDialogLoading.hideDialog();

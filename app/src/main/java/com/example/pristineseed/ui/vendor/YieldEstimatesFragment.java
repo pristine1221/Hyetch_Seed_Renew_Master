@@ -331,9 +331,12 @@ public class YieldEstimatesFragment extends Fragment implements PlantingProducti
         if (flag.equalsIgnoreCase("Insert")) {
             yield_estimate_title.setText("Add Yield Esitmate");
             insertYieldEstimate(dialog, ac_lot_no, ed_yield_estimate_date, ed_yield_estimate, ed_remarks, filter_apply_bt);
-        } else if (flag.equalsIgnoreCase("Update")) {
+        }
+        else if (flag.equalsIgnoreCase("Update")) {
             filter_apply_bt.setText("View Deatils");
-            yield_estimate_title.setText("View Yield Esitmate Details");
+            filter_apply_bt.setBackgroundColor(getResources().getColor(R.color.transparent_color));
+            filter_apply_bt.setTextColor(getResources().getColor(R.color.black));
+            yield_estimate_title.setText("View Yield Estimate Details");
             lotdetail_section.setVisibility(View.VISIBLE);
             ac_lot_no.setText(yield_estimate_model.lot_no);
             ac_lot_no.setEnabled(false);
@@ -342,6 +345,7 @@ public class YieldEstimatesFragment extends Fragment implements PlantingProducti
             ed_yield_estimate_date.setText(yield_estimate_model.yield_estimate_date);
             ed_yield_estimate_date.setEnabled(false);
             ed_yield_estimate.setText(yield_estimate_model.estimated_yield);
+            ed_yield_estimate.setEnabled(false);
             ed_remarks.setText(yield_estimate_model.remarks);
             ed_remarks.setEnabled(false);
             if (plantingLineLotListTable1 != null) {

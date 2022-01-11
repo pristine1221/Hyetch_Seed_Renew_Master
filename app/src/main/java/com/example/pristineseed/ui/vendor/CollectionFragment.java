@@ -76,6 +76,7 @@ public class    CollectionFragment extends Fragment implements RoleMasterAdapter
   private   SwipeRefreshLayout swipe_refresh_layout;
    private Chip add_newItem;
    private ListView listview;
+   private TextView no_record_found;
    private CollectionListAdapter collectionListAdapter;
    private List<BankAccountModel.Data> bankAccountModelList;
     NetworkInterface mAPIService;
@@ -93,6 +94,7 @@ public class    CollectionFragment extends Fragment implements RoleMasterAdapter
         sessionManagement = new SessionManagement(getActivity().getApplicationContext());
          mAPIService = ApiUtils.getPristineAPIService();
          listview = view.findViewById(R.id.listview);
+        no_record_found = view.findViewById(R.id.no_data_found);
         swipe_refresh_layout = view.findViewById(R.id.swipe_refresh_layout);
         add_newItem = view.findViewById(R.id.add_newItem);
         boolean isNetwork= NetworkUtil.getConnectivityStatusBoolean(getActivity());
@@ -418,10 +420,13 @@ public class    CollectionFragment extends Fragment implements RoleMasterAdapter
                             collection_table_list=collectionLists;
                             bindDataWithLocal(collection_table_list);
                         } else {
-                            Toast.makeText(getActivity(), collectionLists.size()>0?"No data found" : ". Error Code:" + response.code(), Toast.LENGTH_SHORT).show();
+                            swipe_refresh_layout.setVisibility(View.GONE);
+                            no_record_found.setVisibility(View.VISIBLE);
+//                            Toast.makeText(getActivity(), collectionLists.size()>0?"No data found Coll" : ". Error Code:" + response.code(), Toast.LENGTH_SHORT).show();
                         }
 
                     } else {
+//                        listview.setVisibility(View.GONE);
                         progressDialog.hideDialog();
                         Toast.makeText(getActivity(), response.message() + ". Error Code:" + response.code(), Toast.LENGTH_SHORT).show();
                     }
@@ -462,7 +467,7 @@ public class    CollectionFragment extends Fragment implements RoleMasterAdapter
                                         bankAccountModelList= bankAccountList;
                                     }
                                 } else {
-                                    Toast.makeText(getActivity(), "No data found" + response.code(), Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getActivity(), "No data found!" + response.code(), Toast.LENGTH_SHORT).show();
                                 }
 
                             } else {
@@ -562,6 +567,7 @@ public class    CollectionFragment extends Fragment implements RoleMasterAdapter
                     } else {
                         frame_layout_org_list.setVisibility(View.GONE);
                         hytech_role_master_loading.setVisibility(View.GONE);
+//                        Toast.makeText(getActivity(), "No Record Found", Toast.LENGTH_SHORT).show();
                         Toast.makeText(getActivity(), response.message() + ". Error Code:" + response.code(), Toast.LENGTH_SHORT).show();
                     }
 

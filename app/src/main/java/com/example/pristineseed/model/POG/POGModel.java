@@ -3,6 +3,7 @@ package com.example.pristineseed.model.POG;
 public class POGModel {
 
        public boolean condition;
+       public String message;
        public String pog_code;
        public String zone;
        public String zoneName;

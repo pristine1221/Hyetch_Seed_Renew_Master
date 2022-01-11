@@ -72,6 +72,7 @@ public class ViewEventDetailFragment extends Fragment  implements EventViewListA
     }
 
     private RecyclerView event_List;
+    private TextView no_record_found;
     private EventViewListAdapter event_Adapter;
     private List<SyncEventDetailModel> eventListData = new ArrayList<>();
 
@@ -85,6 +86,7 @@ public class ViewEventDetailFragment extends Fragment  implements EventViewListA
 
     private void initView(View view) {
         event_List = view.findViewById(R.id.event_reycleList);
+        no_record_found = view.findViewById(R.id.no_data_found);
         event_List.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         event_List.setItemAnimator(new DefaultItemAnimator());
         event_List.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
@@ -107,7 +109,9 @@ public class ViewEventDetailFragment extends Fragment  implements EventViewListA
                             bindDataWithList();
                         } else {
                             progressDialogLoading.hideDialog();
-                            Toast.makeText(getActivity(), tempdata.size() > 0 ? "Result Not found !" : "Api not responding.", Toast.LENGTH_SHORT).show();
+                            no_record_found.setVisibility(View.VISIBLE);
+                            event_List.setVisibility(View.GONE);
+//                            Toast.makeText(getActivity(), tempdata.size() > 0 ? "Result Not found VE!" : "Api not responding.", Toast.LENGTH_SHORT).show();
                         }
                     } else {
                         Toast.makeText(getActivity(), response.message() + ". Error Code:" + response.code(), Toast.LENGTH_SHORT).show();

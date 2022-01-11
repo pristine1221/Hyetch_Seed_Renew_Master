@@ -54,6 +54,7 @@ public class EventApprovalFragment  extends Fragment {
 
    private SessionManagement sessionManagement;
    private ListView event_List;
+   private TextView no_record_found;
    private EventApproveListAdapter event_Adapter;
 
    private List<SyncEventDetailModel> list = new ArrayList<>();
@@ -77,6 +78,7 @@ public class EventApprovalFragment  extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         sessionManagement = new SessionManagement(getActivity());
         event_List = view.findViewById(R.id.event_list);
+        no_record_found = view.findViewById(R.id.no_data_found);
            super.onViewCreated(view, savedInstanceState);
     }
 
@@ -101,7 +103,9 @@ public class EventApprovalFragment  extends Fragment {
                             bindUiListData();
                         } else {
                             progressDialogLoading.hideDialog();
-                            Toast.makeText(getActivity(), tempdata.size() > 0 ? "Result Not found !" : "Api not responding.", Toast.LENGTH_SHORT).show();
+                            no_record_found.setVisibility(View.VISIBLE);
+                            event_List.setVisibility(View.GONE);
+//                            Toast.makeText(getActivity(), tempdata.size() > 0 ? "Result Not found !  EA" : "Api not responding.", Toast.LENGTH_SHORT).show();
                         }
                     } else {
                         Toast.makeText(getActivity(), response.message() + ". Error Code:" + response.code(), Toast.LENGTH_SHORT).show();

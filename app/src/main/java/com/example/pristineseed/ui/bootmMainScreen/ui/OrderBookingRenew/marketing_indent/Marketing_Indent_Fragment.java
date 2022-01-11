@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -32,6 +33,7 @@ import retrofit2.Response;
 
 public class Marketing_Indent_Fragment extends Fragment {
     private ExpandableListView marketing_indent_list;
+    private TextView no_record_found;
     private Chip add_header;
     private SessionManagement sessionManagement;
     private List<MarketingIndentModel> approval_list;
@@ -69,6 +71,7 @@ public class Marketing_Indent_Fragment extends Fragment {
 
     private void initView(View view) {
         marketing_indent_list=view.findViewById(R.id.marketing_indent_list);
+        no_record_found=view.findViewById(R.id.no_data_found);
         add_header=view.findViewById(R.id.add_header);
     }
 
@@ -90,7 +93,8 @@ public class Marketing_Indent_Fragment extends Fragment {
                                approval_list=orderbooking_list;
                                binddataWithAadapter(approval_list);
                            } else {
-                               Toast.makeText(getActivity(), orderbooking_list!=null && orderbooking_list.size() > 0  ? "No data found" : ". Error Code:" + response.code(), Toast.LENGTH_SHORT).show();
+                               no_record_found.setVisibility(View.VISIBLE);
+//                               Toast.makeText(getActivity(), orderbooking_list!=null && orderbooking_list.size() > 0  ? "No data found" : ". Error Code:" + response.code(), Toast.LENGTH_SHORT).show();
                            }
                        } else {
                            progressDialog.hideDialog();

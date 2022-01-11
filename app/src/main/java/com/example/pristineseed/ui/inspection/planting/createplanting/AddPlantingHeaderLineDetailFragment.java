@@ -332,10 +332,10 @@ public class AddPlantingHeaderLineDetailFragment extends Fragment implements Org
                 Toast.makeText(getActivity(), "Header is blank", Toast.LENGTH_SHORT).show();
             }
 
-            //todo it show NullPointerException on Delete.....
-           /* if (plantingHeaderModel.nav_sync.equals("1")) {
+           else if (plantingHeaderModel.nav_sync!=null && plantingHeaderModel.nav_sync.equals("1")) {
                 Toast.makeText(getActivity(), "You can't delete line as status completed.", Toast.LENGTH_SHORT).show();
-            }*/ else {
+            }
+           else {
                 new MaterialAlertDialogBuilder(getActivity())
                         .setTitle("Header Line" + "(" + plantingLineTableList.get(position).code + ")")
                         .setMessage("Do you want to delete this Line ?")

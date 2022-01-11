@@ -39,6 +39,7 @@ import retrofit2.Response;
 public class ApproveTFADetailFragment extends Fragment {
 
     private ListView tfa_list_;
+    private TextView no_record_found;
     private SessionManagement sessionManagement;
     private TFAApproveListAdapter event_Adapter;
     private List<TFAHeaderModel> updateTfaList = new ArrayList<>();
@@ -54,6 +55,7 @@ public class ApproveTFADetailFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         sessionManagement = new SessionManagement(getActivity());
         tfa_list_ = view.findViewById(R.id.tfa_list_);
+        no_record_found = view.findViewById(R.id.no_data_found);
 
     }
 
@@ -74,7 +76,9 @@ public class ApproveTFADetailFragment extends Fragment {
                             bindUiListData();
                             Toast.makeText(getActivity(), "Updated Successfully!", Toast.LENGTH_SHORT).show();
                         } else {
-                            Toast.makeText(getContext(), TFAHeaderModelList.size() > 0 ? TFAHeaderModelList.get(0).message : "Record not found.", Toast.LENGTH_SHORT).show();
+                            no_record_found.setVisibility(View.VISIBLE);
+                            tfa_list_.setVisibility(View.GONE);
+//                            Toast.makeText(getContext(), TFAHeaderModelList.size() > 0 ? TFAHeaderModelList.get(0).message : "Record not found.", Toast.LENGTH_SHORT).show();
                         }
 
                     } else {

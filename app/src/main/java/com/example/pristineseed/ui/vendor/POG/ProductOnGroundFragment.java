@@ -77,6 +77,7 @@ public class ProductOnGroundFragment extends Fragment {
 
     private Chip add_newItem;
     private ListView listview;
+    private TextView no_record_found;
     private SessionManagement sessionManagement;
     private List<POGModel> pogModelList;
     private String hybrid_code = "", crop_code = "", zonecode = "", customer_code = "", season_code = "", hybrid_string = "";
@@ -97,6 +98,7 @@ public class ProductOnGroundFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         listview = view.findViewById(R.id.listview);
+        no_record_found = view.findViewById(R.id.no_data_found);
         add_newItem = view.findViewById(R.id.add_newItem);
         pogModelList = new ArrayList<>();
         sessionManagement = new SessionManagement(getActivity());
@@ -123,11 +125,6 @@ public class ProductOnGroundFragment extends Fragment {
         super.onResume();
     }
 
-    private void binddataWithAadapter(List<POGModel> pog_response_list) {
-        ProductOnGroundListAdapter approvalAdapter = new ProductOnGroundListAdapter(getActivity(), pog_response_list);
-        listview.setAdapter(approvalAdapter);
-    }
-
     private void getPOGList() {
         boolean isNetwork = NetworkUtil.getConnectivityStatusBoolean(getActivity());
         if (isNetwork) {
@@ -146,7 +143,9 @@ public class ProductOnGroundFragment extends Fragment {
                                 pogModelList = pog_response_list;
                                 binddataWithAadapter(pog_response_list);
                             } else {
-                                Toast.makeText(getActivity(), pog_response_list != null && pog_response_list.size() > 0 ? "No data found" : ". Error Code:" + response.code(), Toast.LENGTH_SHORT).show();
+                                no_record_found.setVisibility(View.VISIBLE);
+                                listview.setVisibility(View.GONE);
+//                                Toast.makeText(getActivity(), pog_response_list != null && pog_response_list.size() > 0 ? "No data found" : ". Error Code:" + response.code(), Toast.LENGTH_SHORT).show();
                             }
                         } else {
                             progressDialog.hideDialog();
@@ -167,6 +166,11 @@ public class ProductOnGroundFragment extends Fragment {
         } else {
             Toast.makeText(getActivity(), "Please wait for online connection.", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private void binddataWithAadapter(List<POGModel> pog_response_list) {
+        ProductOnGroundListAdapter approvalAdapter = new ProductOnGroundListAdapter(getActivity(), pog_response_list);
+        listview.setAdapter(approvalAdapter);
     }
 
     private List<ZoneMasterTable> zoneMasterTableList = null;
@@ -425,7 +429,7 @@ public class ProductOnGroundFragment extends Fragment {
                                             Toast.makeText(getActivity(), pog_response_list.get(0).message, Toast.LENGTH_SHORT).show();
                                             dialog.dismiss();
                                         } else {
-                                            Toast.makeText(getActivity(), pog_response_list != null && pog_response_list.size() > 0 ? "No data found" : ". Error Code:" + response.code(), Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(getActivity(), pog_response_list != null && pog_response_list.size() > 0 ? "No data found POG" : ". Error Code:" + response.code(), Toast.LENGTH_SHORT).show();
                                         }
                                     } else {
                                         progressDialog.hideDialog();
@@ -573,7 +577,7 @@ public class ProductOnGroundFragment extends Fragment {
                                             Toast.makeText(getActivity(), pog_response_list.get(0).message, Toast.LENGTH_SHORT).show();
                                             dialog.dismiss();
                                         } else {
-                                            Toast.makeText(getActivity(), pog_response_list != null && pog_response_list.size() > 0 ? "No data found" : ". Error Code:" + response.code(), Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(getActivity(), pog_response_list != null && pog_response_list.size() > 0 ? "No data found POG" : ". Error Code:" + response.code(), Toast.LENGTH_SHORT).show();
                                         }
                                     } else {
                                         progressDialog.hideDialog();

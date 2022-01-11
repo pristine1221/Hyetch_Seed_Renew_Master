@@ -3,9 +3,28 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Chanchal_Bhasker/hytech_android/app/src/main/res/layout/add_planting_header_detail_layout.xml" value="0.19846153846153847" />
+        <entry key="..\:/Chanchal_Bhasker/hytech_android/app/src/main/res/layout/add_planting_header_detail_layout.xml" value="0.25" />
+        <entry key="..\:/Chanchal_Bhasker/hytech_android/app/src/main/res/layout/add_yield_estimates_popup.xml" value="0.19846153846153847" />
+        <entry key="..\:/Chanchal_Bhasker/hytech_android/app/src/main/res/layout/booking_order_approval_fragment_layout.xml" value="0.2015625" />
+        <entry key="..\:/Chanchal_Bhasker/hytech_android/app/src/main/res/layout/daily_activity_addlines_fragments.xml" value="0.2" />
+        <entry key="..\:/Chanchal_Bhasker/hytech_android/app/src/main/res/layout/event_view_list_fragment.xml" value="0.2015625" />
         <entry key="..\:/Chanchal_Bhasker/hytech_android/app/src/main/res/layout/expanded_planting_child_list.xml" value="0.2015625" />
+        <entry key="..\:/Chanchal_Bhasker/hytech_android/app/src/main/res/layout/fragment_collection.xml" value="0.25" />
+        <entry key="..\:/Chanchal_Bhasker/hytech_android/app/src/main/res/layout/fragment_customer.xml" value="0.2015625" />
+        <entry key="..\:/Chanchal_Bhasker/hytech_android/app/src/main/res/layout/fragment_daily_activity.xml" value="0.21" />
+        <entry key="..\:/Chanchal_Bhasker/hytech_android/app/src/main/res/layout/fragment_dealer_master_layout.xml" value="0.2015625" />
+        <entry key="..\:/Chanchal_Bhasker/hytech_android/app/src/main/res/layout/fragment_distributor.xml" value="0.2015625" />
+        <entry key="..\:/Chanchal_Bhasker/hytech_android/app/src/main/res/layout/fragment_farmar_master.xml" value="0.2015625" />
+        <entry key="..\:/Chanchal_Bhasker/hytech_android/app/src/main/res/layout/fragment_product_on_ground.xml" value="0.2015625" />
+        <entry key="..\:/Chanchal_Bhasker/hytech_android/app/src/main/res/layout/marketing_indent_fragment.xml" value="0.2015625" />
+        <entry key="..\:/Chanchal_Bhasker/hytech_android/app/src/main/res/layout/order_approval_fragment.xml" value="0.2015625" />
+        <entry key="..\:/Chanchal_Bhasker/hytech_android/app/src/main/res/layout/order_booking_approval_list.xml" value="0.2015625" />
+        <entry key="..\:/Chanchal_Bhasker/hytech_android/app/src/main/res/layout/order_booking_fragment_layout.xml" value="0.2015625" />
         <entry key="..\:/Chanchal_Bhasker/hytech_android/app/src/main/res/layout/planting_detail_fragment.xml" value="0.25" />
+        <entry key="..\:/Chanchal_Bhasker/hytech_android/app/src/main/res/layout/planting_header_line_detail_layout.xml" value="0.2015625" />
+        <entry key="..\:/Chanchal_Bhasker/hytech_android/app/src/main/res/layout/pog_approve_fragment.xml" value="0.2015625" />
+        <entry key="..\:/Chanchal_Bhasker/hytech_android/app/src/main/res/layout/view_event_detail_fragment.xml" value="0.2015625" />
+        <entry key="..\:/Chanchal_Bhasker/hytech_android/app/src/main/res/layout/view_tfa_approve_fragment.xml" value="0.2015625" />
       </map>
     </option>
   </component>

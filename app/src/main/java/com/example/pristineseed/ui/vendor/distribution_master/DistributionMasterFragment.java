@@ -88,6 +88,7 @@ public class DistributionMasterFragment extends Fragment {
     SwipeRefreshLayout swipe_refresh_layout;
     Chip add_newItem;
     ListView listview;
+    TextView no_record_found;
     List<DistributorListModel> distribution_table_list = new ArrayList<>();
 
     private int init_page = 0;
@@ -168,6 +169,7 @@ public class DistributionMasterFragment extends Fragment {
 
     private void initView(View view) {
         listview = view.findViewById(R.id.listview);
+        no_record_found = view.findViewById(R.id.no_data_found);
         swipe_refresh_layout = view.findViewById(R.id.swipe_refresh_layout);
         add_newItem = view.findViewById(R.id.add_newItem);
     }
@@ -770,11 +772,14 @@ public class DistributionMasterFragment extends Fragment {
                                 listview.setAdapter(null);
                             }
                         } else {
-                            Toast.makeText(getActivity(), distributionList.size() > 0 && distributionList.get(0).condition ? "No data found" : ". Error Code:" + response.code(), Toast.LENGTH_SHORT).show();
+                            no_record_found.setVisibility(View.VISIBLE);
+                            swipe_refresh_layout.setVisibility(View.GONE);
+//                            Toast.makeText(getActivity(), distributionList.size() > 0 && distributionList.get(0).condition ? "No data found" : ". Error Code:" + response.code(), Toast.LENGTH_SHORT).show();
                         }
 
                     } else {
                         progressDialog.hideDialog();
+//                        Toast.makeText(getActivity(), "No Record Found", Toast.LENGTH_SHORT).show();
                         Toast.makeText(getActivity(), response.message() + ". Error Code:" + response.code(), Toast.LENGTH_SHORT).show();
                     }
                 } catch (Exception e) {
@@ -848,7 +853,7 @@ public class DistributionMasterFragment extends Fragment {
                                     }
                                    }
                                  else {
-                                    Toast.makeText(getActivity(), distributionList.size() > 0 ? "No data found" : ". Error Code:" + response.code(), Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getActivity(), distributionList.size() > 0 ? "No data found Distributor" : ". Error Code:" + response.code(), Toast.LENGTH_SHORT).show();
                                 }
 
                             } else {
@@ -916,9 +921,9 @@ public class DistributionMasterFragment extends Fragment {
             DistrictAdapter districtAdapter = new DistrictAdapter(getActivity(), R.layout.drop_down_textview, districMasterTableList);
             dropdown_District_Code.setAdapter(districtAdapter);
         }
-        else {
+       /* else {
             Toast.makeText(getActivity(), "No Data Found On "+state_code, Toast.LENGTH_SHORT).show();
-        }
+        }*/
     }
     List<DistricMasterTable> districMasterTableList = new ArrayList<>();
 

@@ -46,6 +46,7 @@ import retrofit2.Response;
 public class MarketingApprovalFragment extends Fragment implements GettingOrderApproveAdapter.OnStatusItemClick {
 
     private ListView approval_listview;
+    private TextView no_record_found;
     private SessionManagement sessionManagement;
     private List<MarketingIndentApprovalModel> approvalList_ = null;
     private GettingOrderApproveAdapter gettingOrderApproveAdapter = null;
@@ -70,6 +71,7 @@ public class MarketingApprovalFragment extends Fragment implements GettingOrderA
 
     private void initView(View view) {
         approval_listview = view.findViewById(R.id.approval_list);
+        no_record_found = view.findViewById(R.id.no_data_found);
         sessionManagement = new SessionManagement(getActivity());
     }
 
@@ -91,7 +93,8 @@ public class MarketingApprovalFragment extends Fragment implements GettingOrderA
                                 approvalList_ = orderbooking_list;
                                 binddataWithAadapter(approvalList_);
                             } else {
-                                Toast.makeText(getActivity(), orderbooking_list != null && orderbooking_list.size() > 0 ? "No data found" : ". Error Code:" + response.code(), Toast.LENGTH_SHORT).show();
+                                no_record_found.setVisibility(View.VISIBLE);
+//                                Toast.makeText(getActivity(), orderbooking_list != null && orderbooking_list.size() > 0 ? "No data found MA" : ". Error Code:" + response.code(), Toast.LENGTH_SHORT).show();
                             }
                         } else {
                             progressDialog.hideDialog();

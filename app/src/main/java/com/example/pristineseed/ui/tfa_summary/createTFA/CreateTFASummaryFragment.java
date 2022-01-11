@@ -356,9 +356,9 @@ public class CreateTFASummaryFragment extends Fragment {
             DistrictAdapter disctric_adapter = new DistrictAdapter(getActivity(), R.layout.drop_down_textview, districMasterTableList);
             dropdown_district.setAdapter(disctric_adapter);
         }
-        else {
+        /*else {
             Toast.makeText(getActivity(), "No Record Found On "+state_code, Toast.LENGTH_SHORT).show();
-        }
+        }*/
     }
 
     private List<DistricMasterTable> getdistricMasterTableList(String state_code) {

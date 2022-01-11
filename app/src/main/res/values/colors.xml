@@ -32,10 +32,12 @@
     <color name="profileEditTextColor">#707070</color>
     <color name="button_background">#000</color>
     <color name="box_strock_color">#FFF</color>
+    <color name="transparent_color">#0000ffff</color>
 
     <color name="color_trans_gray">#41000000</color>
 
     <color name="dark_gray">#363837</color>
+    <color name="text_gray">#808080</color>
 
         <color name="text_color_hint">#80000000</color>
 

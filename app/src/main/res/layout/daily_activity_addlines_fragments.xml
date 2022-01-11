@@ -72,30 +72,30 @@
                 android:layout_height="wrap_content">
 
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                        app:boxCornerRadiusBottomEnd="15dp"
-                        app:boxCornerRadiusTopStart="15dp"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/farmer_dealer_input_layout"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_3sdp"
+                    android:fontFamily="@font/product_sans_regular"
+                    android:hint="Search Farmer/ Dealer"
+                    app:boxBackgroundColor="@android:color/transparent"
+                    app:boxCornerRadiusBottomEnd="15dp"
+                    app:boxCornerRadiusTopStart="15dp"
+                    app:boxStrokeColor="@color/colorPrimary"
+                    app:startIconDrawable="@drawable/ic_search_black_24dp"
+                    app:startIconTint="@color/color_trans_gray">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/ac_farmer_dealer"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:id="@+id/farmer_dealer_input_layout"
-                        android:hint="Search Farmer/ Dealer"
-                        app:boxBackgroundColor="@android:color/transparent"
-                        android:layout_marginTop="@dimen/_3sdp"
-                        app:startIconDrawable="@drawable/ic_search_black_24dp"
-                        app:startIconTint="@color/color_trans_gray"
                         android:fontFamily="@font/product_sans_regular"
-                        app:boxStrokeColor="@color/colorPrimary">
+                        android:maxLines="1"
+                        android:textAppearance="@style/edit_text" />
 
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/ac_farmer_dealer"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/product_sans_regular"
-                            android:textAppearance="@style/edit_text"
-                            android:maxLines="1" />
-
-                    </com.google.android.material.textfield.TextInputLayout>
+                </com.google.android.material.textfield.TextInputLayout>
 
 
                 <com.google.android.material.card.MaterialCardView

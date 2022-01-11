@@ -105,10 +105,22 @@
         <ListView
             android:id="@+id/listview"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="visible"
             android:dividerHeight="1dp">
 
         </ListView>
+
+        <TextView
+            android:id="@+id/no_data_found"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16dp"
+            android:textColor="@color/text_gray"
+            android:layout_marginTop="5dp"
+            android:text="No Record Found!"
+            android:visibility="gone"
+            android:layout_gravity="center_horizontal"/>
 
     </LinearLayout>
 

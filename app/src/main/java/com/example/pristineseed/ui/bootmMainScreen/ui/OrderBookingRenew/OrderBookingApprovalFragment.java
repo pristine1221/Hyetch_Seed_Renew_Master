@@ -49,6 +49,7 @@ public class OrderBookingApprovalFragment extends Fragment implements BookingApp
 
 
     private ListView orderApprovalList;
+    private TextView no_record_found;
     private SessionManagement sessionManagement;
 
     private List<BookingApprovalModel> approval_list;
@@ -74,6 +75,7 @@ public class OrderBookingApprovalFragment extends Fragment implements BookingApp
 
     private void initView(View view) {
         orderApprovalList = view.findViewById(R.id.orderApprovalList);
+        no_record_found = view.findViewById(R.id.no_data_found);
         sessionManagement = new SessionManagement(getContext());
     }
 
@@ -102,7 +104,9 @@ public class OrderBookingApprovalFragment extends Fragment implements BookingApp
                                 approval_list = orderbooking_list;
                                 binddataWithAadapter(approval_list);
                             } else {
-                                Toast.makeText(getActivity(), orderbooking_list != null && orderbooking_list.size() > 0 ? "No data found" : ". Error Code:" + response.code(), Toast.LENGTH_SHORT).show();
+                                orderApprovalList.setVisibility(View.GONE);
+                                no_record_found.setVisibility(View.VISIBLE);
+//                                Toast.makeText(getActivity(), orderbooking_list != null && orderbooking_list.size() > 0 ? "No data found OBA" : ". Error Code:" + response.code(), Toast.LENGTH_SHORT).show();
                             }
                         } else {
                             progressDialog.hideDialog();

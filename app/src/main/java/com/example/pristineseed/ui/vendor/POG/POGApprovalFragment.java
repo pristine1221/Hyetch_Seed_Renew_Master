@@ -53,6 +53,7 @@ public class POGApprovalFragment extends Fragment implements PogApproveAdapter.O
 
     private SessionManagement sessionManagement;
     private RecyclerView pog_approve_list;
+    private TextView no_record_found;
     private List<POGModel>pogModelList;
     private  PogApproveAdapter pogApproveAdapter;
     @Override
@@ -67,6 +68,7 @@ public class POGApprovalFragment extends Fragment implements PogApproveAdapter.O
         super.onViewCreated(view, savedInstanceState);
         sessionManagement=new SessionManagement(getActivity());
         pog_approve_list=view.findViewById(R.id.pog_approve_list);
+        no_record_found=view.findViewById(R.id.no_data_found);
         pogModelList=new ArrayList<>();
         sessionManagement=new SessionManagement(getActivity());
 
@@ -100,7 +102,9 @@ public class POGApprovalFragment extends Fragment implements PogApproveAdapter.O
                                 bindDatawithAdapter(pogModelList);
                                 Toast.makeText(getActivity(), "Data fetch successful !", Toast.LENGTH_SHORT).show();
                             } else {
-                                Toast.makeText(getActivity(), update_approval_list.size() > 0 ? "No data found" : ". Error Code:" + response.code(), Toast.LENGTH_SHORT).show();
+                                no_record_found.setVisibility(View.VISIBLE);
+                                pog_approve_list.setVisibility(View.GONE);
+//                                Toast.makeText(getActivity(), update_approval_list.size() > 0 ? "No data found POGA" : ". Error Code:" + response.code(), Toast.LENGTH_SHORT).show();
                             }
                         } else {
                             progressDialog.hideDialog();
@@ -217,7 +221,7 @@ public class POGApprovalFragment extends Fragment implements PogApproveAdapter.O
                                 Toast.makeText(getActivity(), insert_response_list.get(0).message, Toast.LENGTH_SHORT).show();
                                 dialog.dismiss();
                             } else {
-                                Toast.makeText(getActivity(), insert_response_list.size() > 0 ? "No data found" : ". Error Code:" + response.code(), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getActivity(), insert_response_list.size() > 0 ? "No data found POFA" : ". Error Code:" + response.code(), Toast.LENGTH_SHORT).show();
                             }
                         } else {
                             progressDialog.hideDialog();

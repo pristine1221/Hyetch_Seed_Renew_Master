@@ -18,6 +18,7 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -75,6 +76,7 @@ import retrofit2.Response;
 public class CreateBookingOrderRename_Fragment extends Fragment {
 
     private ListView boooking_listview;
+    private TextView no_record_found;
     private Chip add_book_order;
     private SessionManagement sessionManagement;
     private List<DistricMasterTable> districMasterTableList = null;
@@ -109,6 +111,7 @@ public class CreateBookingOrderRename_Fragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         sessionManagement = new SessionManagement(getContext());
         boooking_listview = view.findViewById(R.id.order_booking_list);
+        no_record_found = view.findViewById(R.id.no_data_found);
         add_book_order = view.findViewById(R.id.add_book_order);
 
         add_book_order.setOnClickListener(v -> {
@@ -495,7 +498,7 @@ public class CreateBookingOrderRename_Fragment extends Fragment {
                                             dialog.dismiss();
                                             Toast.makeText(getActivity(), insert_booking_response.get(0).message, Toast.LENGTH_SHORT).show();
                                         } else {
-                                            Toast.makeText(getActivity(), insert_booking_response != null && insert_booking_response.size() > 0 ? "No data found" : ". Error Code:" + response.code(), Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(getActivity(), insert_booking_response != null && insert_booking_response.size() > 0 ? "No data found OB" : ". Error Code:" + response.code(), Toast.LENGTH_SHORT).show();
                                         }
                                     } else {
                                         progressDialog.hideDialog();
@@ -684,7 +687,7 @@ public class CreateBookingOrderRename_Fragment extends Fragment {
                                             dialog.dismiss();
                                             Toast.makeText(getActivity(), update_booking_response.get(0).message, Toast.LENGTH_SHORT).show();
                                         } else {
-                                            Toast.makeText(getActivity(), update_booking_response != null && update_booking_response.size() > 0 ? "No data found" : ". Error Code:" + response.code(), Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(getActivity(), update_booking_response != null && update_booking_response.size() > 0 ? "No data found OB" : ". Error Code:" + response.code(), Toast.LENGTH_SHORT).show();
                                         }
                                     } else {
                                         progressDialog.hideDialog();
@@ -863,7 +866,9 @@ public class CreateBookingOrderRename_Fragment extends Fragment {
                                 orderBooking_list = orderbooking_list;
                                 binddataWithAadapter(orderBooking_list);
                             } else {
-                                Toast.makeText(getActivity(), orderbooking_list != null && orderbooking_list.size() > 0 ? "No data found" : ". Error Code:" + response.code(), Toast.LENGTH_SHORT).show();
+                                no_record_found.setVisibility(View.VISIBLE);
+                                boooking_listview.setVisibility(View.GONE);
+//                                Toast.makeText(getActivity(), orderbooking_list != null && orderbooking_list.size() > 0 ? "No data found" : ". Error Code:" + response.code(), Toast.LENGTH_SHORT).show();
                             }
                         } else {
                             progressDialog.hideDialog();

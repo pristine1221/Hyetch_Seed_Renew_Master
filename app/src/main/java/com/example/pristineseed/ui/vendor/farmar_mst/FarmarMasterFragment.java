@@ -75,6 +75,7 @@ public class FarmarMasterFragment extends Fragment {
     SwipeRefreshLayout swipe_refresh_layout;
     Chip add_newItem;
     ListView listview_farmer;
+    TextView no_record_found;
 
     SessionManagement sessionManagement;
     int init_page = 0;
@@ -100,6 +101,7 @@ public class FarmarMasterFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         sessionManagement = new SessionManagement(getActivity());
         listview_farmer = view.findViewById(R.id.lv_farmer_list);
+        no_record_found = view.findViewById(R.id.no_data_found);
 
         swipe_refresh_layout = view.findViewById(R.id.swipe_refresh_layout);
 
@@ -717,7 +719,9 @@ public class FarmarMasterFragment extends Fragment {
                             get_farmeer_master_list = farmermasterList;
                             bindFarmerDataWithLocal(get_farmeer_master_list);
                         } else {
-                            Toast.makeText(getActivity(), get_farmer_list.size() > 0 ? "No data found" : ". Error Code:" + response.code(), Toast.LENGTH_SHORT).show();
+                            no_record_found.setVisibility(View.VISIBLE);
+                            swipe_refresh_layout.setVisibility(View.GONE);
+//                            Toast.makeText(getActivity(), get_farmer_list.size() > 0 ? "No data found Farmer" : ". Error Code:" + response.code(), Toast.LENGTH_SHORT).show();
                         }
                     } else {
                         loadingDialog.hideDialog();
@@ -754,9 +758,9 @@ public class FarmarMasterFragment extends Fragment {
             DistrictAdapter districtAdapter = new DistrictAdapter(getActivity(), R.layout.drop_down_textview, districMasterTableList);
             drpdwn_district.setAdapter(districtAdapter);
         }
-        else {
+      /*  else {
             Toast.makeText(getActivity(), "No Record Found On "+state_code, Toast.LENGTH_SHORT).show();
-        }
+        }*/
     }
 
     private List<DistricMasterTable> getdistricMasterTableList(String state_code) {
@@ -828,7 +832,7 @@ public class FarmarMasterFragment extends Fragment {
                                 dialog.dismiss();
                                 Toast.makeText(getActivity(), farmerDeleteModelList.get(0).message, Toast.LENGTH_SHORT).show();
                             } else {
-                                Toast.makeText(getActivity(), farmerDeleteModelList.size() > 0 ? "No data found" : ". Error Code:" + response.code(), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getActivity(), farmerDeleteModelList.size() > 0 ? "No data found Farmer" : ". Error Code:" + response.code(), Toast.LENGTH_SHORT).show();
                             }
                         } else {
                             progressDialog.hideDialog();
