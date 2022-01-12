@@ -181,30 +181,32 @@ public class BackgruandSyncing_process extends AsyncTask<Void, Void, Void> {
                 Schedulertimercounter = 0;
 
                 getAllsecheduleInspectionData();
-
-                getGeoServerData();
-                //getCityMaster();
-                //getPlantingLotList();
                 getHybridItemMasterData();
-               // getCropMasterData();
-                //getShipmentToAddressData();
+                getGeoServerData();
                 getPlantingLineListLot();
-                //getFsioBsioSaleOrderNo();
-                //getUserLocationMasterData();
-                //getPlantingFsio_BsioORGData();
 
-              //  getSelectSeason();
-                //getOrganizerCode();
-               //getFarmermaster();
+                /*getCityMaster();
+                getPlantingLotList();
 
-             /*   getRoleMasterData("Dealer");
+                getCropMasterData();
+                getShipmentToAddressData();
+
+                getFsioBsioSaleOrderNo();
+                getUserLocationMasterData();
+                getPlantingFsio_BsioORGData();
+
+                getSelectSeason();
+                getOrganizerCode();
+               getFarmermaster();
+
+                getRoleMasterData("Dealer");
                 getRoleMasterData("Customer");
                 getRoleMasterData("Farmer");
                 getRoleMasterData("Distributor");
-                getRoleMasterData("Prod Distributor");*/
-               // getUnitOfMeasureData();
-                //getBookingUnitOfPriceData();
-                //getBankMasterData();
+                getRoleMasterData("Prod Distributor");
+                getUnitOfMeasureData();
+                getBookingUnitOfPriceData();
+                getBankMasterData();*/
 
             }
             Thread.sleep(5000);

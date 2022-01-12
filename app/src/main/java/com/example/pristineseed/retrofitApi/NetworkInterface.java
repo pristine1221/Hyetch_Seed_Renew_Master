@@ -507,12 +507,14 @@ public interface NetworkInterface {
     @POST("/api/MarketingIndent/MarketingIndent_Status_update")
     Call<List<BookingResponseModel>> updateMarketingIndentBookingStatus(@Body JsonObject jsonObject);
 
+    //todo Planting List Data API......
     @GET("/api/Inspection/PlantingListLine")
     Call<List<PlantingProdcutionLotModel>> getPlantingLineListData();
 
     @GET("/api/Inspection/PlantingListLineLotNo")
     Call<PlantingProdcutionLotModel.PlantingLineLotwise> getPlantingLineLotWiseListData(@Query("lot_no") String lot_no);
 
+    //todo Hybrid Item Master API....
     @GET("/api/Inspection/MyItemsUserWise")
     Call<HybridItemMasterModel> getHybridItemMaster(@Query("email") String email);
 
@@ -530,19 +532,22 @@ public interface NetworkInterface {
     //todo cropMaster..........
     @GET("/api/CropMaster/CropList")
     Call<CropMassterModel> getCropMasterData();
-    //todo deposit bank master..........
 
+
+    //todo deposit bank master..........
     @GET("/api/Collection/BankAccountList")
     Call<BankAccountModel> getBankAccountList();
 
-    //todo ship_to_address
 
+    //todo ship_to_address
     @GET("/api/MarketingIndent/ShipToAddressList")
     Call<ShipToAddressModel> getShipToAddressData(@Query("Search_Name") String Search_Name, @Query("Customer_No") String cust_no);
+
 
     //todo uom list
     @GET("/api/Inspection/UnitsofMeasureList")
     Call<UnitOfMeasureModel> getUnitsOfMeasureList();
+
 
     //todo booking master
     @GET("/api/MarketingIndent/BookingMaster")
@@ -558,7 +563,6 @@ public interface NetworkInterface {
     Call<UnitPriceModel> getUnitPrice*/
 
     //todo  tsp...
-
     @GET("/api/TrialSeedProduction/TrialSeedProduction_get")
     Call<List<TrialSeedModel>> getTspList(@Query("created_by") String created_by);
 
