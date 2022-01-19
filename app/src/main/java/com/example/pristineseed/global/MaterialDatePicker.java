@@ -91,6 +91,7 @@ public class MaterialDatePicker {
                 datePickerDialog.setDisabledDays(disabledDays1);
             }
 
+            //todo set to_date on single leave..
             if(flag.equals("to_date_set_text")){
                 DatePickerDialog.OnDateSetListener onDateSetListener = new DatePickerDialog.OnDateSetListener() {
                     @Override
@@ -106,6 +107,8 @@ public class MaterialDatePicker {
                 datePickerDialog.setCancelable(true);
 
             }
+
+            //todo not set to_date on multi leave...
             else if(flag.equals("not_set_text")) {
 
                 DatePickerDialog.OnDateSetListener onDateSetListener = new DatePickerDialog.OnDateSetListener() {
