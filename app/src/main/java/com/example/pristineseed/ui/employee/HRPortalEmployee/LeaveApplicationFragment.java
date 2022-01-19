@@ -222,6 +222,21 @@ public class LeaveApplicationFragment extends Fragment {
             }
         });*/
 
+        et_leave_from_date.setOnTouchListener((v, event) -> {
+            if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                if(mbs_select_leave_type.getText().toString().equalsIgnoreCase("Single Leave")){
+                    MaterialDatePicker materialDatePicker = new MaterialDatePicker(getActivity());
+                    materialDatePicker.showWeekDaysDialog(et_leave_from_date, et_leave_to_date,"to_date_set_text","");
+                }
+                else if(mbs_select_leave_type.getText().toString().equalsIgnoreCase("Multi Leave")){
+                    MaterialDatePicker materialDatePicker = new MaterialDatePicker(getActivity());
+                    materialDatePicker.showWeekDaysDialog(et_leave_from_date, et_leave_to_date,"not_set_text","");
+                }
+
+            }
+            return true;
+        });
+
         et_leave_to_date.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -239,20 +254,6 @@ public class LeaveApplicationFragment extends Fragment {
             }
         });
 
-        et_leave_from_date.setOnTouchListener((v, event) -> {
-            if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                if(mbs_select_leave_type.getText().toString().equalsIgnoreCase("Single Leave")){
-                    MaterialDatePicker materialDatePicker = new MaterialDatePicker(getActivity());
-                    materialDatePicker.showWeekDaysDialog(et_leave_from_date, et_leave_to_date,"to_date_set_text","");
-                }
-                else if(mbs_select_leave_type.getText().toString().equalsIgnoreCase("Multi Leave")){
-                    MaterialDatePicker materialDatePicker = new MaterialDatePicker(getActivity());
-                    materialDatePicker.showWeekDaysDialog(et_leave_from_date, et_leave_to_date,"not_set_text","");
-                }
-
-            }
-            return true;
-        });
 
 
      /*   et_leave_from_date.setOnClickListener(new View.OnClickListener() {
