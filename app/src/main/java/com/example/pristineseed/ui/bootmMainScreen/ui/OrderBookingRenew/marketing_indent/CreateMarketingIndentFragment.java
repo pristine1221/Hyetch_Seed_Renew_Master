@@ -876,7 +876,7 @@ public class  CreateMarketingIndentFragment extends Fragment implements RoleMast
     private void getRoleMasterData(String cust_type, String filter_key) {
         loading_item.setVisibility(View.VISIBLE);
         NetworkInterface mAPIService = ApiUtils.getPristineAPIService();
-        Call<RoleMasterModel> call = mAPIService.getDistributor(cust_type, filter_key,"");
+        Call<RoleMasterModel> call = mAPIService.getDistributor(cust_type, filter_key,sessionManagement.getSalePersonCode());
         call.enqueue(new Callback<RoleMasterModel>() {
             @Override
             public void onResponse(Call<RoleMasterModel> call, Response<RoleMasterModel> response) {
@@ -888,7 +888,7 @@ public class  CreateMarketingIndentFragment extends Fragment implements RoleMast
                             List<RoleMasterModel.Data> rolemasterList = roleMasterModelList.data;
                             if (rolemasterList != null && rolemasterList.size() > 0 && rolemasterList.get(0).no != null) {
                                 role_no_list = rolemasterList;
-                               /* if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+                               /*if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
                                     List<RoleMasterModel.Data> roleMasterModelslist = role_no_list.stream().filter(data -> data.district_Name.equalsIgnoreCase(dist_name))
                                             .collect(Collectors.toList());*/
                                 setAdapter(role_no_list);

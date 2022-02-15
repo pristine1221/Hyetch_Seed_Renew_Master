@@ -12,4 +12,3 @@ public class ApiUtils {
         return NetworkClient.getClient(BASE_URL).create(NetworkInterface.class);
     }
 }
-/*hello*/

@@ -522,9 +522,11 @@ public interface NetworkInterface {
     @GET("/api/DistributorMaster/distributor_sync")
     Call<RoleMasterModel> getDistributorSync(@Query("Customer_Type") String Customer_Type, @Query("city") String city, @Query("salespersoncode") String salePersonCode);
 
+    //todo get city name according to district..
     @GET("/api/DistributorMaster/distributor_sync")
     Call<RoleMasterModel> getCitySync(@Query("Customer_Type") String Customer_Type, @Query("districtCode") String districtCode , @Query("salespersoncode") String salePersonCode);
 
+    //todo get
     @GET("/api/DistributorMaster/distributor_sync")
     Call<RoleMasterModel> getDistributor(@Query("Customer_Type") String Customer_Type, @Query("Search_Name") String search_name,  @Query("salespersoncode") String salePersonCode);
 
