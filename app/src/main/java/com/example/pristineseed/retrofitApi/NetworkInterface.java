@@ -78,6 +78,7 @@ import com.example.pristineseed.model.reportModel.LotsDueInspectionModel;
 import com.example.pristineseed.model.reportModel.ProdAndQAInspectionStatusModel;
 import com.example.pristineseed.model.reportModel.ReportSeedDispatchViewModel;
 import com.example.pristineseed.model.reportModel.PLDandSownAcreViewModel;
+import com.example.pristineseed.model.reportModel.ZoneOrDistributorWiseDetailsModel;
 import com.example.pristineseed.model.scheduler_inspection.CompleteGerminationInspectionModel;
 import com.example.pristineseed.model.scheduler_inspection.GerminationInspectionHeaderModel;
 import com.example.pristineseed.model.scheduler_inspection.SchedulerModel;
@@ -692,6 +693,18 @@ public interface NetworkInterface {
     //todo pld and sown acre list view api...
     @GET("/api/Reports/PLDandSownAcreView")
     Call<List<PLDandSownAcreViewModel>> pldAndSownAcreList(@Query("item_name") String item_name, @Query("email") String email);
+
+    //todo zone distributor mkt indent details report list api....
+    @POST("/api/Reports/zone_distributorwise_mrk_indent_details_report_VIEW")
+    Call<List<ZoneOrDistributorWiseDetailsModel>> zoneDistributorWiseMktIndentList(@Body JsonObject jsonObject);
+
+    //todo zone distributor supply details report list api....
+    @POST("/api/Reports/zone_distributorwise_supply_details_report_VIEW")
+    Call<List<ZoneOrDistributorWiseDetailsModel>> zoneDistributorWiseSupplyList(@Body JsonObject jsonObject);
+
+    //todo zone distributor order details report list api....
+    @POST("/api/Reports/zone_distributorwise_order_details_report_VIEW")
+    Call<List<ZoneOrDistributorWiseDetailsModel>> zoneDistributorWiseOrderList(@Body JsonObject jsonObject);
 
     /*todo download api...*/
 

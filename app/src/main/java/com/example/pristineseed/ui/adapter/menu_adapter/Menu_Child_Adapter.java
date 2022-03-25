@@ -230,6 +230,15 @@ public class Menu_Child_Adapter extends RecyclerView.Adapter<Menu_Child_Adapter.
                     break;
                 case "Prod-Sown & PLD Acreage":
                     setImage(R.drawable.plought_down_list);
+                    break;
+                case "Zone Or Distributor wise Mkt Indent Details":
+                    setImage(R.drawable.fs_indent);
+                    break;
+                case "Zone Or Distributor wise Order Details":
+                    setImage(R.drawable.distributor_master);
+                    break;
+                case "Zone Or Distributor wise Supply Details":
+                    setImage(R.drawable.scheduler);
 
                 default:
                     if(child_menu.equalsIgnoreCase("")){
