@@ -39,6 +39,7 @@ import com.example.pristineseed.RoomDataBase.PristineDatabase;
 import com.example.pristineseed.SessionManageMent.SessionManagement;
 import com.example.pristineseed.global.ApiRequestFailure;
 import com.example.pristineseed.global.LoadingDialog;
+import com.example.pristineseed.global.StaticMethods;
 import com.example.pristineseed.model.BookingOrder.BookingResponseModel;
 import com.example.pristineseed.model.BookingOrder.OrderBookingModel;
 import com.example.pristineseed.model.BookingOrder.SalePlanLineModel;
@@ -64,6 +65,7 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.valdesekamdem.library.mdtoast.MDToast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -397,6 +399,7 @@ public class CreateBookingOrderRename_Fragment extends Fragment {
                 getSalePlanLine(master_loading_progress, crop_code, varity_code, season_code, ed_target);
             }
         });
+
 
         ac_variety.setOnItemClickListener((parent, view, position, id) -> {
             if (varity_list != null && varity_list.size() > 0) {
@@ -1061,6 +1064,7 @@ public class CreateBookingOrderRename_Fragment extends Fragment {
                             if (saleplainList != null && saleplainList.size() > 0 && saleplainList.get(0).Sales_Plan_No != null) {
                                 target_qty.setText(saleplainList.get(0).Sales_Plan_Quantity);
                             } else {
+//                                StaticMethods.showMessage(getActivity(), "No Target Qty Found!", MDToast.TYPE_ERROR);
                                 target_qty.setText("");
                                 content_loading.setVisibility(View.GONE);
                             }

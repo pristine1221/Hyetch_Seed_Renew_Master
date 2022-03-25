@@ -1,8 +1,7 @@
 package com.example.pristineseed.retrofitApi;
 
 public class ApiUtils {
-   /* private ApiUtils() {
-    }*/
+
     public  static final String BASE_URL = "https://hytechdev.pristinefulfil.com";
 //    public static  final  String BASE_URL="https://hytechlive.pristinefulfil.com";
 
@@ -13,4 +12,3 @@ public class ApiUtils {
         return NetworkClient.getClient(BASE_URL).create(NetworkInterface.class);
     }
 }
-/*hello*/
