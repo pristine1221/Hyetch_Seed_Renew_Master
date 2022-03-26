@@ -69,18 +69,18 @@ import retrofit2.Response;
 
 public class LeaveApplicationFragment extends Fragment {
     private RecyclerView leave_list_recycler;
-     private SessionManagement sessionManagement;
+    private SessionManagement sessionManagement;
     private AvailableLeaveAdapter adapterAvailableLeave;
     private Chip chip_add_new_applied_list;
-    private AutoCompleteTextView mbs_select_leave_type,ac_sub_leave_type;
+    private AutoCompleteTextView mbs_select_leave_type, ac_sub_leave_type;
     private TextInputEditText et_leave_from_date, et_leave_to_date, et_desc;
     private RadioGroup rg_leave_type;
-    private RadioButton  rb_short_leave;
+    private RadioButton rb_short_leave;
     private Button btn_ok;
     private TextInputLayout leave_to_date;
     private List<AvailableLeaveListModel> list = new ArrayList<>();
-    private String postedString="false";
-    private  List<EmployeeLeaveMasterModel.Data> leave_type_list=null;
+    private String postedString = "false";
+    private List<EmployeeLeaveMasterModel.Data> leave_type_list = null;
     String flag = "";
 
     @Override
@@ -88,6 +88,7 @@ public class LeaveApplicationFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_leave_application, container, false);
     }
+
     @Override
     public void onDestroy() {
         super.onDestroy();
@@ -99,7 +100,7 @@ public class LeaveApplicationFragment extends Fragment {
         leave_list_recycler = view.findViewById(R.id.leave_list_recycler);
         chip_add_new_applied_list = view.findViewById(R.id.chip_add_new_applied_list);
         chip_add_new_applied_list.setOnClickListener(v -> AddNewItemPopup());
-      //  onAppliedLeaveList();
+        //  onAppliedLeaveList();
     }
 
     @Override
@@ -113,29 +114,29 @@ public class LeaveApplicationFragment extends Fragment {
      */
 
     public void onAppliedLeaveList() {
-        if(NetworkUtil.getConnectivityStatusBoolean(getActivity())) {
+        if (NetworkUtil.getConnectivityStatusBoolean(getActivity())) {
             LoadingDialog progressDialogLoading = new LoadingDialog();
             progressDialogLoading.showLoadingDialog(getActivity());
             NetworkInterface mAPIService = ApiUtils.getPristineAPIService();
             JsonObject postedJson = new JsonObject();
-            postedJson.addProperty("EmployeeID",sessionManagement.getemp_id());
+            postedJson.addProperty("EmployeeID", sessionManagement.getemp_id());
             Call<List<AvailableLeaveListModel>> call = mAPIService.availableLeaveList(postedJson);
             call.enqueue(new Callback<List<AvailableLeaveListModel>>() {
                 @Override
                 public void onResponse(Call<List<AvailableLeaveListModel>> call, Response<List<AvailableLeaveListModel>> response) {
-                        if (response.isSuccessful()) {
+                    if (response.isSuccessful()) {
+                        progressDialogLoading.hideDialog();
+                        list = response.body();
+                        if (list != null && list.size() > 0 && list.get(0).condition) {
+                            generateDataList();
+                        } else {
+                            Toast.makeText(getContext(), "Error", Toast.LENGTH_LONG).show();
                             progressDialogLoading.hideDialog();
-                            list = response.body();
-                                if (list!=null && list.size() > 0 && list.get(0).condition) {
-                                       generateDataList();
-                                    } else {
-                                        Toast.makeText(getContext(), "Error", Toast.LENGTH_LONG).show();
-                                        progressDialogLoading.hideDialog();
-                                    }
-                                } else {
-                                    Log.e("message", "No List");
-                                    progressDialogLoading.hideDialog();
-                                }
+                        }
+                    } else {
+                        Log.e("message", "No List");
+                        progressDialogLoading.hideDialog();
+                    }
                 }
 
                 @Override
@@ -144,8 +145,8 @@ public class LeaveApplicationFragment extends Fragment {
                     ApiRequestFailure.PostExceptionToServer(t, getClass().getName(), "Available List", getActivity());
                 }
             });
-        }else {
-            Toast.makeText(getActivity(),"Please wait for internet connection.",Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(getActivity(), "Please wait for internet connection.", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -156,7 +157,7 @@ public class LeaveApplicationFragment extends Fragment {
         leave_list_recycler.setAdapter(adapterAvailableLeave);
     }
 
-    private int leave_days=0;
+    private int leave_days = 0;
 
     public void AddNewItemPopup() {
         LayoutInflater inflater = getActivity().getLayoutInflater();
@@ -178,37 +179,37 @@ public class LeaveApplicationFragment extends Fragment {
         rb_short_leave = popupView.findViewById(R.id.rb_short_leave);
         btn_ok = popupView.findViewById(R.id.btn_ok);
         et_desc = popupView.findViewById(R.id.et_desc);
-        ac_sub_leave_type=popupView.findViewById(R.id.ac_sub_leave_type);
-        MaterialProgressBar content_loading=popupView.findViewById(R.id.leave_content_loading);
+        ac_sub_leave_type = popupView.findViewById(R.id.ac_sub_leave_type);
+        MaterialProgressBar content_loading = popupView.findViewById(R.id.leave_content_loading);
 
-       // LinearLayout sub_levae_type=popupView.findViewById(R.id.sub_levae_type);
+        // LinearLayout sub_levae_type=popupView.findViewById(R.id.sub_levae_type);
 
-        List<String> parent_leave_type= Arrays.asList(CommonData.leaveTypeList);
+        List<String> parent_leave_type = Arrays.asList(CommonData.leaveTypeList);
         //getSubLeaveType(ac_sub_leave_type);
         ac_sub_leave_type.setOnItemClickListener((parent, view, position, id) -> {
-            switch (leave_type_list.get(position).Leave_Type){
+            switch (leave_type_list.get(position).Leave_Type) {
                 case "Maternity":
                     /*et_leave_to_date.setEnabled(false);
                     et_leave_to_date.setSelected(false);*/
                     et_leave_from_date.setText("");
                     et_leave_to_date.setText("");
-                    leave_days=Integer.parseInt(leave_type_list.get(position).Leave_Days);
+                    leave_days = Integer.parseInt(leave_type_list.get(position).Leave_Days);
                     break;
                 case "Paternity":
                     /*et_leave_to_date.setEnabled(false);
                     et_leave_to_date.setSelected(false);*/
                     et_leave_from_date.setText("");
                     et_leave_to_date.setText("");
-                    leave_days=Integer.parseInt(leave_type_list.get(position).Leave_Days);
+                    leave_days = Integer.parseInt(leave_type_list.get(position).Leave_Days);
                     break;
 
-                    case "Casual":
+                case "Casual":
                        /* et_leave_to_date.setEnabled(true);
                         et_leave_to_date.setSelected(true);*/
-                        et_leave_from_date.setText("");
-                        et_leave_to_date.setText("");
-                        leave_days = Integer.parseInt(leave_type_list.get(position).Leave_Days);
-                        break;
+                    et_leave_from_date.setText("");
+                    et_leave_to_date.setText("");
+                    leave_days = Integer.parseInt(leave_type_list.get(position).Leave_Days);
+                    break;
 
             }
         });
@@ -224,13 +225,12 @@ public class LeaveApplicationFragment extends Fragment {
 
         et_leave_from_date.setOnTouchListener((v, event) -> {
             if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                if(mbs_select_leave_type.getText().toString().equalsIgnoreCase("Single Leave")){
+                if (mbs_select_leave_type.getText().toString().equalsIgnoreCase("Single Leave")) {
                     MaterialDatePicker materialDatePicker = new MaterialDatePicker(getActivity());
-                    materialDatePicker.showWeekDaysDialog(et_leave_from_date, et_leave_to_date,"to_date_set_text","");
-                }
-                else if(mbs_select_leave_type.getText().toString().equalsIgnoreCase("Multi Leave")){
+                    materialDatePicker.showWeekDaysDialog(et_leave_from_date, et_leave_to_date, "to_date_set_text", "");
+                } else if (mbs_select_leave_type.getText().toString().equalsIgnoreCase("Multi Leave")) {
                     MaterialDatePicker materialDatePicker = new MaterialDatePicker(getActivity());
-                    materialDatePicker.showWeekDaysDialog(et_leave_from_date, et_leave_to_date,"not_set_text","");
+                    materialDatePicker.showWeekDaysDialog(et_leave_from_date, et_leave_to_date, "not_set_text", "");
                 }
 
             }
@@ -240,12 +240,11 @@ public class LeaveApplicationFragment extends Fragment {
         et_leave_to_date.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                if (event.getAction() == MotionEvent.ACTION_DOWN){
-                    if(mbs_select_leave_type.getText().toString().equalsIgnoreCase("Single Leave")) {
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    if (mbs_select_leave_type.getText().toString().equalsIgnoreCase("Single Leave")) {
                         MaterialDatePicker materialDatePicker = new MaterialDatePicker(getActivity());
                         materialDatePicker.showWeekDaysDialog(et_leave_to_date, et_leave_from_date, "to_date_set_text", "");
-                    }
-                    else if(mbs_select_leave_type.getText().toString().equalsIgnoreCase("Multi Leave")) {
+                    } else if (mbs_select_leave_type.getText().toString().equalsIgnoreCase("Multi Leave")) {
                         MaterialDatePicker materialDatePicker = new MaterialDatePicker(getActivity());
                         materialDatePicker.showWeekDaysDialog(et_leave_to_date, et_leave_from_date, "not_set_text", et_leave_from_date.getText().toString());
                     }
@@ -298,7 +297,7 @@ public class LeaveApplicationFragment extends Fragment {
 
         mbs_select_leave_type.setOnItemClickListener((parent, view, position, id) -> {
             if (position == 0) {
-                getLeaveTypeMaster(content_loading,"Single Leave");
+                getLeaveTypeMaster(content_loading, "Single Leave");
                 ac_sub_leave_type.setText("");
                 et_leave_from_date.setText("");
                 et_leave_to_date.setText("");
@@ -308,7 +307,7 @@ public class LeaveApplicationFragment extends Fragment {
 //                leave_to_date.setVisibility(View.GONE);
 
             } else if (position == 1) {
-                getLeaveTypeMaster(content_loading,"Multi Leave");
+                getLeaveTypeMaster(content_loading, "Multi Leave");
                 ac_sub_leave_type.setText("");
                 et_leave_from_date.setText("");
                 et_leave_to_date.setText("");
@@ -368,65 +367,64 @@ public class LeaveApplicationFragment extends Fragment {
         String dateformatStart = DateTimeUtilsCustome.getDateRetrunIntoYYMMDD(et_leave_from_date.getText().toString());
         String dateformaEnd = DateTimeUtilsCustome.getDateRetrunIntoYYMMDD(et_leave_to_date.getText().toString());
 
-        if(dateformatStart.equalsIgnoreCase("")) {
+        if (dateformatStart.equalsIgnoreCase("")) {
             Toast.makeText(getActivity(), "Please enter start date", Toast.LENGTH_SHORT).show();
         }
-        if(mbs_select_leave_type.getText().toString().trim().equalsIgnoreCase("")){
-            Toast.makeText(getActivity(),"Please select leave type",Toast.LENGTH_SHORT).show();
+        if (mbs_select_leave_type.getText().toString().trim().equalsIgnoreCase("")) {
+            Toast.makeText(getActivity(), "Please select leave type", Toast.LENGTH_SHORT).show();
         }
-        if(mbs_select_leave_type.getText().toString().trim().equalsIgnoreCase("Single Leave")){
-            if(dateformatStart.equalsIgnoreCase("")) {
-                Toast.makeText(getActivity(), "Please select start_date", Toast.LENGTH_SHORT).show();}
-            else {
-                addLeaveApplyHit(dialog, dateformatStart, dateformaEnd); }
-        }
-        else {
-            if(mbs_select_leave_type.getText().toString().trim().equalsIgnoreCase("Multi Leave")){
-                if(dateformatStart.equalsIgnoreCase("")){
-                    Toast.makeText(getActivity(),"Please enter start date.",Toast.LENGTH_SHORT).show(); ;
+        if (mbs_select_leave_type.getText().toString().trim().equalsIgnoreCase("Single Leave")) {
+            if (dateformatStart.equalsIgnoreCase("")) {
+                Toast.makeText(getActivity(), "Please select start_date", Toast.LENGTH_SHORT).show();
+            } else {
+                addLeaveApplyHit(dialog, dateformatStart, dateformaEnd);
+            }
+        } else {
+            if (mbs_select_leave_type.getText().toString().trim().equalsIgnoreCase("Multi Leave")) {
+                if (dateformatStart.equalsIgnoreCase("")) {
+                    Toast.makeText(getActivity(), "Please enter start date.", Toast.LENGTH_SHORT).show();
+                    ;
                 }
-                if(dateformaEnd.equalsIgnoreCase("")){
-                    Toast.makeText(getActivity(),"Please enter end date",Toast.LENGTH_SHORT).show();
-                }
-                else {
-                    if(ac_sub_leave_type.getText().toString().trim().equalsIgnoreCase("Maternity")){
+                if (dateformaEnd.equalsIgnoreCase("")) {
+                    Toast.makeText(getActivity(), "Please enter end date", Toast.LENGTH_SHORT).show();
+                } else {
+                    if (ac_sub_leave_type.getText().toString().trim().equalsIgnoreCase("Maternity")) {
                         if (sessionManagement.getEmpGender().equalsIgnoreCase("Male")) {
                             Toast.makeText(getActivity(), "Male gender can't not apply for Maternity Leave", Toast.LENGTH_SHORT).show();
+                        } else {
+                            addLeaveApplyHit(dialog, dateformatStart, dateformaEnd);
                         }
-                        else {
-                                addLeaveApplyHit(dialog, dateformatStart, dateformaEnd);
-                             }
-                         }
-                         else if(ac_sub_leave_type.getText().toString().trim().equalsIgnoreCase("Paternity")){
-                         if (sessionManagement.getEmpGender().equalsIgnoreCase("Female")) {
+                    } else if (ac_sub_leave_type.getText().toString().trim().equalsIgnoreCase("Paternity")) {
+                        if (sessionManagement.getEmpGender().equalsIgnoreCase("Female")) {
                             Toast.makeText(getActivity(), "Female gender can't not apply for Paternity Leave", Toast.LENGTH_SHORT).show();
-                           }
-                        else {
+                        } else {
                             addLeaveApplyHit(dialog, dateformatStart, dateformaEnd);
                         }
-                        }
-                         else if(ac_sub_leave_type.getText().toString().trim().equalsIgnoreCase("Casual")){
-                            addLeaveApplyHit(dialog, dateformatStart, dateformaEnd);
-                          }
-                      }
+                    } else if (ac_sub_leave_type.getText().toString().trim().equalsIgnoreCase("Casual")) {
+                        addLeaveApplyHit(dialog, dateformatStart, dateformaEnd);
+                    }
+                    /*else if (ac_sub_leave_type.getText().toString().trim().equalsIgnoreCase("")) {
+                        addLeaveApplyHit(dialog, dateformatStart, dateformaEnd);
+                    }*/
                 }
             }
+        }
     }
 
     private void addLeaveApplyHit(Dialog dialog, String dateformatStart, String dateformalEnd) {
-        if(NetworkUtil.getConnectivityStatusBoolean(getActivity())) {
+        if (NetworkUtil.getConnectivityStatusBoolean(getActivity())) {
             LoadingDialog progressDialogLoading = new LoadingDialog();
             progressDialogLoading.showLoadingDialog(getActivity());
             NetworkInterface mAPIService = ApiUtils.getPristineAPIService();
             JsonObject postedJson = new JsonObject();
             postedJson.addProperty("EmployeeID", sessionManagement.getemp_id());
-            postedJson.addProperty("EndDate",dateformalEnd != null ? dateformalEnd : "null");
-            postedJson.addProperty("HalfDay","");
-            postedJson.addProperty("Reason",et_desc.getText().toString());
-            postedJson.addProperty("StartDate",dateformatStart);
+            postedJson.addProperty("EndDate", dateformalEnd != null ? dateformalEnd : "null");
+            postedJson.addProperty("HalfDay", "");
+            postedJson.addProperty("Reason", et_desc.getText().toString());
+            postedJson.addProperty("StartDate", dateformatStart);
             postedJson.addProperty("Type", mbs_select_leave_type.getText().toString());
             postedJson.addProperty("ApprovalID", sessionManagement.getApprover_id());
-            postedJson.addProperty("LeaveCode",ac_sub_leave_type.getText().toString().trim());
+            postedJson.addProperty("LeaveCode", ac_sub_leave_type.getText().toString().trim());
 
             Call<List<ApplyLeaveModel>> call = mAPIService.applyLeaveList(postedJson);
             call.enqueue(new Callback<List<ApplyLeaveModel>>() {
@@ -436,7 +434,7 @@ public class LeaveApplicationFragment extends Fragment {
                         if (response.isSuccessful()) {
                             progressDialogLoading.hideDialog();
                             List<ApplyLeaveModel> list = response.body();
-                            if (list!=null && list.size() > 0 && list.get(0).condition) {
+                            if (list != null && list.size() > 0 && list.get(0).condition) {
                                 Toast.makeText(getActivity(), "Success", Toast.LENGTH_SHORT).show();
                                 onAppliedLeaveList();
                                 dialog.dismiss();
@@ -452,19 +450,20 @@ public class LeaveApplicationFragment extends Fragment {
                         progressDialogLoading.hideDialog();
                     }
                 }
+
                 @Override
                 public void onFailure(Call<List<ApplyLeaveModel>> call, Throwable t) {
                     progressDialogLoading.hideDialog();
                     ApiRequestFailure.PostExceptionToServer(t, getClass().getName(), "submit_new_leave", getActivity());
                 }
             });
-        }else {
-            Toast.makeText(getActivity(),"Please wait for internet connection.",Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(getActivity(), "Please wait for internet connection.", Toast.LENGTH_SHORT).show();
         }
     }
 
-    private void getLeaveTypeMaster(MaterialProgressBar materialProgressBar,String leave_type){
-        if(NetworkUtil.getConnectivityStatusBoolean(getActivity())) {
+    private void getLeaveTypeMaster(MaterialProgressBar materialProgressBar, String leave_type) {
+        if (NetworkUtil.getConnectivityStatusBoolean(getActivity())) {
             materialProgressBar.setVisibility(View.VISIBLE);
             NetworkInterface mAPIService = ApiUtils.getPristineAPIService();
             Call<EmployeeLeaveMasterModel> call = mAPIService.getEmployeeLeaveMaster(leave_type);
@@ -475,11 +474,11 @@ public class LeaveApplicationFragment extends Fragment {
                         if (response.isSuccessful()) {
                             materialProgressBar.setVisibility(View.GONE);
                             EmployeeLeaveMasterModel employeeLeaveMasterModel = response.body();
-                            if (employeeLeaveMasterModel!=null && employeeLeaveMasterModel.condition) {
-                               List<EmployeeLeaveMasterModel.Data> list_leave_type= employeeLeaveMasterModel.data;
-                                if (list_leave_type!=null && list_leave_type.size() > 0) {
-                                     leave_type_list= list_leave_type;
-                                    SubLeaveTypeAdapter leaveTypeAdapter=new SubLeaveTypeAdapter(getActivity(),R.layout.android_item_view,leave_type_list);
+                            if (employeeLeaveMasterModel != null && employeeLeaveMasterModel.condition) {
+                                List<EmployeeLeaveMasterModel.Data> list_leave_type = employeeLeaveMasterModel.data;
+                                if (list_leave_type != null && list_leave_type.size() > 0) {
+                                    leave_type_list = list_leave_type;
+                                    SubLeaveTypeAdapter leaveTypeAdapter = new SubLeaveTypeAdapter(getActivity(), R.layout.android_item_view, leave_type_list);
                                     ac_sub_leave_type.setAdapter(leaveTypeAdapter);
                                 } else {
                                     Toast.makeText(getContext(), response.message(), Toast.LENGTH_LONG).show();
@@ -494,6 +493,7 @@ public class LeaveApplicationFragment extends Fragment {
                         ApiRequestFailure.PostExceptionToServer(e, getClass().getName(), "leave_type_master", getActivity());
                     }
                 }
+
                 @Override
                 public void onFailure(Call<EmployeeLeaveMasterModel> call, Throwable t) {
                     materialProgressBar.setVisibility(View.GONE);
@@ -503,8 +503,8 @@ public class LeaveApplicationFragment extends Fragment {
         }
     }
 
-    private String getLevaeDateDaysWise(String from_date, int leave_days ){
-        if(from_date!=null && !from_date.equalsIgnoreCase("")) {
+    private String getLevaeDateDaysWise(String from_date, int leave_days) {
+        if (from_date != null && !from_date.equalsIgnoreCase("")) {
             PristineDatabase pristineDatabase = PristineDatabase.getAppDatabase(getActivity());
             try {
                 SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
@@ -519,10 +519,10 @@ public class LeaveApplicationFragment extends Fragment {
                 String[] parts = newDate.split("-");
                 String dd = parts[0];
                 String yy = parts[1];
-                String mm=parts[2];
-                Log.e("origional_date",yy+"-"+mm+"-"+dd);
+                String mm = parts[2];
+                Log.e("origional_date", yy + "-" + mm + "-" + dd);
                 return newDate;
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }

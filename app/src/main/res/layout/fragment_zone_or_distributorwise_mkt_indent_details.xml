@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/parent_relative_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.reports.SDNDetailsFragment"
-    android:id="@+id/parent_relative_layout">
+    tools:context=".ui.reports.SDNDetailsFragment">
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
@@ -60,9 +59,9 @@
                                 android:id="@+id/iv_refresh_details"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:src="@drawable/ic_refresh"
+                                android:layout_marginTop="@dimen/_2sdp"
                                 android:layout_marginRight="@dimen/_4sdp"
-                                android:layout_marginTop="@dimen/_2sdp"/>
+                                android:src="@drawable/ic_refresh" />
 
                         </LinearLayout>
 
@@ -100,12 +99,12 @@
                                 android:layout_marginLeft="4dp"
                                 android:layout_marginBottom="4dp"
                                 android:layout_weight="1"
+                                android:focusableInTouchMode="true"
                                 android:hint="Distributor Name"
                                 app:boxCornerRadiusBottomEnd="15dp"
                                 app:boxCornerRadiusBottomStart="15dp"
                                 app:boxCornerRadiusTopEnd="15dp"
                                 app:boxCornerRadiusTopStart="15dp"
-                                android:focusableInTouchMode="true"
                                 app:startIconDrawable="@drawable/ic_search_black_24dp"
                                 app:startIconTint="@color/color_trans_gray">
 
@@ -174,7 +173,7 @@
                                     android:layout_height="wrap_content"
                                     android:drawableRight="@drawable/ic_baseline_today_24"
                                     android:drawableTint="@color/colorPrimary"
-                                    android:editable="true"
+                                    android:editable="false"
                                     android:maxLines="1" />
 
                             </com.google.android.material.textfield.TextInputLayout>
@@ -191,7 +190,7 @@
                                 android:layout_marginLeft="@dimen/_4sdp"
                                 android:layout_marginBottom="4dp"
                                 android:layout_weight="1"
-                                android:hint="Start Date"
+                                android:hint="End Date"
                                 app:boxCornerRadiusBottomEnd="15dp"
                                 app:boxCornerRadiusBottomStart="15dp"
                                 app:boxCornerRadiusTopEnd="15dp"
@@ -203,7 +202,7 @@
                                     android:layout_height="wrap_content"
                                     android:drawableRight="@drawable/ic_baseline_today_24"
                                     android:drawableTint="@color/colorPrimary"
-                                    android:editable="true"
+                                    android:editable="false"
                                     android:maxLines="1" />
 
                             </com.google.android.material.textfield.TextInputLayout>
@@ -211,12 +210,41 @@
                         </LinearLayout>
 
                         <LinearLayout
+                            android:id="@+id/clear_submit_btn"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/submit_filter_layout"
+                            android:layout_weight="1"
+                            android:gravity="end|center">
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/submit_mkt_list"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/_4sdp"
+                                android:layout_marginRight="@dimen/_4sdp"
+                                android:text="Submit"
+                                android:textAllCaps="false"
+                                android:visibility="visible" />
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/clear_mkt_list"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/_4sdp"
+                                android:layout_marginRight="@dimen/_4sdp"
+                                android:text="Clear"
+                                android:textAllCaps="false"
+                                android:visibility="gone" />
+                        </LinearLayout>
+
+                        <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/search_items_list"
+                            android:elevation="@dimen/_5sdp"
                             android:orientation="horizontal"
-                            android:visibility="visible"
-                            android:elevation="@dimen/_5sdp">
+                            android:visibility="visible">
 
                             <com.google.android.material.card.MaterialCardView
                                 android:id="@+id/frame_mkt_distributor_list_layout"
@@ -267,9 +295,9 @@
                             <View
                                 android:id="@+id/view_weight"
                                 android:layout_width="0dp"
+                                android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:visibility="visible"
-                                android:layout_height="wrap_content"/>
+                                android:visibility="visible" />
 
                             <com.google.android.material.card.MaterialCardView
                                 android:id="@+id/frame_mkt_zone_list_layout"
@@ -316,42 +344,12 @@
                             </com.google.android.material.card.MaterialCardView>
 
                         </LinearLayout>
-<!--
-
-                           <LinearLayout
-                               android:layout_width="0dp"
-                               android:layout_height="wrap_content"
-                               android:layout_below="@+id/submit_filter_layout"
-                               android:layout_weight="1"
-                               android:gravity="end|center">
-
-                               <com.google.android.material.button.MaterialButton
-                                   android:id="@+id/submit_mkt_list"
-                                   android:layout_width="wrap_content"
-                                   android:layout_height="wrap_content"
-                                   android:layout_marginRight="@dimen/_4sdp"
-                                   android:layout_marginTop="@dimen/_4sdp"
-                                   android:text="Submit"
-                                   android:textAllCaps="false"
-                                   android:visibility="visible" />
-
-                               <com.google.android.material.button.MaterialButton
-                                   android:id="@+id/clear_mkt_list"
-                                   android:layout_width="wrap_content"
-                                   android:layout_height="wrap_content"
-                                   android:layout_marginTop="@dimen/_4sdp"
-                                   android:layout_marginRight="@dimen/_4sdp"
-                                   android:text="Clear"
-                                   android:textAllCaps="false"
-                                   android:visibility="gone" />
-                           </LinearLayout>
--->
 
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/mkt_recycler_view_list"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_below="@+id/submit_filter_layout"
+                            android:layout_below="@+id/clear_submit_btn"
                             android:dividerHeight="1dp"
                             android:visibility="visible" />
 
@@ -380,37 +378,39 @@
 
         <FrameLayout
             android:layout_width="@dimen/_80sdp"
-            android:layout_gravity="bottom|end"
-            android:layout_height="@dimen/_80sdp">
+            android:layout_height="@dimen/_80sdp"
+            android:layout_gravity="bottom|end">
+
             <ProgressBar
-                android:id="@+id/sdn_progressBar"
+                android:id="@+id/mkt_progressBar"
+                style="?android:attr/progressBarStyleHorizontal"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:indeterminate="false"
-                android:visibility="gone"
-                android:progressDrawable="@drawable/progress_drwable"
                 android:background="@drawable/circle_shape"
-                style="?android:attr/progressBarStyleHorizontal"/>
+                android:indeterminate="false"
+                android:progressDrawable="@drawable/progress_drwable"
+                android:visibility="gone" />
 
             <TextView
-                android:id="@+id/sdn_progress_percentage_count"
+                android:id="@+id/mkt_progress_percentage_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/_12sdp"
+                android:layout_gravity="center_vertical|center_horizontal"
                 android:text="0"
-                android:visibility="gone"
-                android:layout_gravity="center_vertical|center_horizontal"
-                android:textColor="@color/colorPrimary"/>
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/_12sdp"
+                android:visibility="gone" />
+
             <TextView
-                android:id="@+id/sdn_text_percent"
+                android:id="@+id/mkt_text_percent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/_12sdp"
-                android:text="%"
-                android:layout_marginLeft="@dimen/_11sdp"
-                android:visibility="gone"
                 android:layout_gravity="center_vertical|center_horizontal"
-                android:textColor="@color/colorPrimary"/>
+                android:layout_marginLeft="@dimen/_11sdp"
+                android:text="%"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/_12sdp"
+                android:visibility="gone" />
 
         </FrameLayout>
 

@@ -1,6 +1,8 @@
 package com.example.pristineseed.model.reportModel;
 
 public class ZoneOrDistributorWiseDetailsModel {
+            public boolean condition;
+            public String message;
             public String season;
             public String zone_name;
             public String ditributor;

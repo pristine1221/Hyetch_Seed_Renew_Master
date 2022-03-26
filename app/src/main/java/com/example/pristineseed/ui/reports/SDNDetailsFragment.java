@@ -466,7 +466,6 @@ public class SDNDetailsFragment extends Fragment implements SDNOrganiserNameAdap
 
     private void setSubmitSDNDetails() {
         if (NetworkUtil.getConnectivityStatusBoolean(getActivity())) {
-
             if (et_sdn_organizer_name.getText().toString().equalsIgnoreCase("") && et_sdn_hybrid_name.getText().toString().equalsIgnoreCase("")
                     && et_sdn_date.getText().toString().equalsIgnoreCase("")) {
                 Toast.makeText(getActivity(), "Data Fetch Successfully", Toast.LENGTH_SHORT).show();
@@ -492,9 +491,6 @@ public class SDNDetailsFragment extends Fragment implements SDNOrganiserNameAdap
                 Toast.makeText(getActivity(), "Wrong Data", Toast.LENGTH_SHORT).show();
             }
 
-            /*if(!et_sdn_date.getText().toString().equalsIgnoreCase("")) {
-                sdnDispatchList(et_sdn_organizer_name.getText().toString(), et_sdn_hybrid_name.getText().toString(), et_sdn_date.getText().toString(), "sdn_list");
-            }*/
         }
     }
 
