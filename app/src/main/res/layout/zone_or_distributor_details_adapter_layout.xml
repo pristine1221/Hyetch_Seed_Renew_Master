@@ -44,6 +44,7 @@
                 android:orientation="horizontal">
 
                 <TextView
+                    android:id="@+id/season_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/product_sans_regular"
@@ -56,6 +57,37 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/product_sans_regular" />
 
+                <TextView
+                    android:id="@+id/booking_qty_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/product_sans_regular"
+                    android:layout_marginLeft="5dp"
+                    android:text=" , Booking Qty : "
+                    android:textColor="@color/dark_gray" />
+
+                <TextView
+                    android:id="@+id/tv_booking_qty"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/product_sans_regular" />
+
+
+                <TextView
+                    android:id="@+id/order_description_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/product_sans_regular"
+                    android:text="Description : "
+                    android:visibility="gone"
+                    android:textColor="@color/dark_gray" />
+
+                <TextView
+                    android:id="@+id/tv_order_description"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:fontFamily="@font/product_sans_regular" />
             </LinearLayout>
 
 
@@ -68,7 +100,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/product_sans_regular"
-                    android:text="Distributor Name: "
+                    android:text="Distributor name:"
                     android:textColor="@color/dark_gray" />
 
                 <TextView
@@ -98,11 +130,106 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/product_sans_regular" />
 
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/bookind_ind_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/product_sans_regular"
+                    android:text="Booking Ind No : "
+                    android:textColor="@color/dark_gray"
+                    android:visibility="visible"/>
+
+                <TextView
+                    android:id="@+id/tv_booking_indent_no"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/product_sans_regular"
+                    android:visibility="visible"/>
+
+                <TextView
+                    android:id="@+id/supply_allotted_qty_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/product_sans_regular"
+                    android:text="Allotted Qty: "
+                    android:textColor="@color/dark_gray"
+                    android:visibility="gone"/>
+
+                <TextView
+                    android:id="@+id/tv_supply_allotted_qty"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:fontFamily="@font/product_sans_regular" />
+
+                <TextView
+                    android:id="@+id/order_booking_no_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/product_sans_regular"
+                    android:text="Booking No : "
+                    android:textColor="@color/dark_gray"
+                    android:visibility="gone"/>
+
+                <TextView
+                    android:id="@+id/tv_order_booking_no"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/product_sans_regular"
+                    android:visibility="gone"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/mkt_ind_nd_crop_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/marketing_ind_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/product_sans_regular"
+                    android:text="Marketing Ind No. : "
+                    android:textColor="@color/dark_gray"
+                    android:visibility="visible"/>
+
+                <TextView
+                    android:id="@+id/tv_marketing_indent_no"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="visible"
+                    android:fontFamily="@font/product_sans_regular" />
+
+                <TextView
+                    android:id="@+id/supply_supplies_qty_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/product_sans_regular"
+                    android:text="Supplies Qty: "
+                    android:textColor="@color/dark_gray"
+                    android:visibility="gone"/>
+
+                <TextView
+                    android:id="@+id/tv_supply_supplies_qty"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:fontFamily="@font/product_sans_regular" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/product_sans_regular"
-                    android:text=" , Crop Name : "
+                    android:text=" , Crop : "
                     android:textColor="@color/dark_gray" />
 
                 <TextView
@@ -113,38 +240,25 @@
 
             </LinearLayout>
 
-
             <LinearLayout
+                android:id="@+id/order_field_created_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:visibility="gone"
                 android:orientation="horizontal">
-
                 <TextView
+                    android:id="@+id/order_created_on_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/product_sans_regular"
-                    android:text="Booking Ind No : "
+                    android:text="Created On: "
                     android:textColor="@color/dark_gray" />
 
                 <TextView
-                    android:id="@+id/tv_booing_indent_no"
+                    android:id="@+id/tv_order_created_on"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/product_sans_regular" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/product_sans_regular"
-                    android:text=" , Booking Qty : "
-                    android:textColor="@color/dark_gray" />
-
-                <TextView
-                    android:id="@+id/tv_booking_qty"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/product_sans_regular" />
-
+                    android:fontFamily="@font/product_sans_regular"/>
             </LinearLayout>
 
             <LinearLayout
@@ -152,25 +266,7 @@
                 android:layout_height="wrap_content">
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/product_sans_regular"
-                    android:text="Marketing Ind No. : "
-                    android:textColor="@color/dark_gray" />
-
-                <TextView
-                    android:id="@+id/tv_marketing_indent_no"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/product_sans_regular" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
+                    android:id="@+id/status_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/product_sans_regular"
@@ -181,6 +277,22 @@
                     android:id="@+id/tv_status"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/product_sans_regular" />
+
+                <TextView
+                    android:id="@+id/order_crop_name_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/product_sans_regular"
+                    android:text=" , Crop : "
+                    android:visibility="gone"
+                    android:textColor="@color/dark_gray" />
+
+                <TextView
+                    android:id="@+id/tv_order_crop_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
                     android:fontFamily="@font/product_sans_regular" />
 
             </LinearLayout>

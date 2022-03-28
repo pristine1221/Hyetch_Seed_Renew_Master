@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -19,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -53,8 +53,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ZoneOrDistributorwiseMktIndentDetailsFragment extends Fragment implements DistributorWiseAdapter.OnItemClickListner, ZoneWiseAdapter.OnZoneItemClick, RoleMasterAdapter.OnItemClickListner {
-
+public class ZoneOrDistributorwiseMktIndentDetailsFragment extends Fragment implements ZoneWiseAdapter.OnZoneItemClick, RoleMasterAdapter.OnItemClickListner {
     private SessionManagement sessionManagement;
     private TextInputLayout distributor_name_text_input_layout, zone_text_input_layout, mkt_start_date_input_layout, mkt_end_date_input_layout;
     private TextInputEditText et_mkt_distributor_name, et_mkt_zone, et_start_date, et_end_date;
@@ -64,14 +63,12 @@ public class ZoneOrDistributorwiseMktIndentDetailsFragment extends Fragment impl
     private LinearLayoutManager mkt_distributor_layout_manager, mkt_zone_layout_manager, mkt_indent_list_layout_manager;
     private FloatingActionButton filter_download_floating_btn;
     private View view_weight;
-    private LinearLayout parent_layout;
+    private ScrollView parent_layout;
     private ProgressBar loading_item;
     private RelativeLayout search_reports_item_layout;
     private ImageView iv_refresh_details;
     private List<ZoneOrDistributorWiseDetailsModel> zoneOrDistributorWiseModelList_gl = new ArrayList<>();
     private ZoneOrDistributorWiseDetailsModel zoneOrDistributorWiseModel = null;
-    private DistributorWiseAdapter distributorWiseAdapter;
-    private ZoneWiseAdapter zoneWiseAdapter;
     private ProgressBar mkt_progressBar;
     private TextView mkt_progress_percentage_count, mkt_text_percent;
 
@@ -88,31 +85,9 @@ public class ZoneOrDistributorwiseMktIndentDetailsFragment extends Fragment impl
         sessionManagement = new SessionManagement(getActivity());
         initView(view);
 
-        /*et_mkt_distributor_name.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean hasFocus) {
-                if (hasFocus && et_mkt_distributor_name.isCursorVisible()) {
-                    frame_mkt_distributor_list_layout.setVisibility(View.VISIBLE);
-                    frame_mkt_zone_list_layout.setVisibility(View.GONE);
-                    distributor_name_text_input_layout.setStartIconDrawable(null);
-                    getDistributor("");
-//                    mktIndentDetailsApi("","","","","distributor_name");
-                    view_weight.setVisibility(View.VISIBLE);
-                }else {
-                    if (!et_mkt_distributor_name.getText().toString().trim().equalsIgnoreCase("")) {
-                        distributor_name_text_input_layout.setStartIconDrawable(null);
-                    } else {
-                        distributor_name_text_input_layout.setStartIconDrawable(R.drawable.ic_baseline_search_24);
-                        frame_mkt_distributor_list_layout.setVisibility(View.GONE);
-                    }
-                }
-            }
-        });
-*/
         et_mkt_distributor_name.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
             }
 
             @Override
@@ -121,7 +96,6 @@ public class ZoneOrDistributorwiseMktIndentDetailsFragment extends Fragment impl
                 if (!s.toString().equalsIgnoreCase("") && et_mkt_distributor_name.isCursorVisible()) {
                     frame_mkt_distributor_list_layout.setVisibility(View.VISIBLE);
                     getDistributor(s.toString());
-//                    mktIndentDetailsApi(s.toString(), "", "", "","distributor_name");
                     view_weight.setVisibility(View.VISIBLE);
                 } else {
                     frame_mkt_distributor_list_layout.setVisibility(View.GONE);
@@ -130,29 +104,9 @@ public class ZoneOrDistributorwiseMktIndentDetailsFragment extends Fragment impl
 
             @Override
             public void afterTextChanged(Editable editable) {
-
             }
         });
 
-      /*  et_mkt_zone.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean hasFocus) {
-                if (hasFocus && et_mkt_zone.isCursorVisible()) {
-                    frame_mkt_zone_list_layout.setVisibility(View.VISIBLE);
-                    frame_mkt_distributor_list_layout.setVisibility(View.GONE);
-                    zone_text_input_layout.setStartIconDrawable(null);
-                    mktIndentDetailsApi("","","","","zone_name");
-                    view_weight.setVisibility(View.VISIBLE);
-                }else {
-                    if (!et_mkt_zone.getText().toString().trim().equalsIgnoreCase("")) {
-                        zone_text_input_layout.setStartIconDrawable(null);
-                    } else {
-                        zone_text_input_layout.setStartIconDrawable(R.drawable.ic_baseline_search_24);
-                        frame_mkt_zone_list_layout.setVisibility(View.GONE);
-                    }
-                }
-            }
-        });*/
 
         et_mkt_zone.addTextChangedListener(new TextWatcher() {
             @Override
@@ -164,7 +118,7 @@ public class ZoneOrDistributorwiseMktIndentDetailsFragment extends Fragment impl
                 et_mkt_zone.setSelection(s.toString().length());
                 if (!s.toString().equalsIgnoreCase("") && et_mkt_zone.isCursorVisible()) {
                     frame_mkt_zone_list_layout.setVisibility(View.VISIBLE);
-                    mktIndentDetailsApi("",s.toString(), "", "", "zone_name");
+                    mktIndentDetailsApi("", s.toString(), "", "", "zone_name");
                     view_weight.setVisibility(View.VISIBLE);
                 } else {
                     frame_mkt_zone_list_layout.setVisibility(View.GONE);
@@ -193,12 +147,10 @@ public class ZoneOrDistributorwiseMktIndentDetailsFragment extends Fragment impl
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
                     if (!et_start_date.getText().toString().equalsIgnoreCase("")) {
-//                    et_end_date.setEnabled(true);
                         MaterialDatePicker materialDatePicker = new MaterialDatePicker(getActivity());
                         materialDatePicker.disableDatesAccToStartDate(et_end_date, et_start_date.getText().toString());
                     } else {
                         MDToast.makeText(getActivity(), "Select Start Date First", Toast.LENGTH_SHORT, MDToast.TYPE_ERROR).show();
-//                    et_end_date.setEnabled(false);
                     }
                 }
                 return false;
@@ -211,7 +163,11 @@ public class ZoneOrDistributorwiseMktIndentDetailsFragment extends Fragment impl
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
                     frame_mkt_distributor_list_layout.setVisibility(View.GONE);
                     frame_mkt_zone_list_layout.setVisibility(View.GONE);
-                    parent_layout.requestFocus();
+                    et_mkt_distributor_name.clearFocus();
+                    et_mkt_zone.clearFocus();
+                    et_start_date.clearFocus();
+                    et_end_date.clearFocus();
+//                    parent_layout.requestFocus();
                 }
                 return true;
             }
@@ -238,7 +194,15 @@ public class ZoneOrDistributorwiseMktIndentDetailsFragment extends Fragment impl
         submit_mkt_list.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setSubmitMKTDetails( et_mkt_distributor_name.getText().toString(),et_mkt_zone.getText().toString(),et_start_date.getText().toString(), et_end_date.getText().toString());
+                setSubmitMKTDetails(et_mkt_distributor_name.getText().toString(), et_mkt_zone.getText().toString(), et_start_date.getText().toString(),
+                        et_end_date.getText().toString());
+            }
+        });
+
+        clear_mkt_list.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                clearUIRefresh();
             }
         });
 
@@ -292,22 +256,26 @@ public class ZoneOrDistributorwiseMktIndentDetailsFragment extends Fragment impl
     }
 
     //todo submit details..
-    private void setSubmitMKTDetails(String distributor_name,String zone_name,String start_date, String end_date) {
+    private void setSubmitMKTDetails(String distributor_name, String zone_name, String start_date, String end_date) {
         if (NetworkUtil.getConnectivityStatusBoolean(getActivity())) {
-            if(et_start_date.getText().toString().equalsIgnoreCase(""))
-                MDToast.makeText(getActivity(), "Start Date Required!", Toast.LENGTH_SHORT, MDToast.TYPE_ERROR);
+            if (et_start_date.getText().toString().equalsIgnoreCase(""))
+                MDToast.makeText(getActivity(), "Start Date Required!", Toast.LENGTH_SHORT, MDToast.TYPE_ERROR).show();
             else if (et_end_date.getText().toString().equalsIgnoreCase(""))
-                MDToast.makeText(getActivity(), "End Date Required!", Toast.LENGTH_SHORT, MDToast.TYPE_ERROR);
-            else
-                mktIndentDetailsApi("","",start_date, end_date, "mkt_indent_list");
+                MDToast.makeText(getActivity(), "End Date Required!", Toast.LENGTH_SHORT, MDToast.TYPE_ERROR).show();
+            else if (!et_start_date.getText().toString().equalsIgnoreCase("") || !et_end_date.getText().toString().equalsIgnoreCase(""))
+                mktIndentDetailsApi("", "", start_date, end_date, "mkt_indent_list");
+            else if (!et_mkt_distributor_name.getText().toString().equalsIgnoreCase("") || !et_mkt_zone.getText().toString().equalsIgnoreCase("")
+                    || !et_start_date.getText().toString().equalsIgnoreCase("") || !et_end_date.getText().toString().equalsIgnoreCase(""))
+                mktIndentDetailsApi(distributor_name, zone_name, start_date, end_date, "mkt_indent_list");
 
-        }else {
+        } else {
             Toast.makeText(getActivity(), "Please wait for online connection", Toast.LENGTH_SHORT).show();
         }
     }
 
     //todo getting distributor filter...
     private List<RoleMasterModel.Data> roleMasterTableList_gl = new ArrayList<>();
+
     private void getDistributor(String filter_key) {
         loading_item.setVisibility(View.VISIBLE);
         NetworkInterface mAPIService = ApiUtils.getPristineAPIService();
@@ -343,16 +311,7 @@ public class ZoneOrDistributorwiseMktIndentDetailsFragment extends Fragment impl
                                 setAdapter();
                             }
                         } else {
-                            iv_refresh_details.setVisibility(View.VISIBLE);
-                            loading_item.setVisibility(View.GONE);
-                            frame_mkt_distributor_list_layout.setVisibility(View.GONE);
-                            filter_download_floating_btn.setVisibility(View.GONE);
-                            submit_mkt_list.setVisibility(View.VISIBLE);
-                            clear_mkt_list.setVisibility(View.GONE);
-                            et_mkt_distributor_name.setEnabled(true);
-                            et_mkt_zone.setEnabled(true);
-                            et_start_date.setEnabled(true);
-                            et_end_date.setEnabled(true);
+                            listEmptyResponseUI();
                             MDToast.makeText(getActivity(), roleMasterModelList.message, Toast.LENGTH_SHORT, MDToast.TYPE_ERROR).show();
                         }
                     }
@@ -377,7 +336,7 @@ public class ZoneOrDistributorwiseMktIndentDetailsFragment extends Fragment impl
     }
 
     //todo mkt indent api hitting,...
-    private void mktIndentDetailsApi( String distributor_name, String zone_name, String start_date, String end_date, String flag) {
+    private void mktIndentDetailsApi(String distributor_name, String zone_name, String start_date, String end_date, String flag) {
         if (NetworkUtil.getConnectivityStatusBoolean(getActivity())) {
             loading_item.setVisibility(View.VISIBLE);
             JsonObject jsonObject = new JsonObject();
@@ -395,7 +354,7 @@ public class ZoneOrDistributorwiseMktIndentDetailsFragment extends Fragment impl
                         if (response.isSuccessful()) {
                             loading_item.setVisibility(View.GONE);
                             List<ZoneOrDistributorWiseDetailsModel> responseList = response.body();
-                            if (responseList != null && responseList.size() > 0 && responseList.get(0).condition) {
+                            if (responseList != null && responseList.size() > 0) {
                                 zoneOrDistributorWiseModelList_gl.clear();
                                 zoneOrDistributorWiseModelList_gl.addAll(responseList);
 
@@ -414,12 +373,10 @@ public class ZoneOrDistributorwiseMktIndentDetailsFragment extends Fragment impl
                                         }
                                     }
                                 }
-
-                                if (flag.equals("distributor_name")) {
-//                                    bindMktDistributorName();
-                                } else if (flag.equals("zone_name")) {
+                                if (flag.equals("zone_name")) {
                                     bindMktZoneName();
-                                } else if (flag.equals("mkt_indent_list")) {
+                                }
+                                else if (flag.equals("mkt_indent_list")) {
                                     bindMktIndentList(responseList);
                                     MDToast.makeText(getActivity(), "Data Fetch Successful !", Toast.LENGTH_SHORT, MDToast.TYPE_SUCCESS).show();
                                 } else {
@@ -427,16 +384,7 @@ public class ZoneOrDistributorwiseMktIndentDetailsFragment extends Fragment impl
                                 }
 
                             } else {
-                                iv_refresh_details.setVisibility(View.VISIBLE);
-                                loading_item.setVisibility(View.GONE);
-                                frame_mkt_distributor_list_layout.setVisibility(View.GONE);
-                                filter_download_floating_btn.setVisibility(View.GONE);
-//                                submit_sdn_list.setVisibility(View.VISIBLE);
-//                                clear_sdn_list.setVisibility(View.GONE);
-                                et_mkt_distributor_name.setEnabled(true);
-                                et_mkt_zone.setEnabled(true);
-                                et_start_date.setEnabled(true);
-                                et_end_date.setEnabled(true);
+                                listEmptyResponseUI();
                                 Toast.makeText(getActivity(), responseList.size() > 0 ? "No Record found" : ". Error Code:" + response.code(), Toast.LENGTH_SHORT).show();
                             }
 
@@ -463,14 +411,6 @@ public class ZoneOrDistributorwiseMktIndentDetailsFragment extends Fragment impl
 
     }
 
-    //todo mkt distributor name adapter bind...
-    private void bindMktDistributorName() {
-        DistributorWiseAdapter distributorWiseAdapter = new DistributorWiseAdapter(getActivity(), zoneOrDistributorWiseModelList_gl);
-        rv_mkt_distributor_list.setAdapter(distributorWiseAdapter);
-        distributorWiseAdapter.setClickListner(this);
-
-    }
-
     //todo mkt zone name adapter bind...
     private void bindMktZoneName() {
         ZoneWiseAdapter zoneWiseAdapter = new ZoneWiseAdapter(getActivity(), zoneOrDistributorWiseModelList_gl);
@@ -480,24 +420,64 @@ public class ZoneOrDistributorwiseMktIndentDetailsFragment extends Fragment impl
 
     //todo mkt indent details list adapter bind...
     private void bindMktIndentList(List<ZoneOrDistributorWiseDetailsModel> zoneOrDistributorList) {
-        ZoneOrDistributorDetailsListAdapter detailsListAdapter = new ZoneOrDistributorDetailsListAdapter(getActivity(), zoneOrDistributorList);
+        ZoneOrDistributorDetailsListAdapter detailsListAdapter = new ZoneOrDistributorDetailsListAdapter(getActivity(), zoneOrDistributorList, "mkt_indent_view");
         mkt_recycler_view_list.setAdapter(detailsListAdapter);
-        search_reports_item_layout.setVisibility(View.VISIBLE);
         mkt_recycler_view_list.setVisibility(View.VISIBLE);
+        submitUIRefresh();
+    }
+
+    //todo set show UI on submit details...
+    public void submitUIRefresh() {
+        search_reports_item_layout.setVisibility(View.VISIBLE);
+        submit_mkt_list.setVisibility(View.GONE);
+        clear_mkt_list.setVisibility(View.VISIBLE);
+        et_mkt_distributor_name.setEnabled(false);
+        et_mkt_zone.setEnabled(false);
+        et_start_date.setEnabled(false);
+        et_end_date.setEnabled(false);
+        filter_download_floating_btn.setVisibility(View.VISIBLE);
+        iv_refresh_details.setVisibility(View.GONE);
+    }
+
+    //todo clear button UI refreshing..
+    public void clearUIRefresh() {
+        search_reports_item_layout.setVisibility(View.VISIBLE);
+        mkt_recycler_view_list.setVisibility(View.GONE);
+        submit_mkt_list.setVisibility(View.VISIBLE);
+        clear_mkt_list.setVisibility(View.GONE);
+        filter_download_floating_btn.setVisibility(View.GONE);
+        et_mkt_distributor_name.setText("");
+        et_mkt_distributor_name.clearFocus();
+        et_mkt_distributor_name.setEnabled(true);
+        frame_mkt_distributor_list_layout.setVisibility(View.GONE);
+        distributor_name_text_input_layout.setStartIconDrawable(R.drawable.ic_baseline_search_24);
+        et_mkt_zone.setText("");
+        et_mkt_zone.clearFocus();
+        et_mkt_zone.setEnabled(true);
+        frame_mkt_zone_list_layout.setVisibility(View.GONE);
+        zone_text_input_layout.setStartIconDrawable(R.drawable.ic_baseline_search_24);
+        et_start_date.setText("");
+        et_start_date.clearFocus();
+        et_start_date.setEnabled(true);
+        et_end_date.setText("");
+        et_end_date.clearFocus();
+        et_end_date.setEnabled(true);
+        iv_refresh_details.setVisibility(View.VISIBLE);
     }
 
 
-    @Override
-    public void onDistributorItemClick(int pos) {
+    //todo set UI on else case on list null...
+    public void listEmptyResponseUI() {
+        iv_refresh_details.setVisibility(View.VISIBLE);
+        loading_item.setVisibility(View.GONE);
         frame_mkt_distributor_list_layout.setVisibility(View.GONE);
-        zoneOrDistributorWiseModel = zoneOrDistributorWiseModelList_gl.get(pos);
-        if (zoneOrDistributorWiseModel != null) {
-            et_mkt_distributor_name.setText(zoneOrDistributorWiseModel.ditributor);
-            frame_mkt_distributor_list_layout.setVisibility(View.GONE);
-        } else {
-            frame_mkt_distributor_list_layout.setVisibility(View.VISIBLE);
-        }
-
+        filter_download_floating_btn.setVisibility(View.GONE);
+        submit_mkt_list.setVisibility(View.VISIBLE);
+        clear_mkt_list.setVisibility(View.GONE);
+        et_mkt_distributor_name.setEnabled(true);
+        et_mkt_zone.setEnabled(true);
+        et_start_date.setEnabled(true);
+        et_end_date.setEnabled(true);
     }
 
     @Override

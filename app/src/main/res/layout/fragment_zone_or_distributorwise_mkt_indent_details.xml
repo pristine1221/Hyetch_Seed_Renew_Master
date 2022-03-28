@@ -2,7 +2,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/parent_relative_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.reports.SDNDetailsFragment">
@@ -79,6 +78,11 @@
                     android:layout_below="@+id/card_View"
                     android:layout_marginTop="@dimen/_8sdp"
                     android:visibility="visible">
+
+                    <ScrollView
+                        android:id="@+id/parent_relative_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
 
                     <RelativeLayout
                         android:id="@+id/organization_relative_layout"
@@ -221,7 +225,6 @@
                                 android:id="@+id/submit_mkt_list"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="@dimen/_4sdp"
                                 android:layout_marginRight="@dimen/_4sdp"
                                 android:text="Submit"
                                 android:textAllCaps="false"
@@ -231,9 +234,9 @@
                                 android:id="@+id/clear_mkt_list"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="@dimen/_4sdp"
                                 android:layout_marginRight="@dimen/_4sdp"
                                 android:text="Clear"
+                                android:backgroundTint="@color/colorError"
                                 android:textAllCaps="false"
                                 android:visibility="gone" />
                         </LinearLayout>
@@ -354,6 +357,8 @@
                             android:visibility="visible" />
 
                     </RelativeLayout>
+
+                    </ScrollView>
 
                 </RelativeLayout>
 

@@ -32,7 +32,8 @@
         <entry key="..\:/Chanchal_Bhasker/hytech_android/app/src/main/res/layout/fragment_profile.xml" value="0.2015625" />
         <entry key="..\:/Chanchal_Bhasker/hytech_android/app/src/main/res/layout/fragment_s_d_n_details.xml" value="0.2015625" />
         <entry key="..\:/Chanchal_Bhasker/hytech_android/app/src/main/res/layout/fragment_zone_or_distributorwise_mkt_indent_details.xml" value="0.25" />
-        <entry key="..\:/Chanchal_Bhasker/hytech_android/app/src/main/res/layout/fragment_zone_or_distributorwise_supply_details.xml" value="0.2015625" />
+        <entry key="..\:/Chanchal_Bhasker/hytech_android/app/src/main/res/layout/fragment_zone_or_distributorwise_order_details.xml" value="0.2015625" />
+        <entry key="..\:/Chanchal_Bhasker/hytech_android/app/src/main/res/layout/fragment_zone_or_distributorwise_supply_details.xml" value="0.25" />
         <entry key="..\:/Chanchal_Bhasker/hytech_android/app/src/main/res/layout/geo_setup_fragment.xml" value="0.2015625" />
         <entry key="..\:/Chanchal_Bhasker/hytech_android/app/src/main/res/layout/leave_applied_fragment.xml" value="0.2015625" />
         <entry key="..\:/Chanchal_Bhasker/hytech_android/app/src/main/res/layout/marketing_indent_fragment.xml" value="0.2015625" />
@@ -44,7 +45,7 @@
         <entry key="..\:/Chanchal_Bhasker/hytech_android/app/src/main/res/layout/pog_approve_fragment.xml" value="0.2015625" />
         <entry key="..\:/Chanchal_Bhasker/hytech_android/app/src/main/res/layout/view_event_detail_fragment.xml" value="0.2015625" />
         <entry key="..\:/Chanchal_Bhasker/hytech_android/app/src/main/res/layout/view_tfa_approve_fragment.xml" value="0.2015625" />
-        <entry key="..\:/Chanchal_Bhasker/hytech_android/app/src/main/res/layout/zone_or_distributor_details_adapter_layout.xml" value="0.2015625" />
+        <entry key="..\:/Chanchal_Bhasker/hytech_android/app/src/main/res/layout/zone_or_distributor_details_adapter_layout.xml" value="0.25" />
       </map>
     </option>
   </component>
