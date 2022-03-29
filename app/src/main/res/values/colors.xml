@@ -42,6 +42,7 @@
         <color name="text_color_hint">#80000000</color>
 
     <color name="pending_color">#E0C620</color>
+    <color name="sent_for_approval">#FF5936</color>
     <color name="dark_green">#007E35</color>
     <color name="v_light_green">#f5fff9</color>
     <color name="ripple_touch_color">#9DA7E1</color>

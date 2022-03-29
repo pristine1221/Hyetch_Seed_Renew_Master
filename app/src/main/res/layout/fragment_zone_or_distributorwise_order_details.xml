@@ -120,34 +120,6 @@
                                         android:textColor="@color/black" />
                                 </com.google.android.material.textfield.TextInputLayout>
 
-                                <View
-                                    android:layout_width="7dp"
-                                    android:layout_height="match_parent" />
-
-                                <com.google.android.material.textfield.TextInputLayout
-                                    android:id="@+id/zone_text_input_layout"
-                                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginRight="4dp"
-                                    android:layout_marginBottom="4dp"
-                                    android:layout_weight="1"
-                                    android:hint="Zone Name"
-                                    app:boxCornerRadiusBottomEnd="15dp"
-                                    app:boxCornerRadiusBottomStart="15dp"
-                                    app:boxCornerRadiusTopEnd="15dp"
-                                    app:boxCornerRadiusTopStart="15dp"
-                                    app:startIconDrawable="@drawable/ic_search_black_24dp"
-                                    app:startIconTint="@color/color_trans_gray">
-
-                                    <com.google.android.material.textfield.TextInputEditText
-                                        android:id="@+id/et_order_zone"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="match_parent"
-                                        android:maxLines="1"
-                                        android:textColor="@color/black" />
-                                </com.google.android.material.textfield.TextInputLayout>
-
                             </LinearLayout>
 
                             <LinearLayout
@@ -235,8 +207,8 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginRight="@dimen/_4sdp"
-                                    android:text="Clear"
                                     android:backgroundTint="@color/colorError"
+                                    android:text="Clear"
                                     android:textAllCaps="false"
                                     android:visibility="gone" />
                             </LinearLayout>

@@ -9,6 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.pristineseed.R;
+import com.example.pristineseed.global.DateTimeUtilsCustome;
 import com.example.pristineseed.model.reportModel.ZoneOrDistributorWiseDetailsModel;
 import java.util.List;
 
@@ -36,9 +37,7 @@ public class ZoneOrDistributorDetailsListAdapter extends RecyclerView.Adapter<Zo
         holder.tv_zone.setText(detailsModel.zone_name);
         holder.tv_crop_name.setText(detailsModel.crop_name);
         holder.tv_booking_qty.setText(detailsModel.booking_qty);
-        holder.status_title.setVisibility(View.VISIBLE);
-        holder.tv_status.setVisibility(View.VISIBLE);
-        holder.tv_status.setText(detailsModel.status);
+
 
         if (flag.equals("mkt_indent_view")){
             holder.tv_distributor_name.setText(detailsModel.ditributor);
@@ -48,6 +47,35 @@ public class ZoneOrDistributorDetailsListAdapter extends RecyclerView.Adapter<Zo
             holder.marketing_ind_title.setVisibility(View.VISIBLE);
             holder.tv_marketing_indent_no.setVisibility(View.VISIBLE);
             holder.tv_marketing_indent_no.setText(detailsModel.marketing_indent_no);
+            holder.status_title.setVisibility(View.VISIBLE);
+            holder.tv_status.setVisibility(View.VISIBLE);
+
+            switch (detailsModel.status) {
+                case "Final Approve":
+                    holder.tv_status.setText("Final Approve");
+                    holder.tv_status.setTextColor(context.getResources().getColor(R.color.colorPrimaryDark));
+                    break;
+                case "Approve":
+                    holder.tv_status.setText("Approve");
+                    holder.tv_status.setTextColor(context.getResources().getColor(R.color.colorPrimaryDark));
+                    break;
+                case "First Approve":
+                    holder.tv_status.setText("First Approve");
+                    holder.tv_status.setTextColor(context.getResources().getColor(R.color.colorPrimaryDark));
+                    break;
+                case "Reject":
+                    holder.tv_status.setText("Reject");
+                    holder.tv_status.setTextColor(context.getResources().getColor(R.color.my_app_error_color));
+                    break;
+                case "Pending":
+                    holder.tv_status.setText("Pending");
+                    holder.tv_status.setTextColor(context.getResources().getColor(R.color.pending_color));
+                    break;
+                case "Sent For Approval":
+                    holder.tv_status.setText("Sent For Approval");
+                    holder.tv_status.setTextColor(context.getResources().getColor(R.color.sent_for_approval));
+                    break;
+            }
 
             //todo hide supply details some field views..
             holder.supply_allotted_qty_title.setVisibility(View.GONE);
@@ -72,6 +100,7 @@ public class ZoneOrDistributorDetailsListAdapter extends RecyclerView.Adapter<Zo
             holder.tv_status.setVisibility(View.GONE);
 
         }else if (flag.equals("order_details_view")){
+            //todo hide mkt indent fields...
             holder.season_title.setVisibility(View.GONE);
             holder.tv_season.setVisibility(View.GONE);
             holder.booking_qty_title.setVisibility(View.GONE);
@@ -79,6 +108,8 @@ public class ZoneOrDistributorDetailsListAdapter extends RecyclerView.Adapter<Zo
             holder.bookind_ind_title.setVisibility(View.GONE);
             holder.tv_booking_indent_no.setVisibility(View.GONE);
             holder.mkt_ind_nd_crop_layout.setVisibility(View.GONE);
+            holder.zone_title.setVisibility(View.GONE);
+            holder.tv_zone.setVisibility(View.GONE);
 
             holder.order_description_title.setVisibility(View.VISIBLE);
             holder.tv_order_description.setVisibility(View.VISIBLE);
@@ -88,10 +119,46 @@ public class ZoneOrDistributorDetailsListAdapter extends RecyclerView.Adapter<Zo
             holder.tv_order_booking_no.setVisibility(View.VISIBLE);
             holder.tv_order_booking_no.setText(detailsModel.booking_no);
             holder.order_field_created_layout.setVisibility(View.VISIBLE);
-            holder.tv_order_created_on.setText(detailsModel.created_on);
+            holder.tv_order_created_on.setText(DateTimeUtilsCustome.getDate_Time2(detailsModel.created_on));
             holder.order_crop_name_title.setVisibility(View.VISIBLE);
             holder.tv_order_crop_name.setVisibility(View.VISIBLE);
             holder.tv_order_crop_name.setText(detailsModel.crop_name);
+
+            if(modelList.get(position).distributor_name != null &&
+                    !modelList.get(position).distributor_name.equalsIgnoreCase("")){
+                String firstLetter = String.valueOf(detailsModel.distributor_name.charAt(0));
+                holder.tv_character_ofImageView4.setText(firstLetter);
+            }
+
+            holder.status_title.setVisibility(View.VISIBLE);
+            holder.tv_status.setVisibility(View.VISIBLE);
+
+            switch (detailsModel.status) {
+                case "Final Approve":
+                    holder.tv_status.setText("Final Approve");
+                    holder.tv_status.setTextColor(context.getResources().getColor(R.color.colorPrimaryDark));
+                    break;
+                case "Approve":
+                    holder.tv_status.setText("Approve");
+                    holder.tv_status.setTextColor(context.getResources().getColor(R.color.colorPrimaryDark));
+                    break;
+                case "First Approve":
+                    holder.tv_status.setText("First Approve");
+                    holder.tv_status.setTextColor(context.getResources().getColor(R.color.colorPrimaryDark));
+                    break;
+                case "Reject":
+                    holder.tv_status.setText("Reject");
+                    holder.tv_status.setTextColor(context.getResources().getColor(R.color.my_app_error_color));
+                    break;
+                case "Pending":
+                    holder.tv_status.setText("Pending");
+                    holder.tv_status.setTextColor(context.getResources().getColor(R.color.pending_color));
+                    break;
+                case "Sent For Approval":
+                    holder.tv_status.setText("Sent For Approval");
+                    holder.tv_status.setTextColor(context.getResources().getColor(R.color.sent_for_approval));
+                    break;
+            }
         }
 
         //todo getting first letter of name to display in list....
@@ -111,7 +178,7 @@ public class ZoneOrDistributorDetailsListAdapter extends RecyclerView.Adapter<Zo
         TextView tv_season, tv_distributor_name,tv_zone, tv_crop_name, tv_booking_indent_no, tv_booking_qty,tv_marketing_indent_no,tv_status,
                 tv_character_ofImageView4, bookind_ind_title,marketing_ind_title, supply_allotted_qty_title,tv_supply_allotted_qty, supply_supplies_qty_title,
                 status_title,season_title, booking_qty_title, tv_supply_supplies_qty, order_description_title, tv_order_description,
-                order_booking_no_title, tv_order_booking_no, order_created_on_title,tv_order_created_on,order_crop_name_title,tv_order_crop_name;
+                order_booking_no_title, tv_order_booking_no, order_created_on_title,tv_order_created_on,order_crop_name_title,tv_order_crop_name, zone_title;
         LinearLayout mkt_ind_nd_crop_layout, order_field_created_layout;
 
         public ViewHolder(@NonNull View itemView) {
@@ -144,7 +211,9 @@ public class ZoneOrDistributorDetailsListAdapter extends RecyclerView.Adapter<Zo
             tv_order_created_on = itemView.findViewById(R.id.tv_order_created_on);
             order_crop_name_title = itemView.findViewById(R.id.order_crop_name_title);
             tv_order_crop_name = itemView.findViewById(R.id.tv_order_crop_name);
+            zone_title = itemView.findViewById(R.id.zone_title);
         }
     }
+
 }
 
