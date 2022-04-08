@@ -1,27 +1,38 @@
 package com.example.pristineseed.ui.reports;
 
-import android.os.Bundle;
+import static android.app.Notification.DEFAULT_VIBRATE;
+import static android.content.Intent.FLAG_ACTIVITY_SINGLE_TOP;
 
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.Color;
+import android.os.Build;
+import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
+import android.os.Environment;
+import android.os.Handler;
+import android.os.Looper;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.example.pristineseed.GlobalNotification.NetworkUtil;
 import com.example.pristineseed.R;
 import com.example.pristineseed.SessionManageMent.SessionManagement;
@@ -33,7 +44,6 @@ import com.example.pristineseed.model.reportModel.ZoneOrDistributorWiseDetailsMo
 import com.example.pristineseed.retrofitApi.ApiUtils;
 import com.example.pristineseed.retrofitApi.NetworkInterface;
 import com.example.pristineseed.ui.adapter.item.RoleMasterAdapter;
-import com.example.pristineseed.ui.adapter.reportsAdapter.zoneOrDistributorWiseDetails.DistributorWiseAdapter;
 import com.example.pristineseed.ui.adapter.reportsAdapter.zoneOrDistributorWiseDetails.ZoneOrDistributorDetailsListAdapter;
 import com.example.pristineseed.ui.adapter.reportsAdapter.zoneOrDistributorWiseDetails.ZoneWiseAdapter;
 import com.google.android.material.button.MaterialButton;
@@ -44,14 +54,24 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.google.gson.JsonObject;
 import com.valdesekamdem.library.mdtoast.MDToast;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.Retrofit;
 
 public class ZoneOrDistributorwiseMktIndentDetailsFragment extends Fragment implements ZoneWiseAdapter.OnZoneItemClick, RoleMasterAdapter.OnItemClickListner {
     private SessionManagement sessionManagement;
@@ -206,8 +226,166 @@ public class ZoneOrDistributorwiseMktIndentDetailsFragment extends Fragment impl
             }
         });
 
+        filter_download_floating_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                HitDownloadFileApi(ApiUtils.BASE_URL, et_mkt_distributor_name.getText().toString(), et_mkt_zone.getText().toString(), et_start_date.getText().toString(),
+                        et_end_date.getText().toString());
+                loading_item.setVisibility(View.VISIBLE);
+                filter_download_floating_btn.setVisibility(View.GONE);
+            }
+        });
+    }
+
+
+    private void HitDownloadFileApi(String baseUrl, String distributor_name, String zone_name,String start_date, String end_date) {
+        Retrofit.Builder builder = new Retrofit.Builder().baseUrl("https://hytechdev.pristinefulfil.com");
+        String URL = zoneOrDistributorWiseModelList_gl.toString(); //"https://hytechdev.pristinefulfil.com/api/Reports/zone_distributorwise_mrk_indent_details_report_VIEW";
+        String file_name = "MktIndent.pdf";
+        writeResponseBodyToDisk(responseBody, file_name);
 
     }
+
+    private void writeResponseBodyToDisk(ResponseBody body, String file_name) {
+        Handler handler = new Handler(Looper.getMainLooper());
+        loading_item.setVisibility(View.VISIBLE);
+        loading_item.setMax(100);
+        ExecutorService executorService = Executors.newFixedThreadPool(1);
+        executorService.execute(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    // todo change the file location/name according to your needs
+                    //  String path1=Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) +file_name;
+                    File futurFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), file_name);
+
+                    InputStream inputStream = null;
+                    OutputStream outputStream = null;
+
+                    try {
+                        byte[] fileReader = new byte[4096];
+
+                        long fileSize = body.contentLength();
+                        long fileSizeDownloaded = 0;
+
+                        inputStream = body.byteStream();
+                        outputStream = new FileOutputStream(futurFile);
+
+                        while (true) {
+                            int read = inputStream.read(fileReader);
+                            if (read == -1) {
+                                break;
+                            }
+
+                            outputStream.write(fileReader, 0, read);
+                            fileSizeDownloaded += read;
+
+                            try {
+                                Thread.sleep(200);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                            long perce = fileSizeDownloaded * 100 / fileSize;
+                            long finalFileSizeDownloaded = fileSizeDownloaded;
+                            handler.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    mkt_progress_percentage_count.setVisibility(View.VISIBLE);
+                                    mkt_text_percent.setVisibility(View.VISIBLE);
+                                    mkt_progress_percentage_count.setText(String.valueOf((int) perce));
+                                    loading_item.setProgress((int) (finalFileSizeDownloaded * 100 / fileSize));
+                                }
+                            });
+
+                            Log.d("user files", "file download: " + fileSizeDownloaded + " of " + fileSize);
+
+                        }
+                        outputStream.flush();
+                        inputStream.close();
+
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    } finally {
+                        if (inputStream != null) {
+                            inputStream.close();
+                        }
+
+                        if (outputStream != null) {
+                            outputStream.close();
+                        }
+                        handler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                loading_item.setVisibility(View.GONE);
+                                filter_download_floating_btn.setVisibility(View.VISIBLE);
+                                mkt_progress_percentage_count.setText("");
+                                mkt_progress_percentage_count.setVisibility(View.GONE);
+                                loading_item.setProgress((0));
+                                mkt_text_percent.setVisibility(View.GONE);
+                                showForegroundNotification(getActivity(), "Download finished ! ");
+                            }
+                        });
+
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        executorService.shutdown();
+    }
+
+    private void showForegroundNotification(Context context, String desc) {
+        Intent showTaskIntent = new Intent(getActivity(), LotsDueforInspectionFragment.class);
+        showTaskIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | FLAG_ACTIVITY_SINGLE_TOP);
+        PendingIntent contentIntent = PendingIntent.getActivity(
+                getActivity(),
+                0,
+                showTaskIntent,
+                PendingIntent.FLAG_UPDATE_CURRENT);
+
+        NotificationManager manager = (NotificationManager) getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
+        String channelId = "channel01";
+        String channelName = "task_name";
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel channel = new
+                    NotificationChannel(channelId, channelName, NotificationManager.IMPORTANCE_HIGH);
+            channel.setShowBadge(true);
+            channel.enableVibration(true);
+            channel.enableLights(true);
+            channel.setLightColor(Color.RED);
+            channel.setVibrationPattern(new long[]{0, 1000, 500, 1000});
+            channel.setLockscreenVisibility(Notification.VISIBILITY_PUBLIC);
+            manager.createNotificationChannel(channel);
+        }
+
+        Notification.Builder notification = null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            notification = new Notification.Builder(getActivity(), channelId)
+                    .setContentTitle("Report")
+                    .setContentText(desc)
+                    .setContentIntent(contentIntent)
+                    .setSmallIcon(R.mipmap.ic_launcher)
+                    .setDefaults(Notification.DEFAULT_ALL)
+                    .setWhen(System.currentTimeMillis());
+        } else {
+            notification = new Notification.Builder(getActivity())
+                    .setContentTitle("Report")
+                    .setContentText(desc)
+                    .setSmallIcon(R.mipmap.ic_launcher)
+                    .setPriority(Notification.PRIORITY_MAX)
+                    .setContentIntent(contentIntent)
+                    .setSmallIcon(R.mipmap.ic_launcher)
+                    .setWhen(System.currentTimeMillis())
+                    .setDefaults(Notification.DEFAULT_ALL)
+                    .setVibrate(new long[]{DEFAULT_VIBRATE})
+                    .setWhen(System.currentTimeMillis());
+        }
+
+        manager.notify(0, notification.build());
+
+    }
+
 
     //todo initialization...
     private void initView(View view) {
@@ -335,6 +513,8 @@ public class ZoneOrDistributorwiseMktIndentDetailsFragment extends Fragment impl
         roleMasterAdapter.setOnClick(this);
     }
 
+
+    ResponseBody responseBody;
     //todo mkt indent api hitting,...
     private void mktIndentDetailsApi(String distributor_name, String zone_name, String start_date, String end_date, String flag) {
         if (NetworkUtil.getConnectivityStatusBoolean(getActivity())) {
@@ -354,6 +534,7 @@ public class ZoneOrDistributorwiseMktIndentDetailsFragment extends Fragment impl
                         if (response.isSuccessful()) {
                             loading_item.setVisibility(View.GONE);
                             List<ZoneOrDistributorWiseDetailsModel> responseList = response.body();
+                            String respons = responseList.toString();
                             if (responseList != null && responseList.size() > 0) {
                                 zoneOrDistributorWiseModelList_gl.clear();
                                 zoneOrDistributorWiseModelList_gl.addAll(responseList);
@@ -394,6 +575,7 @@ public class ZoneOrDistributorwiseMktIndentDetailsFragment extends Fragment impl
 
                     } catch (Exception e) {
                         e.printStackTrace();
+                        MDToast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT, MDToast.TYPE_ERROR).show();
                         loading_item.setVisibility(View.GONE);
                         ApiRequestFailure.PostExceptionToServer(e, getClass().getName(), "report_list", getActivity());
                     }

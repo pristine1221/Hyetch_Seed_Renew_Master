@@ -488,8 +488,13 @@ public interface NetworkInterface {
     @GET("/api/MarketingIndent/MarketingIndent_Header_Delete")
     Call<List<BookingResponseModel>> deleteBookingHeader(@Query("marketing_indent_no") String marketing_indent_no);
 
+    //todo insert marketing booking line....
     @POST("/api/MarketingIndent/MarketingIndent_Line_Insert")
     Call<List<MarketingIndentModel.MarketingIndentLine>> insertBookingLine(@Body JsonObject jsonObject);
+
+    //todo MarketingIndentLineSyncFrm_NAV.... 08-04-2022 modify....
+    @GET("/api/MarketingIndent/MarketingIndentLineSyncFrm_NAV")
+    Call<List<MarketingIndentModel.MarketingIndentLine>> marketingIndentLineShow(@Query("season") String season, @Query("customer_no") String customer_no);
 
     @POST("/api/MarketingIndent/MarketingIndent_Line_Update")
     Call<List<MarketingIndentModel.MarketingIndentLine>> updateBookingLine(@Body JsonObject jsonObject);
