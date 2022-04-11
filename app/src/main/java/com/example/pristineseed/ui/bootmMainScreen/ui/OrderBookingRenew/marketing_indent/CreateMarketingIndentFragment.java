@@ -1845,6 +1845,7 @@ public class CreateMarketingIndentFragment extends Fragment implements RoleMaste
                                     booking_no_list = booking_master_list;
                                     bindIndentLineFields();
 //                                    setBookingAdapter(bookingnolistview);
+                                    //todo testing..
                                 } else {
                                     card_booking_search_layout.setVisibility(View.GONE);
                                     bookingnolistview.setAdapter(null);
