@@ -1197,7 +1197,32 @@
                                     android:fontFamily="@font/product_sans_regular"
                                     android:textColor="@color/black"
                                     android:textSize="13sp" />
+
                             </TableRow>
+
+                            <TableRow
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:padding="2dp">
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="0.5"
+                                    android:fontFamily="@font/product_sans_bold"
+                                    android:text="Season Code : "
+                                    android:textColor="@color/profileEditTextColor"
+                                    android:textSize="13sp" />
+
+                                <TextView
+                                    android:id="@+id/tv_season_code"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1.5"
+                                    android:fontFamily="@font/product_sans_regular"
+                                    android:textColor="@color/black"
+                                    android:textSize="13sp" />
+                            </TableRow>
+
                         </TableLayout>
 
 

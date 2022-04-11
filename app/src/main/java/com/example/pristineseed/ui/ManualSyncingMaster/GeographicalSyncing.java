@@ -113,6 +113,7 @@ import com.example.pristineseed.ui.adapter.item.LocationMasterAdapter;
 import com.example.pristineseed.ui.adapter.item.PlantingProductionLotLineListAdapter;
 import com.example.pristineseed.ui.bootmMainScreen.BottomMainActivity;
 import com.google.android.material.chip.Chip;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.Gson;
 import com.valdesekamdem.library.mdtoast.MDToast;
 
@@ -401,7 +402,8 @@ public class GeographicalSyncing extends Fragment {
                     e.printStackTrace();
                 }
                 }else {
-                    Toast.makeText(getActivity(), "Please Wait Until Data Sync!", Toast.LENGTH_SHORT).show();
+                    MDToast.makeText(getActivity(), "Please Wait Until Data Sync!", Toast.LENGTH_SHORT, MDToast.TYPE_ERROR).show();
+//                    Toast.makeText(getActivity(), "Please Wait Until Data Sync!", Toast.LENGTH_SHORT).show();
                 }
             });
 

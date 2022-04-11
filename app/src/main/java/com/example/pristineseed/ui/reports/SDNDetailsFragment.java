@@ -202,26 +202,6 @@ public class SDNDetailsFragment extends Fragment implements SDNOrganiserNameAdap
             return true;
         });
 
-        /*et_sdn_date.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                et_sdn_date.setSelection(s.toString().length());
-                if(!s.toString().equalsIgnoreCase("")) {
-                    sdnDispatchList("", "", s.toString(), "sdn_list");
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });*/
-
         parent_layout.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -466,7 +446,6 @@ public class SDNDetailsFragment extends Fragment implements SDNOrganiserNameAdap
 
     private void setSubmitSDNDetails() {
         if (NetworkUtil.getConnectivityStatusBoolean(getActivity())) {
-
             if (et_sdn_organizer_name.getText().toString().equalsIgnoreCase("") && et_sdn_hybrid_name.getText().toString().equalsIgnoreCase("")
                     && et_sdn_date.getText().toString().equalsIgnoreCase("")) {
                 Toast.makeText(getActivity(), "Data Fetch Successfully", Toast.LENGTH_SHORT).show();
@@ -492,9 +471,6 @@ public class SDNDetailsFragment extends Fragment implements SDNOrganiserNameAdap
                 Toast.makeText(getActivity(), "Wrong Data", Toast.LENGTH_SHORT).show();
             }
 
-            /*if(!et_sdn_date.getText().toString().equalsIgnoreCase("")) {
-                sdnDispatchList(et_sdn_organizer_name.getText().toString(), et_sdn_hybrid_name.getText().toString(), et_sdn_date.getText().toString(), "sdn_list");
-            }*/
         }
     }
 

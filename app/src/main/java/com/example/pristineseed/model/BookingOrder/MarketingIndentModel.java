@@ -88,5 +88,24 @@ public class MarketingIndentModel {
         public String created_by;
         public String created_on;
 
+        //todo bind marketing indent line fields....
+        public String No;
+        public String Season_Code;
+        public String Distributor_Code;
+        public String Distributor_Name;
+        public String District_Code;
+        public String District_Name;
+        public String Crop_Code;
+        public String Variety_Class_of_Seeds;
+        public String Variety_Code;
+        public String Variety_Name;
+        public String Variety_Product_Group_Code;
+        public String Target;
+        public String Booking_Qty;
+        public String Alloted_PERCENT;
+        public String Alloted_Qty;
+        public String No_Series;
+        public String Posted;
+
     }
 }

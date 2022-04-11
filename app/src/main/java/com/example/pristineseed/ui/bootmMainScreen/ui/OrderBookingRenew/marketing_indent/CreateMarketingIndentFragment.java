@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -64,35 +65,34 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.valdesekamdem.library.mdtoast.MDToast;
 
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class  CreateMarketingIndentFragment extends Fragment implements RoleMasterAdapter.OnItemClickListner, ShipToDetailAdapter.ShipOnItemClickListner, BookingMasterAdapter.OnItemClickListner {
+public class CreateMarketingIndentFragment extends Fragment implements RoleMasterAdapter.OnItemClickListner, ShipToDetailAdapter.ShipOnItemClickListner, BookingMasterAdapter.OnItemClickListner {
     private SessionManagement sessionManagement = null;
     private MarketingIndentModel marketingIndentModel = null;
-    private TextView tv_name, tv_name2, tv_address, tv_addres_2, tv_cust_name, tv_date, tv_sale_type, tv_address_detail, tv_ship_date,
+    private TextView tv_name, tv_name2, tv_address, tv_addres_2, tv_cust_name, tv_date, tv_sale_type, tv_address_detail, tv_ship_date,tv_season_code,
             tv_ship_to, tv_header_no, tv_cust_no, tv_cust_type, name, name_2, address, address_2;
     private TextInputEditText ed_state, ed_zone, ed_resgion, ac_area, ed_tluka, ed_dispatch_date, ed_date, ed_ship_toname, ed_ship_to_address, ed_ship_post_code, ed_ship_to_city, ed_ship_to_method,
             ed_ship_gst_reg, ed_shipment_date, ed_ship_to_contact, ed_ship_to_address2, ed_ship_toname2, ac_ship_to;
-    private AutoCompleteTextView ac_customer_type, ac_dispatch_loc, ac_season, ac_sales,ac_umo;
+    private AutoCompleteTextView ac_customer_type, ac_dispatch_loc, ac_season, ac_sales, ac_umo;
     private RadioGroup posted_radio_grp;
-    private RadioButton rd_posted_yes, rd_posted_no;
+    private RadioButton rd_posted_yes, rd_posted_no,  line_posted_yes, line_posted_no;;
     private List<String> customer_type_list = new ArrayList<>();
     private RoleMasterModel.Data roleMasterTable = null;
     private List<RoleMasterModel.Data> role_no_list;
     private LinearLayout back_button_go_topreviousPage, name_detail_layout, header_create_section, getting_order_detail_header_section, line_cardview;
     private List<SeasonMasterModel> seasonMasterTableList = null;
     private String season_code = "", zone_code, state_code, taluka_code, region_code, area_code, ship_name2 = "", ship_address2, ship_contact, ship_region = "",
-            ship_state_code = "", ship_agent_code = "", ship_agent_service_code = "", cust_name = "", dispatch_loc_code = "", flag_execute = "",postedString;
+            ship_state_code = "", ship_agent_code = "", ship_agent_service_code = "", cust_name = "", dispatch_loc_code = "", flag_execute = "", postedString;
     private ShipToAddressModel.Data shipToAddressTable = null;
     private List<UserLocationModel> locationMasterTableList = null;
     private Button create_header_btn;
@@ -304,6 +304,7 @@ public class  CreateMarketingIndentFragment extends Fragment implements RoleMast
                                             tv_ship_to.setText(marketingIndentModel1.ship_to_code);
                                             tv_cust_no.setText(marketingIndentModel1.customer_no);
                                             tv_cust_type.setText(marketingIndentModel1.customer_type);
+                                            tv_season_code.setText(marketingIndentModel1.season);
                                             setUpdateHeaderDetails(marketingIndentModel1);
 
                                             Toast.makeText(getActivity(), bookingResponseList.get(0).message, Toast.LENGTH_SHORT).show();
@@ -462,6 +463,7 @@ public class  CreateMarketingIndentFragment extends Fragment implements RoleMast
         tv_sale_type = view.findViewById(R.id.tv_sale_type);
         tv_address_detail = view.findViewById(R.id.tv_address_detail);
         tv_ship_date = view.findViewById(R.id.tv_ship_date);
+        tv_season_code = view.findViewById(R.id.tv_season_code);
         tv_ship_to = view.findViewById(R.id.tv_ship_to);
         ed_ship_to_contact = view.findViewById(R.id.ed_ship_to_contact);
         ed_ship_to_address2 = view.findViewById(R.id.ed_ship_to_address2);
@@ -480,7 +482,40 @@ public class  CreateMarketingIndentFragment extends Fragment implements RoleMast
         });
 
         chip_add_line_booking.setOnClickListener(v -> {
-            addLine("Insert", null);
+            loading_item.setVisibility(View.VISIBLE);
+            NetworkInterface mAPIService = ApiUtils.getPristineAPIService();
+            Call<List<MarketingIndentModel.MarketingIndentLine>> call = mAPIService.marketingIndentLineShow(marketingIndentModel.season, marketingIndentModel.customer_no);
+            call.enqueue(new Callback<List<MarketingIndentModel.MarketingIndentLine>>() {
+                @Override
+                public void onResponse(Call<List<MarketingIndentModel.MarketingIndentLine>> call, Response<List<MarketingIndentModel.MarketingIndentLine>> response) {
+                    loading_item.setVisibility(View.GONE);
+                    try {
+                        if (response.isSuccessful()) {
+                            List<MarketingIndentModel.MarketingIndentLine> responseList = response.body();
+                            if (responseList != null && responseList.get(0).condition && responseList.size() > 0) {
+                                MarketingIndentModel.MarketingIndentLine marketingIndentLineModel = responseList.get(0);
+                                addLine("Insert", marketingIndentLineModel);
+                            } else {
+                                MDToast.makeText(getActivity(), responseList.get(0).message, Toast.LENGTH_SHORT, MDToast.TYPE_ERROR).show();
+                            }
+                        } else {
+                            MDToast.makeText(getActivity(), "No Response ", Toast.LENGTH_SHORT, MDToast.TYPE_ERROR).show();
+                        }
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        loading_item.setVisibility(View.GONE);
+                        ApiRequestFailure.PostExceptionToServer(e, getClass().getName(), "Error!", getActivity());
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<List<MarketingIndentModel.MarketingIndentLine>> call, Throwable t) {
+                    loading_item.setVisibility(View.GONE);
+                    ApiRequestFailure.PostExceptionToServer(t, getClass().getName(), "No_line_bind", getActivity());
+                }
+            });
+
         });
         line_listview.setOnItemClickListener((parent, view1, position, id) -> {
             if (marketingIndentModel.status.equalsIgnoreCase("Approve") || marketingIndentModel.status.equalsIgnoreCase("Sent For Approval")) {
@@ -876,7 +911,7 @@ public class  CreateMarketingIndentFragment extends Fragment implements RoleMast
     private void getRoleMasterData(String cust_type, String filter_key) {
         loading_item.setVisibility(View.VISIBLE);
         NetworkInterface mAPIService = ApiUtils.getPristineAPIService();
-        Call<RoleMasterModel> call = mAPIService.getDistributor(cust_type, filter_key,sessionManagement.getSalePersonCode());
+        Call<RoleMasterModel> call = mAPIService.getDistributor(cust_type, filter_key, sessionManagement.getSalePersonCode());
         call.enqueue(new Callback<RoleMasterModel>() {
             @Override
             public void onResponse(Call<RoleMasterModel> call, Response<RoleMasterModel> response) {
@@ -1080,6 +1115,7 @@ public class  CreateMarketingIndentFragment extends Fragment implements RoleMast
             tv_sale_type.setText(marketingIndentModel.sales_type);
             tv_address_detail.setText(marketingIndentModel.address);
             tv_ship_date.setText(marketingIndentModel.shipment_date);
+            tv_season_code.setText(marketingIndentModel.season);
             tv_ship_to.setText(marketingIndentModel.ship_to_code);
             tv_cust_no.setText(marketingIndentModel.customer_no);
             tv_cust_type.setText(marketingIndentModel.customer_type);
@@ -1119,7 +1155,7 @@ public class  CreateMarketingIndentFragment extends Fragment implements RoleMast
                     marketingIndentLine.variety_product_group_code = marketingIndentModel.marketing_indent_line.get(i).variety_product_group_code;
                     marketingIndentLine.no_of_bags = marketingIndentModel.marketing_indent_line.get(i).no_of_bags;
                     marketingIndentLine.booking_indent_no = marketingIndentModel.marketing_indent_line.get(i).booking_indent_no;
-                    marketingIndentLine.nav_booking_indent_no=marketingIndentModel.marketing_indent_line.get(i).nav_booking_indent_no;
+                    marketingIndentLine.nav_booking_indent_no = marketingIndentModel.marketing_indent_line.get(i).nav_booking_indent_no;
                     marketingIndentLine.indent_qty = marketingIndentModel.marketing_indent_line.get(i).indent_qty;
                     marketingIndentLine.unit_price = marketingIndentModel.marketing_indent_line.get(i).unit_price;
                     marketingIndentLine.line_discount_percent = marketingIndentModel.marketing_indent_line.get(i).line_discount_percent;
@@ -1236,9 +1272,9 @@ public class  CreateMarketingIndentFragment extends Fragment implements RoleMast
         dialog.getWindow().getAttributes().windowAnimations = R.style.AppTheme_FullScreenDialog;
         dialog.show();
         RadioGroup posted_radio_grp;
-        RadioButton posted_yes, posted_no;
         Button create_header_btn, view_update_line;
         LinearLayout back_button_go_topreviousPage;
+        ImageView close_line = popupView.findViewById(R.id.close_line);
         ed_class_of_seed = popupView.findViewById(R.id.ed_class_of_seed);
         ed_varity_product_group_code = popupView.findViewById(R.id.ed_varity_product_group_code);
         ed_no_of_bags = popupView.findViewById(R.id.ed_no_of_bags);
@@ -1259,8 +1295,8 @@ public class  CreateMarketingIndentFragment extends Fragment implements RoleMast
         ed_line_discount_per = popupView.findViewById(R.id.ed_line_discount_per);
         posted_radio_grp = popupView.findViewById(R.id.posted_radio_grp);
         back_button_go_topreviousPage = popupView.findViewById(R.id.back_button_go_topreviousPage);
-        posted_yes = popupView.findViewById(R.id.posted_yes);
-        posted_no = popupView.findViewById(R.id.posted_no);
+        line_posted_yes = popupView.findViewById(R.id.posted_yes);
+        line_posted_yes = popupView.findViewById(R.id.posted_no);
         view_update_line = popupView.findViewById(R.id.view_update_line);
         ed_alloted_per = popupView.findViewById(R.id.ed_alloted_per);
         card_booking_search_layout = popupView.findViewById(R.id.card_booking_search_layout);
@@ -1268,11 +1304,24 @@ public class  CreateMarketingIndentFragment extends Fragment implements RoleMast
         RecyclerView lv_bookingno_list = popupView.findViewById(R.id.lv_bookingno_list);
         search_booking_input_layout = popupView.findViewById(R.id.search_booking_input_layout);
 
+        close_line.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
         MaterialProgressBar content_loading = popupView.findViewById(R.id.content_loading);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         lv_bookingno_list.setLayoutManager(layoutManager);
 
-        ac_marketing_indent_no.setOnFocusChangeListener((v, hasFocus) -> {
+        if (marketingIndentLineModel != null || !marketingIndentLineModel.No.equalsIgnoreCase("")) {
+            ac_marketing_indent_no.setText(marketingIndentLineModel.No);
+            ac_marketing_indent_no.setSelection(ac_marketing_indent_no.getText().length());
+            getBookingIndentNo(search_loading_item, lv_bookingno_list,tv_cust_no.getText().toString(), ac_marketing_indent_no);
+        }
+
+       /* ac_marketing_indent_no.setOnFocusChangeListener((v, hasFocus) -> {
             if (hasFocus) {
                 search_booking_input_layout.setStartIconDrawable(null);
             } else {
@@ -1325,14 +1374,14 @@ public class  CreateMarketingIndentFragment extends Fragment implements RoleMast
             public void afterTextChanged(Editable s) {
 
             }
-        });
+        });*/
 
         getUnitOfMeasureData(content_loading, ac_umo);
         back_button_go_topreviousPage.setOnClickListener(v -> {
             dialog.dismiss();
         });
 
-        posted_radio_grp.setOnCheckedChangeListener((group, checkedId) -> {
+       /* posted_radio_grp.setOnCheckedChangeListener((group, checkedId) -> {
             switch (checkedId) {
                 case R.id.posted_yes:
                     postedString = "1";
@@ -1342,15 +1391,17 @@ public class  CreateMarketingIndentFragment extends Fragment implements RoleMast
                     postedString = "0";
                     break;
             }
-        });
+        });*/
 
         ed_indent_qty.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
+
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
             }
+
             @Override
             public void afterTextChanged(Editable s) {
                 if (!ed_indent_qty.getText().toString().trim().equalsIgnoreCase("") &&
@@ -1368,17 +1419,16 @@ public class  CreateMarketingIndentFragment extends Fragment implements RoleMast
                             try {
 //                                float suply_qty = Float.parseFloat(!ed_suppply_qty.getText().toString().trim().equals("") ? ed_suppply_qty.getText().toString().trim() : "0");
                                 //todo new change for balance calculation...
-                                float indent_qty = Float.parseFloat(!ed_indent_qty.getText().toString().trim().equals("") ? ed_indent_qty.getText().toString().trim():"0");
+                                float indent_qty = Float.parseFloat(!ed_indent_qty.getText().toString().trim().equals("") ? ed_indent_qty.getText().toString().trim() : "0");
                                 float balance_qty = allotd_qty - indent_qty;
                                 ed_balance_qty.setText(String.valueOf(balance_qty));
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
-                        }
-                        else {
+                        } else {
                             try {
 //                                float suply_qty = Float.parseFloat(!ed_suppply_qty.getText().toString().trim().equals("") ? ed_suppply_qty.getText().toString().trim() : "0");
-                                float indent_qty = Float.parseFloat(!ed_indent_qty.getText().toString().trim().equals("") ? ed_indent_qty.getText().toString().trim():"0");
+                                float indent_qty = Float.parseFloat(!ed_indent_qty.getText().toString().trim().equals("") ? ed_indent_qty.getText().toString().trim() : "0");
                                 float balance_qty = allotd_qty - indent_qty;
                                 ed_balance_qty.setText(String.valueOf(balance_qty));
                             } catch (Exception e) {
@@ -1386,8 +1436,7 @@ public class  CreateMarketingIndentFragment extends Fragment implements RoleMast
                             }
                         }
                     }
-                }
-                else {
+                } else {
                     ed_balance_qty.setText("0");
                 }
             }
@@ -1442,17 +1491,15 @@ public class  CreateMarketingIndentFragment extends Fragment implements RoleMast
                     }
                 }
             });
-        }
-        else if (flag.equalsIgnoreCase("Update")) {
+        } else if (flag.equalsIgnoreCase("Update")) {
             card_booking_search_layout.setVisibility(View.GONE);
             view_update_line.setVisibility(View.VISIBLE);
             create_header_btn.setVisibility(View.GONE);
 
-            if (marketingIndentLineModel.nav_booking_indent_no!= null && !marketingIndentLineModel.nav_booking_indent_no.equalsIgnoreCase("")) {
+            if (marketingIndentLineModel.nav_booking_indent_no != null && !marketingIndentLineModel.nav_booking_indent_no.equalsIgnoreCase("")) {
                 order_booking_indent_no = marketingIndentLineModel.nav_booking_indent_no;
-            }
-            else {
-                order_booking_indent_no="";
+            } else {
+                order_booking_indent_no = "";
             }
 
             ac_crop_code.setText(marketingIndentLineModel.crop_code);
@@ -1461,9 +1508,9 @@ public class  CreateMarketingIndentFragment extends Fragment implements RoleMast
 
             if (!marketingIndentLineModel.posted.equalsIgnoreCase("")) {
                 if (marketingIndentLineModel.posted.equalsIgnoreCase("1")) {
-                    posted_yes.setChecked(true);
+                    line_posted_yes.setChecked(true);
                 } else if (marketingIndentLineModel.posted.equalsIgnoreCase("0")) {
-                    posted_no.setChecked(true);
+                    line_posted_yes.setChecked(true);
                 }
             }
             ac_umo.setText(marketingIndentLineModel.unit_of_measure_code);
@@ -1520,37 +1567,37 @@ public class  CreateMarketingIndentFragment extends Fragment implements RoleMast
                         updateMarketingIndentLine(dialog, marketingIndentLineModel);
                     } else {
                         // if (!ed_varity_grp.getText().toString().trim().equalsIgnoreCase("")) {
-                       // try {
-                       String varity_grp= marketingIndentLineModel.variety_group;
+                        // try {
+                        String varity_grp = marketingIndentLineModel.variety_group;
 
-                            for (int k = 0; k < marketingIndentLineList.size(); k++) {
-                                if (marketingIndentLineList.get(k).variety_group != null) {
-                                    if(varity_grp.equalsIgnoreCase(marketingIndentLineModel.variety_group)){
-                                        flag_execute = "1";
-                                        break;
-                                    }
-                                    if (marketingIndentLineList.get(k).variety_group.equalsIgnoreCase(ed_varity_grp.getText().toString().trim())) {
-                                        flag_execute = "0";
-                                        Toast.makeText(getActivity(), "You can't select same variety group twice", Toast.LENGTH_SHORT).show();
-                                        break;
-                                         }
-                                    } else {
-                                        flag_execute = "1";
-                                        continue;
-                                    }
+                        for (int k = 0; k < marketingIndentLineList.size(); k++) {
+                            if (marketingIndentLineList.get(k).variety_group != null) {
+                                if (varity_grp.equalsIgnoreCase(marketingIndentLineModel.variety_group)) {
+                                    flag_execute = "1";
+                                    break;
                                 }
+                                if (marketingIndentLineList.get(k).variety_group.equalsIgnoreCase(ed_varity_grp.getText().toString().trim())) {
+                                    flag_execute = "0";
+                                    Toast.makeText(getActivity(), "You can't select same variety group twice", Toast.LENGTH_SHORT).show();
+                                    break;
+                                }
+                            } else {
+                                flag_execute = "1";
+                                continue;
                             }
+                        }
+                    }
                         /*}catch (Exception e){
                             e.printStackTrace();
                         }*/
-                    }
+                }
                   /*  else {
                         updateMarketingIndentLine(dialog,marketingIndentLineModel, ac_marketing_indent_no, ed_class_of_seed,
                                 ed_varity_product_group_code, ed_no_of_bags, ed_indent_qty, ed_booking_qty,
                                 ed_varity_grp, ed_unit_price, ed_variety_name, ed_varity_pack_size, ed_line_discount_per,
                                 ac_crop_code, ac_umo, ac_variety_code);
                     }*/
-            //    }
+                //    }
                 if (flag_execute.equalsIgnoreCase("1")) {
                     updateMarketingIndentLine(dialog, marketingIndentLineModel);
                 }
@@ -1574,7 +1621,7 @@ public class  CreateMarketingIndentFragment extends Fragment implements RoleMast
         marketingIndentLine.variety_class_of_seeds = ed_class_of_seed.getText().toString().trim();
         marketingIndentLine.variety_product_group_code = ed_varity_product_group_code.getText().toString().trim();
         marketingIndentLine.no_of_bags = ed_no_of_bags.getText().toString().trim();
-        marketingIndentLine.booking_indent_no = order_booking_indent_no ;
+        marketingIndentLine.booking_indent_no = order_booking_indent_no;
         marketingIndentLine.indent_qty = ed_indent_qty.getText().toString().trim();
         marketingIndentLine.unit_price = ed_unit_price.getText().toString().trim().equals("") ? "0" : ed_unit_price.getText().toString().trim();
         marketingIndentLine.line_discount_percent = ed_line_discount_per.getText().toString().trim().equalsIgnoreCase("") ? "0" : ed_line_discount_per.getText().toString().trim();
@@ -1779,11 +1826,12 @@ public class  CreateMarketingIndentFragment extends Fragment implements RoleMast
         }
     }
 
-    private void getBookingIndentNo(ProgressBar search_loading_, RecyclerView bookingnolistview,String Distributor_Code ,String filter_key) {
+    private void getBookingIndentNo(ProgressBar search_loading_, RecyclerView bookingnolistview, String Distributor_Code, TextInputEditText app_booking_no ) {
         if (NetworkUtil.getConnectivityStatusBoolean(getActivity())) {
             search_loading_.setVisibility(View.VISIBLE);
+            String no = app_booking_no.getText().toString();
             NetworkInterface mAPIService = ApiUtils.getPristineAPIService();
-            Call<BookingMasterModel> call = mAPIService.getBookingMassterNo( Distributor_Code,filter_key);
+            Call<BookingMasterModel> call = mAPIService.getBookingMassterNo(Distributor_Code, no);
             call.enqueue(new Callback<BookingMasterModel>() {
                 @Override
                 public void onResponse(Call<BookingMasterModel> call, Response<BookingMasterModel> response) {
@@ -1792,10 +1840,11 @@ public class  CreateMarketingIndentFragment extends Fragment implements RoleMast
                             search_loading_.setVisibility(View.GONE);
                             BookingMasterModel bookingMasterModel = response.body();
                             if (bookingMasterModel != null && bookingMasterModel.condition) {
-                                List<BookingMasterModel.Data> boooking_masster_list = bookingMasterModel.data;
-                                if (boooking_masster_list != null && boooking_masster_list.size() > 0) {
-                                    booking_no_list = boooking_masster_list;
-                                    setBookingAdapter(bookingnolistview);
+                                List<BookingMasterModel.Data> booking_master_list = bookingMasterModel.data;
+                                if (booking_master_list != null && booking_master_list.size() > 0) {
+                                    booking_no_list = booking_master_list;
+                                    bindIndentLineFields();
+//                                    setBookingAdapter(bookingnolistview);
                                 } else {
                                     card_booking_search_layout.setVisibility(View.GONE);
                                     bookingnolistview.setAdapter(null);
@@ -1826,6 +1875,89 @@ public class  CreateMarketingIndentFragment extends Fragment implements RoleMast
             });
         } else {
             Toast.makeText(getActivity(), "Please wait for internet connection", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    //todo bind lines fields...
+    public void bindIndentLineFields(){
+        try {
+            card_booking_search_layout.setVisibility(View.GONE);
+            BookingMasterModel.Data booking_data = new BookingMasterModel().new Data();
+            booking_data = booking_no_list.get(0);
+            if (booking_data != null) {
+                order_booking_indent_no = booking_data.No;
+
+                if (booking_data.Variety_Class_of_Seeds != null && !booking_data.Variety_Class_of_Seeds.equalsIgnoreCase("")) {
+                    ed_class_of_seed.setText(booking_data.Variety_Class_of_Seeds);
+                    card_booking_search_layout.setVisibility(View.GONE);
+                    search_booking_input_layout.setStartIconDrawable(null);
+                }
+                if (booking_data.Variety_Product_Group_Code == null ||
+                        booking_data.Variety_Product_Group_Code.equalsIgnoreCase("")) {
+                    ed_varity_product_group_code.setText(booking_data.Variety_Product_Group_Code == null ? "0" : "0");
+                } else {
+                    ed_varity_product_group_code.setText(booking_data.Variety_Product_Group_Code.equals("NULL") ? "0" : booking_data.Variety_Product_Group_Code);
+                }
+                if (booking_data.Variety_Name != null && !booking_data.Variety_Name.equalsIgnoreCase("")) {
+                    ed_variety_name.setText(booking_data.Variety_Name);
+                }
+                if (booking_data.Variety_Package_Size != null && !booking_data.Variety_Package_Size.equalsIgnoreCase("")) {
+                    ed_varity_pack_size.setText(booking_data.Variety_Package_Size);
+                } else {
+                    ed_varity_pack_size.setText("");
+                }
+                if (booking_data.Crop_Code != null && !booking_data.Crop_Code.equalsIgnoreCase("")) {
+                    ac_crop_code.setText(booking_data.Crop_Code);
+                }
+                if (booking_data.Variety_Code != null && !booking_data.Variety_Code.equalsIgnoreCase("")) {
+                    ac_variety_code.setText(booking_data.Variety_Code);
+                    // getVarityGroupName(booking_data.Variety_Code, ed_varity_grp);
+                    getMarketingIndentSupplyQty(marketingIndentModel.customer_no, booking_data.Variety_Code);
+                } else {
+                    ac_variety_code.setText("");
+                }
+                if (booking_data.VarietyGroup == null && booking_data.VarietyGroup.equals("")) {
+                    ed_varity_grp.setText("");
+                } else {
+                    ed_varity_grp.setText(booking_data.VarietyGroup);
+                }
+                if (booking_data.Alloted_Percent != null && !booking_data.Alloted_Percent.equalsIgnoreCase("")) {
+                    ed_alloted_per.setText(booking_data.Alloted_Percent);
+                }
+                if (booking_data.Booking_Qty != null && !booking_data.Booking_Qty.equalsIgnoreCase("")) {
+                    ed_booking_qty.setText(booking_data.Booking_Qty);
+                }
+                if (booking_data.Alloted_Qty != null && !booking_data.Alloted_Qty.equalsIgnoreCase("")) {
+                    ed_alloted_qty.setText(booking_data.Alloted_Qty);
+                } else {
+                    ed_alloted_qty.setText("0");
+                } if (!booking_data.Posted.equalsIgnoreCase("")) {
+                    if (booking_data.Posted.equalsIgnoreCase("Yes")) {
+                        line_posted_yes.setChecked(true);
+                    } else if (booking_data.Posted.equalsIgnoreCase("NO")) {
+                        line_posted_yes.setChecked(true);
+                    }
+                }
+            } else {
+                card_booking_search_layout.setVisibility(View.GONE);
+                ed_class_of_seed.setText("");
+                ac_variety_code.setText("");
+                ac_umo.setText("");
+                ed_no_of_bags.setText("");
+                ac_crop_code.setText("");
+                ed_line_discount_per.setText("");
+                ed_varity_pack_size.setText("");
+                ed_varity_grp.setText("");
+                ed_variety_name.setText("");
+                ed_varity_product_group_code.setText("0");
+                ed_class_of_seed.setText("");
+                ed_alloted_per.setText("");
+                ed_booking_qty.setText("");
+                ed_alloted_qty.setText("");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            card_booking_search_layout.setVisibility(View.GONE);
         }
     }
 

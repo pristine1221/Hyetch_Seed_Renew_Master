@@ -5,6 +5,7 @@ import java.util.List;
 public class RoleMasterModel {
 
     public boolean condition;
+    public String message;
     public List<Data> data;
     public class Data {
     public String no;

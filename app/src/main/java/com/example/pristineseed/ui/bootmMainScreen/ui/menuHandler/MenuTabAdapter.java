@@ -31,6 +31,9 @@ import com.example.pristineseed.ui.reports.QAInspectionStatusReportFragment;
 import com.example.pristineseed.ui.reports.QAInspectionFlagWiseFragment;
 import com.example.pristineseed.ui.reports.SDNDetailsFragment;
 import com.example.pristineseed.ui.reports.SownAcresFragment;
+import com.example.pristineseed.ui.reports.ZoneOrDistributorwiseMktIndentDetailsFragment;
+import com.example.pristineseed.ui.reports.ZoneOrDistributorwiseOrderDetailsFragment;
+import com.example.pristineseed.ui.reports.ZoneOrDistributorwiseSupplyDetailsFragment;
 import com.example.pristineseed.ui.vendor.Dealer_master.DealerMaster_Fragment;
 import com.example.pristineseed.ui.vendor.POG.POGApprovalFragment;
 import com.example.pristineseed.ui.vendor.YieldEstimatesFragment;
@@ -303,6 +306,15 @@ public class MenuTabAdapter extends FragmentStatePagerAdapter {
                         break;
                     case "Prod-Sown & PLD Acreage":
                         fragment = new PLDandSownAcreViewFragment();
+                        break;
+                    case "Zone Or Distributor wise Mkt Indent Details":
+                        fragment = new ZoneOrDistributorwiseMktIndentDetailsFragment();
+                        break;
+                    case "Zone Or Distributor wise Order Details":
+                        fragment = new ZoneOrDistributorwiseOrderDetailsFragment();
+                        break;
+                    case "Zone Or Distributor wise Supply Details":
+                        fragment = new ZoneOrDistributorwiseSupplyDetailsFragment();
             }
             break;
            /* case "Getting Order":
