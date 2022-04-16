@@ -8,11 +8,13 @@ import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.style.ForegroundColorSpan;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -21,35 +23,44 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.pristineseed.GlobalNotification.NetworkUtil;
 import com.example.pristineseed.R;
 import com.example.pristineseed.SessionManageMent.SessionManagement;
 import com.example.pristineseed.global.ApiRequestFailure;
 import com.example.pristineseed.global.LoadingDialog;
+import com.example.pristineseed.global.StaticMethods;
 import com.example.pristineseed.model.BookingOrder.BookingResponseModel;
 import com.example.pristineseed.model.BookingOrder.MarketingIndentApprovalModel;
 import com.example.pristineseed.retrofitApi.ApiUtils;
 import com.example.pristineseed.retrofitApi.NetworkInterface;
 import com.example.pristineseed.ui.adapter.order_book.GettingOrderApproveAdapter;
+import com.example.pristineseed.ui.adapter.order_book.MarketingIndentLinesDetailsAdapter;
+import com.example.pristineseed.ui.bootmMainScreen.ui.OrderBookingRenew.marketing_indent.ViewMktIndentHeaderLinesFragment;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.gson.JsonObject;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MarketingApprovalFragment extends Fragment implements GettingOrderApproveAdapter.OnStatusItemClick {
+public class MarketingApprovalFragment extends Fragment implements GettingOrderApproveAdapter.OnStatusItemClick{
 
     private ListView approval_listview;
     private TextView no_record_found;
     private SessionManagement sessionManagement;
     private List<MarketingIndentApprovalModel> approvalList_ = null;
     private GettingOrderApproveAdapter gettingOrderApproveAdapter = null;
+    private List<MarketingIndentApprovalModel.Marketing_Approvalindent_line> marketing_approvalindent_lines_gl = new ArrayList<>();
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -60,6 +71,26 @@ public class MarketingApprovalFragment extends Fragment implements GettingOrderA
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         initView(view);
+
+        ArrayList<MarketingIndentApprovalModel.Marketing_Approvalindent_line> marketingApprovalindentLines = new ArrayList<>(marketing_approvalindent_lines_gl.size());
+        marketingApprovalindentLines.addAll(marketing_approvalindent_lines_gl);
+
+        approval_listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if (marketing_approvalindent_lines_gl != null && marketing_approvalindent_lines_gl.size() > 0){
+                   /* Toast.makeText(getActivity(), "Item Clicked!", Toast.LENGTH_SHORT).show();
+                    Bundle bundle  =new Bundle();
+                    bundle.putString("indent_no", approvalList_.get(position).marketing_indent_no);
+                    bundle.putSerializable("lines", (ArrayList<MarketingIndentApprovalModel.Marketing_Approvalindent_line>)marketing_approvalindent_lines_gl);
+                    ViewMktIndentHeaderLinesFragment mktIndentHeaderLines = new ViewMktIndentHeaderLinesFragment();
+                    mktIndentHeaderLines.setArguments(bundle);
+                    StaticMethods.loadFragments(getActivity(),mktIndentHeaderLines,"View Posted order");*/
+
+                    bindBottomIndentLines(marketing_approvalindent_lines_gl.get(position));
+                }
+            }
+        });
 
     }
 
@@ -73,6 +104,14 @@ public class MarketingApprovalFragment extends Fragment implements GettingOrderA
         approval_listview = view.findViewById(R.id.approval_list);
         no_record_found = view.findViewById(R.id.no_data_found);
         sessionManagement = new SessionManagement(getActivity());
+
+       /* approval_listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(getActivity(), "clicked", Toast.LENGTH_SHORT).show();
+            }
+        });*/
+
     }
 
     private void getApprovalList() {
@@ -90,11 +129,12 @@ public class MarketingApprovalFragment extends Fragment implements GettingOrderA
                             progressDialog.hideDialog();
                             List<MarketingIndentApprovalModel> orderbooking_list = response.body();
                             if (orderbooking_list != null && orderbooking_list.size() > 0 && orderbooking_list.get(0).condition) {
+                                MarketingIndentApprovalModel marketingIndentApprovalModel = orderbooking_list.get(0);
+                                marketing_approvalindent_lines_gl = marketingIndentApprovalModel.marketing_indent_line;
                                 approvalList_ = orderbooking_list;
                                 binddataWithAadapter(approvalList_);
                             } else {
                                 no_record_found.setVisibility(View.VISIBLE);
-//                                Toast.makeText(getActivity(), orderbooking_list != null && orderbooking_list.size() > 0 ? "No data found MA" : ". Error Code:" + response.code(), Toast.LENGTH_SHORT).show();
                             }
                         } else {
                             progressDialog.hideDialog();
@@ -125,7 +165,7 @@ public class MarketingApprovalFragment extends Fragment implements GettingOrderA
     }
 
     @Override
-    public void onItemClick(int pos) {
+    public void onStatusItemClick(int pos) {
         MarketingIndentApprovalModel marketingIndentApprovalModel = approvalList_.get(pos);
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View PopupView = inflater.inflate(R.layout.approve_reject_popup, null);
@@ -220,6 +260,21 @@ public class MarketingApprovalFragment extends Fragment implements GettingOrderA
         } else {
             Toast.makeText(getActivity(), "Please wait for internet connection", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private void bindBottomIndentLines(MarketingIndentApprovalModel.Marketing_Approvalindent_line marketingLines) {
+        final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(getActivity());
+        bottomSheetDialog.setContentView(R.layout.view_mkt_indent_header_lines);
+        bottomSheetDialog.show();
+
+        RecyclerView rv_view_mkt_lines = bottomSheetDialog.findViewById(R.id.rv_view_mkt_lines);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
+        rv_view_mkt_lines.setLayoutManager(layoutManager);
+
+        MarketingIndentLinesDetailsAdapter linesDetailsAdapter = new MarketingIndentLinesDetailsAdapter(getActivity(), marketing_approvalindent_lines_gl);
+        rv_view_mkt_lines.setAdapter(linesDetailsAdapter);
+
+
     }
 
 

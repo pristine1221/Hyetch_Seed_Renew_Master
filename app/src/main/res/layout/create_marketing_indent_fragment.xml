@@ -374,13 +374,36 @@
                                         android:textSize="@dimen/_12sdp" />
                                 </LinearLayout>
 
+                                <com.google.android.material.textfield.TextInputLayout
+                                    android:id="@+id/zone_input_layout"
+                                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@+id/il_customer_layout"
+                                    android:layout_marginBottom="4dp"
+                                    android:layout_weight="1"
+                                    android:hint="Zone "
+                                    app:boxCornerRadiusBottomEnd="15dp"
+                                    app:boxCornerRadiusTopStart="15dp">
+
+                                    <com.google.android.material.textfield.TextInputEditText
+                                        android:id="@+id/ed_zone"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:editable="false"
+                                        android:enabled="false"
+                                        android:maxLines="1"
+                                        android:textColor="@color/black"
+                                        android:textSize="@dimen/_10sdp" />
+
+                                </com.google.android.material.textfield.TextInputLayout>
 
                                 <com.google.android.material.textfield.TextInputLayout
                                     android:id="@+id/state_input_layout"
                                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:layout_below="@+id/il_customer_layout"
+                                    android:layout_below="@+id/zone_input_layout"
                                     android:layout_marginBottom="4dp"
                                     android:layout_weight="1"
                                     android:hint="State"
@@ -401,35 +424,11 @@
 
 
                                 <com.google.android.material.textfield.TextInputLayout
-                                    android:id="@+id/zone_input_layout"
-                                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_below="@+id/state_input_layout"
-                                    android:layout_marginBottom="4dp"
-                                    android:layout_weight="1"
-                                    android:hint="Zone "
-                                    app:boxCornerRadiusBottomEnd="15dp"
-                                    app:boxCornerRadiusTopStart="15dp">
-
-                                    <com.google.android.material.textfield.TextInputEditText
-                                        android:id="@+id/ed_zone"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="match_parent"
-                                        android:editable="false"
-                                        android:enabled="false"
-                                        android:maxLines="1"
-                                        android:textColor="@color/black"
-                                        android:textSize="@dimen/_10sdp" />
-
-                                </com.google.android.material.textfield.TextInputLayout>
-
-                                <com.google.android.material.textfield.TextInputLayout
                                     android:id="@+id/region_input_layout"
                                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:layout_below="@+id/zone_input_layout"
+                                    android:layout_below="@+id/state_input_layout"
                                     android:layout_marginBottom="4dp"
                                     android:layout_weight="1"
                                     android:hint="Region "
@@ -475,11 +474,36 @@
                                 </com.google.android.material.textfield.TextInputLayout>
 
                                 <com.google.android.material.textfield.TextInputLayout
-                                    android:id="@+id/tertry_input_layout"
+                                    android:id="@+id/district_input_layout"
                                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_below="@+id/area_input_layout"
+                                    android:layout_marginBottom="4dp"
+                                    android:layout_weight="1"
+                                    android:hint="District "
+                                    app:boxCornerRadiusBottomEnd="15dp"
+                                    app:boxCornerRadiusTopStart="15dp">
+
+                                    <com.google.android.material.textfield.TextInputEditText
+                                        android:id="@+id/ac_district"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:editable="false"
+                                        android:enabled="false"
+                                        android:inputType="none"
+                                        android:maxLines="1"
+                                        android:textColor="@color/black"
+                                        android:textSize="@dimen/_10sdp" />
+
+                                </com.google.android.material.textfield.TextInputLayout>
+
+                                <com.google.android.material.textfield.TextInputLayout
+                                    android:id="@+id/tertry_input_layout"
+                                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@+id/district_input_layout"
                                     android:layout_marginBottom="4dp"
                                     android:layout_weight="1"
                                     android:hint="Terriory "
@@ -580,6 +604,7 @@
                                     android:layout_below="@+id/dispatch_input_layout"
                                     android:layout_marginBottom="4dp"
                                     android:hint="Shipment Date"
+                                    android:visibility="gone"
                                     app:boxCornerRadiusBottomEnd="15dp"
                                     app:boxCornerRadiusTopStart="15dp">
 
@@ -1186,6 +1211,7 @@
                                     android:layout_weight="1"
                                     android:fontFamily="@font/product_sans_bold"
                                     android:text="Ship Date : "
+                                    android:visibility="gone"
                                     android:textColor="@color/profileEditTextColor"
                                     android:textSize="13sp" />
 
@@ -1194,20 +1220,15 @@
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
+                                    android:visibility="gone"
                                     android:fontFamily="@font/product_sans_regular"
                                     android:textColor="@color/black"
                                     android:textSize="13sp" />
 
-                            </TableRow>
-
-                            <TableRow
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:padding="2dp">
                                 <TextView
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
-                                    android:layout_weight="0.5"
+                                    android:layout_weight="1"
                                     android:fontFamily="@font/product_sans_bold"
                                     android:text="Season Code : "
                                     android:textColor="@color/profileEditTextColor"
@@ -1217,10 +1238,11 @@
                                     android:id="@+id/tv_season_code"
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
-                                    android:layout_weight="1.5"
+                                    android:layout_weight="1"
                                     android:fontFamily="@font/product_sans_regular"
                                     android:textColor="@color/black"
                                     android:textSize="13sp" />
+
                             </TableRow>
 
                         </TableLayout>

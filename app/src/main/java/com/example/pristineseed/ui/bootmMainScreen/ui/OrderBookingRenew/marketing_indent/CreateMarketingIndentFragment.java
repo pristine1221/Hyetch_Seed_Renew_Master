@@ -82,7 +82,7 @@ public class CreateMarketingIndentFragment extends Fragment implements RoleMaste
     private TextView tv_name, tv_name2, tv_address, tv_addres_2, tv_cust_name, tv_date, tv_sale_type, tv_address_detail, tv_ship_date,tv_season_code,
             tv_ship_to, tv_header_no, tv_cust_no, tv_cust_type, name, name_2, address, address_2;
     private TextInputEditText ed_state, ed_zone, ed_resgion, ac_area, ed_tluka, ed_dispatch_date, ed_date, ed_ship_toname, ed_ship_to_address, ed_ship_post_code, ed_ship_to_city, ed_ship_to_method,
-            ed_ship_gst_reg, ed_shipment_date, ed_ship_to_contact, ed_ship_to_address2, ed_ship_toname2, ac_ship_to;
+            ed_ship_gst_reg, ed_shipment_date, ed_ship_to_contact, ed_ship_to_address2, ed_ship_toname2, ac_ship_to, ac_district;
     private AutoCompleteTextView ac_customer_type, ac_dispatch_loc, ac_season, ac_sales, ac_umo;
     private RadioGroup posted_radio_grp;
     private RadioButton rd_posted_yes, rd_posted_no,  line_posted_yes, line_posted_no;;
@@ -247,6 +247,7 @@ public class CreateMarketingIndentFragment extends Fragment implements RoleMaste
                     marketingIndentModel1.territory_name = ed_tluka.getText().toString().trim();
                     marketingIndentModel1.region_name = ed_resgion.getText().toString().trim();
                     marketingIndentModel1.area_name = ac_area.getText().toString().trim();
+                    marketingIndentModel1.district_Name = ac_district.getText().toString().trim();
                     marketingIndentModel1.customer_type = ac_customer_type.getText().toString().trim();
                     marketingIndentModel1.ship_to_code = ac_ship_to.getText().toString().trim();
                     marketingIndentModel1.ship_to_name = ed_ship_toname.getText().toString().trim();
@@ -300,7 +301,7 @@ public class CreateMarketingIndentFragment extends Fragment implements RoleMaste
                                             tv_date.setText(marketingIndentModel1.date);
                                             tv_sale_type.setText(marketingIndentModel1.sales_type);
                                             tv_address_detail.setText(marketingIndentModel1.address);
-                                            tv_ship_date.setText(marketingIndentModel1.shipment_date);
+                                            tv_ship_date.setText("");//todo marketingIndentModel1.shipment_date, remove field by paras sir 14-04-22
                                             tv_ship_to.setText(marketingIndentModel1.ship_to_code);
                                             tv_cust_no.setText(marketingIndentModel1.customer_no);
                                             tv_cust_type.setText(marketingIndentModel1.customer_type);
@@ -346,6 +347,7 @@ public class CreateMarketingIndentFragment extends Fragment implements RoleMaste
             ed_zone.setText(marketingIndentModel.zone);
             ed_resgion.setText(marketingIndentModel.region);
             ac_area.setText(marketingIndentModel.area);
+            ac_district.setText(marketingIndentModel.district_Name);
             ed_tluka.setText(marketingIndentModel.territory);
             ac_customer_type.setText(marketingIndentModel.customer_type);
             tv_name.setText(marketingIndentModel.name);
@@ -389,7 +391,7 @@ public class CreateMarketingIndentFragment extends Fragment implements RoleMaste
             }
 
             if (marketingIndentModel.shipment_date != null && !marketingIndentModel.shipment_date.equalsIgnoreCase("")) {
-                ed_shipment_date.setText(DateTimeUtilsCustome.splitDateInYYYMMDDslsh(marketingIndentModel.shipment_date));
+                ed_shipment_date.setText("");//todo DateTimeUtilsCustome.splitDateInYYYMMDDslsh(marketingIndentModel.shipment_date) 14-04
             } else {
                 ed_shipment_date.setText("");
             }
@@ -405,6 +407,7 @@ public class CreateMarketingIndentFragment extends Fragment implements RoleMaste
         ed_zone = view.findViewById(R.id.ed_zone);
         ed_resgion = view.findViewById(R.id.ed_resgion);
         ac_area = view.findViewById(R.id.ac_area);
+        ac_district = view.findViewById(R.id.ac_district);
         ed_tluka = view.findViewById(R.id.ed_tluka);
         ac_customer_type = view.findViewById(R.id.ac_customer_type);
         tv_name = view.findViewById(R.id.tv_name);
@@ -471,6 +474,9 @@ public class CreateMarketingIndentFragment extends Fragment implements RoleMaste
         tv_cust_no = view.findViewById(R.id.tv_cust_no);
         tv_cust_type = view.findViewById(R.id.tv_cust_type);
         loading_content = view.findViewById(R.id.loading_content);
+
+        //todo add default sale type...14-04-22
+        ac_sales.setText("Normal Seed");
 
 
         back_button_go_topreviousPage.setOnClickListener(v -> {
@@ -654,6 +660,7 @@ public class CreateMarketingIndentFragment extends Fragment implements RoleMaste
                         ed_zone.setText("");
                         ed_resgion.setText("");
                         ac_area.setText("");
+                        ac_district.setText("");
                         ed_tluka.setText("");
                         ac_ship_to.setText("");
                         ed_ship_toname.setText("");
@@ -672,6 +679,7 @@ public class CreateMarketingIndentFragment extends Fragment implements RoleMaste
                     ed_zone.setText("");
                     ed_resgion.setText("");
                     ac_area.setText("");
+                    ac_district.setText("");
                     ed_tluka.setText("");
                     tv_name.setText("");
                     tv_name2.setText("");
@@ -833,6 +841,7 @@ public class CreateMarketingIndentFragment extends Fragment implements RoleMaste
                 marketingIndentModel.territory_name = ed_tluka.getText().toString().trim();
                 marketingIndentModel.region_name = ed_resgion.getText().toString().trim();
                 marketingIndentModel.area_name = ac_area.getText().toString().trim();
+                marketingIndentModel.district_Name = ac_district.getText().toString().trim();
                 marketingIndentModel.customer_type = ac_customer_type.getText().toString().trim();
                 marketingIndentModel.ship_to_code = ac_ship_to.getText().toString().trim();
                 marketingIndentModel.ship_to_name = ed_ship_toname.getText().toString().trim();
@@ -848,7 +857,7 @@ public class CreateMarketingIndentFragment extends Fragment implements RoleMaste
                 if (ed_shipment_date.getText().toString().trim().equalsIgnoreCase("")) {
                     marketingIndentModel.shipment_date = "";
                 } else {
-                    marketingIndentModel.shipment_date = DateTimeUtilsCustome.splitDateInYYYMMDD(ed_shipment_date.getText().toString().trim());
+                    marketingIndentModel.shipment_date = "";//todo DateTimeUtilsCustome.splitDateInYYYMMDD(ed_shipment_date.getText().toString().trim())
                 }
                 marketingIndentModel.GST_ship_to_state_code = !ship_state_code.equalsIgnoreCase("") ? ship_state_code : "null";
                 marketingIndentModel.ship_to_gst_reg_no = !ed_ship_gst_reg.getText().toString().trim().equalsIgnoreCase("") ? ed_ship_gst_reg.getText().toString().trim() : "null";
@@ -1114,7 +1123,7 @@ public class CreateMarketingIndentFragment extends Fragment implements RoleMaste
             tv_date.setText(marketingIndentModel.date);
             tv_sale_type.setText(marketingIndentModel.sales_type);
             tv_address_detail.setText(marketingIndentModel.address);
-            tv_ship_date.setText(marketingIndentModel.shipment_date);
+            tv_ship_date.setText("");//todo marketingIndentModel.shipment_date , change by paras sir, 14-04-22
             tv_season_code.setText(marketingIndentModel.season);
             tv_ship_to.setText(marketingIndentModel.ship_to_code);
             tv_cust_no.setText(marketingIndentModel.customer_no);
@@ -1248,6 +1257,7 @@ public class CreateMarketingIndentFragment extends Fragment implements RoleMaste
         ed_tluka.setText("");
         ed_resgion.setText("");
         ac_area.setText("");
+        ac_district.setText("");
         ac_customer_type.setText("");
         ac_ship_to.setText("");
         ed_ship_toname.setText("");
@@ -1296,13 +1306,17 @@ public class CreateMarketingIndentFragment extends Fragment implements RoleMaste
         posted_radio_grp = popupView.findViewById(R.id.posted_radio_grp);
         back_button_go_topreviousPage = popupView.findViewById(R.id.back_button_go_topreviousPage);
         line_posted_yes = popupView.findViewById(R.id.posted_yes);
-        line_posted_yes = popupView.findViewById(R.id.posted_no);
+        line_posted_no = popupView.findViewById(R.id.posted_no);
         view_update_line = popupView.findViewById(R.id.view_update_line);
         ed_alloted_per = popupView.findViewById(R.id.ed_alloted_per);
         card_booking_search_layout = popupView.findViewById(R.id.card_booking_search_layout);
         ProgressBar search_loading_item = popupView.findViewById(R.id.loading_item);
         RecyclerView lv_bookingno_list = popupView.findViewById(R.id.lv_bookingno_list);
         search_booking_input_layout = popupView.findViewById(R.id.search_booking_input_layout);
+
+        //todo unit measure code default value set... 14-04-22
+
+        ac_umo.setText("KG");
 
         close_line.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -1376,12 +1390,7 @@ public class CreateMarketingIndentFragment extends Fragment implements RoleMaste
             }
         });*/
 
-        getUnitOfMeasureData(content_loading, ac_umo);
-        back_button_go_topreviousPage.setOnClickListener(v -> {
-            dialog.dismiss();
-        });
-
-       /* posted_radio_grp.setOnCheckedChangeListener((group, checkedId) -> {
+        posted_radio_grp.setOnCheckedChangeListener((group, checkedId) -> {
             switch (checkedId) {
                 case R.id.posted_yes:
                     postedString = "1";
@@ -1391,7 +1400,13 @@ public class CreateMarketingIndentFragment extends Fragment implements RoleMaste
                     postedString = "0";
                     break;
             }
-        });*/
+        });
+
+        getUnitOfMeasureData(content_loading, ac_umo);
+        back_button_go_topreviousPage.setOnClickListener(v -> {
+            dialog.dismiss();
+        });
+
 
         ed_indent_qty.addTextChangedListener(new TextWatcher() {
             @Override
@@ -1459,13 +1474,13 @@ public class CreateMarketingIndentFragment extends Fragment implements RoleMaste
                 } else if (ac_variety_code.getText().toString().trim().equalsIgnoreCase("")) {
                     Toast.makeText(getActivity(), "Please select varity code", Toast.LENGTH_SHORT).show();
                     return;
-                } else if (ed_no_of_bags.getText().toString().trim().equalsIgnoreCase("")) {
+                } /*else if (ed_no_of_bags.getText().toString().trim().equalsIgnoreCase("")) {
                     Toast.makeText(getActivity(), "Please select no. of bags.", Toast.LENGTH_SHORT).show();
                     return;
                 } else if (ac_umo.getText().toString().trim().equalsIgnoreCase("")) {
                     Toast.makeText(getActivity(), "Please select unit of measure code.", Toast.LENGTH_SHORT).show();
                     return;
-                } else if (order_booking_indent_no == null || order_booking_indent_no.equalsIgnoreCase("")) {
+                }*/ else if (order_booking_indent_no == null || order_booking_indent_no.equalsIgnoreCase("")) {
                     Toast.makeText(getActivity(), "Booking indent no is blank.", Toast.LENGTH_SHORT).show();
                     return;
                 } else {
@@ -1509,8 +1524,12 @@ public class CreateMarketingIndentFragment extends Fragment implements RoleMaste
             if (!marketingIndentLineModel.posted.equalsIgnoreCase("")) {
                 if (marketingIndentLineModel.posted.equalsIgnoreCase("1")) {
                     line_posted_yes.setChecked(true);
+                    line_posted_yes.setEnabled(false);
+                    line_posted_no.setEnabled(false);
                 } else if (marketingIndentLineModel.posted.equalsIgnoreCase("0")) {
-                    line_posted_yes.setChecked(true);
+                    line_posted_no.setChecked(true);
+                    line_posted_no.setEnabled(false);
+                    line_posted_yes.setEnabled(false);
                 }
             }
             ac_umo.setText(marketingIndentLineModel.unit_of_measure_code);
@@ -1518,12 +1537,12 @@ public class CreateMarketingIndentFragment extends Fragment implements RoleMaste
             ed_variety_name.setText(marketingIndentLineModel.variety_name);
             ed_varity_pack_size.setText(marketingIndentLineModel.variety_package_size);
             ed_class_of_seed.setText(marketingIndentLineModel.variety_class_of_seeds);
-            ed_varity_product_group_code.setText(marketingIndentLineModel.variety_product_group_code);
-            ed_no_of_bags.setText(marketingIndentLineModel.no_of_bags);
+            ed_varity_product_group_code.setText("");//todo marketingIndentLineModel.variety_product_group_code  .removed 14-04-22
+            ed_no_of_bags.setText("");
             ac_marketing_indent_no.setText(marketingIndentLineModel.booking_indent_no);
             ed_indent_qty.setText(marketingIndentLineModel.indent_qty);
-            ed_unit_price.setText(marketingIndentLineModel.unit_price);
-            ed_line_discount_per.setText(marketingIndentLineModel.line_discount_percent);
+            ed_unit_price.setText("0"); //todo marketingIndentLineModel.unit_price,  removed 14-04
+            ed_line_discount_per.setText("0"); //todo marketingIndentLineModel.line_discount_percent, removed field , 14-04
             ed_alloted_qty.setText(marketingIndentLineModel.alotted_qty);
             ed_balance_qty.setText(marketingIndentLineModel.balance_qty);
             ed_suppply_qty.setText(marketingIndentLineModel.supplies_qty);
@@ -1587,9 +1606,7 @@ public class CreateMarketingIndentFragment extends Fragment implements RoleMaste
                             }
                         }
                     }
-                        /*}catch (Exception e){
-                            e.printStackTrace();
-                        }*/
+
                 }
                   /*  else {
                         updateMarketingIndentLine(dialog,marketingIndentLineModel, ac_marketing_indent_no, ed_class_of_seed,
@@ -1619,12 +1636,12 @@ public class CreateMarketingIndentFragment extends Fragment implements RoleMaste
         marketingIndentLine.variety_name = ed_variety_name.getText().toString().trim();
         marketingIndentLine.variety_package_size = !ed_varity_pack_size.getText().toString().trim().equalsIgnoreCase("") ? ed_varity_pack_size.getText().toString().trim() : "0";
         marketingIndentLine.variety_class_of_seeds = ed_class_of_seed.getText().toString().trim();
-        marketingIndentLine.variety_product_group_code = ed_varity_product_group_code.getText().toString().trim();
-        marketingIndentLine.no_of_bags = ed_no_of_bags.getText().toString().trim();
+        marketingIndentLine.variety_product_group_code = ""; //todo  ed_varity_product_group_code.getText().toString().trim(), field removed 14-04
+        marketingIndentLine.no_of_bags = "0"; //todo ed_no_of_bags.getText().toString().trim() ,, remove filed 14-04-22
         marketingIndentLine.booking_indent_no = order_booking_indent_no;
         marketingIndentLine.indent_qty = ed_indent_qty.getText().toString().trim();
-        marketingIndentLine.unit_price = ed_unit_price.getText().toString().trim().equals("") ? "0" : ed_unit_price.getText().toString().trim();
-        marketingIndentLine.line_discount_percent = ed_line_discount_per.getText().toString().trim().equalsIgnoreCase("") ? "0" : ed_line_discount_per.getText().toString().trim();
+        marketingIndentLine.unit_price = "0";// todo ed_unit_price.getText().toString().trim().equals("") ? "0" : ed_unit_price.getText().toString().trim(), removed 14-04
+        marketingIndentLine.line_discount_percent = "0"; //todo ed_line_discount_per.getText().toString().trim().equalsIgnoreCase("") ? "0" : ed_line_discount_per.getText().toString().trim(), removed 14-04
         marketingIndentLine.created_by = sessionManagement.getUserEmail();
         marketingIndentLine.line_amount = "0";
         String jsonString = new Gson().toJson(marketingIndentLine);
@@ -1683,12 +1700,12 @@ public class CreateMarketingIndentFragment extends Fragment implements RoleMaste
         marketingIndentLine.variety_name = ed_variety_name.getText().toString().trim();
         marketingIndentLine.variety_package_size = ed_varity_pack_size.getText().toString().trim();
         marketingIndentLine.variety_class_of_seeds = ed_class_of_seed.getText().toString().trim();
-        marketingIndentLine.variety_product_group_code = ed_varity_product_group_code.getText().toString().trim();
-        marketingIndentLine.no_of_bags = ed_no_of_bags.getText().toString().trim();
+        marketingIndentLine.variety_product_group_code = ""; //todo ed_varity_product_group_code.getText().toString().trim() ..field removed 14-04
+        marketingIndentLine.no_of_bags = "0"; //todo ed_no_of_bags.getText().toString().trim() filed removed 14-04-22
         marketingIndentLine.booking_indent_no = order_booking_indent_no;
         marketingIndentLine.indent_qty = ed_indent_qty.getText().toString().trim();
-        marketingIndentLine.unit_price = ed_unit_price.getText().toString().trim().equals("") ? "0" : ed_unit_price.getText().toString().trim();
-        marketingIndentLine.line_discount_percent = ed_line_discount_per.getText().toString().trim();
+        marketingIndentLine.unit_price = "0"; //todo ed_unit_price.getText().toString().trim().equals("") ? "0" : ed_unit_price.getText().toString().trim(), removed 14-04
+        marketingIndentLine.line_discount_percent = "0"; //todo ed_line_discount_per.getText().toString().trim(),, removed 14-04
         marketingIndentLine.created_by = sessionManagement.getUserEmail();
         marketingIndentLine.booking_qty = ed_booking_qty.getText().toString().trim();
         marketingIndentLine.line_amount = "0";
@@ -1893,12 +1910,12 @@ public class CreateMarketingIndentFragment extends Fragment implements RoleMaste
                     card_booking_search_layout.setVisibility(View.GONE);
                     search_booking_input_layout.setStartIconDrawable(null);
                 }
-                if (booking_data.Variety_Product_Group_Code == null ||
+               /* if (booking_data.Variety_Product_Group_Code == null ||
                         booking_data.Variety_Product_Group_Code.equalsIgnoreCase("")) {
                     ed_varity_product_group_code.setText(booking_data.Variety_Product_Group_Code == null ? "0" : "0");
                 } else {
                     ed_varity_product_group_code.setText(booking_data.Variety_Product_Group_Code.equals("NULL") ? "0" : booking_data.Variety_Product_Group_Code);
-                }
+                }*/
                 if (booking_data.Variety_Name != null && !booking_data.Variety_Name.equalsIgnoreCase("")) {
                     ed_variety_name.setText(booking_data.Variety_Name);
                 }
@@ -1933,10 +1950,14 @@ public class CreateMarketingIndentFragment extends Fragment implements RoleMaste
                 } else {
                     ed_alloted_qty.setText("0");
                 } if (!booking_data.Posted.equalsIgnoreCase("")) {
-                    if (booking_data.Posted.equalsIgnoreCase("Yes")) {
+                    if (booking_data.Posted.equalsIgnoreCase("True")) {
                         line_posted_yes.setChecked(true);
-                    } else if (booking_data.Posted.equalsIgnoreCase("NO")) {
-                        line_posted_yes.setChecked(true);
+                        line_posted_yes.setEnabled(false);
+                        line_posted_no.setEnabled(false);
+                    } else if (booking_data.Posted.equalsIgnoreCase("False")) {
+                        line_posted_no.setChecked(true);
+                        line_posted_no.setEnabled(false);
+                        line_posted_yes.setEnabled(false);
                     }
                 }
             } else {
@@ -2119,12 +2140,18 @@ public class CreateMarketingIndentFragment extends Fragment implements RoleMaste
                         ac_area.setFocusable(false);
                         ac_area.setFocusableInTouchMode(false);
                     }
+                    if (roleMasterTable.district_Name != null && !roleMasterTable.district_Name.equalsIgnoreCase("")) {
+                        ac_district.setText(roleMasterTable.district_Name);
+                        ac_district.setFocusable(false);
+                        ac_district.setFocusableInTouchMode(false);
+                    }
                 } else {
                     frame_layout_org_list.setVisibility(View.GONE);
                     ed_state.setText("");
                     ed_zone.setText("");
                     ed_resgion.setText("");
                     ac_area.setText("");
+                    ac_district.setText("");
                     ed_tluka.setText("");
                     tv_name.setText("");
                     tv_name2.setText("");
@@ -2145,6 +2172,7 @@ public class CreateMarketingIndentFragment extends Fragment implements RoleMaste
                 ed_zone.setText("");
                 ed_resgion.setText("");
                 ac_area.setText("");
+                ac_district.setText("");
                 ed_tluka.setText("");
                 tv_name.setText("");
                 tv_name2.setText("");
@@ -2203,12 +2231,12 @@ public class CreateMarketingIndentFragment extends Fragment implements RoleMaste
                     card_booking_search_layout.setVisibility(View.GONE);
                     search_booking_input_layout.setStartIconDrawable(null);
                 }
-                if (booking_data.Variety_Product_Group_Code == null ||
+               /* if (booking_data.Variety_Product_Group_Code == null ||
                         booking_data.Variety_Product_Group_Code.equalsIgnoreCase("")) {
                     ed_varity_product_group_code.setText(booking_data.Variety_Product_Group_Code == null ? "0" : "0");
                 } else {
                     ed_varity_product_group_code.setText(booking_data.Variety_Product_Group_Code.equals("NULL") ? "0" : booking_data.Variety_Product_Group_Code);
-                }
+                }*/
                 if (booking_data.Variety_Name != null && !booking_data.Variety_Name.equalsIgnoreCase("")) {
                     ed_variety_name.setText(booking_data.Variety_Name);
                 }

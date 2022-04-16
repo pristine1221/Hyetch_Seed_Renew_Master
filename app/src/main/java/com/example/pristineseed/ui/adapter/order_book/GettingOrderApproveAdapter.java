@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.content.res.AppCompatResources;
@@ -29,7 +30,7 @@ public class GettingOrderApproveAdapter extends BaseAdapter {
 
     public OnStatusItemClick onStatusItemClick;
     public interface  OnStatusItemClick{
-        void onItemClick(int pos);
+        void onStatusItemClick(int pos);
     }
 
     public GettingOrderApproveAdapter(Activity activity, List<MarketingIndentApprovalModel> bookinglineList) {
@@ -59,9 +60,10 @@ public class GettingOrderApproveAdapter extends BaseAdapter {
         LayoutInflater inflater = activity.getLayoutInflater();
         convertView = inflater.inflate(R.layout.getting_order_approval_list_layout, null);
         TextView mkt_no = convertView.findViewById(R.id.mkt_no);
-        TextView tv_cust_no = convertView.findViewById(R.id.tv_cust_no);
-        TextView tv_address = convertView.findViewById(R.id.tv_address);
+//        TextView tv_cust_no = convertView.findViewById(R.id.tv_cust_no);
+//        TextView tv_address = convertView.findViewById(R.id.tv_address);
         TextView tv_cust_type = convertView.findViewById(R.id.tv_cust_type);
+        TextView tv_distributor_name = convertView.findViewById(R.id.tv_distributor_name);
         TextView tv_ship_to = convertView.findViewById(R.id.tv_ship_to);
         TextView tv_created_date = convertView.findViewById(R.id.tv_date);
         Chip tv_status = convertView.findViewById(R.id.tv_status);
@@ -69,12 +71,14 @@ public class GettingOrderApproveAdapter extends BaseAdapter {
         //todo set the data into list
         mkt_no.setText(bookinglineList.get(position).marketing_indent_no);
 
-        tv_cust_no.setText(bookinglineList.get(position).customer_no);
+        //todo remove fields 14-04-22
+//        tv_cust_no.setText(bookinglineList.get(position).customer_no);
+//        tv_address.setText(bookinglineList.get(position).address);
+        //  tv_character_ofImageView_farmer_line.setText(String.valueOf("O"));
 
-        tv_address.setText(bookinglineList.get(position).address);
         tv_cust_type.setText(bookinglineList.get(position).customer_type);
 
-        //  tv_character_ofImageView_farmer_line.setText(String.valueOf("O"));
+        tv_distributor_name.setText(bookinglineList.get(position).name);
 
         tv_ship_to.setText(bookinglineList.get(position).ship_to_code);
 
@@ -83,10 +87,8 @@ public class GettingOrderApproveAdapter extends BaseAdapter {
         tv_status.setText(bookinglineList.get(position).status);
 
         tv_status.setOnClickListener(v -> {
-            onStatusItemClick.onItemClick(position);
+            onStatusItemClick.onStatusItemClick(position);
         });
-
-
 
        /* switch (bookinglineList.get(position).status){
             case "Pending":

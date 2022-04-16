@@ -413,6 +413,7 @@
                     android:layout_marginBottom="4dp"
                     android:layout_weight="1"
                     android:hint="Variety Product Group Code "
+                    android:visibility="gone"
                     app:boxCornerRadiusBottomEnd="15dp"
                     app:boxCornerRadiusTopStart="15dp">
 
@@ -434,6 +435,7 @@
                     android:layout_marginBottom="4dp"
                     android:layout_weight="1"
                     android:hint="No of bags "
+                    android:visibility="gone"
                     app:boxCornerRadiusBottomEnd="15dp"
                     app:boxCornerRadiusTopStart="15dp">
 
@@ -597,6 +599,7 @@
                             android:id="@+id/posted_yes"
                             android:layout_width="wrap_content"
                             android:text="Yes"
+                            android:editable="false"
                             android:layout_weight="1"
                             android:textColor="@color/colorPrimaryDark"
                             android:buttonTint="@color/colorPrimaryDark"
@@ -606,6 +609,7 @@
                             android:id="@+id/posted_no"
                             android:layout_width="wrap_content"
                             android:text="No"
+                            android:editable="false"
                             android:layout_weight="1"
                             android:textColor="@color/colorPrimaryDark"
                             android:buttonTint="@color/colorPrimaryDark"
@@ -624,6 +628,7 @@
                     android:hint="Unit Price"
                     android:id="@+id/unit_price_input_layout"
                     android:layout_below="@+id/child_layout"
+                    android:visibility="gone"
                     app:boxCornerRadiusBottomEnd="15dp"
                     app:boxCornerRadiusTopStart="15dp">
 
@@ -645,6 +650,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="4dp"
                     android:hint="Line discount %"
+                    android:visibility="gone"
                     android:id="@+id/line_discount_input_layout"
                     android:layout_below="@+id/unit_price_input_layout"
                     app:boxCornerRadiusBottomEnd="15dp"

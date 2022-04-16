@@ -9,6 +9,7 @@ public class MarketingIndentModel {
     public String date;
     public String posted;
     public String season;
+    public String city;
     public String season_name;
     public String no_series;
     public String customer_no;
@@ -27,6 +28,7 @@ public class MarketingIndentModel {
     public String territory_name;
     public String region_name;
     public String area_name;
+    public String district_Name;
     public String customer_type;
     public String ship_to_code;
     public String ship_to_name;
