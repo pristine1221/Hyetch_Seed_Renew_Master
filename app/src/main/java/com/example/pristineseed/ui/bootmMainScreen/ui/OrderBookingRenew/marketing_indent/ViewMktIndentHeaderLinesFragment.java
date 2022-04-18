@@ -25,7 +25,7 @@ public class ViewMktIndentHeaderLinesFragment extends Fragment {
     private String marketing_indent_no = "";
     private RecyclerView rv_view_mkt_lines;
     private LinearLayoutManager layoutManager;
-    private ArrayList<MarketingIndentApprovalModel.Marketing_Approvalindent_line> marketing_approvalindent_lines_gl;
+    public List<MarketingIndentApprovalModel.Marketing_Approvalindent_line> marketing_approvalindent_lines_gl = new ArrayList<>();
     private ImageView iv_close_ui;
 
     @Override
@@ -43,14 +43,18 @@ public class ViewMktIndentHeaderLinesFragment extends Fragment {
         Bundle bundle = getArguments();
         if (bundle != null){
             marketing_indent_no = bundle.getString("indent_no");
-//            marketing_approvalindent_lines_gl = bundle.getSerializable("lines");
-            ArrayList list= (ArrayList) bundle.getSerializable("list");
+            marketing_approvalindent_lines_gl = (List<MarketingIndentApprovalModel.Marketing_Approvalindent_line>)getArguments().getSerializable("lines");
+
+            //todo bind lines detail adapter..
+            MarketingIndentLinesDetailsAdapter linesDetailsAdapter = new MarketingIndentLinesDetailsAdapter(getActivity(), marketing_approvalindent_lines_gl);
+            rv_view_mkt_lines.setAdapter(linesDetailsAdapter);
         }
 
+        //todo close fragment....
         iv_close_ui.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getFragmentManager().popBackStack();
+                getFragmentManager().popBackStackImmediate();
             }
         });
     }
@@ -61,7 +65,5 @@ public class ViewMktIndentHeaderLinesFragment extends Fragment {
         layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         rv_view_mkt_lines.setLayoutManager(layoutManager);
 
-/*        MarketingIndentLinesDetailsAdapter linesDetailsAdapter = new MarketingIndentLinesDetailsAdapter(getActivity(), marketing_approvalindent_lines_gl);
-        rv_view_mkt_lines.setAdapter(linesDetailsAdapter);*/
     }
 }

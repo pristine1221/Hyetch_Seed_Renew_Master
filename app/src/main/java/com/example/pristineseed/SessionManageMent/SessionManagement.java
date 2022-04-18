@@ -45,6 +45,12 @@ public class SessionManagement {
         setSharedPreferences("subGroupMenuName", AESUtils.encrypt(subGroupMenuName));
     }
 
+    private void setSharedPreferences(String key, String value) {
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putString(key, value);
+        editor.commit();
+    }
+
     private String getDataFromSharedPreferences(String Key) {
         try {
             String returnString = sp.getString(Key, null);
@@ -52,6 +58,13 @@ public class SessionManagement {
         } catch (Exception e) {
             return "";
         }
+    }
+
+    public void ClearSession() {
+        SharedPreferences.Editor editor = sp.edit();
+        editor.clear();
+        editor.apply();
+
     }
 
     public String getMenu() {
@@ -96,20 +109,6 @@ public class SessionManagement {
 
     public void setLastSession(String lastSync) throws Exception {
         setSharedPreferences("lastSession", AESUtils.encrypt(lastSync));
-    }
-
-
-    private void setSharedPreferences(String key, String value) {
-        SharedPreferences.Editor editor = sp.edit();
-        editor.putString(key, value);
-        editor.commit();
-    }
-
-    public void ClearSession() {
-        SharedPreferences.Editor editor = sp.edit();
-        editor.clear();
-        editor.apply();
-
     }
 
     public void setemp_id(String userEmail) throws Exception {

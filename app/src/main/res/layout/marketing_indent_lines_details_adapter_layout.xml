@@ -38,7 +38,7 @@
                     android:layout_weight="1"
                     android:layout_width="0dp"
                     android:fontFamily="@font/product_sans_regular"
-                    android:textColor="@color/black"
+                    android:textColor="@color/textColor"
                     android:layout_height="wrap_content"/>
 
             </LinearLayout>
@@ -63,7 +63,7 @@
                     android:layout_weight="1"
                     android:layout_width="0dp"
                     android:fontFamily="@font/product_sans_regular"
-                    android:textColor="@color/black"
+                    android:textColor="@color/textColor"
                     android:layout_height="wrap_content"/>
 
             </LinearLayout>
@@ -95,7 +95,7 @@
                     android:layout_weight="1.5"
                     android:layout_width="0dp"
                     android:fontFamily="@font/product_sans_regular"
-                    android:textColor="@color/black"
+                    android:textColor="@color/textColor"
                     android:layout_height="wrap_content"/>
 
             </LinearLayout>

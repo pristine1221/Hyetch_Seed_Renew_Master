@@ -79,15 +79,14 @@ public class MarketingApprovalFragment extends Fragment implements GettingOrderA
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if (marketing_approvalindent_lines_gl != null && marketing_approvalindent_lines_gl.size() > 0){
-                   /* Toast.makeText(getActivity(), "Item Clicked!", Toast.LENGTH_SHORT).show();
                     Bundle bundle  =new Bundle();
                     bundle.putString("indent_no", approvalList_.get(position).marketing_indent_no);
-                    bundle.putSerializable("lines", (ArrayList<MarketingIndentApprovalModel.Marketing_Approvalindent_line>)marketing_approvalindent_lines_gl);
+                    bundle.putSerializable("lines", (Serializable) marketing_approvalindent_lines_gl);//todo (ArrayList<MarketingIndentApprovalModel.Marketing_Approvalindent_line>)marketing_approvalindent_lines_gl
                     ViewMktIndentHeaderLinesFragment mktIndentHeaderLines = new ViewMktIndentHeaderLinesFragment();
                     mktIndentHeaderLines.setArguments(bundle);
-                    StaticMethods.loadFragments(getActivity(),mktIndentHeaderLines,"View Posted order");*/
+                    StaticMethods.loadFragmentsWithBackStack(getActivity(),mktIndentHeaderLines,"View Posted order");
 
-                    bindBottomIndentLines(marketing_approvalindent_lines_gl.get(position));
+//                    bindBottomIndentLines(marketing_approvalindent_lines_gl.get(position));
                 }
             }
         });

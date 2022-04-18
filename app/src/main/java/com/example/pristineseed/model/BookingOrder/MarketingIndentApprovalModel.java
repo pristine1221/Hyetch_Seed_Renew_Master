@@ -1,5 +1,6 @@
 package com.example.pristineseed.model.BookingOrder;
 
+import java.io.Serializable;
 import java.util.List;
 
 public class MarketingIndentApprovalModel {
@@ -53,7 +54,7 @@ public String created_on;
 public List<Marketing_Approvalindent_line> marketing_indent_line;
 
 
-public class Marketing_Approvalindent_line {
+public class Marketing_Approvalindent_line implements Serializable {
           public String line_no;
           public String crop_code;
           public String variety_group;
