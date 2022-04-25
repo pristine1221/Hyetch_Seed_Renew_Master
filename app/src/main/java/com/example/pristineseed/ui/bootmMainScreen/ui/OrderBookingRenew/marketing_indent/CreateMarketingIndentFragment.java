@@ -1539,7 +1539,8 @@ public class CreateMarketingIndentFragment extends Fragment implements RoleMaste
             ed_class_of_seed.setText(marketingIndentLineModel.variety_class_of_seeds);
             ed_varity_product_group_code.setText("");//todo marketingIndentLineModel.variety_product_group_code  .removed 14-04-22
             ed_no_of_bags.setText("");
-            ac_marketing_indent_no.setText(marketingIndentLineModel.booking_indent_no);
+            ac_marketing_indent_no.setText(marketingIndentLineModel.nav_booking_indent_no);//marketingIndentLineModel.booking_indent_no
+            ac_marketing_indent_no.setFocusable(false);
             ed_indent_qty.setText(marketingIndentLineModel.indent_qty);
             ed_unit_price.setText("0"); //todo marketingIndentLineModel.unit_price,  removed 14-04
             ed_line_discount_per.setText("0"); //todo marketingIndentLineModel.line_discount_percent, removed field , 14-04
@@ -1640,6 +1641,9 @@ public class CreateMarketingIndentFragment extends Fragment implements RoleMaste
         marketingIndentLine.no_of_bags = "0"; //todo ed_no_of_bags.getText().toString().trim() ,, remove filed 14-04-22
         marketingIndentLine.booking_indent_no = order_booking_indent_no;
         marketingIndentLine.indent_qty = ed_indent_qty.getText().toString().trim();
+        marketingIndentLine.booking_qty = ed_booking_qty.getText().toString().trim();
+        marketingIndentLine.alotted_qty = ed_alloted_qty.getText().toString().trim();
+        marketingIndentLine.alotted_percent = ed_alloted_per.getText().toString().trim();
         marketingIndentLine.unit_price = "0";// todo ed_unit_price.getText().toString().trim().equals("") ? "0" : ed_unit_price.getText().toString().trim(), removed 14-04
         marketingIndentLine.line_discount_percent = "0"; //todo ed_line_discount_per.getText().toString().trim().equalsIgnoreCase("") ? "0" : ed_line_discount_per.getText().toString().trim(), removed 14-04
         marketingIndentLine.created_by = sessionManagement.getUserEmail();

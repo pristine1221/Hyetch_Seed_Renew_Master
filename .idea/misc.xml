@@ -3,8 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Chanchal_Bhasker/Hytech_Android_(11-Apr_2022)/app/src/main/res/drawable/circle_close.xml" value="0.17407407407407408" />
         <entry key="..\:/Chanchal_Bhasker/Hytech_Android_(11-Apr_2022)/app/src/main/res/layout/add_marketing_indent_line_layout_pop_up.xml" value="0.25" />
         <entry key="..\:/Chanchal_Bhasker/Hytech_Android_(11-Apr_2022)/app/src/main/res/layout/add_product_on_ground_popup.xml" value="0.25" />
+        <entry key="..\:/Chanchal_Bhasker/Hytech_Android_(11-Apr_2022)/app/src/main/res/layout/android_item_view.xml" value="0.2015625" />
         <entry key="..\:/Chanchal_Bhasker/Hytech_Android_(11-Apr_2022)/app/src/main/res/layout/booking_order_approval_fragment_layout.xml" value="0.2015625" />
         <entry key="..\:/Chanchal_Bhasker/Hytech_Android_(11-Apr_2022)/app/src/main/res/layout/create_marketing_indent_fragment.xml" value="0.25" />
         <entry key="..\:/Chanchal_Bhasker/Hytech_Android_(11-Apr_2022)/app/src/main/res/layout/fragment_dealer_master_layout.xml" value="0.2015625" />
