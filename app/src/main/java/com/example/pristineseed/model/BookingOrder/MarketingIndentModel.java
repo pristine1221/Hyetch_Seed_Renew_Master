@@ -26,7 +26,7 @@ public class MarketingIndentModel {
     public String zone_name;
     public String state_name;
     public String territory_name;
-    public String region_name;
+    public String region_Name;//region_Name
     public String area_name;
     public String district_Name;
     public String customer_type;

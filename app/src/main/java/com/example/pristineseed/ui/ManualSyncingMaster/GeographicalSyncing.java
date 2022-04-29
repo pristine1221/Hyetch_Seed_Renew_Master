@@ -220,6 +220,7 @@ public class GeographicalSyncing extends Fragment {
                         try {
                             if (hybrid_item_list != null && hybrid_item_list.size() > 0) {
                                 countmodel.hybrid_count = bindHybridItemList(hybrid_item_list, db);
+                                countmodel_gl = countmodel;
                             }
                         } catch (Exception e) {
                             e.printStackTrace();
@@ -227,10 +228,13 @@ public class GeographicalSyncing extends Fragment {
                             db.close();
                             db.destroyInstance();
                         }
-                } else if (fla_of_action.equalsIgnoreCase("planting_lot_master_api")) {
+                }
+                else if (fla_of_action.equalsIgnoreCase("planting_lot_master_api")) {
+                    List<PlantingProdcutionLotModel> prodcutionLotModelList = planting_lot_list_data ;
                     CountModel countModel = new CountModel();
                     try {
-                        countModel.planting_line_lot_list_count = bindPlantingLineLotData(planting_lot_list_data, db);
+                        countModel.planting_line_lot_list_count = bindPlantingLineLotData(prodcutionLotModelList, db);
+                        countmodel_gl = countModel;
                     } catch (Exception e) {
                         e.printStackTrace();
                     } finally {
@@ -249,7 +253,6 @@ public class GeographicalSyncing extends Fragment {
             super.onPostExecute(unused);
             bindGeoGraphicApiData(countmodel_gl);
             if(fla_of_action.equalsIgnoreCase("planting_lot_master_api")) {
-
                 clickedButton = false;
             }
         }
@@ -259,36 +262,43 @@ public class GeographicalSyncing extends Fragment {
 
     private void bindGeoGraphicApiData(CountModel countmodel) {
         //todo (EXCEPTION FOUND that is why use run method .)android.view.ViewRootImpl$CalledFromWrongThreadException: Only the original thread that created a view hierarchy can touch its views...
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                // geo_count.setText(String.valueOf(countmodel.geocount));
-                state_count.setText(String.valueOf(countmodel.stateCount));
-                zonecount.setText(String.valueOf(countmodel.zoneCount));
-                distric_count_text.setText(String.valueOf(countmodel.districCount));
-                region_count.setText(String.valueOf(countmodel.regionCount));
-                taluka_count.setText(String.valueOf(countmodel.talukaCount));
-                display_area_count.setText(String.valueOf(countmodel.areaCount));
-                geo_graphic_loading.setVisibility(View.GONE);
-                zone_master_loading.setVisibility(View.GONE);
-                state_master_loading.setVisibility(View.GONE);
-                region_master_loading.setVisibility(View.GONE);
-                distric_master_loading.setVisibility(View.GONE);
-                taluka_master_loading.setVisibility(View.GONE);
-                area_master_loading.setVisibility(View.GONE);
+       try {
+           new Thread(new Runnable() {
+               @Override
+               public void run() {
+                   try {
+                       // geo_count.setText(String.valueOf(countmodel.geocount));
+                       state_count.setText(String.valueOf(countmodel.stateCount));
+                       zonecount.setText(String.valueOf(countmodel.zoneCount));
+                       distric_count_text.setText(String.valueOf(countmodel.districCount));
+                       region_count.setText(String.valueOf(countmodel.regionCount));
+                       taluka_count.setText(String.valueOf(countmodel.talukaCount));
+                       display_area_count.setText(String.valueOf(countmodel.areaCount));
+                       geo_graphic_loading.setVisibility(View.GONE);
+                       zone_master_loading.setVisibility(View.GONE);
+                       state_master_loading.setVisibility(View.GONE);
+                       region_master_loading.setVisibility(View.GONE);
+                       distric_master_loading.setVisibility(View.GONE);
+                       taluka_master_loading.setVisibility(View.GONE);
+                       area_master_loading.setVisibility(View.GONE);
 
-                //todo bind_hybrid_master refreshUI which were in finally method..
-                hybrid_item_master_loading.setVisibility(View.GONE);
-                display_count_hybrid.setText(String.valueOf(countmodel.hybrid_count));
+                       //todo bind_hybrid_master refreshUI which were in finally method..
+                       hybrid_item_master_loading.setVisibility(View.GONE);
+                       display_count_hybrid.setText(String.valueOf(countmodel.hybrid_count));
 
-                //todo planting_lot_master_api refreshUI which were define in finally method...
-                display_count_planting_line_lot_master.setText(String.valueOf(countmodel.planting_line_lot_list_count));
-                planting_line_lot_list_master_loading.setVisibility(View.GONE);
-                mRotateAnimation.cancel();
-                text_syncing.setVisibility(View.GONE);
-            }
-        });
-
+                       //todo planting_lot_master_api refreshUI which were define in finally method...
+                       display_count_planting_line_lot_master.setText(String.valueOf(countmodel.planting_line_lot_list_count));
+                       planting_line_lot_list_master_loading.setVisibility(View.GONE);
+                       mRotateAnimation.cancel();
+                       text_syncing.setVisibility(View.GONE);
+                   }catch (Exception e){
+                       e.printStackTrace();
+                   }
+               }
+           });
+       }catch (Exception e){
+           e.printStackTrace();
+       }
     }
 
     private boolean clickedButton = false;

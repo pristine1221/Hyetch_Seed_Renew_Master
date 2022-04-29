@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -17,6 +18,7 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -55,6 +57,7 @@ import com.example.pristineseed.ui.adapter.item.BookingMasterAdapter;
 import com.example.pristineseed.ui.adapter.item.LocationMasterAdapter;
 import com.example.pristineseed.ui.adapter.item.RoleMasterAdapter;
 import com.example.pristineseed.ui.adapter.item.UnitOfMeasureAdapter;
+import com.example.pristineseed.ui.adapter.order_book.IndentNumberAdapter;
 import com.example.pristineseed.ui.adapter.order_book.MarketingIndentLineAdapter;
 import com.example.pristineseed.ui.adapter.order_book.ShipToDetailAdapter;
 import com.google.android.material.card.MaterialCardView;
@@ -89,10 +92,13 @@ public class CreateMarketingIndentFragment extends Fragment implements RoleMaste
     private List<String> customer_type_list = new ArrayList<>();
     private RoleMasterModel.Data roleMasterTable = null;
     private List<RoleMasterModel.Data> role_no_list;
-    private LinearLayout back_button_go_topreviousPage, name_detail_layout, header_create_section, getting_order_detail_header_section, line_cardview;
+    private LinearLayout back_button_go_topreviousPage, name_detail_layout, header_create_section, getting_order_detail_header_section;
+    private RelativeLayout line_cardview;
+    private AutoCompleteTextView ac_line_indent_no_dd;
     private List<SeasonMasterModel> seasonMasterTableList = null;
     private String season_code = "", zone_code, state_code, taluka_code, region_code, area_code, ship_name2 = "", ship_address2, ship_contact, ship_region = "",
-            ship_state_code = "", ship_agent_code = "", ship_agent_service_code = "", cust_name = "", dispatch_loc_code = "", flag_execute = "", postedString;
+            ship_state_code = "", ship_agent_code = "", ship_agent_service_code = "", cust_name = "", dispatch_loc_code = "", flag_execute = "",
+            postedString, indent_no = "";
     private ShipToAddressModel.Data shipToAddressTable = null;
     private List<UserLocationModel> locationMasterTableList = null;
     private Button create_header_btn;
@@ -122,7 +128,7 @@ public class CreateMarketingIndentFragment extends Fragment implements RoleMaste
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         Bundle bundle = getArguments();
-        if (bundle != null) {
+   /*     if (bundle != null) {
             marketingIndentModel = new Gson().fromJson(bundle.getString("data", ""), MarketingIndentModel.class);
             if (marketingIndentModel != null) {
                 header_create_section.setVisibility(View.GONE);
@@ -132,18 +138,33 @@ public class CreateMarketingIndentFragment extends Fragment implements RoleMaste
             } else {
                 header_create_section.setVisibility(View.VISIBLE);
             }
-        }
+        }*/
         super.onActivityCreated(savedInstanceState);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         sessionManagement = new SessionManagement(getActivity());
+        if (getArguments() != null) {
+            marketingIndentModel = new Gson().fromJson(getArguments().getString("data", ""), MarketingIndentModel.class);
+        }
         initView(view);
+
+        if (marketingIndentModel != null) {
+            header_create_section.setVisibility(View.GONE);
+            getting_order_detail_header_section.setVisibility(View.VISIBLE);
+            line_cardview.setVisibility(View.VISIBLE);
+            setHeaderDetail();
+        } else {
+            header_create_section.setVisibility(View.VISIBLE);
+        }
+
         getCustomerTypeData();
         getSeasonMaster();
 //        getDispatchLocation();
         insertHeader();
+
 
      /* ac_dispatch_loc.setOnItemClickListener((parent, view1, position, id) -> {
           UserLocationModel userLocationModel=locationMasterTableList.get(position);
@@ -245,7 +266,7 @@ public class CreateMarketingIndentFragment extends Fragment implements RoleMaste
                     marketingIndentModel1.zone_name = ed_zone.getText().toString().trim();
                     marketingIndentModel1.state_name = ed_state.getText().toString().trim();
                     marketingIndentModel1.territory_name = ed_tluka.getText().toString().trim();
-                    marketingIndentModel1.region_name = ed_resgion.getText().toString().trim();
+                    marketingIndentModel1.region_Name = ed_resgion.getText().toString().trim();
                     marketingIndentModel1.area_name = ac_area.getText().toString().trim();
                     marketingIndentModel1.district_Name = ac_district.getText().toString().trim();
                     marketingIndentModel1.customer_type = ac_customer_type.getText().toString().trim();
@@ -307,7 +328,6 @@ public class CreateMarketingIndentFragment extends Fragment implements RoleMaste
                                             tv_cust_type.setText(marketingIndentModel1.customer_type);
                                             tv_season_code.setText(marketingIndentModel1.season);
                                             setUpdateHeaderDetails(marketingIndentModel1);
-
                                             Toast.makeText(getActivity(), bookingResponseList.get(0).message, Toast.LENGTH_SHORT).show();
                                         } else {
                                             Toast.makeText(getActivity(), bookingResponseList.size() > 0 ? response.message() : ". Error Code:" + response.code(), Toast.LENGTH_SHORT).show();
@@ -345,7 +365,7 @@ public class CreateMarketingIndentFragment extends Fragment implements RoleMaste
             }
             ed_state.setText(marketingIndentModel.state);
             ed_zone.setText(marketingIndentModel.zone);
-            ed_resgion.setText(marketingIndentModel.region);
+            ed_resgion.setText(marketingIndentModel.region_Name);
             ac_area.setText(marketingIndentModel.area);
             ac_district.setText(marketingIndentModel.district_Name);
             ed_tluka.setText(marketingIndentModel.territory);
@@ -451,6 +471,7 @@ public class CreateMarketingIndentFragment extends Fragment implements RoleMaste
         loading_item_ship = view.findViewById(R.id.loading_item_ship);
         ship_code_search_layout = view.findViewById(R.id.ship_code_search_layout);
         ship_to_input_layout = view.findViewById(R.id.ship_to_input_layout);
+        ac_line_indent_no_dd = view.findViewById(R.id.ac_line_indent_no_dd);
 
         LinearLayoutManager layoutManager
                 = new LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false);
@@ -478,7 +499,6 @@ public class CreateMarketingIndentFragment extends Fragment implements RoleMaste
         //todo add default sale type...14-04-22
         ac_sales.setText("Normal Seed");
 
-
         back_button_go_topreviousPage.setOnClickListener(v -> {
             getParentFragmentManager().popBackStack();
         });
@@ -487,48 +507,17 @@ public class CreateMarketingIndentFragment extends Fragment implements RoleMaste
             deleteBookingHeader();
         });
 
+        //todo add lines...
         chip_add_line_booking.setOnClickListener(v -> {
-            loading_item.setVisibility(View.VISIBLE);
-            NetworkInterface mAPIService = ApiUtils.getPristineAPIService();
-            Call<List<MarketingIndentModel.MarketingIndentLine>> call = mAPIService.marketingIndentLineShow(marketingIndentModel.season, marketingIndentModel.customer_no);
-            call.enqueue(new Callback<List<MarketingIndentModel.MarketingIndentLine>>() {
-                @Override
-                public void onResponse(Call<List<MarketingIndentModel.MarketingIndentLine>> call, Response<List<MarketingIndentModel.MarketingIndentLine>> response) {
-                    loading_item.setVisibility(View.GONE);
-                    try {
-                        if (response.isSuccessful()) {
-                            List<MarketingIndentModel.MarketingIndentLine> responseList = response.body();
-                            if (responseList != null && responseList.get(0).condition && responseList.size() > 0) {
-                                MarketingIndentModel.MarketingIndentLine marketingIndentLineModel = responseList.get(0);
-                                addLine("Insert", marketingIndentLineModel);
-                            } else {
-                                MDToast.makeText(getActivity(), responseList.get(0).message, Toast.LENGTH_SHORT, MDToast.TYPE_ERROR).show();
-                            }
-                        } else {
-                            MDToast.makeText(getActivity(), "No Response ", Toast.LENGTH_SHORT, MDToast.TYPE_ERROR).show();
-                        }
-
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                        loading_item.setVisibility(View.GONE);
-                        ApiRequestFailure.PostExceptionToServer(e, getClass().getName(), "Error!", getActivity());
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<List<MarketingIndentModel.MarketingIndentLine>> call, Throwable t) {
-                    loading_item.setVisibility(View.GONE);
-                    ApiRequestFailure.PostExceptionToServer(t, getClass().getName(), "No_line_bind", getActivity());
-                }
-            });
-
+            addLine("Insert",marketingIndentLineModel, indent_no);
         });
+
         line_listview.setOnItemClickListener((parent, view1, position, id) -> {
             if (marketingIndentModel.status.equalsIgnoreCase("Approve") || marketingIndentModel.status.equalsIgnoreCase("Sent For Approval")) {
                 Toast.makeText(getActivity(), "You can't update line as status is sent for approval/approve.", Toast.LENGTH_SHORT).show();
             } else {
                 if (marketingIndentLineList != null && marketingIndentLineList.size() > 0) {
-                    addLine("Update", marketingIndentLineList.get(position));
+                    addLine("Update", marketingIndentLineList.get(position), "");
                     card_booking_search_layout.setVisibility(View.GONE);
                 }
             }
@@ -569,6 +558,87 @@ public class CreateMarketingIndentFragment extends Fragment implements RoleMaste
             }
         });
 
+        //todo indent number...
+//        getIndentNoList(loading_item, marketingIndentModel ,indent_no,ac_line_indent_no_dd);
+
+        ac_line_indent_no_dd.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus){
+                    getIndentNoList(loading_item, marketingIndentModel ,ac_line_indent_no_dd);
+                }
+            }
+        });
+
+        ac_line_indent_no_dd.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                try {
+                    if (marketingIndentLines != null && marketingIndentLines.size() > 0){
+                        marketingIndentLineModel = marketingIndentLines.get(position);
+                        if (marketingIndentLineModel != null){
+                            if (marketingIndentLineModel.No != null){
+                                ac_line_indent_no_dd.setText(marketingIndentLineModel.No);
+//                                ac_line_indent_no_dd.setText(marketingIndentLineModel.No +" ("+marketingIndentLineModel.variety_name +" )");
+                                ac_line_indent_no_dd.setSelection(ac_line_indent_no_dd.getText().length());
+                                indent_no = marketingIndentLineModel.No;
+                            }
+
+                        }else {
+                            ac_line_indent_no_dd.setText("");
+                        }
+                    }
+
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+        });
+
+    }
+
+    private List<MarketingIndentModel.MarketingIndentLine> marketingIndentLines = new ArrayList<>();
+    private MarketingIndentModel.MarketingIndentLine marketingIndentLineModel = null;
+
+    private void getIndentNoList(ProgressBar loading_item, MarketingIndentModel marketingIndentModel,AutoCompleteTextView ac_line_indent_no_dd) {
+        loading_item.setVisibility(View.VISIBLE);
+        String season_code = marketingIndentModel.season;
+        String customer_no = marketingIndentModel.customer_no;
+        NetworkInterface mAPIService = ApiUtils.getPristineAPIService();
+        Call<List<MarketingIndentModel.MarketingIndentLine>> call = mAPIService.marketingIndentLineShow(season_code, customer_no);
+        call.enqueue(new Callback<List<MarketingIndentModel.MarketingIndentLine>>() {
+            @Override
+            public void onResponse(Call<List<MarketingIndentModel.MarketingIndentLine>> call, Response<List<MarketingIndentModel.MarketingIndentLine>> response) {
+                loading_item.setVisibility(View.GONE);
+                try {
+                    if (response.isSuccessful()) {
+                        List<MarketingIndentModel.MarketingIndentLine> responseList = response.body();
+                        if (responseList != null && responseList.get(0).condition && responseList.size() > 0) {
+                            marketingIndentLineModel = responseList.get(0);
+                            marketingIndentLines = responseList;
+                            IndentNumberAdapter indentNumberAdapter = new IndentNumberAdapter(getActivity(), R.layout.android_item_view, marketingIndentLines);
+                            ac_line_indent_no_dd.setAdapter(indentNumberAdapter);
+                        } else {
+                            ac_line_indent_no_dd.setAdapter(null);
+                            MDToast.makeText(getActivity(), responseList.get(0).message, Toast.LENGTH_SHORT, MDToast.TYPE_ERROR).show();
+                        }
+                    } else {
+                        MDToast.makeText(getActivity(), "No Response !", Toast.LENGTH_SHORT, MDToast.TYPE_ERROR).show();
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    loading_item.setVisibility(View.GONE);
+                    ApiRequestFailure.PostExceptionToServer(e, getClass().getName(), "Error!", getActivity());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<MarketingIndentModel.MarketingIndentLine>> call, Throwable t) {
+                loading_item.setVisibility(View.GONE);
+                ApiRequestFailure.PostExceptionToServer(t, getClass().getName(), "No_line_bind", getActivity());
+            }
+        });
     }
 
 
@@ -839,7 +909,7 @@ public class CreateMarketingIndentFragment extends Fragment implements RoleMaste
                 marketingIndentModel.zone_name = ed_zone.getText().toString().trim();
                 marketingIndentModel.state_name = ed_state.getText().toString().trim();
                 marketingIndentModel.territory_name = ed_tluka.getText().toString().trim();
-                marketingIndentModel.region_name = ed_resgion.getText().toString().trim();
+                marketingIndentModel.region_Name = ed_resgion.getText().toString().trim();
                 marketingIndentModel.area_name = ac_area.getText().toString().trim();
                 marketingIndentModel.district_Name = ac_district.getText().toString().trim();
                 marketingIndentModel.customer_type = ac_customer_type.getText().toString().trim();
@@ -1125,6 +1195,7 @@ public class CreateMarketingIndentFragment extends Fragment implements RoleMaste
             tv_address_detail.setText(marketingIndentModel.address);
             tv_ship_date.setText("");//todo marketingIndentModel.shipment_date , change by paras sir, 14-04-22
             tv_season_code.setText(marketingIndentModel.season);
+            season_code = marketingIndentModel.season;
             tv_ship_to.setText(marketingIndentModel.ship_to_code);
             tv_cust_no.setText(marketingIndentModel.customer_no);
             tv_cust_type.setText(marketingIndentModel.customer_type);
@@ -1274,7 +1345,7 @@ public class CreateMarketingIndentFragment extends Fragment implements RoleMaste
     private MaterialCardView card_booking_search_layout;
     private TextInputLayout search_booking_input_layout;
 
-    private void addLine(String flag, MarketingIndentModel.MarketingIndentLine marketingIndentLineModel) {
+    private void addLine(String flag, MarketingIndentModel.MarketingIndentLine marketingIndentLineModel, String indent_no) {
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View popupView = inflater.inflate(R.layout.add_marketing_indent_line_layout_pop_up, null);
         Dialog dialog = new Dialog(getActivity(), android.R.style.Theme_DeviceDefault_DialogWhenLarge_NoActionBar);
@@ -1333,6 +1404,7 @@ public class CreateMarketingIndentFragment extends Fragment implements RoleMaste
             ac_marketing_indent_no.setText(marketingIndentLineModel.No);
             ac_marketing_indent_no.setSelection(ac_marketing_indent_no.getText().length());
             getBookingIndentNo(search_loading_item, lv_bookingno_list,tv_cust_no.getText().toString(), ac_marketing_indent_no);
+
         }
 
        /* ac_marketing_indent_no.setOnFocusChangeListener((v, hasFocus) -> {
@@ -1665,6 +1737,8 @@ public class CreateMarketingIndentFragment extends Fragment implements RoleMaste
                             if (insertBookingResponseList != null && insertBookingResponseList.size() > 0 && insertBookingResponseList.get(0).condition) {
                                 complete_header.setVisibility(View.VISIBLE);
                                 marketingIndentLineList = insertBookingResponseList;
+                                ac_line_indent_no_dd.setText("");
+                                ac_line_indent_no_dd.setFocusable(false);
                                 bindDataWithAdapter("", marketingIndentLineList);
                                 dialog.dismiss();
                             } else {
@@ -2135,7 +2209,7 @@ public class CreateMarketingIndentFragment extends Fragment implements RoleMaste
                     }
 
                     if (roleMasterTable.region_Name != null && !roleMasterTable.region_Name.equalsIgnoreCase("")) {
-                        ed_resgion.setText(roleMasterTable.territory_Name);
+                        ed_resgion.setText(roleMasterTable.region_Name);
                         ed_resgion.setFocusable(false);
                         ed_resgion.setFocusableInTouchMode(false);
                     }

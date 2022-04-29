@@ -107,18 +107,6 @@
                         app:boxCornerRadiusBottomEnd="15dp"
                         app:boxCornerRadiusTopStart="15dp">
 
-<!--
-                    <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="4dp"
-                        android:hint="Season "
-                        android:id="@+id/season_layput"
-                        android:layout_below="@+id/view_layout"
-                        app:boxCornerRadiusBottomEnd="15dp"
-                        app:boxCornerRadiusTopStart="15dp">-->
-
                         <AutoCompleteTextView
                             android:id="@+id/ac_season"
                             android:layout_width="match_parent"

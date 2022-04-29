@@ -722,13 +722,17 @@ public class CreateBookingOrderRename_Fragment extends Fragment {
             if (NetworkUtil.getConnectivityStatusBoolean(getActivity())) {
                 if (updateOrderModel.season_code != null && !updateOrderModel.season_code.equalsIgnoreCase("")) {
                     season_code = updateOrderModel.season_code;
-                    ac_season.setText(updateOrderModel.season_name != null ? updateOrderModel.season_name : "");
+                    ac_season.setText(updateOrderModel.season_name != null ? updateOrderModel.season_name : updateOrderModel.season_code);
                     ac_season.setEnabled(false);
+                    ac_season.setFocusable(false);
+                    ac_season.setDropDownHeight(0);
                 }
                 if (updateOrderModel.district_code != null && !updateOrderModel.district_code.equalsIgnoreCase("")) {
                     district_code = updateOrderModel.district_code;
                     ac_district.setText(updateOrderModel.district_name);
                     ac_district.setEnabled(false);
+                    ac_district.setFocusable(false);
+                    ac_district.setDropDownHeight(0);
                 } else {
                     ac_district.setText("");
                     ac_district.setEnabled(false);
@@ -736,6 +740,8 @@ public class CreateBookingOrderRename_Fragment extends Fragment {
                 if (updateOrderModel.city != null && !updateOrderModel.city.equalsIgnoreCase("")) {
                     ac_city.setText(updateOrderModel.city != null ? updateOrderModel.city : "");
                     ac_city.setEnabled(false);
+                    ac_city.setFocusable(false);
+                    ac_city.setDropDownHeight(0);
                 } else {
                     ac_city.setText("");
                     ac_city.setEnabled(false);
@@ -744,6 +750,8 @@ public class CreateBookingOrderRename_Fragment extends Fragment {
                     distributor_code = updateOrderModel.distributor_code;
                     ac_distributor.setText(updateOrderModel.distributor_name);
                     ac_distributor.setEnabled(false);
+                    ac_distributor.setFocusable(false);
+                    ac_distributor.setDropDownHeight(0);
                 } else {
                     ac_distributor.setText("");
                     ac_distributor.setEnabled(false);
@@ -752,6 +760,8 @@ public class CreateBookingOrderRename_Fragment extends Fragment {
                     crop_code = updateOrderModel.crop_code;
                     ac_crop_code.setText(crop_code);
                     ac_crop_code.setEnabled(false);
+                    ac_crop_code.setFocusable(false);
+                    ac_crop_code.setDropDownHeight(0);
                 } else {
                     ac_crop_code.setText("");
                     ac_crop_code.setEnabled(false);
@@ -760,6 +770,8 @@ public class CreateBookingOrderRename_Fragment extends Fragment {
                     varity_code = updateOrderModel.variety_code;
                     ac_variety.setText(updateOrderModel.variety_name != null ? updateOrderModel.variety_name : "");
                     ac_variety.setEnabled(false);
+                    ac_variety.setFocusable(false);
+                    ac_variety.setDropDownHeight(0);
                 } else {
                     ac_variety.setText("");
                     ac_variety.setEnabled(false);
