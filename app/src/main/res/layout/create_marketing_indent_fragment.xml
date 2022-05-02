@@ -729,19 +729,17 @@
                                     android:layout_height="wrap_content"
                                     android:layout_below="@+id/info_ship_layout"
                                     android:layout_marginBottom="4dp"
-                                    android:hint="Search Ship code "
+                                    android:hint="Delivery"
                                     app:boxCornerRadiusBottomEnd="15dp"
-                                    app:boxCornerRadiusTopStart="15dp"
-                                    app:startIconDrawable="@drawable/ic_search_black_24dp"
-                                    app:startIconTint="@color/color_trans_gray">
+                                    app:boxCornerRadiusTopStart="15dp">
+                                    <!--app:startIconDrawable="@drawable/ic_search_black_24dp"
+                                    app:startIconTint="@color/color_trans_gray"
+                                    Search Ship code-->
 
                                     <com.google.android.material.textfield.TextInputEditText
                                         android:id="@+id/ac_ship_to"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
-                                        android:ellipsize="end"
-                                        android:lines="1"
-                                        android:maxLines="1"
                                         android:textColor="@color/black"
                                         android:textSize="@dimen/_10sdp" />
 
@@ -807,8 +805,6 @@
                                         android:id="@+id/ed_ship_toname"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
-                                        android:editable="false"
-                                        android:maxLines="1"
                                         android:textColor="@color/black"
                                         android:textSize="@dimen/_10sdp" />
 
@@ -829,8 +825,6 @@
                                         android:id="@+id/ed_ship_toname2"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
-                                        android:editable="false"
-                                        android:maxLines="1"
                                         android:textColor="@color/black"
                                         android:textSize="@dimen/_10sdp" />
 
@@ -852,8 +846,6 @@
                                         android:id="@+id/ed_ship_to_address"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
-                                        android:editable="false"
-                                        android:maxLines="1"
                                         android:textColor="@color/black"
                                         android:textSize="@dimen/_10sdp" />
 
@@ -875,8 +867,6 @@
                                         android:id="@+id/ed_ship_to_address2"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
-                                        android:editable="false"
-                                        android:maxLines="1"
                                         android:textColor="@color/black"
                                         android:textSize="@dimen/_10sdp" />
 
@@ -898,8 +888,7 @@
                                         android:id="@+id/ed_ship_post_code"
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent"
-                                        android:editable="false"
-                                        android:maxLines="1"
+                                        android:inputType="number"
                                         android:textColor="@color/black"
                                         android:textSize="@dimen/_10sdp" />
 
@@ -921,8 +910,6 @@
                                         android:id="@+id/ed_ship_to_city"
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent"
-                                        android:editable="false"
-                                        android:maxLines="1"
                                         android:textColor="@color/black"
                                         android:textSize="@dimen/_10sdp" />
 
@@ -944,8 +931,6 @@
                                         android:id="@+id/ed_ship_to_contact"
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent"
-                                        android:editable="false"
-                                        android:maxLines="1"
                                         android:textColor="@color/black"
                                         android:textSize="@dimen/_10sdp" />
 
@@ -966,8 +951,6 @@
                                         android:id="@+id/ed_ship_to_method"
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent"
-                                        android:editable="false"
-                                        android:maxLines="1"
                                         android:textColor="@color/black"
                                         android:textSize="@dimen/_10sdp" />
 
@@ -988,8 +971,6 @@
                                         android:id="@+id/ed_ship_gst_reg"
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent"
-                                        android:editable="false"
-                                        android:maxLines="1"
                                         android:textColor="@color/black"
                                         android:textSize="@dimen/_10sdp" />
 

@@ -37,6 +37,7 @@ public class MarketingIndentLinesDetailsAdapter extends RecyclerView.Adapter<Mar
         holder.tv_indent_qty.setText(listModel.indent_qty);
         holder.tv_booking_qty.setText(listModel.booking_qty);
         holder.tv_balance_qty.setText(listModel.balance_qty);
+        holder.tv_variety_code.setText(listModel.variety_code);
     }
 
     @Override
@@ -45,12 +46,13 @@ public class MarketingIndentLinesDetailsAdapter extends RecyclerView.Adapter<Mar
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView tv_indent_qty, tv_booking_qty, tv_balance_qty;
+        TextView tv_indent_qty, tv_booking_qty, tv_balance_qty, tv_variety_code;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             tv_indent_qty = itemView.findViewById(R.id.tv_indent_qty);
             tv_booking_qty = itemView.findViewById(R.id.tv_booking_qty);
             tv_balance_qty = itemView.findViewById(R.id.tv_balance_qty);
+            tv_variety_code = itemView.findViewById(R.id.tv_variety_code);
         }
     }
 }

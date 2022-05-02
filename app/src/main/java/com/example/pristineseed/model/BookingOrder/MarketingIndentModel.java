@@ -30,6 +30,7 @@ public class MarketingIndentModel {
     public String area_name;
     public String district_Name;
     public String customer_type;
+
     public String ship_to_code;
     public String ship_to_name;
     public String ship_to_name_2;
@@ -38,12 +39,13 @@ public class MarketingIndentModel {
     public String ship_to_postcode;
     public String ship_to_city;
     public String ship_to_contact;
+    public String shipment_method_code;
+    public String ship_to_gst_reg_no;
+
     public String region_code;
     public String ship_to_county;
     public String shipment_date;
     public String GST_ship_to_state_code;
-    public String ship_to_gst_reg_no;
-    public String shipment_method_code;
     public String shipping_agent_code;
     public String shipping_agent_service_code;
     public String dispatch_location_code;
