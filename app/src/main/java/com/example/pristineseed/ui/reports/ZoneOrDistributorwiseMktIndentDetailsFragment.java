@@ -92,6 +92,9 @@ public class ZoneOrDistributorwiseMktIndentDetailsFragment extends Fragment impl
     private ProgressBar mkt_progressBar;
     private TextView mkt_progress_percentage_count, mkt_text_percent;
 
+    private RecyclerView demo_list;
+    private LinearLayoutManager demo_layout;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -225,6 +228,16 @@ public class ZoneOrDistributorwiseMktIndentDetailsFragment extends Fragment impl
                 clearUIRefresh();
             }
         });
+
+        /*filter_download_floating_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                HitDownloadFileApi(ApiUtils.BASE_URL, et_mkt_distributor_name.getText().toString(), et_mkt_zone.getText().toString(), et_start_date.getText().toString(),
+                        et_end_date.getText().toString());
+                loading_item.setVisibility(View.VISIBLE);
+                filter_download_floating_btn.setVisibility(View.GONE);
+            }
+        });*/
 
         filter_download_floating_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -426,6 +439,12 @@ public class ZoneOrDistributorwiseMktIndentDetailsFragment extends Fragment impl
         //todo set dispatch layout manager...
         mkt_indent_list_layout_manager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         mkt_recycler_view_list.setLayoutManager(mkt_indent_list_layout_manager);
+
+        //todo example...
+        demo_list = view.findViewById(R.id.demo_list);
+        demo_layout = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
+        demo_list.setLayoutManager(demo_layout);
+
     }
 
     @Override

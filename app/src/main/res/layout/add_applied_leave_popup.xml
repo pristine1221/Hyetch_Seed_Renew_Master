@@ -31,7 +31,8 @@
                 style="@style/TextAppearance.MaterialComponents.Headline6"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical|center_horizontal"
+                android:layout_toRightOf="@+id/close_dilog_bt"
+                android:gravity="center_horizontal"
                 android:text="Apply For Leave"
                 android:textAlignment="center" />
         </RelativeLayout>

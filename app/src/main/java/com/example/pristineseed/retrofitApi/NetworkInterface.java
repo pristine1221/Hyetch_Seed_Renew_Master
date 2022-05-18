@@ -17,6 +17,7 @@ import com.example.pristineseed.model.DailyActivity_Model.DailyActivityResponse;
 import com.example.pristineseed.model.DailyActivity_Model.DailyActivityResponseModel;
 import com.example.pristineseed.model.Dealer.DealerMasterModel;
 import com.example.pristineseed.model.EmployeeModel.CurrentAttendanceModel;
+import com.example.pristineseed.model.EmployeeModel.EmployeeAttendanceDetailModel;
 import com.example.pristineseed.model.EmployeeModel.EmployeeLeaveMasterModel;
 import com.example.pristineseed.model.EmployeeModel.EndClockAttendanceModel;
 import com.example.pristineseed.model.EmployeeModel.StartClockAttendanceModel;
@@ -592,7 +593,7 @@ public interface NetworkInterface {
 
     /**
      * Leave Application Api
-     * todo Leave
+     * todo Leave api's...
      **/
     @GET("/api/Leave/leave_type")
     Call<List<LevaeTypeModel>> getLeaveType();
@@ -602,7 +603,6 @@ public interface NetworkInterface {
 
     @POST("/api/Leave/LeaveApproval")
     Call<List<LeavePendingApprovedModel>> getLeaveApproved(@Body JsonObject jsonObject);
-
 
     @GET("/api/Leave/leave_type")
     Call<List<LeaveListModel>> leave_type();
@@ -630,6 +630,10 @@ public interface NetworkInterface {
 
     @GET("/api/Leave/LeaveAppliedSubmited")
     Call<List<LeaveAppliedSubmitModel>> getLeaveAppliedSubmit(@Query("leave_id") String leave_id);
+
+    //todo employee details....
+    @POST("/api/Attendance/attendance_mst_get_by_daterange")
+    Call<List<EmployeeAttendanceDetailModel>> getEmployeeAttendanceDetails(@Body JsonObject jsonObject);
 
     //todo yield estimate...........
 

@@ -511,7 +511,11 @@ public class CreateMarketingIndentFragment extends Fragment implements RoleMaste
 
         //todo add lines...
         chip_add_line_booking.setOnClickListener(v -> {
-            addLine("Insert", marketingIndentLineModel, indent_no);
+            if (marketingIndentLineModel != null) {
+                addLine("Insert", marketingIndentLineModel, indent_no);
+            }else if (marketingIndentLineModel == null){
+                MDToast.makeText(getActivity(), "Select Indent No !", Toast.LENGTH_SHORT, MDToast.TYPE_ERROR).show();
+            }
         });
 
         line_listview.setOnItemClickListener((parent, view1, position, id) -> {
@@ -1407,9 +1411,7 @@ public class CreateMarketingIndentFragment extends Fragment implements RoleMaste
             ac_marketing_indent_no.setText(marketingIndentLineModel.No);
             ac_marketing_indent_no.setSelection(ac_marketing_indent_no.getText().length());
             getBookingIndentNo(search_loading_item, lv_bookingno_list, tv_cust_no.getText().toString(), ac_marketing_indent_no);
-
         }
-
        /* ac_marketing_indent_no.setOnFocusChangeListener((v, hasFocus) -> {
             if (hasFocus) {
                 search_booking_input_layout.setStartIconDrawable(null);

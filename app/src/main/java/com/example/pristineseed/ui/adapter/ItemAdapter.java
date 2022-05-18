@@ -90,7 +90,6 @@ public class ItemAdapter extends ArrayAdapter<String> {
 //                    FilterResults filterResults = new FilterResults();
 //                    filterResults.values = suggestions;
 //                    filterResults.count = suggestions.size();
-
                 FilterResults filterResults = new FilterResults();
                 filterResults.values = tempItems;
                 filterResults.count = tempItems.size();

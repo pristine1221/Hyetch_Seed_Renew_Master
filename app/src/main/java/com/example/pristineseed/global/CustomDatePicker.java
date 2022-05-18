@@ -45,7 +45,20 @@ public class CustomDatePicker {
                 public void onDateSet(DatePicker view, int year_this, int monthOfYear,
                                       int dayOfMonth) {
                     // TODO Auto-generated method stub
-                    editTextDate.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year_this);
+                    int month= monthOfYear+1;
+                    String f_month = ""+month;
+                    String f_day = ""+dayOfMonth;
+                    if(month < 10){
+                        f_month = "0"+month;
+                    }
+                    if (dayOfMonth < 10){
+                        f_day = "0"+dayOfMonth;
+                    }
+                    String date= ""+f_day+"-"+f_month+"-"+year_this;
+                    editTextDate.setText(date);
+                    editTextDate.setSelection(editTextDate.getText().length());
+
+//                    editTextDate.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year_this);
                 }
             };
 

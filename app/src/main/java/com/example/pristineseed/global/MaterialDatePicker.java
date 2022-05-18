@@ -74,9 +74,9 @@ public class MaterialDatePicker {
             //todo disabled holidays dates in calender...
             SimpleDateFormat dateFormatVar = new SimpleDateFormat("dd-MM-yyyy");
             String[] holidays = {"01-01-2021", "14-01-2021", "26-01-2021", "11-03-2021", "02-04-2021", "13-04-2021", "21-04-2021",
-                    "14-05-2021", "21-07-2021", "10-09-2021", "15-10-2021", "04-11-2021", "01-01-2022","14-01-2022", "26-01-2022",
-            "02-03-2022", "18-03-2022", "15-04-2022","02-05-2022", "11-08-2022","15-08-2022", "19-08-2022","31-08-2022",
-            "05-10-2022","24-10-2022"};
+                    "14-05-2021", "21-07-2021", "10-09-2021", "15-10-2021", "04-11-2021", "01-01-2022", "14-01-2022", "26-01-2022",
+                    "02-03-2022", "18-03-2022", "15-04-2022", "02-05-2022", "11-08-2022", "15-08-2022", "19-08-2022", "31-08-2022",
+                    "05-10-2022", "24-10-2022"};
 
             java.util.Date date = null;
 
@@ -94,7 +94,7 @@ public class MaterialDatePicker {
             }
 
             //todo set to_date on single leave..
-            if(flag.equals("to_date_set_text")){
+            if (flag.equals("to_date_set_text")) {
                 DatePickerDialog.OnDateSetListener onDateSetListener = new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
@@ -111,7 +111,7 @@ public class MaterialDatePicker {
             }
 
             //todo not set to_date on multi leave...
-            else if(flag.equals("not_set_text")) {
+            else if (flag.equals("not_set_text")) {
 
                 DatePickerDialog.OnDateSetListener onDateSetListener = new DatePickerDialog.OnDateSetListener() {
                     @Override
@@ -135,11 +135,11 @@ public class MaterialDatePicker {
 
                         calendar.set(Calendar.YEAR, y);
                         calendar.set(Calendar.MONTH, m);
-                        calendar.set(Calendar.DAY_OF_MONTH, d+1);
+                        calendar.set(Calendar.DAY_OF_MONTH, d + 1);
 
                         datePickerDialog.setMinDate(calendar);
                     }
-                }catch (Exception e){
+                } catch (Exception e) {
                     e.printStackTrace();
                     Log.e("date1", from_date);
                 }
@@ -157,7 +157,7 @@ public class MaterialDatePicker {
     }
 
     //todo disable all dates after today date for report statement....
-    public void disableDateAfterToday(TextInputEditText startDateEditText){
+    public void disableDateAfterToday(TextInputEditText startDateEditText) {
         datePickerDialog = new DatePickerDialog();
         if (datePickerDialog == null || !datePickerDialog.isVisible()) {
             Calendar today = Calendar.getInstance();
@@ -168,19 +168,19 @@ public class MaterialDatePicker {
             datePickerDialog.setMaxDate(afterTodayDate);
 
             //todo set date into edit input text....
-            DatePickerDialog.OnDateSetListener onDateSetListener =new DatePickerDialog.OnDateSetListener() {
+            DatePickerDialog.OnDateSetListener onDateSetListener = new DatePickerDialog.OnDateSetListener() {
                 @Override
                 public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
-                    int month= monthOfYear+1;
-                    String f_month = ""+month;
-                    String f_day = ""+dayOfMonth;
-                    if(month < 10){
-                        f_month = "0"+month;
+                    int month = monthOfYear + 1;
+                    String f_month = "" + month;
+                    String f_day = "" + dayOfMonth;
+                    if (month < 10) {
+                        f_month = "0" + month;
                     }
-                    if (dayOfMonth < 10){
-                        f_day = "0"+dayOfMonth;
+                    if (dayOfMonth < 10) {
+                        f_day = "0" + dayOfMonth;
                     }
-                    String date= ""+f_day+"-"+f_month+"-"+year;
+                    String date = "" + f_day + "-" + f_month + "-" + year;
                     startDateEditText.setText(date);
                     startDateEditText.setSelection(startDateEditText.getText().length());
 //                    startDateEditText.setText(  monthOfYear+1  +"-" +dayOfMonth+"-" + year);
@@ -209,19 +209,19 @@ public class MaterialDatePicker {
             datePickerDialog.setMaxDate(afterTodayDate);
 
             //todo set date into edit input text....
-            DatePickerDialog.OnDateSetListener onDateSetListener =new DatePickerDialog.OnDateSetListener() {
+            DatePickerDialog.OnDateSetListener onDateSetListener = new DatePickerDialog.OnDateSetListener() {
                 @Override
                 public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
-                    int month= monthOfYear+1;
-                    String f_month = ""+month;
-                    String f_day = ""+dayOfMonth;
-                    if(month < 10){
-                        f_month = "0"+month;
+                    int month = monthOfYear + 1;
+                    String f_month = "" + month;
+                    String f_day = "" + dayOfMonth;
+                    if (month < 10) {
+                        f_month = "0" + month;
                     }
-                    if (dayOfMonth < 10){
-                        f_day = "0"+dayOfMonth;
+                    if (dayOfMonth < 10) {
+                        f_day = "0" + dayOfMonth;
                     }
-                    String date= ""+f_day+"-"+f_month+"-"+year;
+                    String date = "" + f_day + "-" + f_month + "-" + year;
                     endDateTextEdit.setText(date);
                     endDateTextEdit.setSelection(endDateTextEdit.getText().length());
 //                    endDateTextEdit.setText(dayOfMonth +"-" +monthOfYear+1  +"-" + year);
@@ -243,7 +243,7 @@ public class MaterialDatePicker {
                     c.set(Calendar.DAY_OF_MONTH, d);
                     datePickerDialog.setMinDate(c);
                 }
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
 
@@ -254,12 +254,106 @@ public class MaterialDatePicker {
         }
     }
 
-
     public static long daysBetween(Calendar startDate, Calendar endDate) {
         long end = endDate.getTimeInMillis();
         long start = startDate.getTimeInMillis();
         long get_date = TimeUnit.MILLISECONDS.toDays(Math.abs(end - start));
         return get_date;
+    }
+
+    //todo after selected date after and before disable all dates....
+    public void disableAllDatesUnableOneMonthDates(TextInputEditText startDateEditText, TextInputEditText endDateEditText, String from_date) {
+        datePickerDialog = new DatePickerDialog();
+        if (datePickerDialog == null || !datePickerDialog.isVisible()) {
+
+            Calendar c = Calendar.getInstance();
+            String passdate = startDateEditText.getText().toString();
+            String passeditdate = endDateEditText.getText().toString();
+            int day = 0, month = 0, year = 0;
+            if (passdate != null && !passdate.equalsIgnoreCase("")) {
+                String[] split = passdate.split("-");
+                day = Integer.valueOf(split[0]);
+                month = Integer.valueOf(split[1]) - 1;
+                year = Integer.valueOf(split[2]);
+            } else if (passeditdate != null && !passeditdate.equalsIgnoreCase("")) {
+                String[] split = passeditdate.split("-");
+                day = Integer.valueOf(split[0]);
+                month = Integer.valueOf(split[1]) - 1;
+                year = Integer.valueOf(split[2]);
+            } else {
+                year = c.get(Calendar.YEAR);
+                month = c.get(Calendar.MONTH);
+                day = c.get(Calendar.DAY_OF_MONTH);
+            }
+
+            //todo set date into edit input text....
+            DatePickerDialog.OnDateSetListener onDateSetListener = new DatePickerDialog.OnDateSetListener() {
+                @Override
+                public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
+                    int month = monthOfYear + 1;
+                    String f_month = "" + month;
+                    String f_day = "" + dayOfMonth;
+                    if (month < 10) {
+                        f_month = "0" + month;
+                    }
+                    if (dayOfMonth < 10) {
+                        f_day = "0" + dayOfMonth;
+                    }
+                    String date = "" +  f_day + "-" + f_month + "-" + year;
+                    endDateEditText.setText(date);
+//                    startDateEditText.setText(  monthOfYear+1  +"-" +dayOfMonth+"-" + year);
+                }
+            };
+
+
+            try {
+                if (!from_date.equals("")) {
+                    Log.e("date1", from_date);
+
+                    int d = 0, m = 0, y = 0;
+                    String[] split = from_date.split("-");
+                    d = Integer.valueOf(split[0]);
+                    m = Integer.valueOf(split[1]) - 1;
+                    y = Integer.valueOf(split[2]);
+
+                    c.set(Calendar.YEAR, y);
+                    c.set(Calendar.MONTH, m);
+                    c.set(Calendar.DAY_OF_MONTH, d);
+
+                    datePickerDialog.setMinDate(c);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                Log.e("date1", from_date);
+            }
+
+            //todo disable all dates after today date....
+            try {
+                if (!from_date.equals("")) {
+                    Log.e("date1", from_date);
+
+                    int d = 0, m = 0, y = 0;
+                    String[] split = from_date.split("-");
+                    d = Integer.valueOf(split[0]);
+                    m = Integer.valueOf(split[1]) - 1;
+                    y = Integer.valueOf(split[2]);
+
+                    c.set(Calendar.YEAR, y);
+                    c.set(Calendar.MONTH, m +1);
+                    c.set(Calendar.DAY_OF_MONTH, d-1);
+
+                    datePickerDialog.setMaxDate(c);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                Log.e("date1", from_date);
+            }
+
+            //todo these lines show date calender...
+            datePickerDialog.setOnDateSetListener(onDateSetListener);
+            datePickerDialog.show(activity.getFragmentManager(), "DatePickerDialog");
+            datePickerDialog.setCancelable(true);
+        }
     }
 
 }

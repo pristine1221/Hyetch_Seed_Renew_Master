@@ -21,6 +21,7 @@ import com.example.pristineseed.ui.employee.HRPortalEmployee.EmployeeAttendanceF
 import com.example.pristineseed.ui.employee.HRPortalEmployee.LeaveApplicationFragment;
 import com.example.pristineseed.ui.employee.HRPortalEmployee.appliedLeave.LeaveAppliedFragment;
 import com.example.pristineseed.ui.employee.HRPortalEmployee.approveLeave.LeaveApprovelPendingDetailFragment;
+import com.example.pristineseed.ui.employee.HRPortalEmployee.employeeAttendanceDetail.EmployeeAttendanceDetailFragment;
 import com.example.pristineseed.ui.employee.HRPortalEmployee.viewLeave.ViewApprovelPendingDetailFragment;
 import com.example.pristineseed.ui.inspection.planting.schedualer_inspection.CreateInspectionFragment;
 import com.example.pristineseed.ui.inspection.planting.schedualer_inspection.SchedulerInspection;
@@ -146,6 +147,10 @@ public class MenuTabAdapter extends FragmentStatePagerAdapter {
 
                     case "Leave Applied":
                         fragment = new LeaveAppliedFragment();
+                        break;
+
+                    case "Employee Attendance Detail":
+                        fragment = new EmployeeAttendanceDetailFragment();
                         break;
                 }
                 break;

@@ -97,17 +97,18 @@ public class CreateInspectionFragment extends Fragment {
     private SessionManagement sessionManagement;
     private Scheduler_Header_Table inspectionHeader;
     private SchedulerInspectionLineTable inspectionline = null;
-    private String next_plan_action,varity_alias_name;
-    private int contain_pld_status=0;
+    private String next_plan_action, varity_alias_name;
+    private int contain_pld_status = 0;
     private NickingInspectionTable nickingInspectionTable = null;
 
-    private String check_status="Pending";
+    private String check_status = "Pending";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         return inflater.inflate(R.layout.create_germination_inspection_fragment, container, false);
     }
+
     private Chip germination_insp, flowering_insp, vegitative_insp, seedling_insp, nicking_insp, nicking2_insp, post_flowering_insp,
             maturity_insp, harvesting_insp, qc_insp;
 
@@ -116,7 +117,7 @@ public class CreateInspectionFragment extends Fragment {
             tv_taluka_madal, tv_classof_seed, inspection_status_text;
     public static String scheduler_no = "", production_lot_no = "", arrival_plan_no = "";
 
-       BroadcastReceiver passValueByShedulerBrodcastReceiver = new BroadcastReceiver() {
+    BroadcastReceiver passValueByShedulerBrodcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
 //            try {
@@ -137,21 +138,22 @@ public class CreateInspectionFragment extends Fragment {
 //            }
         }
     };
-Activity activity;
+    Activity activity;
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         sessionManagement = new SessionManagement(getActivity());
-        activity=getActivity();
+        activity = getActivity();
         intiView(view);
-         //getActivity().registerReceiver(passValueByShedulerBrodcastReceiver, new IntentFilter("passValueBySheduler"));
+        //getActivity().registerReceiver(passValueByShedulerBrodcastReceiver, new IntentFilter("passValueBySheduler"));
         try {
             if (getArguments() != null) {
                 String json = getArguments().getString("pass_data", "");
-                SchedulerBundleModel jsonObject=new Gson().fromJson(json,SchedulerBundleModel.class);
-                arrival_plan_no =jsonObject.arrival_plan_no;
-                scheduler_no=jsonObject.scheduler_no;
-                production_lot_no=jsonObject.production_lot_no;
+                SchedulerBundleModel jsonObject = new Gson().fromJson(json, SchedulerBundleModel.class);
+                arrival_plan_no = jsonObject.arrival_plan_no;
+                scheduler_no = jsonObject.scheduler_no;
+                production_lot_no = jsonObject.production_lot_no;
                 boolean network = NetworkUtil.getConnectivityStatusBoolean(getActivity());
                 if (network) {
                     getProductionLotInspectionDetail();
@@ -234,13 +236,12 @@ Activity activity;
         harvesting_insp = view.findViewById(R.id.harvesting_insp);
         qc_insp = view.findViewById(R.id.qc_insp);
         inspection_status_text = view.findViewById(R.id.inspection_status);
-        tv_header_title_text=view.findViewById(R.id.tv_header_title);
+        tv_header_title_text = view.findViewById(R.id.tv_header_title);
 
         germination_insp.setOnClickListener(v -> {
-            if(contain_pld_status>0) {
-             Toast.makeText(getActivity(),"You can't perform any action as PLD Status is mark",Toast.LENGTH_SHORT).show();
-            }
-            else {
+            if (contain_pld_status > 0) {
+                Toast.makeText(getActivity(), "You can't perform any action as PLD Status is mark", Toast.LENGTH_SHORT).show();
+            } else {
                 Bundle bundle = new Bundle();
                 bundle.putString("header_detail", new Gson().toJson(inspectionHeader));
                 bundle.putString("scheduler_line_detail", new Gson().toJson(inspectionline));
@@ -253,11 +254,10 @@ Activity activity;
         });
 
         seedling_insp.setOnClickListener(v -> {
-            if(contain_pld_status>0) {
-                Toast.makeText(getActivity(),"You can't perform any action as PLD Status is mark",Toast.LENGTH_SHORT).show();
-            }
-           else{
-               if (inspectionline.getInspection_1() > 0 || inspectionline.getIns1_sync_with_server() > 0) {
+            if (contain_pld_status > 0) {
+                Toast.makeText(getActivity(), "You can't perform any action as PLD Status is mark", Toast.LENGTH_SHORT).show();
+            } else {
+                if (inspectionline.getInspection_1() > 0 || inspectionline.getIns1_sync_with_server() > 0) {
                     Bundle bundle = new Bundle();
                     bundle.putString("header_detail", new Gson().toJson(inspectionHeader));
                     bundle.putString("production_lot_no", inspectionline.getProduction_lot_no());
@@ -273,10 +273,9 @@ Activity activity;
         });
 
         vegitative_insp.setOnClickListener(v -> {
-            if(contain_pld_status>0) {
-                Toast.makeText(getActivity(),"You can't perform any action as PLD Status is mark",Toast.LENGTH_SHORT).show();
-            }
-            else {
+            if (contain_pld_status > 0) {
+                Toast.makeText(getActivity(), "You can't perform any action as PLD Status is mark", Toast.LENGTH_SHORT).show();
+            } else {
                 if (inspectionline.getInspection_2() > 0 || inspectionline.getIns2_sync_with_server() > 0) {
                     Bundle bundle = new Bundle();
                     bundle.putString("header_detail", new Gson().toJson(inspectionHeader));
@@ -295,168 +294,161 @@ Activity activity;
         nicking_insp.setOnClickListener(v -> {
             if (contain_pld_status > 0) {
                 Toast.makeText(getActivity(), "You can't perform any action as PLD Status is mark", Toast.LENGTH_SHORT).show();
+            } else {
+                if (inspectionline.getInspection_3() > 0 || inspectionline.getIns3_sync_with_server() > 0) {
+                    Bundle bundle = new Bundle();
+                    bundle.putString("header_detail", new Gson().toJson(inspectionHeader));
+                    bundle.putString("production_lot_no", inspectionline.getProduction_lot_no());
+                    bundle.putString("scheduler_no", inspectionline != null ? inspectionline.getSchedule_no() : "");
+                    bundle.putString("scheduler_line_detail", new Gson().toJson(inspectionline));
+                    NickingInspectionFragment inspectionFragment = new NickingInspectionFragment();
+                    inspectionFragment.setArguments(bundle);
+                    StaticMethods.loadFragmentsWithBackStack(getActivity(), inspectionFragment, "Nicking_inspection4");
+
+                } else {
+                    Toast.makeText(getActivity(), "First complete previous inspection!", Toast.LENGTH_SHORT).show();
+                }
             }
-            else {
-            if (inspectionline.getInspection_3() > 0 || inspectionline.getIns3_sync_with_server() > 0) {
+        });
+
+        nicking2_insp.setOnClickListener(v -> {
+            if (contain_pld_status > 0) {
+                Toast.makeText(getActivity(), "You can't perform any action as PLD Status is mark", Toast.LENGTH_SHORT).show();
+            } else {
+                if (next_plan_action != null && !next_plan_action.equalsIgnoreCase("")) {
+                    if (inspectionline.getInspection_4() > 0 || inspectionline.getIns4_sync_with_server() > 0) {
+                        Bundle bundle = new Bundle();
+                        bundle.putString("header_detail", new Gson().toJson(inspectionHeader));
+                        bundle.putString("production_lot_no", inspectionline.getProduction_lot_no());
+                        bundle.putString("scheduler_no", inspectionline != null ? inspectionline.getSchedule_no() : "");
+                        bundle.putString("scheduler_line_detail", new Gson().toJson(inspectionline));
+                        Nicking2InspectionFragment nicking2InspectionFragment = new Nicking2InspectionFragment();
+                        nicking2InspectionFragment.setArguments(bundle);
+                        StaticMethods.loadFragmentsWithBackStack(getActivity(), nicking2InspectionFragment, "Nicking2_inspection5");
+                    } else {
+                        Toast.makeText(getActivity(), "First complete previous inspection!", Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(getActivity(), "You cant' perfrom this acction as next plan of action is blank . Please move to next inspection!", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        flowering_insp.setOnClickListener(v -> {
+            if (contain_pld_status > 0) {
+                Toast.makeText(getActivity(), "You can't perform any action as PLD Status is mark", Toast.LENGTH_SHORT).show();
+            } else {
+                if (next_plan_action != null && !next_plan_action.equalsIgnoreCase("")) {
+                    if (inspectionline.getInspection_5() > 0 || inspectionline.getIns5_sync_with_server() > 0) {
+                        Bundle bundle = new Bundle();
+                        bundle.putString("header_detail", new Gson().toJson(inspectionHeader));
+                        bundle.putString("production_lot_no", inspectionline.getProduction_lot_no());
+                        bundle.putString("scheduler_no", inspectionline != null ? inspectionline.getSchedule_no() : "");
+                        bundle.putString("scheduler_line_detail", new Gson().toJson(inspectionline));
+                        FloweringInspectionFragment floweringInspectionFragment = new FloweringInspectionFragment();
+                        floweringInspectionFragment.setArguments(bundle);
+                        StaticMethods.loadFragmentsWithBackStack(getActivity(), floweringInspectionFragment, "Flowering_inspection6");
+                    } else {
+                        Toast.makeText(getActivity(), "First complete previous inspection!", Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    if (inspectionline.getInspection_4() > 0 || inspectionline.getIns4_sync_with_server() > 0) {
+                        Bundle bundle = new Bundle();
+                        bundle.putString("header_detail", new Gson().toJson(inspectionHeader));
+                        bundle.putString("production_lot_no", inspectionline.getProduction_lot_no());
+                        bundle.putString("scheduler_no", inspectionline != null ? inspectionline.getSchedule_no() : "");
+                        bundle.putString("scheduler_line_detail", new Gson().toJson(inspectionline));
+                        FloweringInspectionFragment floweringInspectionFragment = new FloweringInspectionFragment();
+                        floweringInspectionFragment.setArguments(bundle);
+                        StaticMethods.loadFragmentsWithBackStack(getActivity(), floweringInspectionFragment, "Flowering_inspection6");
+                    } else {
+                        Toast.makeText(getActivity(), "First complete previous inspection!", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+
+        });
+
+        post_flowering_insp.setOnClickListener(v -> {
+            if (contain_pld_status > 0) {
+                Toast.makeText(getActivity(), "You can't perform any action as PLD Status is mark", Toast.LENGTH_SHORT).show();
+            } else {
+                if (inspectionline.getInspection_6() > 0 || inspectionline.getIns6_sync_with_server() > 0) {
+                    Bundle bundle = new Bundle();
+                    bundle.putString("header_detail", new Gson().toJson(inspectionHeader));
+                    bundle.putString("production_lot_no", inspectionline.getProduction_lot_no());
+                    bundle.putString("scheduler_no", inspectionline != null ? inspectionline.getSchedule_no() : "");
+                    bundle.putString("scheduler_line_detail", new Gson().toJson(inspectionline));
+                    PostFloweringInspectionFragment postfloweringInspectionFragment = new PostFloweringInspectionFragment();
+                    postfloweringInspectionFragment.setArguments(bundle);
+                    StaticMethods.loadFragmentsWithBackStack(getActivity(), postfloweringInspectionFragment, "Post_Flowering_inspection7");
+
+                } else {
+                    Toast.makeText(getActivity(), "First complete previous inspection!", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        maturity_insp.setOnClickListener(v -> {
+            if (contain_pld_status > 0) {
+                Toast.makeText(getActivity(), "You can't perform any action as PLD Status is mark", Toast.LENGTH_SHORT).show();
+            } else {
+                if (inspectionline.getInspection_7() > 0 || inspectionline.getIns7_sync_with_server() > 0) {
+                    Bundle bundle = new Bundle();
+                    bundle.putString("header_detail", new Gson().toJson(inspectionHeader));
+                    bundle.putString("production_lot_no", inspectionline.getProduction_lot_no());
+                    bundle.putString("scheduler_no", inspectionline != null ? inspectionline.getSchedule_no() : "");
+                    bundle.putString("scheduler_line_detail", new Gson().toJson(inspectionline));
+                    MaturityInspectionFragment maturityInspectionFragment = new MaturityInspectionFragment();
+                    maturityInspectionFragment.setArguments(bundle);
+                    StaticMethods.loadFragmentsWithBackStack(getActivity(), maturityInspectionFragment, "Maturity_inspection8");
+                } else {
+                    Toast.makeText(getActivity(), "First complete previous inspection!", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        harvesting_insp.setOnClickListener(v -> {
+            if (contain_pld_status > 0) {
+                Toast.makeText(getActivity(), "You can't perform any action as PLD Status is mark", Toast.LENGTH_SHORT).show();
+            } else {
+                if (inspectionline.getInspection_8() > 0 || inspectionline.getIns8_sync_with_server() > 0) {
+                    Bundle bundle = new Bundle();
+                    bundle.putString("header_detail", new Gson().toJson(inspectionHeader));
+                    bundle.putString("production_lot_no", inspectionline.getProduction_lot_no());
+                    bundle.putString("scheduler_no", inspectionline != null ? inspectionline.getSchedule_no() : "");
+                    bundle.putString("scheduler_line_detail", new Gson().toJson(inspectionline));
+                    HarvestingInspectionFragment harvestingInspectionFragment = new HarvestingInspectionFragment();
+                    harvestingInspectionFragment.setArguments(bundle);
+                    StaticMethods.loadFragmentsWithBackStack(getActivity(), harvestingInspectionFragment, "harvesting_inspection9");
+                } else {
+                    Toast.makeText(getActivity(), "First complete previous inspection!", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        qc_insp.setOnClickListener(v -> {
+            if (contain_pld_status > 0) {
+                Toast.makeText(getActivity(), "You can't perform any action as PLD Status is mark", Toast.LENGTH_SHORT).show();
+            } else {
+                //if (inspectionline.getInspection_9() > 0 || inspectionline.getIns9_sync_with_server() > 0) {
                 Bundle bundle = new Bundle();
                 bundle.putString("header_detail", new Gson().toJson(inspectionHeader));
                 bundle.putString("production_lot_no", inspectionline.getProduction_lot_no());
                 bundle.putString("scheduler_no", inspectionline != null ? inspectionline.getSchedule_no() : "");
                 bundle.putString("scheduler_line_detail", new Gson().toJson(inspectionline));
-                NickingInspectionFragment inspectionFragment = new NickingInspectionFragment();
-                inspectionFragment.setArguments(bundle);
-                StaticMethods.loadFragmentsWithBackStack(getActivity(), inspectionFragment, "Nicking_inspection4");
-
-            } else {
-                Toast.makeText(getActivity(), "First complete previous inspection!", Toast.LENGTH_SHORT).show();
-            }
-             }
-        });
-
-        nicking2_insp.setOnClickListener(v -> {
-                    if (contain_pld_status > 0) {
-                        Toast.makeText(getActivity(), "You can't perform any action as PLD Status is mark", Toast.LENGTH_SHORT).show();
-                    } else {
-                        if (next_plan_action != null && !next_plan_action.equalsIgnoreCase("")) {
-                            if (inspectionline.getInspection_4() > 0 || inspectionline.getIns4_sync_with_server() > 0) {
-                                Bundle bundle = new Bundle();
-                                bundle.putString("header_detail", new Gson().toJson(inspectionHeader));
-                                bundle.putString("production_lot_no", inspectionline.getProduction_lot_no());
-                                bundle.putString("scheduler_no", inspectionline != null ? inspectionline.getSchedule_no() : "");
-                                bundle.putString("scheduler_line_detail", new Gson().toJson(inspectionline));
-                                Nicking2InspectionFragment nicking2InspectionFragment = new Nicking2InspectionFragment();
-                                nicking2InspectionFragment.setArguments(bundle);
-                                StaticMethods.loadFragmentsWithBackStack(getActivity(), nicking2InspectionFragment, "Nicking2_inspection5");
-                            } else {
-                                Toast.makeText(getActivity(), "First complete previous inspection!", Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                        else {
-                            Toast.makeText(getActivity(), "You cant' perfrom this acction as next plan of action is blank . Please move to next inspection!", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-        });
-
-        flowering_insp.setOnClickListener(v -> {
-              if (contain_pld_status > 0) {
-                Toast.makeText(getActivity(), "You can't perform any action as PLD Status is mark", Toast.LENGTH_SHORT).show();
-            }
-            else {
-                  if (next_plan_action != null && !next_plan_action.equalsIgnoreCase("")) {
-                      if (inspectionline.getInspection_5() > 0 || inspectionline.getIns5_sync_with_server() > 0) {
-                          Bundle bundle = new Bundle();
-                          bundle.putString("header_detail", new Gson().toJson(inspectionHeader));
-                          bundle.putString("production_lot_no", inspectionline.getProduction_lot_no());
-                          bundle.putString("scheduler_no", inspectionline != null ? inspectionline.getSchedule_no() : "");
-                          bundle.putString("scheduler_line_detail", new Gson().toJson(inspectionline));
-                          FloweringInspectionFragment floweringInspectionFragment = new FloweringInspectionFragment();
-                          floweringInspectionFragment.setArguments(bundle);
-                          StaticMethods.loadFragmentsWithBackStack(getActivity(), floweringInspectionFragment, "Flowering_inspection6");
-                      } else {
-                          Toast.makeText(getActivity(), "First complete previous inspection!", Toast.LENGTH_SHORT).show();
-                      }
-                  } else {
-                      if (inspectionline.getInspection_4() > 0 || inspectionline.getIns4_sync_with_server() > 0) {
-                          Bundle bundle = new Bundle();
-                          bundle.putString("header_detail", new Gson().toJson(inspectionHeader));
-                          bundle.putString("production_lot_no", inspectionline.getProduction_lot_no());
-                          bundle.putString("scheduler_no", inspectionline != null ? inspectionline.getSchedule_no() : "");
-                          bundle.putString("scheduler_line_detail", new Gson().toJson(inspectionline));
-                          FloweringInspectionFragment floweringInspectionFragment = new FloweringInspectionFragment();
-                          floweringInspectionFragment.setArguments(bundle);
-                          StaticMethods.loadFragmentsWithBackStack(getActivity(), floweringInspectionFragment, "Flowering_inspection6");
-                      } else {
-                          Toast.makeText(getActivity(), "First complete previous inspection!", Toast.LENGTH_SHORT).show();
-                      }
-                  }
-              }
-
-        });
-
-        post_flowering_insp.setOnClickListener(v -> {
-              if (contain_pld_status > 0) {
-                Toast.makeText(getActivity(), "You can't perform any action as PLD Status is mark", Toast.LENGTH_SHORT).show();
-            }
-            else {
-                  if (inspectionline.getInspection_6() > 0 || inspectionline.getIns6_sync_with_server() > 0) {
-                      Bundle bundle = new Bundle();
-                      bundle.putString("header_detail", new Gson().toJson(inspectionHeader));
-                      bundle.putString("production_lot_no", inspectionline.getProduction_lot_no());
-                      bundle.putString("scheduler_no", inspectionline != null ? inspectionline.getSchedule_no() : "");
-                      bundle.putString("scheduler_line_detail", new Gson().toJson(inspectionline));
-                      PostFloweringInspectionFragment postfloweringInspectionFragment = new PostFloweringInspectionFragment();
-                      postfloweringInspectionFragment.setArguments(bundle);
-                      StaticMethods.loadFragmentsWithBackStack(getActivity(), postfloweringInspectionFragment, "Post_Flowering_inspection7");
-
-                  } else {
-                      Toast.makeText(getActivity(), "First complete previous inspection!", Toast.LENGTH_SHORT).show();
-                  }
-              }
-        });
-
-        maturity_insp.setOnClickListener(v -> {
-              if (contain_pld_status > 0) {
-                Toast.makeText(getActivity(), "You can't perform any action as PLD Status is mark", Toast.LENGTH_SHORT).show();
-            }
-            else {
-                  if (inspectionline.getInspection_7() > 0 || inspectionline.getIns7_sync_with_server() > 0) {
-                      Bundle bundle = new Bundle();
-                      bundle.putString("header_detail", new Gson().toJson(inspectionHeader));
-                      bundle.putString("production_lot_no", inspectionline.getProduction_lot_no());
-                      bundle.putString("scheduler_no", inspectionline != null ? inspectionline.getSchedule_no() : "");
-                      bundle.putString("scheduler_line_detail", new Gson().toJson(inspectionline));
-                      MaturityInspectionFragment maturityInspectionFragment = new MaturityInspectionFragment();
-                      maturityInspectionFragment.setArguments(bundle);
-                      StaticMethods.loadFragmentsWithBackStack(getActivity(), maturityInspectionFragment, "Maturity_inspection8");
-                  } else {
-                      Toast.makeText(getActivity(), "First complete previous inspection!", Toast.LENGTH_SHORT).show();
-                  }
-              }
-        });
-
-        harvesting_insp.setOnClickListener(v -> {
-              if (contain_pld_status > 0) {
-                Toast.makeText(getActivity(), "You can't perform any action as PLD Status is mark", Toast.LENGTH_SHORT).show();
-            }
-            else {
-                  if (inspectionline.getInspection_8() > 0 || inspectionline.getIns8_sync_with_server() > 0) {
-                      Bundle bundle = new Bundle();
-                      bundle.putString("header_detail", new Gson().toJson(inspectionHeader));
-                      bundle.putString("production_lot_no", inspectionline.getProduction_lot_no());
-                      bundle.putString("scheduler_no", inspectionline != null ? inspectionline.getSchedule_no() : "");
-                      bundle.putString("scheduler_line_detail", new Gson().toJson(inspectionline));
-                      HarvestingInspectionFragment harvestingInspectionFragment = new HarvestingInspectionFragment();
-                      harvestingInspectionFragment.setArguments(bundle);
-                      StaticMethods.loadFragmentsWithBackStack(getActivity(), harvestingInspectionFragment, "harvesting_inspection9");
-                  } else {
-                      Toast.makeText(getActivity(), "First complete previous inspection!", Toast.LENGTH_SHORT).show();
-                  }
-              }
-        });
-
-        qc_insp.setOnClickListener(v -> {
-              if (contain_pld_status > 0) {
-                Toast.makeText(getActivity(), "You can't perform any action as PLD Status is mark", Toast.LENGTH_SHORT).show();
-                 }
-            else {
-                  //if (inspectionline.getInspection_9() > 0 || inspectionline.getIns9_sync_with_server() > 0) {
-                      Bundle bundle = new Bundle();
-                      bundle.putString("header_detail", new Gson().toJson(inspectionHeader));
-                      bundle.putString("production_lot_no", inspectionline.getProduction_lot_no());
-                      bundle.putString("scheduler_no", inspectionline != null ? inspectionline.getSchedule_no() : "");
-                      bundle.putString("scheduler_line_detail", new Gson().toJson(inspectionline));
-                      QCInspectionFragment qcInspectionFragment = new QCInspectionFragment();
-                      qcInspectionFragment.setArguments(bundle);
-                      StaticMethods.loadFragmentsWithBackStack(getActivity(), qcInspectionFragment, "harvesting_inspection10");
-                  } /*else {
+                QCInspectionFragment qcInspectionFragment = new QCInspectionFragment();
+                qcInspectionFragment.setArguments(bundle);
+                StaticMethods.loadFragmentsWithBackStack(getActivity(), qcInspectionFragment, "harvesting_inspection10");
+            } /*else {
                       Toast.makeText(getActivity(), "First complete previous inspection!", Toast.LENGTH_SHORT).show();
                   }*/
-             // }
+            // }
         });
     }
 
     private void getDataInspectionFromLocal() {
-          PristineDatabase db = PristineDatabase.getAppDatabase(activity);
+        PristineDatabase db = PristineDatabase.getAppDatabase(activity);
         try {
             ScheduleInspectionHeaderDao scheduleInspectionHeaderDao = db.scheduleInspectionHeaderDao();
             ScheduleInspectionLineDao scheduleInspectionLineDao = db.scheduleInspectionLineDao();
@@ -465,39 +457,38 @@ Activity activity;
             inspectionline = scheduleInspectionLineDao.getAllDatabyLotNo(scheduler_no, production_lot_no);
             nickingInspectionTable = nickingInspInsertDao.nickingDataGet(production_lot_no);
 
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
-        }finally {
+        } finally {
             db.close();
             db.destroyInstance();
-            if(inspectionline!=null) {
+            if (inspectionline != null) {
                 JsonObject json = new JsonParser().parse(new Gson().toJson(inspectionline)).getAsJsonObject();
                 Log.e("local_data", json.toString());
                 Log.e("local_header_data", new JsonParser().parse(new Gson().toJson(inspectionHeader)).getAsJsonObject().toString());
             }
         }
         try {
-            tv_header_title_text.setText("Header Details"+"("+inspectionHeader.getSchedule_no()+")");
-            tv_arrival_no.setText(inspectionline.getArrival_plan_no()!=null?inspectionline.getArrival_plan_no():"");
-            tv_scheduler_no.setText(inspectionHeader.getSchedule_no()!=null?inspectionHeader.getSchedule_no():"");
+            tv_header_title_text.setText("Header Details" + "(" + inspectionHeader.getSchedule_no() + ")");
+            tv_arrival_no.setText(inspectionline.getArrival_plan_no() != null ? inspectionline.getArrival_plan_no() : "");
+            tv_scheduler_no.setText(inspectionHeader.getSchedule_no() != null ? inspectionHeader.getSchedule_no() : "");
             tv_user_id.setText(inspectionHeader.getUser_id());
-            tv_season.setText(inspectionHeader.getSeason()+"("+inspectionHeader.getSeason_name()+")");
-            tv_production_center.setText(inspectionHeader.getProduction_centre()+"("+inspectionHeader.getProduction_centre_name()+")");
+            tv_season.setText(inspectionHeader.getSeason() + "(" + inspectionHeader.getSeason_name() + ")");
+            tv_production_center.setText(inspectionHeader.getProduction_centre() + "(" + inspectionHeader.getProduction_centre_name() + ")");
             tv_date.setText(DateTimeUtilsCustome.getDate_Time(inspectionHeader.getDate()));
             tv_grower_name.setText(inspectionline.getGrower_owner());
-            PristineDatabase pristineDatabase=PristineDatabase.getAppDatabase(activity);
-            try{
-                PlantingLineLotListDao plantingLineLotListDao=pristineDatabase.plantingLineLotListDao();
-                if(inspectionline!=null){
-                PlantingLineLotListTable plantingLineLotListTable=plantingLineLotListDao.getVaityCodeAliasName(production_lot_no,inspectionline.getVariety_code());
-                if(plantingLineLotListTable!=null) {
-                    tv_varity_code.setText(plantingLineLotListTable.getAlias_Name());
-                   }
+            PristineDatabase pristineDatabase = PristineDatabase.getAppDatabase(activity);
+            try {
+                PlantingLineLotListDao plantingLineLotListDao = pristineDatabase.plantingLineLotListDao();
+                if (inspectionline != null) {
+                    PlantingLineLotListTable plantingLineLotListTable = plantingLineLotListDao.getVaityCodeAliasName(production_lot_no, inspectionline.getVariety_code());
+                    if (plantingLineLotListTable != null) {
+                        tv_varity_code.setText(plantingLineLotListTable.getAlias_Name());
+                    }
                 }
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
-            }
-            finally {
+            } finally {
                 pristineDatabase.close();
                 pristineDatabase.destroyInstance();
             }
@@ -506,14 +497,13 @@ Activity activity;
             tv_grower_city.setText(inspectionline.getGrower_city());
             tv_production_lot_no.setText(inspectionline.getProduction_lot_no());
             tv_classof_seed.setText(inspectionline.getItem_class_of_seeds());
-            if(nickingInspectionTable!=null){
-                next_plan_action=nickingInspectionTable.getNext_plan_of_action();
+            if (nickingInspectionTable != null) {
+                next_plan_action = nickingInspectionTable.getNext_plan_of_action();
             }
             Log.e("inspection_2", String.valueOf(inspectionline.getInspection_1() > 0 && inspectionline.getInspection_2() > 0));
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             clearAllSelectededBackgraundFirst();
             //todo check online status of inspection...
             checkInspectionOnlineStatus();
@@ -525,127 +515,126 @@ Activity activity;
 
 
     private void checkInspectionOnlineStatus() {
-            if (inspectionline != null) {
-                if (inspectionline.getInspection_1() > 0 || inspectionline.getIns1_sync_with_server()>0) {//|| inspectionline.getIns1_sync_with_server() > 0
-                    inspection_status_text.setText("GER. Done");
-                    check_status="GER. Done";
-                    setSlectedStyleBtn(germination_insp, "Online");
+        if (inspectionline != null) {
+            if (inspectionline.getInspection_1() > 0 || inspectionline.getIns1_sync_with_server() > 0) {//|| inspectionline.getIns1_sync_with_server() > 0
+                inspection_status_text.setText("GER. Done");
+                check_status = "GER. Done";
+                setSlectedStyleBtn(germination_insp, "Online");
 
-                    if (inspectionline.getInspection_2() > 0 || inspectionline.getIns2_sync_with_server()>0) {//|| inspectionline.getIns2_sync_with_server() > 0
-                        inspection_status_text.setText("SED. Done");
-                        check_status="SED. Done";
-                        setSlectedStyleBtn(seedling_insp, "Online");
-                    }
+                if (inspectionline.getInspection_2() > 0 || inspectionline.getIns2_sync_with_server() > 0) {//|| inspectionline.getIns2_sync_with_server() > 0
+                    inspection_status_text.setText("SED. Done");
+                    check_status = "SED. Done";
+                    setSlectedStyleBtn(seedling_insp, "Online");
+                }
 
-                    if (inspectionline.getInspection_3() > 0 || inspectionline.getIns3_sync_with_server()>0 ) {//|| inspectionline.getIns3_sync_with_server() > 0
-                        inspection_status_text.setText("VEG. Done");
-                        check_status="VEG. Done";
-                        setSlectedStyleBtn(vegitative_insp, "Online");
-                    }
+                if (inspectionline.getInspection_3() > 0 || inspectionline.getIns3_sync_with_server() > 0) {//|| inspectionline.getIns3_sync_with_server() > 0
+                    inspection_status_text.setText("VEG. Done");
+                    check_status = "VEG. Done";
+                    setSlectedStyleBtn(vegitative_insp, "Online");
+                }
 
-                    if (inspectionline.getInspection_4() > 0 ||inspectionline.getIns4_sync_with_server() >0) {// || inspectionline.getIns4_sync_with_server() > 0)
-                        inspection_status_text.setText("NIK. Done");
-                        check_status="NIK. Done";
-                        setSlectedStyleBtn(nicking_insp, "Online");
-                    }
+                if (inspectionline.getInspection_4() > 0 || inspectionline.getIns4_sync_with_server() > 0) {// || inspectionline.getIns4_sync_with_server() > 0)
+                    inspection_status_text.setText("NIK. Done");
+                    check_status = "NIK. Done";
+                    setSlectedStyleBtn(nicking_insp, "Online");
+                }
 
-                    if ((inspectionline.getInspection_5() > 0) || inspectionline.getIns5_sync_with_server()>0 ){//|| inspectionline.getIns5_sync_with_server() > 0
-                        inspection_status_text.setText("NIK2. Done");
-                        check_status="NIK2. Done";
-                        setSlectedStyleBtn(nicking2_insp, "Online");
-                    }
+                if ((inspectionline.getInspection_5() > 0) || inspectionline.getIns5_sync_with_server() > 0) {//|| inspectionline.getIns5_sync_with_server() > 0
+                    inspection_status_text.setText("NIK2. Done");
+                    check_status = "NIK2. Done";
+                    setSlectedStyleBtn(nicking2_insp, "Online");
+                }
 
-                    if (inspectionline.getInspection_6() > 0 || inspectionline.getIns6_sync_with_server()>0) {//|| inspectionline.getIns6_sync_with_server() > 0
-                        inspection_status_text.setText("FLWR. Done");
-                        check_status="FLWR. Done";
-                        setSlectedStyleBtn(flowering_insp, "Online");
-                    }
+                if (inspectionline.getInspection_6() > 0 || inspectionline.getIns6_sync_with_server() > 0) {//|| inspectionline.getIns6_sync_with_server() > 0
+                    inspection_status_text.setText("FLWR. Done");
+                    check_status = "FLWR. Done";
+                    setSlectedStyleBtn(flowering_insp, "Online");
+                }
 
-                    if (inspectionline.getInspection_7() > 0 ||inspectionline.getIns7_sync_with_server()> 0 ){// || inspectionline.getIns7_sync_with_server() > 0
-                        inspection_status_text.setText("PostFLWR. Done");
-                        check_status="PostFLWR. Done";
-                        setSlectedStyleBtn(post_flowering_insp, "Online");
-                    }
-                    if (inspectionline.getInspection_8() > 0 || inspectionline.getIns8_sync_with_server()>0) {// || inspectionline.getIns8_sync_with_server() > 0
-                        inspection_status_text.setText("MARTY. Done");
-                        check_status="MARTY. Done";
-                        setSlectedStyleBtn(maturity_insp, "Online");
-                    }
+                if (inspectionline.getInspection_7() > 0 || inspectionline.getIns7_sync_with_server() > 0) {// || inspectionline.getIns7_sync_with_server() > 0
+                    inspection_status_text.setText("PostFLWR. Done");
+                    check_status = "PostFLWR. Done";
+                    setSlectedStyleBtn(post_flowering_insp, "Online");
+                }
+                if (inspectionline.getInspection_8() > 0 || inspectionline.getIns8_sync_with_server() > 0) {// || inspectionline.getIns8_sync_with_server() > 0
+                    inspection_status_text.setText("MARTY. Done");
+                    check_status = "MARTY. Done";
+                    setSlectedStyleBtn(maturity_insp, "Online");
+                }
 
-                    if (inspectionline.getInspection_9() > 0 || inspectionline.getIns9_sync_with_server() >0) {//|| inspectionline.getIns9_sync_with_server() > 0
-                        inspection_status_text.setText("HARVST. Done");
-                        check_status="HARVST. Done";
-                        setSlectedStyleBtn(harvesting_insp, "Online");
-                    }
+                if (inspectionline.getInspection_9() > 0 || inspectionline.getIns9_sync_with_server() > 0) {//|| inspectionline.getIns9_sync_with_server() > 0
+                    inspection_status_text.setText("HARVST. Done");
+                    check_status = "HARVST. Done";
+                    setSlectedStyleBtn(harvesting_insp, "Online");
+                }
 
-                    if (inspectionline.getInspection_qc() > 0 ||inspectionline.getInsqc_sync_with_server()>0) {// || inspectionline.getInsqc_sync_with_server() > 0
-                        inspection_status_text.setText("QC Done");
-                        check_status="QC Done";
-                        setSlectedStyleBtn(qc_insp, "Online");
-                    } else {
-                        inspection_status_text.setText(check_status);
-                    }
-                   }
-                  else {
+                if (inspectionline.getInspection_qc() > 0 || inspectionline.getInsqc_sync_with_server() > 0) {// || inspectionline.getInsqc_sync_with_server() > 0
+                    inspection_status_text.setText("QC Done");
+                    check_status = "QC Done";
+                    setSlectedStyleBtn(qc_insp, "Online");
+                } else {
                     inspection_status_text.setText(check_status);
                 }
+            } else {
+                inspection_status_text.setText(check_status);
             }
+        }
 
     }
 
     private void checkInspectionOfflineStatus() {
-        if(inspectionline!=null) {
-            if (inspectionline.getIns1_sync_with_server() > 0 ||inspectionline.getInspection_1() == 0) {//|| inspectionline.getInspection_1() == 0
+        if (inspectionline != null) {
+            if (inspectionline.getIns1_sync_with_server() > 0 || inspectionline.getInspection_1() == 0) {//|| inspectionline.getInspection_1() == 0
                 inspection_status_text.setText("GER. Done");
-                check_status="GER. Done";
+                check_status = "GER. Done";
                 setSlectedStyleBtn(germination_insp, "Offline");
-                 }
+            }
 
-                if (inspectionline.getIns2_sync_with_server() > 0  || inspectionline.getInspection_2() == 0) {//|| inspectionline.getInspection_2() == 0
-                    inspection_status_text.setText("SED. Done");
-                    check_status="SED. Done";
-                    setSlectedStyleBtn(seedling_insp, "Offline");
-                }
+            if (inspectionline.getIns2_sync_with_server() > 0 || inspectionline.getInspection_2() == 0) {//|| inspectionline.getInspection_2() == 0
+                inspection_status_text.setText("SED. Done");
+                check_status = "SED. Done";
+                setSlectedStyleBtn(seedling_insp, "Offline");
+            }
 
-                if ((inspectionline.getIns3_sync_with_server() > 0  || inspectionline.getInspection_3() == 0)) {//|| inspectionline.getInspection_3() == 0
-                    inspection_status_text.setText("VEG. Done");
-                    check_status="VEG. Done";
-                    setSlectedStyleBtn(vegitative_insp, "Offline");
-                }
+            if ((inspectionline.getIns3_sync_with_server() > 0 || inspectionline.getInspection_3() == 0)) {//|| inspectionline.getInspection_3() == 0
+                inspection_status_text.setText("VEG. Done");
+                check_status = "VEG. Done";
+                setSlectedStyleBtn(vegitative_insp, "Offline");
+            }
 
-                if ((inspectionline.getIns4_sync_with_server() > 0 ||inspectionline.getInspection_4()==0 )) {//|| inspectionline.getInspection_4() == 0
-                    inspection_status_text.setText("NIK. Done");
-                    check_status="NIK. Done";
-                    setSlectedStyleBtn(nicking_insp, "Offline");
-                }
-                if ((inspectionline.getIns5_sync_with_server() >0 ||inspectionline.getInspection_5()==0) ){//|| inspectionline.getInspection_5() == 0
-                    inspection_status_text.setText("NIK2. Done");
-                    check_status="NIK2. Done";
-                    setSlectedStyleBtn(nicking2_insp, "Offline");
-                }
-                if ((inspectionline.getIns6_sync_with_server() > 0 ) || inspectionline.getInspection_6() == 0) {//|| inspectionline.getInspection_6() == 0
-                    inspection_status_text.setText("FLWR. Done");
-                    check_status="FLWR. Done";
-                    setSlectedStyleBtn(flowering_insp, "Offline");
-                }
-                if ((inspectionline.getIns7_sync_with_server() > 0 ||inspectionline.getInspection_7()==0 )) {// || inspectionline.getInspection_7() == 0
-                    inspection_status_text.setText("PostFLWR. Done");
-                    setSlectedStyleBtn(post_flowering_insp, "Offline");
-                }
-                if (inspectionline.getIns8_sync_with_server() > 0 ||inspectionline.getInspection_8() == 0) {//||inspectionline.getInspection_8() == 0
-                    inspection_status_text.setText("MARTY. Done");
-                    setSlectedStyleBtn(maturity_insp, "Offline");
-                }
-                if (inspectionline.getIns9_sync_with_server() > 0|| inspectionline.getInspection_9() == 0) {// || inspectionline.getInspection_9() == 0
-                    inspection_status_text.setText("HARVST. Done");
-                    setSlectedStyleBtn(harvesting_insp, "Offline");
-                }
-                if (inspectionline.getInsqc_sync_with_server() > 0 || inspectionline.getInspection_qc() == 0) {//|| inspectionline.getInspection_qc() == 0
-                    inspection_status_text.setText("QC Done");
-                    setSlectedStyleBtn(qc_insp, "Offline");
-                }
+            if ((inspectionline.getIns4_sync_with_server() > 0 || inspectionline.getInspection_4() == 0)) {//|| inspectionline.getInspection_4() == 0
+                inspection_status_text.setText("NIK. Done");
+                check_status = "NIK. Done";
+                setSlectedStyleBtn(nicking_insp, "Offline");
+            }
+            if ((inspectionline.getIns5_sync_with_server() > 0 || inspectionline.getInspection_5() == 0)) {//|| inspectionline.getInspection_5() == 0
+                inspection_status_text.setText("NIK2. Done");
+                check_status = "NIK2. Done";
+                setSlectedStyleBtn(nicking2_insp, "Offline");
+            }
+            if ((inspectionline.getIns6_sync_with_server() > 0) || inspectionline.getInspection_6() == 0) {//|| inspectionline.getInspection_6() == 0
+                inspection_status_text.setText("FLWR. Done");
+                check_status = "FLWR. Done";
+                setSlectedStyleBtn(flowering_insp, "Offline");
+            }
+            if ((inspectionline.getIns7_sync_with_server() > 0 || inspectionline.getInspection_7() == 0)) {// || inspectionline.getInspection_7() == 0
+                inspection_status_text.setText("PostFLWR. Done");
+                setSlectedStyleBtn(post_flowering_insp, "Offline");
+            }
+            if (inspectionline.getIns8_sync_with_server() > 0 || inspectionline.getInspection_8() == 0) {//||inspectionline.getInspection_8() == 0
+                inspection_status_text.setText("MARTY. Done");
+                setSlectedStyleBtn(maturity_insp, "Offline");
+            }
+            if (inspectionline.getIns9_sync_with_server() > 0 || inspectionline.getInspection_9() == 0) {// || inspectionline.getInspection_9() == 0
+                inspection_status_text.setText("HARVST. Done");
+                setSlectedStyleBtn(harvesting_insp, "Offline");
+            }
+            if (inspectionline.getInsqc_sync_with_server() > 0 || inspectionline.getInspection_qc() == 0) {//|| inspectionline.getInspection_qc() == 0
+                inspection_status_text.setText("QC Done");
+                setSlectedStyleBtn(qc_insp, "Offline");
+            }
 
-             inspection_status_text.setText(check_status);
+            inspection_status_text.setText(check_status);
         }
     }
 
@@ -712,12 +701,12 @@ Activity activity;
             @Override
             public void onResponse(Call<List<GerminationInspectionHeaderModel>> call, Response<List<GerminationInspectionHeaderModel>> response) {
                 try {
-                    if (response.isSuccessful()){
+                    if (response.isSuccessful()) {
                         progressDialogLoading.hideDialog();
                         int insp1 = 0, insp2 = 0, insp3 = 0, insp4 = 0, insp5 = 0, insp6 = 0, insp7 = 0, insp8 = 0, insp9 = 0, inspQc = 0;
                         String insp1_comp_on = null, insp2_comp_on = null, insp3_comp_on = null, insp4_comp_on = null, insp5_comp_on = null, insp6_comp_on = null, insp7_comp_on = null, insp8_comp_on = null, insp9_comp_on = null, insp_qc_comp_on = null;
                         List<GerminationInspectionHeaderModel> schedule_scan_lot_List = response.body();
-                        if (schedule_scan_lot_List!=null && schedule_scan_lot_List.size() > 0 && schedule_scan_lot_List.get(0).condition) {
+                        if (schedule_scan_lot_List != null && schedule_scan_lot_List.size() > 0 && schedule_scan_lot_List.get(0).condition) {
                             insertGerminationInspectionLine(schedule_scan_lot_List.get(0).germination_ins1);
                             insertInspectionSeedlingLine(schedule_scan_lot_List.get(0).seedling_ins2);
                             insertVegitativeInspectionLine(schedule_scan_lot_List.get(0).vegitative_ins3);
@@ -778,7 +767,7 @@ Activity activity;
                                         schedule_scan_lot_List.get(0).ins6_nav_sync, schedule_scan_lot_List.get(0).ins7_nav_sync, schedule_scan_lot_List.get(0).ins8_nav_sync, schedule_scan_lot_List.get(0).ins9_nav_sync, schedule_scan_lot_List.get(0).ins_qc_nav_sync, schedule_scan_lot_List.get(0).production_lot_no,
                                         insp1_comp_on, insp2_comp_on, insp3_comp_on, insp4_comp_on, insp5_comp_on, insp6_comp_on, insp7_comp_on, insp8_comp_on, insp9_comp_on, insp_qc_comp_on);
                             } catch (Exception e) {
-                                    e.printStackTrace();
+                                e.printStackTrace();
                             } finally {
                                 pristineDatabase.close();
                                 pristineDatabase.destroyInstance();
@@ -802,6 +791,7 @@ Activity activity;
                     getDataInspectionFromLocal();
                 }
             }
+
             @Override
             public void onFailure(Call<List<GerminationInspectionHeaderModel>> call, Throwable t) {
                 progressDialogLoading.hideDialog();
@@ -818,7 +808,7 @@ Activity activity;
                 for (int i = 0; i < germination_ins1.size(); i++) {
                     GerminationInspection1_Table germinationInspection1_table = GerminationInspection1_Table.insertGerminationInspection(germination_ins1.get(i));
                     germinationInspection1_table.setSync_with_api(1);
-                    if (germinationInspectionDao.isDataExist(germination_ins1.get(i).production_lot_no)>0) {
+                    if (germinationInspectionDao.isDataExist(germination_ins1.get(i).production_lot_no) > 0) {
                         germinationInspectionDao.update(germinationInspection1_table);
                     } else {
                         germinationInspectionDao.insert(germinationInspection1_table);
@@ -841,7 +831,7 @@ Activity activity;
                 for (int i = 0; i < seedling_ins2List.size(); i++) {
                     SeedlingInspectionTable seedlingInspectionTable = SeedlingInspectionTable.insertSeedlingInspection(seedling_ins2List.get(i));
                     seedlingInspectionTable.setSync_with_api_ins2(1);
-                    if (seedling_inspection_dao.isDataExist(seedling_ins2List.get(0).production_lot_no)>0) {
+                    if (seedling_inspection_dao.isDataExist(seedling_ins2List.get(0).production_lot_no) > 0) {
                         seedling_inspection_dao.update(seedlingInspectionTable);
                     } else {
                         seedling_inspection_dao.insert(seedlingInspectionTable);
@@ -865,7 +855,7 @@ Activity activity;
                 for (int i = 0; i < vegittvInspectionList.size(); i++) {
                     VegitativeInspectionTable vegitativeInspectionTable = VegitativeInspectionTable.insertVegitativeDataIntoLocal(vegittvInspectionList.get(i));
                     vegitativeInspectionTable.setSyncWith_Api(1);
-                    if (vegitativeInspectionDao.isDataExist(vegittvInspectionList.get(i).production_lot_no)>0) {
+                    if (vegitativeInspectionDao.isDataExist(vegittvInspectionList.get(i).production_lot_no) > 0) {
                         vegitativeInspectionDao.update(vegitativeInspectionTable);
                     } else {
                         vegitativeInspectionDao.insert(vegitativeInspectionTable);
@@ -890,18 +880,17 @@ Activity activity;
                         NickingInspectionTable nickingInspInsertTable = NickingInspectionTable.insertNickingDataFromServer(tempNickingInspListModel.get(i));
                         nickingInspInsertTable.setSync_with_api_insp4(1);
                         int dataExist = nickingInspInsertDao.isDataExist(tempNickingInspListModel.get(0).production_lot_no);
-                        if (dataExist>0) {
+                        if (dataExist > 0) {
                             nickingInspInsertDao.update(nickingInspInsertTable);
                         } else {
                             nickingInspInsertDao.insert(nickingInspInsertTable);
                         }
                     }
-                   List<NickingInspectionTable> nickingInspectionTableList= nickingInspInsertDao.getInpection1DataByLotNo(production_lot_no);
+                    List<NickingInspectionTable> nickingInspectionTableList = nickingInspInsertDao.getInpection1DataByLotNo(production_lot_no);
                     next_plan_action = nickingInspectionTableList.get(0).getNext_plan_of_action();
-                    if(next_plan_action!=null && !next_plan_action.equalsIgnoreCase("")){
+                    if (next_plan_action != null && !next_plan_action.equalsIgnoreCase("")) {
                         nicking2_insp.setVisibility(View.VISIBLE);
-                    }
-                    else {
+                    } else {
                         nicking2_insp.setVisibility(View.GONE);
                     }
                 }
@@ -926,7 +915,7 @@ Activity activity;
                         Nicking2InspectionTable nicking2InspInsertTable = Nicking2InspectionTable.insertNicking2InsoectionData(tempNickingInspListModel.get(i));
                         nicking2InspInsertTable.setSyncWithApi5(1);
                         int dataExist = nicking2InspInsertDao.isDataExist(nicking2InspInsertTable.getProduction_lot_no());
-                        if (dataExist>0) {
+                        if (dataExist > 0) {
                             nicking2InspInsertDao.update(nicking2InspInsertTable);
                         } else {
                             nicking2InspInsertDao.insert(nicking2InspInsertTable);
@@ -953,7 +942,7 @@ Activity activity;
                         FloweringInspectionTable floweringInspectionTable = FloweringInspectionTable.inertFloweringInspection(tempFloweringInspListModelList.get(i));
                         floweringInspectionTable.setSyncwith_api6(1);
                         int dataExist = floweringInspectionDao.isDataExist(floweringInspectionTable.getProduction_lot_no());
-                        if (dataExist>0) {
+                        if (dataExist > 0) {
                             floweringInspectionDao.update(floweringInspectionTable);
                         } else {
                             floweringInspectionDao.insert(floweringInspectionTable);
@@ -981,7 +970,7 @@ Activity activity;
                         PostfloweringInspectionTable postfloweringInspectionTable = PostfloweringInspectionTable.inertPostFloweringInspection(tempPostFloweringInspListModelList.get(i));
                         postfloweringInspectionTable.setSynWithApi7(1);
                         int dataExist = postfloweringInspectionDao.isDataExist(postfloweringInspectionTable.getProduction_lot_no());
-                        if (dataExist>0) {
+                        if (dataExist > 0) {
                             postfloweringInspectionDao.update(postfloweringInspectionTable);
                         } else {
                             postfloweringInspectionDao.insert(postfloweringInspectionTable);
@@ -1010,7 +999,7 @@ Activity activity;
                         MaturityInspectionTable maturityInspectionTable = MaturityInspectionTable.insertMatuirtyInspectionDataIntoLocal(tempMaturityInspListModelList.get(i));
                         maturityInspectionTable.setSyncWithApi8(1);
                         int dataExist = maturityInspectionDao.isDataExist(maturityInspectionTable.getProduction_lot_no());
-                        if (dataExist>0) {
+                        if (dataExist > 0) {
                             maturityInspectionDao.update(maturityInspectionTable);
                         } else {
                             maturityInspectionDao.insert(maturityInspectionTable);
@@ -1038,7 +1027,7 @@ Activity activity;
                         HarvestingInspectionTable harvestingInspectionTable = HarvestingInspectionTable.insertHarvestingDataIntoLocal(tempHarvstngInspListModelList.get(i));
                         harvestingInspectionTable.setSynWithApi9(1);
                         int dataExist = harvestingInspectionDao.isDataExist(harvestingInspectionTable.getProduction_lot_no());
-                        if (dataExist>0) {
+                        if (dataExist > 0) {
                             harvestingInspectionDao.update(harvestingInspectionTable);
                         } else {
                             harvestingInspectionDao.insert(harvestingInspectionTable);
@@ -1065,7 +1054,7 @@ Activity activity;
                         QcInspectionTable qcInspectionTable = QcInspectionTable.insertOcDatafromIntoLocal(tempQcInspListModelList.get(i));
                         qcInspectionTable.setSyncwithQc(1);
                         int dataExist = qcInspectionDao.isDataExist(qcInspectionTable.getProduction_lot_no());
-                        if (dataExist>0) {
+                        if (dataExist > 0) {
                             qcInspectionDao.update(qcInspectionTable);
                         } else {
                             qcInspectionDao.insert(qcInspectionTable);
@@ -1111,8 +1100,8 @@ Activity activity;
                 maturity_insp.setVisibility(View.VISIBLE);
                 harvesting_insp.setVisibility(View.VISIBLE);
                 qc_insp.setVisibility(View.GONE);
-            } else if(sessionManagement.getuser_app_inspection_type().equalsIgnoreCase("QC Inspection")) {
-                if(inspectionline != null){
+            } else if (sessionManagement.getuser_app_inspection_type().equalsIgnoreCase("QC Inspection")) {
+                if (inspectionline != null) {
               /*  if (inspectionline != null && inspectionline.getIns1_nav_sync() > 0 && inspectionline.getIns2_nav_sync() > 0 && inspectionline.getIns3_nav_sync() > 0
                         && inspectionline.getIns4_nav_sync() > 0 && inspectionline.getIns5_nav_sync() > 0 && inspectionline.getIns6_nav_sync() > 0 && inspectionline.getIns7_nav_sync() > 0
                         && inspectionline.getIns8_nav_sync() > 0 && inspectionline.getIns9_nav_sync() > 0) {*/
@@ -1145,23 +1134,22 @@ Activity activity;
         harvesting_insp.setVisibility(View.VISIBLE);
     }*/
 
-    private void checkPldMarkArea(){
-        PristineDatabase pristineDatabase=PristineDatabase.getAppDatabase(getActivity());
-        try{
-        PlantingLineLotListDao plantingLineLotListDao=pristineDatabase.plantingLineLotListDao();
-        if(production_lot_no!=null) {
-            contain_pld_status = plantingLineLotListDao.checkPldMark(production_lot_no);
-            if(inspectionline!=null) {
-                PlantingLineLotListTable plantingLineLotListTable = plantingLineLotListDao.getVaityCodeAliasName(production_lot_no, inspectionline.getVariety_code());
-                if(plantingLineLotListTable!=null) {
-                    varity_alias_name =plantingLineLotListTable.getAlias_Name();
+    private void checkPldMarkArea() {
+        PristineDatabase pristineDatabase = PristineDatabase.getAppDatabase(getActivity());
+        try {
+            PlantingLineLotListDao plantingLineLotListDao = pristineDatabase.plantingLineLotListDao();
+            if (production_lot_no != null) {
+                contain_pld_status = plantingLineLotListDao.checkPldMark(production_lot_no);
+                if (inspectionline != null) {
+                    PlantingLineLotListTable plantingLineLotListTable = plantingLineLotListDao.getVaityCodeAliasName(production_lot_no, inspectionline.getVariety_code());
+                    if (plantingLineLotListTable != null) {
+                        varity_alias_name = plantingLineLotListTable.getAlias_Name();
+                    }
                 }
             }
-        }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             pristineDatabase.close();
             pristineDatabase.destroyInstance();
 
@@ -1169,5 +1157,4 @@ Activity activity;
     }
 
 
-    
 }

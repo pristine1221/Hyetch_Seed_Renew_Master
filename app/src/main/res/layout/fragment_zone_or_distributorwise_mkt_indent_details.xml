@@ -356,6 +356,14 @@
                             android:dividerHeight="1dp"
                             android:visibility="visible" />
 
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/demo_list"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/mkt_recycler_view_list"
+                            android:dividerHeight="1dp"
+                            android:visibility="visible" />
+
                     </RelativeLayout>
 
                     </ScrollView>
@@ -375,7 +383,7 @@
             android:backgroundTint="@color/colorPrimaryDark"
             android:clickable="true"
             android:src="@drawable/ic_file_download"
-            android:visibility="gone"
+            android:visibility="visible"
             app:fabCustomSize="35dp">
 
         </com.google.android.material.floatingactionbutton.FloatingActionButton>

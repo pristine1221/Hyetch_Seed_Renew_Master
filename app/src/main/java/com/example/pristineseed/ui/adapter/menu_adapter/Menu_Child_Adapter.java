@@ -105,6 +105,9 @@ public class Menu_Child_Adapter extends RecyclerView.Adapter<Menu_Child_Adapter.
                 case "Daily Activity List":
                     setImage( R.drawable.general_setting);
                     break;
+                case "Employee Attendance Detail":
+                    setImage( R.drawable.emp_attendance);
+                    break;
                 case "Order Book":
                     setImage( R.drawable.order_book);
                     break;

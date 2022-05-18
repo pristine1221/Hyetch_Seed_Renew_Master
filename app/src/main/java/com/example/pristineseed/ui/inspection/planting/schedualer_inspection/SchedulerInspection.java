@@ -46,28 +46,14 @@ import com.example.pristineseed.SessionManageMent.SessionManagement;
 import com.example.pristineseed.global.ApiRequestFailure;
 import com.example.pristineseed.global.LoadingDialog;
 import com.example.pristineseed.global.StaticMethods;
-import com.example.pristineseed.model.scheduler_inspection.FloweringInspectionModel;
-import com.example.pristineseed.model.scheduler_inspection.Germination_InspectionLineModel;
-import com.example.pristineseed.model.scheduler_inspection.HarvestingInspectionModel;
-import com.example.pristineseed.model.scheduler_inspection.MaturityInspectionModel;
-import com.example.pristineseed.model.scheduler_inspection.Nicking2InspectionModel;
-import com.example.pristineseed.model.scheduler_inspection.Nicking_InspectionLineModel;
-import com.example.pristineseed.model.scheduler_inspection.PostFloweringInspectionModel;
-import com.example.pristineseed.model.scheduler_inspection.Qc_Inspection_Model;
 import com.example.pristineseed.model.scheduler_inspection.SchedulerModel;
-import com.example.pristineseed.model.scheduler_inspection.SeedLing_InspectionLineModel;
-import com.example.pristineseed.model.scheduler_inspection.Vegitative_InspectionModel;
 import com.example.pristineseed.retrofitApi.ApiUtils;
 import com.example.pristineseed.retrofitApi.NetworkInterface;
 import com.example.pristineseed.ui.adapter.scheduler_inspection.SchedulerAdapter;
-import com.example.pristineseed.ui.bootmMainScreen.ui.menuHandler.MenuMainPageFragment;
 import com.google.gson.Gson;
 import com.valdesekamdem.library.mdtoast.MDToast;
-
 import java.util.ArrayList;
 import java.util.List;
-
-import io.reactivex.Scheduler;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;

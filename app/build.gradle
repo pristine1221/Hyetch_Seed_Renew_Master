@@ -124,4 +124,13 @@ dependencies {
 
     implementation 'com.google.android.material:material:1.2.1'
 
+    //todo itext7 library for pdf create...
+    /*implementation 'com.itextpdf:itext7-core:7.1.12'
+    implementation 'com.itextpdf:itext-pdfa:5.5.8'*/
+
+//    implementation 'com.itextpdf:itextpdf:5.5.13'
+
+//    implementation 'com.itextpdf:itext7-core:7.1.13'
+
+
 }

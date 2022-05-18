@@ -4,20 +4,30 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Chanchal_Bhasker/Hytech_Android_(11-Apr_2022)/app/src/main/res/drawable/circle_close.xml" value="0.17407407407407408" />
+        <entry key="..\:/Chanchal_Bhasker/Hytech_Android_(11-Apr_2022)/app/src/main/res/layout/add_applied_leave_popup.xml" value="0.25" />
         <entry key="..\:/Chanchal_Bhasker/Hytech_Android_(11-Apr_2022)/app/src/main/res/layout/add_marketing_indent_line_layout_pop_up.xml" value="0.25" />
         <entry key="..\:/Chanchal_Bhasker/Hytech_Android_(11-Apr_2022)/app/src/main/res/layout/add_order_booking_header_pop_layout.xml" value="0.25" />
+        <entry key="..\:/Chanchal_Bhasker/Hytech_Android_(11-Apr_2022)/app/src/main/res/layout/add_plough_down_popup.xml" value="0.2015625" />
         <entry key="..\:/Chanchal_Bhasker/Hytech_Android_(11-Apr_2022)/app/src/main/res/layout/add_product_on_ground_popup.xml" value="0.25" />
         <entry key="..\:/Chanchal_Bhasker/Hytech_Android_(11-Apr_2022)/app/src/main/res/layout/android_item_view.xml" value="0.2015625" />
         <entry key="..\:/Chanchal_Bhasker/Hytech_Android_(11-Apr_2022)/app/src/main/res/layout/booking_order_approval_fragment_layout.xml" value="0.2015625" />
+        <entry key="..\:/Chanchal_Bhasker/Hytech_Android_(11-Apr_2022)/app/src/main/res/layout/create_germination_inspection_fragment.xml" value="0.25" />
         <entry key="..\:/Chanchal_Bhasker/Hytech_Android_(11-Apr_2022)/app/src/main/res/layout/create_marketing_indent_fragment.xml" value="0.25" />
+        <entry key="..\:/Chanchal_Bhasker/Hytech_Android_(11-Apr_2022)/app/src/main/res/layout/employee_attendance_list_layout.xml" value="0.2015625" />
         <entry key="..\:/Chanchal_Bhasker/Hytech_Android_(11-Apr_2022)/app/src/main/res/layout/fragment_dealer_master_layout.xml" value="0.2015625" />
+        <entry key="..\:/Chanchal_Bhasker/Hytech_Android_(11-Apr_2022)/app/src/main/res/layout/fragment_employee_attendance_detail.xml" value="0.25" />
+        <entry key="..\:/Chanchal_Bhasker/Hytech_Android_(11-Apr_2022)/app/src/main/res/layout/fragment_employee_attendance_new.xml" value="0.2015625" />
+        <entry key="..\:/Chanchal_Bhasker/Hytech_Android_(11-Apr_2022)/app/src/main/res/layout/fragment_leave_application.xml" value="0.2015625" />
         <entry key="..\:/Chanchal_Bhasker/Hytech_Android_(11-Apr_2022)/app/src/main/res/layout/fragment_view_mkt_indent_header_lines.xml" value="0.25" />
+        <entry key="..\:/Chanchal_Bhasker/Hytech_Android_(11-Apr_2022)/app/src/main/res/layout/fragment_zone_or_distributorwise_mkt_indent_details.xml" value="0.25" />
+        <entry key="..\:/Chanchal_Bhasker/Hytech_Android_(11-Apr_2022)/app/src/main/res/layout/geo_setup_fragment.xml" value="0.2015625" />
         <entry key="..\:/Chanchal_Bhasker/Hytech_Android_(11-Apr_2022)/app/src/main/res/layout/getting_order_approval_list_layout.xml" value="0.25" />
         <entry key="..\:/Chanchal_Bhasker/Hytech_Android_(11-Apr_2022)/app/src/main/res/layout/marketing_indent_child_layout.xml" value="0.2015625" />
         <entry key="..\:/Chanchal_Bhasker/Hytech_Android_(11-Apr_2022)/app/src/main/res/layout/marketing_indent_fragment.xml" value="0.2015625" />
         <entry key="..\:/Chanchal_Bhasker/Hytech_Android_(11-Apr_2022)/app/src/main/res/layout/marketing_indent_header_layout.xml" value="0.2015625" />
         <entry key="..\:/Chanchal_Bhasker/Hytech_Android_(11-Apr_2022)/app/src/main/res/layout/marketing_indent_lines_details_adapter_layout.xml" value="0.25" />
         <entry key="..\:/Chanchal_Bhasker/Hytech_Android_(11-Apr_2022)/app/src/main/res/layout/order_booking_fragment_layout.xml" value="0.2015625" />
+        <entry key="..\:/Chanchal_Bhasker/Hytech_Android_(11-Apr_2022)/app/src/main/res/layout/schedualer_inspection_fragment.xml" value="0.2015625" />
         <entry key="..\:/Chanchal_Bhasker/Hytech_Android_(11-Apr_2022)/app/src/main/res/layout/view_mkt_indent_header_lines.xml" value="0.25" />
         <entry key="..\:/Chanchal_Bhasker/hytech_android/app/src/main/res/layout/add_applied_leave_popup.xml" value="0.2015625" />
         <entry key="..\:/Chanchal_Bhasker/hytech_android/app/src/main/res/layout/add_breeder_visit_popup.xml" value="0.19846153846153847" />

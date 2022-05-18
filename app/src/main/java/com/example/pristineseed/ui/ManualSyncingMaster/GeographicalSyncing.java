@@ -142,6 +142,7 @@ public class GeographicalSyncing extends Fragment {
     private Chip manual_sync_back_btn;
     private TextView text_syncing;
     private String lastSync;
+    private LoadingDialog loadingDialog;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -153,15 +154,17 @@ public class GeographicalSyncing extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         intView(view);
+        loadingDialog = new LoadingDialog();
     }
 
+    CountModel countmodel_gl = new CountModel();
 
     private class BG_async extends AsyncTask<Void, Void, Void> {
 
         String fla_of_action;
         Activity activity;
         GeoGraphicData geoGraphicData = null;
-        CountModel countmodel_gl;
+
         HybridItemMasterModel hybridItemMasterModel;
         List<PlantingProdcutionLotModel> planting_lot_list_data = new ArrayList<>();
 
@@ -199,50 +202,51 @@ public class GeographicalSyncing extends Fragment {
                 if (fla_of_action.equalsIgnoreCase("bind_geo")) {
                     try {
                         if (geoGraphicData != null) {
-                            CountModel countmodel = new CountModel();
-                            countmodel.stateCount = setStateMasterData(geoGraphicData.state_master, db);
-                            countmodel.zoneCount = setzoneMasterData(geoGraphicData.zone_master, db);
-                            countmodel.districCount = setDistricMasterData(geoGraphicData.district_master, db);
-                            countmodel.regionCount = setRegionMasterData(geoGraphicData.region_master, db);
-                            countmodel.talukaCount = setTalukaMaster(geoGraphicData.taluka_master, db);
-                            countmodel.areaCount = setArea(geoGraphicData.area_master, db);
-                            countmodel_gl = countmodel;
+                            countmodel_gl.stateCount = setStateMasterData(geoGraphicData.state_master, db);
+                            countmodel_gl.zoneCount = setzoneMasterData(geoGraphicData.zone_master, db);
+                            countmodel_gl.districCount = setDistricMasterData(geoGraphicData.district_master, db);
+                            countmodel_gl.regionCount = setRegionMasterData(geoGraphicData.region_master, db);
+                            countmodel_gl.talukaCount = setTalukaMaster(geoGraphicData.taluka_master, db);
+                            countmodel_gl.areaCount = setArea(geoGraphicData.area_master, db);
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
+                        countmodel_gl.stateCount = 0;
+                        countmodel_gl.zoneCount = 0;
+                        countmodel_gl.districCount = 0;
+                        countmodel_gl.regionCount = 0;
+                        countmodel_gl.talukaCount = 0;
+                        countmodel_gl.areaCount = 0;
                     } finally {
                         db.close();
                         db.destroyInstance();
                     }
                 } else if (fla_of_action.equalsIgnoreCase("bind_hybrid_master")) {
-                        List<HybridItemMasterModel.Data> hybrid_item_list = hybridItemMasterModel.data;
-                        CountModel countmodel = new CountModel();
-                        try {
-                            if (hybrid_item_list != null && hybrid_item_list.size() > 0) {
-                                countmodel.hybrid_count = bindHybridItemList(hybrid_item_list, db);
-                                countmodel_gl = countmodel;
-                            }
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        } finally {
-                            db.close();
-                            db.destroyInstance();
-                        }
-                }
-                else if (fla_of_action.equalsIgnoreCase("planting_lot_master_api")) {
-                    List<PlantingProdcutionLotModel> prodcutionLotModelList = planting_lot_list_data ;
-                    CountModel countModel = new CountModel();
+                    List<HybridItemMasterModel.Data> hybrid_item_list = hybridItemMasterModel.data;
                     try {
-                        countModel.planting_line_lot_list_count = bindPlantingLineLotData(prodcutionLotModelList, db);
-                        countmodel_gl = countModel;
+                        if (hybrid_item_list != null && hybrid_item_list.size() > 0) {
+                            countmodel_gl.hybrid_count = bindHybridItemList(hybrid_item_list, db);
+                        }
                     } catch (Exception e) {
+                        countmodel_gl.hybrid_count = 0;
+                        e.printStackTrace();
+                    } finally {
+                        db.close();
+                        db.destroyInstance();
+                    }
+                } else if (fla_of_action.equalsIgnoreCase("planting_lot_master_api")) {
+                    List<PlantingProdcutionLotModel> prodcutionLotModelList = planting_lot_list_data;
+                    try {
+                        countmodel_gl.planting_line_lot_list_count = bindPlantingLineLotData(prodcutionLotModelList, db);
+                    } catch (Exception e) {
+                        countmodel_gl.planting_line_lot_list_count = 0;
                         e.printStackTrace();
                     } finally {
                         db.close();
                         db.destroyInstance();
                     }
                 }
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
             return null;
@@ -252,8 +256,10 @@ public class GeographicalSyncing extends Fragment {
         protected void onPostExecute(Void unused) {
             super.onPostExecute(unused);
             bindGeoGraphicApiData(countmodel_gl);
-            if(fla_of_action.equalsIgnoreCase("planting_lot_master_api")) {
+            if (fla_of_action.equalsIgnoreCase("planting_lot_master_api")) {
                 clickedButton = false;
+                loadingDialog.hideDialog();
+                getAllRowCountFirstIfBackgraundSyncDone();
             }
         }
 
@@ -262,43 +268,38 @@ public class GeographicalSyncing extends Fragment {
 
     private void bindGeoGraphicApiData(CountModel countmodel) {
         //todo (EXCEPTION FOUND that is why use run method .)android.view.ViewRootImpl$CalledFromWrongThreadException: Only the original thread that created a view hierarchy can touch its views...
-       try {
-           new Thread(new Runnable() {
-               @Override
-               public void run() {
-                   try {
-                       // geo_count.setText(String.valueOf(countmodel.geocount));
-                       state_count.setText(String.valueOf(countmodel.stateCount));
-                       zonecount.setText(String.valueOf(countmodel.zoneCount));
-                       distric_count_text.setText(String.valueOf(countmodel.districCount));
-                       region_count.setText(String.valueOf(countmodel.regionCount));
-                       taluka_count.setText(String.valueOf(countmodel.talukaCount));
-                       display_area_count.setText(String.valueOf(countmodel.areaCount));
-                       geo_graphic_loading.setVisibility(View.GONE);
-                       zone_master_loading.setVisibility(View.GONE);
-                       state_master_loading.setVisibility(View.GONE);
-                       region_master_loading.setVisibility(View.GONE);
-                       distric_master_loading.setVisibility(View.GONE);
-                       taluka_master_loading.setVisibility(View.GONE);
-                       area_master_loading.setVisibility(View.GONE);
+        getActivity().runOnUiThread(() -> {
+            try {
+                // geo_count.setText(String.valueOf(countmodel.geocount));
+                state_count.setText(String.valueOf(countmodel.stateCount));
+                zonecount.setText(String.valueOf(countmodel.zoneCount));
+                distric_count_text.setText(String.valueOf(countmodel.districCount));
+                region_count.setText(String.valueOf(countmodel.regionCount));
+                taluka_count.setText(String.valueOf(countmodel.talukaCount));
+                display_area_count.setText(String.valueOf(countmodel.areaCount));
+                geo_graphic_loading.setVisibility(View.GONE);
+                zone_master_loading.setVisibility(View.GONE);
+                state_master_loading.setVisibility(View.GONE);
+                region_master_loading.setVisibility(View.GONE);
+                distric_master_loading.setVisibility(View.GONE);
+                taluka_master_loading.setVisibility(View.GONE);
+                area_master_loading.setVisibility(View.GONE);
 
-                       //todo bind_hybrid_master refreshUI which were in finally method..
-                       hybrid_item_master_loading.setVisibility(View.GONE);
-                       display_count_hybrid.setText(String.valueOf(countmodel.hybrid_count));
+                //todo bind_hybrid_master refreshUI which were in finally method..
+                hybrid_item_master_loading.setVisibility(View.GONE);
+                display_count_hybrid.setText(String.valueOf(countmodel.hybrid_count));
 
-                       //todo planting_lot_master_api refreshUI which were define in finally method...
-                       display_count_planting_line_lot_master.setText(String.valueOf(countmodel.planting_line_lot_list_count));
-                       planting_line_lot_list_master_loading.setVisibility(View.GONE);
-                       mRotateAnimation.cancel();
-                       text_syncing.setVisibility(View.GONE);
-                   }catch (Exception e){
-                       e.printStackTrace();
-                   }
-               }
-           });
-       }catch (Exception e){
-           e.printStackTrace();
-       }
+                //todo planting_lot_master_api refreshUI which were define in finally method...
+                display_count_planting_line_lot_master.setText(String.valueOf(countmodel.planting_line_lot_list_count));
+                planting_line_lot_list_master_loading.setVisibility(View.GONE);
+                mRotateAnimation.cancel();
+                text_syncing.setVisibility(View.GONE);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+
+
     }
 
     private boolean clickedButton = false;
@@ -371,14 +372,15 @@ public class GeographicalSyncing extends Fragment {
         getAllRowCountFirstIfBackgraundSyncDone();
 
 
-            sync_data_btn.setOnClickListener(v -> {
-                if(!clickedButton) {
+        sync_data_btn.setOnClickListener(v -> {
+            if (!clickedButton) {
                 try {
+                    loadingDialog.showLoadingDialog(getActivity());
                     clickedButton = true;
                     getServerData();
               /*  if (!BottomMainActivity.backgraund_syncing_is_running) {
                     sync_data_btn.setEnabled(true);
-             
+
                     getHybridItemMasterData();
                     getPlantingLineListLot();
                 //  getUserLocationMasterData();
@@ -407,15 +409,13 @@ public class GeographicalSyncing extends Fragment {
                     StaticMethods.showMDToastOnTop(getActivity(),"Backgraund syncing is running!", MDToast.TYPE_INFO);
                 }*/
 
-                }
-               catch (Exception e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
-                }else {
-                    MDToast.makeText(getActivity(), "Please Wait Until Data Sync!", Toast.LENGTH_SHORT, MDToast.TYPE_ERROR).show();
-//                    Toast.makeText(getActivity(), "Please Wait Until Data Sync!", Toast.LENGTH_SHORT).show();
-                }
-            });
+            } else {
+                MDToast.makeText(getActivity(), "Please Wait Until Data Sync!", Toast.LENGTH_SHORT, MDToast.TYPE_ERROR).show();
+            }
+        });
 
 
     }
@@ -428,12 +428,12 @@ public class GeographicalSyncing extends Fragment {
         distric_master_loading.setVisibility(View.VISIBLE);
         taluka_master_loading.setVisibility(View.VISIBLE);
         area_master_loading.setVisibility(View.VISIBLE);
-        /* start Animation */
-       /* sync_img_.startAnimation(mRotateAnimation);
+       /*  start Animation
+        sync_img_.startAnimation(mRotateAnimation);
         text_syncing.setVisibility(View.VISIBLE);*/
         NetworkInterface mAPIService = ApiUtils.getPristineAPIService();
         if (sessionManagement.getLastSync() == null || sessionManagement.getLastSync().equalsIgnoreCase("")) {
-            lastSync = "2020-02-27T00:00:42.387";    //DateTimeUtilsCustome.getCurrentTime();
+            lastSync = "2020-02-27T00:00:42.387";    //DateTimeUtilsCustom.getCurrentTime();
         } else {
             lastSync = sessionManagement.getLastSync();
             try {
@@ -483,7 +483,6 @@ public class GeographicalSyncing extends Fragment {
                 //sync_img_.clearAnimation();
                 // text_syncing.setVisibility(View.GONE);
                 //  geo_graphic_loading.setVisibility(View.GONE);
-
                 zone_master_loading.setVisibility(View.GONE);
                 state_master_loading.setVisibility(View.GONE);
                 region_master_loading.setVisibility(View.GONE);
@@ -498,37 +497,247 @@ public class GeographicalSyncing extends Fragment {
 
     }
 
-    // Set  Up data into local Database...............................................
-
-
-    private int insertGeographicalSetUp(List<GeographicModel> geoGraphicData, PristineDatabase db) {
-        GeographicDao geographicDao = db.geographicDao();
-        geographicDao.deleteAllRecord();
-        List<GeoghraphicalTable> geoghraphicalTableList = new ArrayList<>();
+    // todo Set  Up data into local Database...............................................
+    private void getAllRowCountFirstIfBackgraundSyncDone() {
+        CountModel countModel = new CountModel();
+        PristineDatabase pristineDatabase = PristineDatabase.getAppDatabase(getActivity());
         try {
-            for (int i = 0; i < geoGraphicData.size(); i++) {
-                GeoghraphicalTable geoghraphicalTable = new GeoghraphicalTable();
-                geoghraphicalTable.setId(geoGraphicData.get(i).id);
-                geoghraphicalTable.setZone(geoGraphicData.get(i).zone);
-                geoghraphicalTable.setState(geoGraphicData.get(i).state);
-                geoghraphicalTable.setRegion(geoGraphicData.get(i).region);
-                geoghraphicalTable.setDistrict(geoGraphicData.get(i).district);
-                geoghraphicalTable.setTaluka(geoGraphicData.get(i).taluka);
-                geoghraphicalTable.setManager(geoGraphicData.get(i).managers);
-                geoghraphicalTable.setUpdated_on(geoGraphicData.get(i).updated_on);
-                geoghraphicalTable.setActive(geoGraphicData.get(i).active);
-                geoghraphicalTableList.add(geoghraphicalTable);
-            }
-            geographicDao.insert(geoghraphicalTableList);
+
+            StateMasterDao stateMasterDao = pristineDatabase.stateMasterDao();
+            ZoneMaterDao zoneMaterDao = pristineDatabase.zoneMaterDao();
+            DistricMasterDao districMasterDao = pristineDatabase.districMasterDao();
+            RegionMasterDao regionMasterDao = pristineDatabase.regionMasterDao();
+            TalukaMasterDao talukaMasterDao = pristineDatabase.talukaMasterDao();
+            AreaDao areaDao = pristineDatabase.areaDao();
+
+            HybridItemMasterDao hybridItemMasterDao = pristineDatabase.hybridItemMasterDao();
+
+            Planting_fsio_bsio_Dao planting_fsio_bsio_dao = pristineDatabase.planting_fsio_bsio_dao();
+            PlantingLineLotListDao plantingLineLotListDao = pristineDatabase.plantingLineLotListDao();
+
+            countModel.planting_fsio_bsio_count = planting_fsio_bsio_dao.getRowCount();
+            countModel.stateCount = stateMasterDao.getRowCount();
+            countModel.zoneCount = zoneMaterDao.getRowCount();
+            countModel.districCount = districMasterDao.getRowCount();
+            countModel.regionCount = regionMasterDao.getRowCount();
+            countModel.talukaCount = talukaMasterDao.getRowCount();
+            countModel.areaCount = areaDao.getRowCount();
+
+            countModel.hybrid_count = hybridItemMasterDao.getRowCount();
+
+            countModel.planting_line_lot_list_count = plantingLineLotListDao.getRowCount();
+
+
+         /*
+            GeographicDao geographicDao = pristineDatabase.geographicDao();
+            CropHytechMasterDao hytechCropMasterDao = pristineDatabase.cropHytechMasterDao();
+            RoleMasterDao roleMasterDao = pristineDatabase.roleMasterDao();
+            BankMasterDao bankMasterDao = pristineDatabase.bankMasterDao();
+            UOMDao uomDao = pristineDatabase.uomDao();
+            BookingUnitPriceDao bookingUnitPriceDao = pristineDatabase.bookingUnitPriceDao();
+            ShipToAddressDao shipToAddressDao = pristineDatabase.shipToAddressDao();
+            countModel.geocount = geographicDao.getRowCount();
+            FsioBsioSaleOrderNoDao fsioBsioSaleOrderNoDao = pristineDatabase.fsioBsioSaleOrderNoDao();
+            countModel.user_location_count = userLocationMasterDao.getRowCount();
+            countModel.season_master_count = seasonDao.getRowCount();
+            countModel.organizer_count = organizer_master_dao.getRowCount();
+            countModel.farmer_master_count = seedFarmerMasterDao.getRowCount();
+            countModel.city_count = city_master_dao.getRowCount();
+            countModel.planting_lot_count = planting_lot_dao.getRowCount();
+            countModel.hytech_crop_count = hytechCropMasterDao.getRowCount();
+            countModel.bank_master_count = bankMasterDao.getRowCount();
+            countModel.uom_count = uomDao.getRowCount();
+            countModel.unit_price_count = bookingUnitPriceDao.getRowCount();
+            countModel.ship_address_count = shipToAddressDao.getRowCount();
+            countModel.fsio_bsio_sale_order_no_count = fsioBsioSaleOrderNoDao.getRowCount();
+            countModel.role_dealer_count = roleMasterDao.getRowCountRoleType("Dealer");
+            countModel.role_farmer_count = roleMasterDao.getRowCountRoleType("Farmer");
+            countModel.role_customer_count = roleMasterDao.getRowCountRoleType("Customer");
+            countModel.role_distributor_count = roleMasterDao.getRowCountRoleType("Distributor");
+            countModel.role_prod_distributor_count = roleMasterDao.getRowCountRoleType("Prod Distributor");
+            UserLocationMasterDao userLocationMasterDao = pristineDatabase.userLocationMasterDao();
+            SeasonDao seasonDao = pristineDatabase.seasonDao();
+            Organizer_master_Dao organizer_master_dao = pristineDatabase.organizer_master_dao();
+            SeedFarmerMasterDao seedFarmerMasterDao = pristineDatabase.seedFarmerMasterDao();
+            City_master_Dao city_master_dao = pristineDatabase.city_master_dao();
+            Planting_lot_Dao planting_lot_dao = pristineDatabase.planting_lot_dao();*/
+
 
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        return geographicDao.getRowCount();
+        } finally {
+            pristineDatabase.close();
+            pristineDatabase.destroyInstance();
+            //  geo_count.setText(String.valueOf(countModel.geocount));
+            state_count.setText(String.valueOf(countModel.stateCount));
+            zonecount.setText(String.valueOf(countModel.zoneCount));
+            distric_count_text.setText(String.valueOf(countModel.districCount));
+            region_count.setText(String.valueOf(countModel.regionCount));
+            taluka_count.setText(String.valueOf(countModel.talukaCount));
+            display_area_count.setText(String.valueOf(countModel.areaCount));
+            display_count_hybrid.setText(String.valueOf(countModel.hybrid_count));
+            // display_count_city_master.setText(String.valueOf(countModel.city_count));
+            // display_count_farmer.setText(String.valueOf(countModel.farmer_master_count));
 
+            //    display_count_planting_lot.setText(String.valueOf(countModel.planting_lot_count));
+            //  display_count_seson_master.setText(String.valueOf(countModel.season_master_count));
+            //  display_count_user_location.setText(String.valueOf(countModel.user_location_count));
+
+            display_planting_count_fsio_bsio.setText(String.valueOf(countModel.planting_fsio_bsio_count));
+            // display_count_organizer.setText(String.valueOf(countModel.organizer_count));
+            // display_count_crop_hytech.setText(String.valueOf(countModel.hytech_crop_count));
+            // display_count_bank.setText(String.valueOf(countModel.bank_master_count));
+            // display_count_umo.setText(String.valueOf(countModel.uom_count));
+            // display_count_unitPrce.setText(String.valueOf(countModel.unit_price_count));
+            //  display_count_ship_address.setText(String.valueOf(countModel.ship_address_count));
+            display_count_planting_line_lot_master.setText(String.valueOf(countModel.planting_line_lot_list_count));
+            // display_count_sale_order_no.setText(String.valueOf(countModel.fsio_bsio_sale_order_no_count));
+
+         /*   display_count_dealer.setText(String.valueOf(countModel.role_dealer_count));
+            display_count_distributor.setText(String.valueOf(countModel.role_distributor_count));
+            display_count_farmer_role.setText(String.valueOf(countModel.role_farmer_count));
+            display_count_farmer_customer.setText(String.valueOf(countModel.role_customer_count));
+            display_count_farmer_prod_dist.setText(String.valueOf(countModel.role_prod_distributor_count));*/
+
+        }
     }
 
+    //todo set hybrid items...
+    private void getHybridItemMasterData() {
+        hybrid_item_master_loading.setVisibility(View.VISIBLE);
+        NetworkInterface mAPIService = ApiUtils.getPristineAPIService();
+        Call<HybridItemMasterModel> call = mAPIService.getHybridItemMaster(sessionManagement.getUserEmail());
+        call.enqueue(new Callback<HybridItemMasterModel>() {
+            @Override
+            public void onResponse(Call<HybridItemMasterModel> call, Response<HybridItemMasterModel> response) {
+                try {
+                    if (response.isSuccessful()) {
+                        HybridItemMasterModel hybridItemMasterModel = response.body();
+                        if (hybridItemMasterModel != null && hybridItemMasterModel.condition) {
+                            new BG_async("bind_hybrid_master", getActivity(), hybridItemMasterModel).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                            /*List<HybridItemMasterModel.Data> hybrid_item_list= hybridItemMasterModel.data;
+                            if(hybrid_item_list!=null && hybrid_item_list.size()>0) {
+                                CountModel countmodel = new CountModel();
+                                Log.e("sucess", "success");
+                                PristineDatabase db = PristineDatabase.getAppDatabase(getActivity());
+                                try {
+                                    countmodel.hybrid_count = bindHybridItemList(hybrid_item_list, db);
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                } finally {
+                                    db.close();
+                                    db.destroyInstance();
+                                    hybrid_item_master_loading.setVisibility(View.GONE);
+                                    display_count_hybrid.setText(String.valueOf(countmodel.hybrid_count));
+                                }
+                            }*/
+                        } else {
+                            hybrid_item_master_loading.setVisibility(View.GONE);
+                            Toast.makeText(getActivity(), " Crop Varity Record not found !", Toast.LENGTH_SHORT).show();
+                        }
+                    } else {
+                        hybrid_item_master_loading.setVisibility(View.GONE);
+                        Toast.makeText(getActivity(), response.message() + ". Error Code:" + response.code(), Toast.LENGTH_SHORT).show();
+                    }
 
+                } catch (Exception e) {
+                    hybrid_item_master_loading.setVisibility(View.GONE);
+                    Log.e("exception database", e.getMessage() + "cause");
+                    //   Toast.makeText(getActivity(), response.message() + ". Error Code:" + response.code(), Toast.LENGTH_SHORT).show();
+                    ApiRequestFailure.PostExceptionToServer(e, getClass().getName(), "hybrid_item_list", getActivity());
+                } finally {
+                    hybrid_item_master_loading.setVisibility(View.GONE);
+                    getPlantingLineListLot();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<HybridItemMasterModel> call, Throwable t) {
+                hybrid_item_master_loading.setVisibility(View.GONE);
+                ApiRequestFailure.PostExceptionToServer(t, getClass().getName(), "hybrid_item_list", getActivity());
+                getPlantingLineListLot();
+            }
+        });
+    }
+
+    private int bindHybridItemList(List<HybridItemMasterModel.Data> hybrid_item_list, PristineDatabase db) {
+        HybridItemMasterDao hybridItemMasterDao = db.hybridItemMasterDao();
+        hybridItemMasterDao.deleteAllRecord();
+        for (int i = 0; i < hybrid_item_list.size(); i++) {
+            Hybrid_Item_Table hybrid_item_table = Hybrid_Item_Table.insertHybridItem(hybrid_item_list.get(i));
+            hybridItemMasterDao.insert(hybrid_item_table);
+        }
+        return hybridItemMasterDao.getRowCount();
+    }
+
+    //todo set planting lot no...
+    private void getPlantingLineListLot() {
+        planting_line_lot_list_master_loading.setVisibility(View.VISIBLE);
+        NetworkInterface mAPIService = ApiUtils.getPristineAPIService();
+        Call<List<PlantingProdcutionLotModel>> call = mAPIService.getPlantingLineListData();
+        call.enqueue(new Callback<List<PlantingProdcutionLotModel>>() {
+            @Override
+            public void onResponse(Call<List<PlantingProdcutionLotModel>> call, Response<List<PlantingProdcutionLotModel>> response) {
+                try {
+                    if (response.isSuccessful()) {
+                        List<PlantingProdcutionLotModel> planting_lot_list_data = response.body();
+                        if (planting_lot_list_data != null && planting_lot_list_data.size() > 0) {
+                            planting_line_lot_list_master_loading.setVisibility(View.GONE);
+                            new BG_async("planting_lot_master_api", getActivity(), planting_lot_list_data).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                            /*PristineDatabase db = PristineDatabase.getAppDatabase(getActivity());
+                            CountModel countModel = new CountModel();
+                            try {
+                                countModel.planting_line_lot_list_count = bindPlantingLineLotData(planting_lot_list_data, db);
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            } finally {
+                                db.close();
+                                db.destroyInstance();
+                                display_count_planting_line_lot_master.setText(String.valueOf(countModel.planting_line_lot_list_count));
+                                planting_line_lot_list_master_loading.setVisibility(View.GONE);
+                                mRotateAnimation.cancel();
+                                text_syncing.setVisibility(View.GONE);
+                            }*/
+
+                        } else {
+                            planting_line_lot_list_master_loading.setVisibility(View.GONE);
+                            mRotateAnimation.cancel();
+                            text_syncing.setVisibility(View.GONE);
+                            clickedButton = false;
+                            Toast.makeText(getActivity(), response.message() + ". Error Code:" + response.code(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                } catch (Exception e) {
+                    planting_line_lot_list_master_loading.setVisibility(View.GONE);
+                    mRotateAnimation.cancel();
+                    text_syncing.setVisibility(View.GONE);
+                    ApiRequestFailure.PostExceptionToServer(e, getClass().getName(), "getPlanting_line_lotList", getActivity());
+                    clickedButton = false;
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<PlantingProdcutionLotModel>> call, Throwable t) {
+                planting_line_lot_list_master_loading.setVisibility(View.GONE);
+                mRotateAnimation.cancel();
+                text_syncing.setVisibility(View.GONE);
+                ApiRequestFailure.PostExceptionToServer(t, getClass().getName(), "getPlanting_line_lotList", getActivity());
+                clickedButton = false;
+            }
+        });
+    }
+
+    private int bindPlantingLineLotData(List<PlantingProdcutionLotModel> planting_line_lot_list_, PristineDatabase db) {
+        PlantingLineLotListDao plantingLineLotListDao = db.plantingLineLotListDao();
+        plantingLineLotListDao.deleteAllRecord();
+        for (int i = 0; i < planting_line_lot_list_.size(); i++) {
+            PlantingLineLotListTable plantingLostParentTable = PlantingLineLotListTable.bindPLantingLotDetail(planting_line_lot_list_.get(i));
+            plantingLineLotListDao.insert(plantingLostParentTable);
+        }
+        return plantingLineLotListDao.getRowCount();
+    }
+
+    //todo set all state and areas masters...
     private int setzoneMasterData(List<ZoneMaster> zoneMasters, PristineDatabase db) {
         ZoneMaterDao zoneMaterDao = db.zoneMaterDao();
         List<ZoneMasterTable> zoneMasterTableList = new ArrayList<>();
@@ -558,7 +767,6 @@ public class GeographicalSyncing extends Fragment {
         stateMasterDao.insert(stateMasterTableList);
         return stateMasterDao.getRowCount();
     }
-
 
     private int setRegionMasterData(List<RegionMaster> regionMasters, PristineDatabase db) {
         RegionMasterDao regionMasterDao = db.regionMasterDao();
@@ -617,7 +825,6 @@ public class GeographicalSyncing extends Fragment {
         return talukaMasterDao.getRowCount();
     }
 
-
     private int setArea(List<AreaMasterModel> areaMasterList, PristineDatabase pristineDatabase) {
         AreaDao areaDao = pristineDatabase.areaDao();
         List<AreaMasterTable> areaMasterTableList = new ArrayList<>();
@@ -630,6 +837,34 @@ public class GeographicalSyncing extends Fragment {
         }
         areaDao.insert(areaMasterTableList);
         return areaDao.getRowCount();
+    }
+
+    //todo unused methods...
+    private int insertGeographicalSetUp(List<GeographicModel> geoGraphicData, PristineDatabase db) {
+        GeographicDao geographicDao = db.geographicDao();
+        geographicDao.deleteAllRecord();
+        List<GeoghraphicalTable> geoghraphicalTableList = new ArrayList<>();
+        try {
+            for (int i = 0; i < geoGraphicData.size(); i++) {
+                GeoghraphicalTable geoghraphicalTable = new GeoghraphicalTable();
+                geoghraphicalTable.setId(geoGraphicData.get(i).id);
+                geoghraphicalTable.setZone(geoGraphicData.get(i).zone);
+                geoghraphicalTable.setState(geoGraphicData.get(i).state);
+                geoghraphicalTable.setRegion(geoGraphicData.get(i).region);
+                geoghraphicalTable.setDistrict(geoGraphicData.get(i).district);
+                geoghraphicalTable.setTaluka(geoGraphicData.get(i).taluka);
+                geoghraphicalTable.setManager(geoGraphicData.get(i).managers);
+                geoghraphicalTable.setUpdated_on(geoGraphicData.get(i).updated_on);
+                geoghraphicalTable.setActive(geoGraphicData.get(i).active);
+                geoghraphicalTableList.add(geoghraphicalTable);
+            }
+            geographicDao.insert(geoghraphicalTableList);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return geographicDao.getRowCount();
+
     }
 
     private void getUserLocationMasterData() {
@@ -814,7 +1049,6 @@ public class GeographicalSyncing extends Fragment {
         });
     }
 
-
     private int bindSeaonListIntoLocal(List<SeasonMasterModel> templantingList_season, PristineDatabase pristineDatabase) {
         SeasonDao seasonDao = pristineDatabase.seasonDao();
         for (int i = 0; i < templantingList_season.size(); i++) {
@@ -900,7 +1134,6 @@ public class GeographicalSyncing extends Fragment {
         return organizer_master_dao.getRowCount();
     }
 
-
     private void getFarmermaster() {
         farmer_master_loading.setVisibility(View.VISIBLE);
         NetworkInterface mAPIService = ApiUtils.getPristineAPIService();
@@ -964,7 +1197,6 @@ public class GeographicalSyncing extends Fragment {
 
     }
 
-
     private int bindFarmerList(List<DispatchFarmerModel.Data> farmermaster_list, PristineDatabase pristineDatabase) {
         SeedFarmerMasterDao seedFarmerMasterDao = pristineDatabase.seedFarmerMasterDao();
         for (int i = 0; i < farmermaster_list.size(); i++) {
@@ -977,7 +1209,6 @@ public class GeographicalSyncing extends Fragment {
         }
         return seedFarmerMasterDao.getRowCount();
     }
-
 
     private void getPlantingLotList() {
         planting_lot_master_loading.setVisibility(View.VISIBLE);
@@ -1118,75 +1349,6 @@ public class GeographicalSyncing extends Fragment {
 
         return city_master_dao.getRowCount();
     }
-
-
-    private void getHybridItemMasterData() {
-        hybrid_item_master_loading.setVisibility(View.VISIBLE);
-        NetworkInterface mAPIService = ApiUtils.getPristineAPIService();
-        Call<HybridItemMasterModel> call = mAPIService.getHybridItemMaster(sessionManagement.getUserEmail());
-        call.enqueue(new Callback<HybridItemMasterModel>() {
-            @Override
-            public void onResponse(Call<HybridItemMasterModel> call, Response<HybridItemMasterModel> response) {
-                try {
-                    if (response.isSuccessful()) {
-                        HybridItemMasterModel hybridItemMasterModel = response.body();
-                        if (hybridItemMasterModel != null && hybridItemMasterModel.condition) {
-                            new BG_async("bind_hybrid_master", getActivity(), hybridItemMasterModel).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-                            /*List<HybridItemMasterModel.Data> hybrid_item_list= hybridItemMasterModel.data;
-                            if(hybrid_item_list!=null && hybrid_item_list.size()>0) {
-                                CountModel countmodel = new CountModel();
-                                Log.e("sucess", "success");
-                                PristineDatabase db = PristineDatabase.getAppDatabase(getActivity());
-                                try {
-                                    countmodel.hybrid_count = bindHybridItemList(hybrid_item_list, db);
-                                } catch (Exception e) {
-                                    e.printStackTrace();
-                                } finally {
-                                    db.close();
-                                    db.destroyInstance();
-                                    hybrid_item_master_loading.setVisibility(View.GONE);
-                                    display_count_hybrid.setText(String.valueOf(countmodel.hybrid_count));
-                                }
-                            }*/
-                        } else {
-                            hybrid_item_master_loading.setVisibility(View.GONE);
-                            Toast.makeText(getActivity(), " Crop Varity Record not found !", Toast.LENGTH_SHORT).show();
-                        }
-                    } else {
-                        hybrid_item_master_loading.setVisibility(View.GONE);
-                        Toast.makeText(getActivity(), response.message() + ". Error Code:" + response.code(), Toast.LENGTH_SHORT).show();
-                    }
-
-                } catch (Exception e) {
-                    hybrid_item_master_loading.setVisibility(View.GONE);
-                    Log.e("exception database", e.getMessage() + "cause");
-                    //   Toast.makeText(getActivity(), response.message() + ". Error Code:" + response.code(), Toast.LENGTH_SHORT).show();
-                    ApiRequestFailure.PostExceptionToServer(e, getClass().getName(), "hybrid_item_list", getActivity());
-                } finally {
-                    hybrid_item_master_loading.setVisibility(View.GONE);
-                    getPlantingLineListLot();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<HybridItemMasterModel> call, Throwable t) {
-                hybrid_item_master_loading.setVisibility(View.GONE);
-                ApiRequestFailure.PostExceptionToServer(t, getClass().getName(), "hybrid_item_list", getActivity());
-                getPlantingLineListLot();
-            }
-        });
-    }
-
-    private int bindHybridItemList(List<HybridItemMasterModel.Data> hybrid_item_list, PristineDatabase db) {
-        HybridItemMasterDao hybridItemMasterDao = db.hybridItemMasterDao();
-        hybridItemMasterDao.deleteAllRecord();
-        for (int i = 0; i < hybrid_item_list.size(); i++) {
-            Hybrid_Item_Table hybrid_item_table = Hybrid_Item_Table.insertHybridItem(hybrid_item_list.get(i));
-            hybridItemMasterDao.insert(hybrid_item_table);
-        }
-        return hybridItemMasterDao.getRowCount();
-    }
-
 
     private void getCropMasterData() {
         hytech_crop_master_loading.setVisibility(View.VISIBLE);
@@ -1394,112 +1556,6 @@ public class GeographicalSyncing extends Fragment {
         return bankMasterDao.getRowCount();
     }
 
-
-    private void getAllRowCountFirstIfBackgraundSyncDone() {
-        CountModel countModel = new CountModel();
-        PristineDatabase pristineDatabase = PristineDatabase.getAppDatabase(getActivity());
-        try {
-            // GeographicDao geographicDao = pristineDatabase.geographicDao();
-            StateMasterDao stateMasterDao = pristineDatabase.stateMasterDao();
-            ZoneMaterDao zoneMaterDao = pristineDatabase.zoneMaterDao();
-            DistricMasterDao districMasterDao = pristineDatabase.districMasterDao();
-            RegionMasterDao regionMasterDao = pristineDatabase.regionMasterDao();
-            TalukaMasterDao talukaMasterDao = pristineDatabase.talukaMasterDao();
-            AreaDao areaDao = pristineDatabase.areaDao();
-            // UserLocationMasterDao userLocationMasterDao = pristineDatabase.userLocationMasterDao();
-            // SeasonDao seasonDao = pristineDatabase.seasonDao();
-            // Organizer_master_Dao organizer_master_dao = pristineDatabase.organizer_master_dao();
-            //SeedFarmerMasterDao seedFarmerMasterDao = pristineDatabase.seedFarmerMasterDao();
-            // City_master_Dao city_master_dao = pristineDatabase.city_master_dao();
-
-            // Planting_lot_Dao planting_lot_dao = pristineDatabase.planting_lot_dao();
-            HybridItemMasterDao hybridItemMasterDao = pristineDatabase.hybridItemMasterDao();
-
-            Planting_fsio_bsio_Dao planting_fsio_bsio_dao = pristineDatabase.planting_fsio_bsio_dao();
-
-            // CropHytechMasterDao hytechCropMasterDao = pristineDatabase.cropHytechMasterDao();
-            //   RoleMasterDao roleMasterDao = pristineDatabase.roleMasterDao();
-            //   BankMasterDao bankMasterDao=pristineDatabase.bankMasterDao();
-            //  UOMDao uomDao=pristineDatabase.uomDao();
-            // BookingUnitPriceDao bookingUnitPriceDao= pristineDatabase.bookingUnitPriceDao();
-
-            //  ShipToAddressDao shipToAddressDao=pristineDatabase.shipToAddressDao();
-            PlantingLineLotListDao plantingLineLotListDao = pristineDatabase.plantingLineLotListDao();
-            //FsioBsioSaleOrderNoDao fsioBsioSaleOrderNoDao=pristineDatabase.fsioBsioSaleOrderNoDao();
-
-            countModel.planting_fsio_bsio_count = planting_fsio_bsio_dao.getRowCount();
-            // countModel.geocount = geographicDao.getRowCount();
-            countModel.stateCount = stateMasterDao.getRowCount();
-            countModel.zoneCount = zoneMaterDao.getRowCount();
-            countModel.districCount = districMasterDao.getRowCount();
-            countModel.regionCount = regionMasterDao.getRowCount();
-            countModel.talukaCount = talukaMasterDao.getRowCount();
-            countModel.areaCount = areaDao.getRowCount();
-
-            // countModel.user_location_count = userLocationMasterDao.getRowCount();
-            // countModel.season_master_count = seasonDao.getRowCount();
-            // countModel.organizer_count = organizer_master_dao.getRowCount();
-            // countModel.farmer_master_count = seedFarmerMasterDao.getRowCount();
-            //  countModel.city_count = city_master_dao.getRowCount();
-            // countModel.planting_lot_count = planting_lot_dao.getRowCount();
-            countModel.hybrid_count = hybridItemMasterDao.getRowCount();
-
-            //   countModel.hytech_crop_count = hytechCropMasterDao.getRowCount();
-
-            // countModel.bank_master_count=bankMasterDao.getRowCount();
-            // countModel.uom_count=uomDao.getRowCount();
-            //countModel.unit_price_count=bookingUnitPriceDao.getRowCount();
-            // countModel.ship_address_count=shipToAddressDao.getRowCount();
-            countModel.planting_line_lot_list_count = plantingLineLotListDao.getRowCount();
-            // countModel.fsio_bsio_sale_order_no_count=fsioBsioSaleOrderNoDao.getRowCount();
-/*
-            countModel. role_dealer_count= roleMasterDao.getRowCountRoleType("Dealer");
-            countModel. role_farmer_count= roleMasterDao.getRowCountRoleType("Farmer");
-            countModel. role_customer_count= roleMasterDao.getRowCountRoleType("Customer");
-            countModel. role_distributor_count= roleMasterDao.getRowCountRoleType("Distributor");
-            countModel. role_prod_distributor_count =roleMasterDao.getRowCountRoleType("Prod Distributor");*/
-
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            pristineDatabase.close();
-            pristineDatabase.destroyInstance();
-            //  geo_count.setText(String.valueOf(countModel.geocount));
-            state_count.setText(String.valueOf(countModel.stateCount));
-            zonecount.setText(String.valueOf(countModel.zoneCount));
-            distric_count_text.setText(String.valueOf(countModel.districCount));
-            region_count.setText(String.valueOf(countModel.regionCount));
-            taluka_count.setText(String.valueOf(countModel.talukaCount));
-            display_area_count.setText(String.valueOf(countModel.areaCount));
-            display_count_hybrid.setText(String.valueOf(countModel.hybrid_count));
-            // display_count_city_master.setText(String.valueOf(countModel.city_count));
-            // display_count_farmer.setText(String.valueOf(countModel.farmer_master_count));
-
-            //    display_count_planting_lot.setText(String.valueOf(countModel.planting_lot_count));
-            //  display_count_seson_master.setText(String.valueOf(countModel.season_master_count));
-            //  display_count_user_location.setText(String.valueOf(countModel.user_location_count));
-
-            display_planting_count_fsio_bsio.setText(String.valueOf(countModel.planting_fsio_bsio_count));
-            // display_count_organizer.setText(String.valueOf(countModel.organizer_count));
-            // display_count_crop_hytech.setText(String.valueOf(countModel.hytech_crop_count));
-            // display_count_bank.setText(String.valueOf(countModel.bank_master_count));
-            // display_count_umo.setText(String.valueOf(countModel.uom_count));
-            // display_count_unitPrce.setText(String.valueOf(countModel.unit_price_count));
-            //  display_count_ship_address.setText(String.valueOf(countModel.ship_address_count));
-            display_count_planting_line_lot_master.setText(String.valueOf(countModel.planting_line_lot_list_count));
-            // display_count_sale_order_no.setText(String.valueOf(countModel.fsio_bsio_sale_order_no_count));
-
-         /*   display_count_dealer.setText(String.valueOf(countModel.role_dealer_count));
-            display_count_distributor.setText(String.valueOf(countModel.role_distributor_count));
-            display_count_farmer_role.setText(String.valueOf(countModel.role_farmer_count));
-            display_count_farmer_customer.setText(String.valueOf(countModel.role_customer_count));
-            display_count_farmer_prod_dist.setText(String.valueOf(countModel.role_prod_distributor_count));*/
-
-        }
-    }
-
-
     private void getUnitOfMeasureData() {
         uom_master_loading.setVisibility(View.VISIBLE);
         NetworkInterface mAPIService = ApiUtils.getPristineAPIService();
@@ -1681,73 +1737,6 @@ public class GeographicalSyncing extends Fragment {
         return shipToAddressDao.getRowCount();
     }
 
-    private void getPlantingLineListLot() {
-        planting_line_lot_list_master_loading.setVisibility(View.VISIBLE);
-        NetworkInterface mAPIService = ApiUtils.getPristineAPIService();
-        Call<List<PlantingProdcutionLotModel>> call = mAPIService.getPlantingLineListData();
-        call.enqueue(new Callback<List<PlantingProdcutionLotModel>>() {
-            @Override
-            public void onResponse(Call<List<PlantingProdcutionLotModel>> call, Response<List<PlantingProdcutionLotModel>> response) {
-                try {
-                    if (response.isSuccessful()) {
-                        List<PlantingProdcutionLotModel> planting_lot_list_data = response.body();
-                        if (planting_lot_list_data != null && planting_lot_list_data.size() > 0) {
-                            planting_line_lot_list_master_loading.setVisibility(View.GONE);
-                            new BG_async("planting_lot_master_api", getActivity(), planting_lot_list_data ).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-
-                            /*PristineDatabase db = PristineDatabase.getAppDatabase(getActivity());
-                            CountModel countModel = new CountModel();
-                            try {
-                                countModel.planting_line_lot_list_count = bindPlantingLineLotData(planting_lot_list_data, db);
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            } finally {
-                                db.close();
-                                db.destroyInstance();
-                                display_count_planting_line_lot_master.setText(String.valueOf(countModel.planting_line_lot_list_count));
-                                planting_line_lot_list_master_loading.setVisibility(View.GONE);
-                                mRotateAnimation.cancel();
-                                text_syncing.setVisibility(View.GONE);
-                            }*/
-
-                        } else {
-                            planting_line_lot_list_master_loading.setVisibility(View.GONE);
-                            mRotateAnimation.cancel();
-                            text_syncing.setVisibility(View.GONE);
-                            clickedButton = false;
-                            Toast.makeText(getActivity(), response.message() + ". Error Code:" + response.code(), Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                } catch (Exception e) {
-                    planting_line_lot_list_master_loading.setVisibility(View.GONE);
-                    mRotateAnimation.cancel();
-                    text_syncing.setVisibility(View.GONE);
-                    ApiRequestFailure.PostExceptionToServer(e, getClass().getName(), "getPlanting_line_lotList", getActivity());
-                    clickedButton = false;
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<PlantingProdcutionLotModel>> call, Throwable t) {
-                planting_line_lot_list_master_loading.setVisibility(View.GONE);
-                mRotateAnimation.cancel();
-                text_syncing.setVisibility(View.GONE);
-                ApiRequestFailure.PostExceptionToServer(t, getClass().getName(), "getPlanting_line_lotList", getActivity());
-                clickedButton = false;
-            }
-        });
-    }
-
-    private int bindPlantingLineLotData(List<PlantingProdcutionLotModel> planting_line_lot_list_, PristineDatabase db) {
-        PlantingLineLotListDao plantingLineLotListDao = db.plantingLineLotListDao();
-        plantingLineLotListDao.deleteAllRecord();
-        for (int i = 0; i < planting_line_lot_list_.size(); i++) {
-            PlantingLineLotListTable plantingLostParentTable = PlantingLineLotListTable.bindPLantingLotDetail(planting_line_lot_list_.get(i));
-            plantingLineLotListDao.insert(plantingLostParentTable);
-        }
-        return plantingLineLotListDao.getRowCount();
-    }
-
     private void getFsioBsioSaleOrderNo() {
         sale_order_no_loading.setVisibility(View.VISIBLE);
         NetworkInterface mAPIService = ApiUtils.getPristineAPIService();
@@ -1811,7 +1800,6 @@ public class GeographicalSyncing extends Fragment {
 
         });
     }
-
 
     public class BackgraundThread extends BackgroundTask {
         private Activity activity;

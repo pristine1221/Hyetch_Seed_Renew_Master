@@ -51,8 +51,10 @@ import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.valdesekamdem.library.mdtoast.MDToast;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -247,6 +249,19 @@ public class LotsDueforInspectionFragment extends Fragment implements ReportOrga
             }
         });
 
+        /*filter_download_floating_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    createPDF();
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+                progressBar.setVisibility(View.VISIBLE);
+                filter_download_floating_btn.setVisibility(View.GONE);
+            }
+        });*/
+
 
         iv_refresh_details.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -264,6 +279,26 @@ public class LotsDueforInspectionFragment extends Fragment implements ReportOrga
         });
 
     }
+
+    /*private void createPDF() throws FileNotFoundException {
+        parent_layout.setVisibility(View.GONE);
+        String pdfPath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).toString();
+        File file = new File(pdfPath, "myPDF.pdf");
+        OutputStream outputStream = new FileOutputStream(file);
+
+        PdfWriter writer = new PdfWriter(file);
+        PdfDocument pdfDocument = new PdfDocument(writer);
+        Document document = new Document(pdfDocument);
+
+        List list = new ArrayList();
+        list.addAll(lotsDueInspectionModelList_gl);
+        com.itextpdf.layout.element.List list1 = new com.itextpdf.layout.element.List();
+        list1.add(String.valueOf(list));
+        document.add(list1);
+        document.close();
+        MDToast.makeText(getActivity(), "PDF created", Toast.LENGTH_SHORT, MDToast.TYPE_SUCCESS).show();
+
+    }*/
 
     public void initView(View view) {
         rv_search_organiser_list_items = view.findViewById(R.id.rv_search_organiser_list_items);
