@@ -23,16 +23,16 @@
 
             <FrameLayout
                 android:id="@+id/close_dilog_bt"
-                android:layout_width="@dimen/_80ssp"
-                android:elevation="2dp"
-                android:clickable="true"
                 style="@style/SelectableItemBackground"
-                android:layout_height="wrap_content">
+                android:layout_width="20dp"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:elevation="2dp">
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/green_back_arrow">
-                </ImageView>
+                    android:src="@drawable/green_back_arrow"></ImageView>
 
             </FrameLayout>
 
@@ -40,7 +40,8 @@
                 style="@style/TextAppearance.MaterialComponents.Headline6"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical|center_horizontal"
+                android:layout_toRightOf="@+id/close_dilog_bt"
+                android:gravity="center_horizontal|center_vertical"
                 android:text=" Post Flowering Inspection"
                 android:textAlignment="center">
 

@@ -8,6 +8,8 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -33,6 +35,7 @@ import com.example.pristineseed.retrofitApi.NetworkInterface;
 import com.example.pristineseed.ui.adapter.LeaveApplicationAdapter.EmployeeAttendanceDetailAdapter;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.gson.JsonObject;
+import com.valdesekamdem.library.mdtoast.MDToast;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -75,33 +78,30 @@ public class EmployeeAttendanceDetailFragment extends Fragment {
         layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         rv_emp_attendance_list.setLayoutManager(layoutManager);
 
-        //todo edit start date...
+        //todo set dates of one week before and current date...
         et_start_date.setText(getSevenDaysBeforeDate());
+        et_end_date.setText(getCurrentDate());
 
+        //todo converting date format mm-dd-yyyy into yyyy-mm-dd....
+        start_date = DateTimeUtilsCustome.getDateRetrunIntoYYMMDD(et_start_date.getText().toString());
+        end_date = DateTimeUtilsCustome.getDateRetrunIntoYYMMDD(et_end_date.getText().toString());
+
+        //todo getting default one week record..
+        getEmployeeAttendanceDetail(start_date, end_date);
+
+        //todo set start date..
         et_start_date.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                    new CustomDatePicker(getActivity()).showDatePickerDialog(et_start_date);
+//                    new CustomDatePicker(getActivity()).showDatePickerDialog(et_start_date);
+                    new MaterialDatePicker(getActivity()).disableDateAfterToday(et_start_date);
                 }
                 return true;
             }
         });
 
-        //todo converting mm-dd-yyyy into yyyy-mm-dd....
-        Calendar c = Calendar.getInstance();
-        int d = 0, m = 0, y = 0;
-        start_date = String.valueOf(et_start_date.getText().toString());
-        String[] split = start_date.split("-");
-        d = Integer.valueOf(split[0]);
-        m = Integer.valueOf(split[1]);
-        y = Integer.valueOf(split[2]);
-        String pass_start_date = String.valueOf(y + "-" + m + "-" + d);
-        start_date = pass_start_date;
-
         //todo edit end date...
-        et_end_date.setText(getCurrentDate());
-
         et_end_date.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -113,20 +113,35 @@ public class EmployeeAttendanceDetailFragment extends Fragment {
             }
         });
 
-        //todo converting mm-dd-yyyy into yyyy-mm-dd....
-        end_date = String.valueOf(et_end_date.getText().toString());
-        String[] split2 = end_date.split("-");
-        d = Integer.valueOf(split2[0]);
-        m = Integer.valueOf(split2[1]);
-        y = Integer.valueOf(split2[2]);
-        String pass_end_date = String.valueOf(y + "-" + m + "-" + d);
-        end_date = pass_end_date;
+        //todo changing variable date values after run one time...
+        TextWatcher watcher = new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+            @Override
+            public void afterTextChanged(Editable s) {
+                start_date = DateTimeUtilsCustome.getDateRetrunIntoYYMMDD(et_start_date.getText().toString());
+                end_date = DateTimeUtilsCustome.getDateRetrunIntoYYMMDD(et_end_date.getText().toString());
+            }
+        };
 
-        getEmployeeAttendanceDetail(start_date, end_date);
+        et_start_date.addTextChangedListener(watcher);
+        et_end_date.addTextChangedListener(watcher);
+
+        //todo submit date filters....
+        btn_submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getEmployeeAttendanceDetail(start_date, end_date);
+            }
+        });
 
     }
 
-    //todo show details.;
+    //todo show attendance details.;
     public void getEmployeeAttendanceDetail(String start_date, String end_date){
         if(NetworkUtil.getConnectivityStatusBoolean(getActivity())) {
             LoadingDialog progressDialogLoading = new LoadingDialog();
@@ -149,7 +164,8 @@ public class EmployeeAttendanceDetailFragment extends Fragment {
                                 EmployeeAttendanceDetailAdapter adapter = new EmployeeAttendanceDetailAdapter(getActivity(), detailModelList);
                                 rv_emp_attendance_list.setAdapter(adapter);
                             } else {
-                                Toast.makeText(getActivity(), respoinseList.size() > 0 ? "Result not found" : "", Toast.LENGTH_LONG).show();
+                                MDToast.makeText(getActivity(), respoinseList.size() > 0 ? "No Record Found !" : "", Toast.LENGTH_LONG, MDToast.TYPE_ERROR).show();
+                                rv_emp_attendance_list.setAdapter(null);
                                 progressDialogLoading.hideDialog();
                             }
                         } else {
@@ -166,7 +182,7 @@ public class EmployeeAttendanceDetailFragment extends Fragment {
                 @Override
                 public void onFailure(Call<List<EmployeeAttendanceDetailModel>> call, Throwable t) {
                     progressDialogLoading.hideDialog();
-                    ApiRequestFailure.PostExceptionToServer(t, getClass().getName(), "leave approval_list", getActivity());
+                    ApiRequestFailure.PostExceptionToServer(t, getClass().getName(), "leave attendance details", getActivity());
                 }
             });
         }
@@ -174,6 +190,7 @@ public class EmployeeAttendanceDetailFragment extends Fragment {
             Toast.makeText(getActivity(),"Please wait for internet connection",Toast.LENGTH_SHORT).show();
         }
     }
+
 
     //todo getting 7 days before date from current date in input edit text...
     public String getSevenDaysBeforeDate(){
@@ -189,6 +206,7 @@ public class EmployeeAttendanceDetailFragment extends Fragment {
     //todo getting today date for set in text input edit text...
     public String getCurrentDate() {
         Calendar c = Calendar.getInstance();
+//        c.add(Calendar.MONTH, -1);  to get previous date from today...
         SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
         String formattedDate = df.format(c.getTime());
         return formattedDate;

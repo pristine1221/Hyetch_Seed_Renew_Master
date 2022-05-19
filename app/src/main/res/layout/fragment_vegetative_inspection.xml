@@ -26,7 +26,7 @@ android:descendantFocusability="beforeDescendants"-->
             android:padding="10dp">
             <FrameLayout
                 android:id="@+id/close_dilog_bt"
-                android:layout_width="@dimen/_80ssp"
+                android:layout_width="20dp"
                 android:elevation="2dp"
                 android:clickable="true"
                 style="@style/SelectableItemBackground"
@@ -43,7 +43,8 @@ android:descendantFocusability="beforeDescendants"-->
                 style="@style/TextAppearance.MaterialComponents.Headline6"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical|center_horizontal"
+                android:layout_toRightOf="@+id/close_dilog_bt"
+                android:gravity="center_vertical|center_horizontal"
                 android:text="Vegetative Inspection"
                 android:textAlignment="center">
 

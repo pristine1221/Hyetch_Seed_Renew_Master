@@ -7,6 +7,9 @@
     <color name="my_app_error_color">#F44336</color>
     <color name="my_app_background_color">#FFF</color>
     <color name="white">#ffffff</color>
+    <color name="bg_green">#b2e1c8</color>
+    <color name="bg_green2">#ccebda</color>
+    <color name="bg_green3">#e5f5ec</color>
 
     <color name="black_overlay">#66000000</color>
 

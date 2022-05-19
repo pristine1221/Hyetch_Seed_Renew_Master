@@ -299,7 +299,7 @@ public class Vegitative_Inspection_Fragment extends Fragment {
             tv_org_code.setText(schedulerInspectionLineTable.getOrganizer_code() + "(" + schedulerInspectionLineTable.getOrganizer_name() + ")");
 
             // set scheduler line data....
-            tv_farmer_name.setText(schedulerInspectionLineTable.getGrower_land_owner_name() +"("+schedulerInspectionLineTable.getGrower_owner()+")");
+            tv_farmer_name.setText(schedulerInspectionLineTable.getGrower_land_owner_name() + "(" + schedulerInspectionLineTable.getGrower_owner() + ")");
             village_address.setText(schedulerInspectionLineTable.getGrower_village() + "," +
                     schedulerInspectionLineTable.getGrower_district() + ","
                     + schedulerInspectionLineTable.getGrower_city() + ","
@@ -468,12 +468,12 @@ public class Vegitative_Inspection_Fragment extends Fragment {
         try {
             if (vegitativeInspectionTable != null && vegitativeInspectionTable.size() > 0) {
                 ac_desease.setText(vegitativeInspectionTable.get(0).getDiseases());
-              //  if (vegitativeInspectionTable.get(0).getRecommended_date() != null) {
+                //  if (vegitativeInspectionTable.get(0).getRecommended_date() != null) {
 
-                    ed_recommended_date.setText(getFemaleSowingDate());
-             //   } else {
-                   // ed_recommended_date.setText("");
-              //  }
+                ed_recommended_date.setText(getFemaleSowingDate());
+                //   } else {
+                // ed_recommended_date.setText("");
+                //  }
                 if (vegitativeInspectionTable.get(0).getActual_date() != null) {
                     ed_actual_date.setText(DateTimeUtilsCustome.splitDateInYYYMMDDslsh(vegitativeInspectionTable.get(0).getActual_date()));
                 } else {

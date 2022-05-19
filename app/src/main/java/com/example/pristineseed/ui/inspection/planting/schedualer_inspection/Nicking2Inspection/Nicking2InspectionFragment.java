@@ -84,14 +84,14 @@ public class Nicking2InspectionFragment extends Fragment {
     private Button bt_complete, btn_save_record;
     private SessionManagement sessionManagement;
     private ImageView imageView;
-    private AutoCompleteTextView ed_wther_remmndtn,ed_seed_setting;
+    private AutoCompleteTextView ed_wther_remmndtn, ed_seed_setting;
     private FrameLayout backpress_img;
     private Chip add_attachment;
     private int PICK_IMAGE_SINGLE = 1;
     private Chip clear_image_btn;
     private LinearLayout image_layout;
     private String selected_file_path = "";
-    private     List<String> imageEncodList = new ArrayList<>();
+    private List<String> imageEncodList = new ArrayList<>();
     private TextInputEditText ed_actual_date;
 
 
@@ -194,21 +194,21 @@ public class Nicking2InspectionFragment extends Fragment {
         ed_date_of_insp = view.findViewById(R.id.date_of_inspection);
         ed_wther_remmndtn = view.findViewById(R.id.wther_remmndtn);
         ed_Remarks = view.findViewById(R.id.tv_Remarks);
-        ed_actual_date=view.findViewById(R.id.ed_actual_date);
+        ed_actual_date = view.findViewById(R.id.ed_actual_date);
         //set header data....
         tv_date.setText(DateTimeUtilsCustome.getDateMMMDDYYYYSlsh1(scheduler_header_table.getDate()));
-        tv_season.setText(scheduler_header_table.getSeason()+"("+scheduler_header_table.getSeason_name()+")");
-        tv_prod_cent_name.setText(scheduler_header_table.getProduction_centre()+"("+scheduler_header_table.getProduction_centre_name()+")");
+        tv_season.setText(scheduler_header_table.getSeason() + "(" + scheduler_header_table.getSeason_name() + ")");
+        tv_prod_cent_name.setText(scheduler_header_table.getProduction_centre() + "(" + scheduler_header_table.getProduction_centre_name() + ")");
         backpress_img.setOnClickListener(v -> {
             getFragmentManager().popBackStack();
         });
 
         try {
-            tv_org_name.setText(schedulerInspectionLineTable.getOrganizer_code()+"("+schedulerInspectionLineTable.getOrganizer_name()+")");
+            tv_org_name.setText(schedulerInspectionLineTable.getOrganizer_code() + "(" + schedulerInspectionLineTable.getOrganizer_name() + ")");
             tv_item_prodGrp_code.setText(schedulerInspectionLineTable.getItem_product_group_code());
             tv_item_class_of_seed.setText(schedulerInspectionLineTable.getItem_class_of_seeds());
             // set scheduler line data....
-            tv_farmer_name.setText(schedulerInspectionLineTable.getGrower_land_owner_name()+"("+schedulerInspectionLineTable.getGrower_owner()+")");
+            tv_farmer_name.setText(schedulerInspectionLineTable.getGrower_land_owner_name() + "(" + schedulerInspectionLineTable.getGrower_owner() + ")");
             village_address.setText(schedulerInspectionLineTable.getGrower_village() + "," +
                     schedulerInspectionLineTable.getGrower_district() + ","
                     + schedulerInspectionLineTable.getGrower_city() + ","
@@ -217,42 +217,39 @@ public class Nicking2InspectionFragment extends Fragment {
             tv_prod_lot_no.setText(schedulerInspectionLineTable.getProduction_lot_no());
             tv_crop_code.setText(schedulerInspectionLineTable.getCrop_code());
 
-            PristineDatabase pristineDatabase=PristineDatabase.getAppDatabase(getActivity());
-            try{
-                PlantingLineLotListDao plantingLineLotListDao=pristineDatabase.plantingLineLotListDao();
-                if(schedulerInspectionLineTable!=null){
-                    PlantingLineLotListTable plantingLineLotListTable=plantingLineLotListDao.getVaityCodeAliasName(production_lot_no,schedulerInspectionLineTable.getVariety_code());
-                    if(plantingLineLotListTable!=null) {
+            PristineDatabase pristineDatabase = PristineDatabase.getAppDatabase(getActivity());
+            try {
+                PlantingLineLotListDao plantingLineLotListDao = pristineDatabase.plantingLineLotListDao();
+                if (schedulerInspectionLineTable != null) {
+                    PlantingLineLotListTable plantingLineLotListTable = plantingLineLotListDao.getVaityCodeAliasName(production_lot_no, schedulerInspectionLineTable.getVariety_code());
+                    if (plantingLineLotListTable != null) {
                         tv_varity_code.setText(plantingLineLotListTable.getAlias_Name());
                     }
                 }
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
-            }
-            finally {
+            } finally {
                 pristineDatabase.close();
                 pristineDatabase.destroyInstance();
             }
-            if(schedulerInspectionLineTable.getSowing_date_male()!=null) {
+            if (schedulerInspectionLineTable.getSowing_date_male() != null) {
                 tv_sd_male.setText(DateTimeUtilsCustome.splitDateDDDMMYYYY(schedulerInspectionLineTable.getSowing_date_male()));
-            }
-            else {
+            } else {
                 tv_sd_male.setText(DateTimeUtilsCustome.splitDateDDDMMYYYY(""));
             }
-            if(schedulerInspectionLineTable.getSowing_date_male()!=null) {
+            if (schedulerInspectionLineTable.getSowing_date_male() != null) {
                 tv_sd_female.setText(DateTimeUtilsCustome.splitDateDDDMMYYYY(schedulerInspectionLineTable.getSowing_date_male()));
-            }
-            else {
+            } else {
                 tv_sd_female.setText("");
             }
 
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         ItemAdapter whthr_recomd_adapter = new ItemAdapter(getActivity(), R.layout.android_item_view, Arrays.asList(CommonData.wthr_recmmnd));
         ed_wther_remmndtn.setAdapter(whthr_recomd_adapter);
 
-        ItemAdapter seed_setting_adapter=new ItemAdapter(getActivity(),R.layout.android_item_view,Arrays.asList(CommonData.seed_setting));
+        ItemAdapter seed_setting_adapter = new ItemAdapter(getActivity(), R.layout.android_item_view, Arrays.asList(CommonData.seed_setting));
         ed_seed_setting.setAdapter(seed_setting_adapter);
 
         ed_date_of_insp.setOnTouchListener((v, event) -> {
@@ -267,8 +264,8 @@ public class Nicking2InspectionFragment extends Fragment {
         ed_date_of_action.setOnTouchListener((v, event) -> {
             try {
                 new CustomDatePicker(getActivity()).showDatePickerDialog(ed_date_of_action);
-            }catch (Exception e) {
-            e.printStackTrace();
+            } catch (Exception e) {
+                e.printStackTrace();
             }
             return true;
         });
@@ -276,7 +273,7 @@ public class Nicking2InspectionFragment extends Fragment {
         ed_actual_date.setOnTouchListener((v, event) -> {
             try {
                 new CustomDatePicker(getActivity()).showDatePickerDialog(ed_actual_date);
-            }catch (Exception e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
             return true;
@@ -304,7 +301,8 @@ public class Nicking2InspectionFragment extends Fragment {
             nicking2InspectionTable = nickin2InspectionDao.getInpection1DataByLotNo(production_lot_no);
             scheduler_line_header_data = scheduleInspectionLineDao.getAllDatabyLotNoGermination(scheduler_header_table.getSchedule_no(), production_lot_no);
 
-        } catch (Exception e) {e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
         } finally {
             pristineDatabase.close();
             pristineDatabase.destroyInstance();
@@ -378,22 +376,21 @@ public class Nicking2InspectionFragment extends Fragment {
 
     private void showRefelectedFieldData() {
         if (nicking2InspectionTable != null && nicking2InspectionTable.size() > 0) {
-            if(nicking2InspectionTable.get(0).getDate_of_inspection()!=null){
+            if (nicking2InspectionTable.get(0).getDate_of_inspection() != null) {
                 ed_date_of_insp.setText(DateTimeUtilsCustome.splitDateInYYYMMDDslsh(nicking2InspectionTable.get(0).getDate_of_inspection()));
-            }else {
+            } else {
                 ed_date_of_insp.setText("");
             }
-            if(nicking2InspectionTable.get(0).getDate_of_action()!=null){
+            if (nicking2InspectionTable.get(0).getDate_of_action() != null) {
                 ed_date_of_action.setText(DateTimeUtilsCustome.splitDateInYYYMMDDslsh(nicking2InspectionTable.get(0).getDate_of_action()));
-            }
-            else {
+            } else {
                 ed_date_of_action.setText("");
             }
             ed_wther_remmndtn.setText(nicking2InspectionTable.get(0).getWhether_recommendation_done());
             ed_actual_date.setText(DateTimeUtilsCustome.splitDateInYYYMMDDslsh(nicking2InspectionTable.get(0).getActual_date()));
 
             ed_Remarks.setText(nicking2InspectionTable.get(0).getRemarks());
-            if(nicking2InspectionTable.get(0).getSeed_setting()!=null) {
+            if (nicking2InspectionTable.get(0).getSeed_setting() != null) {
                 ed_seed_setting.setText(nicking2InspectionTable.get(0).getSeed_setting());
             }
 
@@ -429,7 +426,7 @@ public class Nicking2InspectionFragment extends Fragment {
             nicking2InspectionModel.male_reciept_no = "0";
             nicking2InspectionModel.female_reciept_no = "0";
             nicking2InspectionModel.other_reciept_no = "0";
-            nicking2InspectionModel.actual_date=DateTimeUtilsCustome.splitDateInYYYMMDD(ed_actual_date.getText().toString().trim());
+            nicking2InspectionModel.actual_date = DateTimeUtilsCustome.splitDateInYYYMMDD(ed_actual_date.getText().toString().trim());
 
             if (!ed_seed_stng_per.getText().toString().trim().equalsIgnoreCase("")) {
                 String seed_per = String.valueOf(Float.parseFloat(ed_seed_stng_per.getText().toString().trim()));
@@ -452,11 +449,9 @@ public class Nicking2InspectionFragment extends Fragment {
 
             if (ed_Remarks.getText().toString().length() > 120) {
                 Toast.makeText(getActivity(), "Remark value should be less than 120 characters in length ", Toast.LENGTH_SHORT).show();
-            }
-            else if(ed_date_of_action.getText().toString().trim().equalsIgnoreCase("")){
+            } else if (ed_date_of_action.getText().toString().trim().equalsIgnoreCase("")) {
                 Toast.makeText(getActivity(), "Please enter the date of inspection.", Toast.LENGTH_SHORT).show();
-            }
-            else {
+            } else {
                 if (isNetwork) {
                     NetworkInterface mAPIService = ApiUtils.getPristineAPIService();
                     Call<List<ResponseModel>> call = mAPIService.insertNicking2Inspection(asJsonObject);
@@ -470,7 +465,7 @@ public class Nicking2InspectionFragment extends Fragment {
                                 if (response.isSuccessful()) {
                                     progressDialogLoading.hideDialog();
                                     List<ResponseModel> inserResponseList = response.body();
-                                    if (inserResponseList!=null && inserResponseList.size() > 0 && inserResponseList.get(0).condition) {
+                                    if (inserResponseList != null && inserResponseList.size() > 0 && inserResponseList.get(0).condition) {
                                         nicking2InspectionModel.syncWithApi5 = 1;
                                         nicking2InspectionModel.attachment = selected_file_path;
                                         nicking2InspectionModelArrayList.add(nicking2InspectionModel);
@@ -507,7 +502,7 @@ public class Nicking2InspectionFragment extends Fragment {
                     Toast.makeText(getActivity(), "insert Successful !", Toast.LENGTH_SHORT).show();
                 }
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -575,9 +570,9 @@ public class Nicking2InspectionFragment extends Fragment {
             }
             insertNicking2InspectionLineIntoLocal(new ArrayList<>());
 
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
-        }finally {
+        } finally {
             db.close();
             db.destroyInstance();
         }
@@ -592,14 +587,15 @@ public class Nicking2InspectionFragment extends Fragment {
                 selected_file_path = FilePath.getPath(getActivity(), mImageUri);
                 BitmapFactory.Options options = new BitmapFactory.Options();
                 Bitmap bm = BitmapFactory.decodeFile(selected_file_path, options);
-                setBitmapImage(bm,this.selected_file_path);
+                setBitmapImage(bm, this.selected_file_path);
             }
         } else {
             Toast.makeText(getActivity(), "You haven't picked Image",
                     Toast.LENGTH_LONG).show();
         }
     }
-    private void setBitmapImage(Bitmap img_file,String selectedFilePath ) {
+
+    private void setBitmapImage(Bitmap img_file, String selectedFilePath) {
         if (img_file != null) {
             File file = new File(selectedFilePath);
             long fileSizeInBytes = file.length();

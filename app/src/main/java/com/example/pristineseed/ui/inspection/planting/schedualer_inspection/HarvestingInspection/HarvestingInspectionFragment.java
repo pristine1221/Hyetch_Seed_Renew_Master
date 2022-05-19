@@ -86,7 +86,7 @@ public class HarvestingInspectionFragment extends Fragment {
     private SessionManagement sessionManagement;
     private TextInputEditText ed_date_of_inspection, ed_moister_per, ed_remark, ed_pest_reamrk, ed_remmmdn_date,
             ed_actual_date, ed_sorting_grade, ed_desease_remark, ed_seed_setting,
-            ed_seed_stng_per, ed_receipt_male, ed_receipt_female, ed_receipt_other,ac_crop_state;
+            ed_seed_stng_per, ed_receipt_male, ed_receipt_female, ed_receipt_other, ac_crop_state;
 
     private AutoCompleteTextView ac_crop_cond, ac_pest, ac_desease, ac_over_all_agronomy;
 
@@ -94,7 +94,7 @@ public class HarvestingInspectionFragment extends Fragment {
             tv_farmer_name, village_address, tv_prod_lot_no, tv_crop_code, tv_varity_code, tv_sd_male, tv_sd_female, tv_org_name,
             tv_org_code, tv_item_prodGrp_code, tv_item_class_of_seed, tv_crop_type, posting_error, ed_item_name;
 
-    private ImageView  imageView;
+    private ImageView imageView;
     private FrameLayout close_dilog_bt;
 
     private Button complete_btn, save_record_btn;
@@ -103,7 +103,8 @@ public class HarvestingInspectionFragment extends Fragment {
     private Chip clear_image_btn;
     private String selected_file_path = "";
     private LinearLayout image_layout;
-   private     List<String> imageEncodList = new ArrayList<>();
+    private List<String> imageEncodList = new ArrayList<>();
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -193,45 +194,42 @@ public class HarvestingInspectionFragment extends Fragment {
         try {
             tv_prod_lot_no.setText(schedulerInspectionLineTable.getProduction_lot_no());
             tv_date.setText(DateTimeUtilsCustome.getDateMMMDDYYYYSlsh1(scheduler_header_table.getDate()));
-            tv_season.setText(scheduler_header_table.getSeason()+"("+scheduler_header_table.getSeason_name()+")");
-            tv_prod_center.setText(scheduler_header_table.getProduction_centre()+"("+scheduler_header_table.getProduction_centre_name()+")");
-            tv_farmer_name.setText(schedulerInspectionLineTable.getGrower_land_owner_name()+"("+schedulerInspectionLineTable.getGrower_owner()+")");
-            tv_org_name.setText(schedulerInspectionLineTable.getOrganizer_name()+"("+schedulerInspectionLineTable.getOrganizer_code()+")");
+            tv_season.setText(scheduler_header_table.getSeason() + "(" + scheduler_header_table.getSeason_name() + ")");
+            tv_prod_center.setText(scheduler_header_table.getProduction_centre() + "(" + scheduler_header_table.getProduction_centre_name() + ")");
+            tv_farmer_name.setText(schedulerInspectionLineTable.getGrower_land_owner_name() + "(" + schedulerInspectionLineTable.getGrower_owner() + ")");
+            tv_org_name.setText(schedulerInspectionLineTable.getOrganizer_name() + "(" + schedulerInspectionLineTable.getOrganizer_code() + ")");
             tv_crop_code.setText(schedulerInspectionLineTable.getCrop_code());
             tv_crop_type.setText(schedulerInspectionLineTable.getItem_crop_type());
             village_address.setText("Vill-" + schedulerInspectionLineTable.getGrower_village() + "," + schedulerInspectionLineTable.getGrower_city() + "," + schedulerInspectionLineTable.getGrower_district());
 
-            if(schedulerInspectionLineTable.getSowing_date_male()!=null) {
+            if (schedulerInspectionLineTable.getSowing_date_male() != null) {
                 tv_sd_male.setText(DateTimeUtilsCustome.splitDateDDDMMYYYY(schedulerInspectionLineTable.getSowing_date_male()));
-            }
-            else {
+            } else {
                 tv_sd_male.setText("");
             }
-            if(schedulerInspectionLineTable.getSowing_date_female()!=null){
+            if (schedulerInspectionLineTable.getSowing_date_female() != null) {
                 tv_sd_female.setText(DateTimeUtilsCustome.splitDateDDDMMYYYY(schedulerInspectionLineTable.getSowing_date_female()));
-            }
-            else {
+            } else {
                 tv_sd_female.setText("");
             }
             tv_item_class_of_seed.setText(schedulerInspectionLineTable.getItem_class_of_seeds());
             tv_item_prodGrp_code.setText(schedulerInspectionLineTable.getItem_product_group_code());
-            PristineDatabase pristineDatabase=PristineDatabase.getAppDatabase(getActivity());
-            try{
-                PlantingLineLotListDao plantingLineLotListDao=pristineDatabase.plantingLineLotListDao();
-                if(schedulerInspectionLineTable!=null){
-                    PlantingLineLotListTable plantingLineLotListTable=plantingLineLotListDao.getVaityCodeAliasName(production_lot_no,schedulerInspectionLineTable.getVariety_code());
-                    if(plantingLineLotListTable!=null) {
+            PristineDatabase pristineDatabase = PristineDatabase.getAppDatabase(getActivity());
+            try {
+                PlantingLineLotListDao plantingLineLotListDao = pristineDatabase.plantingLineLotListDao();
+                if (schedulerInspectionLineTable != null) {
+                    PlantingLineLotListTable plantingLineLotListTable = plantingLineLotListDao.getVaityCodeAliasName(production_lot_no, schedulerInspectionLineTable.getVariety_code());
+                    if (plantingLineLotListTable != null) {
                         tv_varity_code.setText(plantingLineLotListTable.getAlias_Name());
                     }
                 }
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
-            }
-            finally {
+            } finally {
                 pristineDatabase.close();
                 pristineDatabase.destroyInstance();
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         ed_date_of_inspection.setOnTouchListener((view1, motionEvent) -> {
@@ -279,11 +277,10 @@ public class HarvestingInspectionFragment extends Fragment {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     try {
-                        if(harvestingInspectionTableList!=null && harvestingInspectionTableList.size()>0){
+                        if (harvestingInspectionTableList != null && harvestingInspectionTableList.size() > 0) {
                             completeGermination();
-                        }
-                        else {
-                            Toast.makeText(getActivity(),"First insert line.",Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(getActivity(), "First insert line.", Toast.LENGTH_SHORT).show();
                         }
 
                     } catch (Exception e) {
@@ -314,7 +311,7 @@ public class HarvestingInspectionFragment extends Fragment {
             if (schedule_scan_lot_list != null && schedule_scan_lot_list.size() > 0) {
                 for (int i = 0; i < schedule_scan_lot_list.size(); i++) {
                     HarvestingInspectionTable harvestingInspectionTable = HarvestingInspectionTable.insertHarvestingDataIntoLocal(schedule_scan_lot_list.get(i));
-                    if (harvestingInspectionDao.isDataExist(harvestingInspectionTable.getProduction_lot_no())>0) {
+                    if (harvestingInspectionDao.isDataExist(harvestingInspectionTable.getProduction_lot_no()) > 0) {
                         harvestingInspectionDao.update(harvestingInspectionTable);
                     } else {
                         harvestingInspectionDao.insert(harvestingInspectionTable);
@@ -373,7 +370,7 @@ public class HarvestingInspectionFragment extends Fragment {
             ac_desease.setText(harvestingInspectionTableList.get(0).getDiseases());
             ac_over_all_agronomy.setText(harvestingInspectionTableList.get(0).getOverall_agronomy());
             ed_moister_per.setText(harvestingInspectionTableList.get(0).getMoisture_per());
-            if(harvestingInspectionTableList.get(0).getDate_of_inspection()!=null){
+            if (harvestingInspectionTableList.get(0).getDate_of_inspection() != null) {
                 ed_date_of_inspection.setText(DateTimeUtilsCustome.splitDateInYYYMMDDslsh(harvestingInspectionTableList.get(0).getDate_of_inspection()));
             }
               /*if(harvestingInspectionTableList.get(0).getRecommended_date()!=null){
@@ -494,7 +491,7 @@ public class HarvestingInspectionFragment extends Fragment {
             String base_64_image = StaticMethods.convertBase64(selected_file_path);
 
             harvestingInspectionModel.attachment = base_64_image != null ? base_64_image : "";
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         boolean isNetwork = NetworkUtil.getConnectivityStatusBoolean(getActivity());
@@ -506,20 +503,15 @@ public class HarvestingInspectionFragment extends Fragment {
             Toast.makeText(getActivity(), "Remark value should be less than 120 characters in length ", Toast.LENGTH_SHORT).show();
         } else if (ed_desease_remark.getText().toString().length() > 120) {
             Toast.makeText(getActivity(), "Disease Remark value should be less than 120 characters in length ", Toast.LENGTH_SHORT).show();
-        }
-        else if(ac_crop_cond.getText().toString().trim().equalsIgnoreCase("")){
+        } else if (ac_crop_cond.getText().toString().trim().equalsIgnoreCase("")) {
             Toast.makeText(getActivity(), "Please enter crop condn. ", Toast.LENGTH_SHORT).show();
 
-        }
-        else if(ac_crop_state.getText().toString().trim().equalsIgnoreCase("")){
+        } else if (ac_crop_state.getText().toString().trim().equalsIgnoreCase("")) {
             Toast.makeText(getActivity(), "Please enter crop stage. ", Toast.LENGTH_SHORT).show();
 
-        }
-        else if(ed_actual_date.getText().toString().trim().equalsIgnoreCase("")){
+        } else if (ed_actual_date.getText().toString().trim().equalsIgnoreCase("")) {
             Toast.makeText(getActivity(), "Please enter actual date. ", Toast.LENGTH_SHORT).show();
-        }
-
-        else {
+        } else {
             if (isNetwork) {
                 NetworkInterface mAPIService = ApiUtils.getPristineAPIService();
                 Call<List<ResponseModel>> call = mAPIService.insertHarvestingInsection(asJsonObject);
@@ -533,7 +525,7 @@ public class HarvestingInspectionFragment extends Fragment {
                             if (response.isSuccessful()) {
                                 progressDialogLoading.hideDialog();
                                 List<ResponseModel> inserResponseList = response.body();
-                                if (inserResponseList!=null && inserResponseList.size() > 0 && inserResponseList.get(0).condition) {
+                                if (inserResponseList != null && inserResponseList.size() > 0 && inserResponseList.get(0).condition) {
                                     harvestingInspectionModel.synWithApi9 = 1;
                                     harvestingInspectionModel.attachment = selected_file_path;
                                     maturityInspectionModelArrayList.add(harvestingInspectionModel);
@@ -588,7 +580,7 @@ public class HarvestingInspectionFragment extends Fragment {
                         if (response.isSuccessful()) {
                             progressDialogLoading.hideDialog();
                             List<CompleteGerminationInspectionModel> completeResponseList = response.body();
-                            if (completeResponseList!=null && completeResponseList.size() > 0 && completeResponseList.get(0).condition) {
+                            if (completeResponseList != null && completeResponseList.size() > 0 && completeResponseList.get(0).condition) {
                                 if (completeResponseList.get(0).nav_condition != 0) {
                                     completeOnlineOfflineInspection("Online", 1, 1, harvestingInspectionTableList.get(0).getCreated_on(), 0, "");
                                     StaticMethods.showMDToast(getActivity(), completeResponseList.get(0).message + "//" + completeResponseList.get(0).nav_message + "//", MDToast.TYPE_SUCCESS);
@@ -599,11 +591,11 @@ public class HarvestingInspectionFragment extends Fragment {
                                 }
                             } else {
                                 progressDialogLoading.hideDialog();
-                                StaticMethods.showMDToast(getActivity(), completeResponseList.size() > 0 ? "Record not found !" : "Api not respoding.",  MDToast.TYPE_ERROR);
+                                StaticMethods.showMDToast(getActivity(), completeResponseList.size() > 0 ? "Record not found !" : "Api not respoding.", MDToast.TYPE_ERROR);
                             }
                         } else {
                             progressDialogLoading.hideDialog();
-                            StaticMethods.showMDToast(getActivity(), response.message() + ". Error Code:" + response.code(),  MDToast.TYPE_ERROR);
+                            StaticMethods.showMDToast(getActivity(), response.message() + ". Error Code:" + response.code(), MDToast.TYPE_ERROR);
                         }
                     } catch (Exception e) {
                         progressDialogLoading.hideDialog();
@@ -639,10 +631,9 @@ public class HarvestingInspectionFragment extends Fragment {
                 inspection_oneHeaderDao.updateOnServerCompleteHarvesting(0, inspection9, scheduler_no, harvestingInspectionTableList.get(0).getProduction_lot_no(), completed_on, ins9_sync_with_server);
             }
             insertHarvstingInspectionLine(new ArrayList<>());
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             db.close();
             db.destroyInstance();
         }
@@ -657,7 +648,7 @@ public class HarvestingInspectionFragment extends Fragment {
                 selected_file_path = FilePath.getPath(getActivity(), mImageUri);
                 BitmapFactory.Options options = new BitmapFactory.Options();
                 Bitmap bm = BitmapFactory.decodeFile(this.selected_file_path, options);
-                setBitmapImage(bm,this.selected_file_path);
+                setBitmapImage(bm, this.selected_file_path);
             }
         } else {
             Toast.makeText(getActivity(), "You haven't picked Image",
@@ -698,17 +689,16 @@ public class HarvestingInspectionFragment extends Fragment {
     }
 
 
+    private String getFemaleSowingDate() {
 
-    private String getFemaleSowingDate(){
-
-        if(production_lot_no!=null) {
+        if (production_lot_no != null) {
             PristineDatabase pristineDatabase = PristineDatabase.getAppDatabase(getActivity());
             try {
                 PlantingLineLotListDao plantingLineLotListDao = pristineDatabase.plantingLineLotListDao();
                 PlantingLineLotListTable plantingLineLotListTable = plantingLineLotListDao.getFemaleSowingDate(production_lot_no);
 
-                String date=plantingLineLotListTable.getSowing_Date_Female();
-                String date_sub_string=date.substring(0,10);
+                String date = plantingLineLotListTable.getSowing_Date_Female();
+                String date_sub_string = date.substring(0, 10);
 
                 SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
                 Date steepingdate = formatter.parse(date_sub_string);
@@ -722,12 +712,12 @@ public class HarvestingInspectionFragment extends Fragment {
                 String[] parts = newDate.split("-");
                 String dd = parts[0];
                 String yy = parts[1];
-                String mm=parts[2];
-                Log.e("origional_date",yy+"-"+mm+"-"+dd);
+                String mm = parts[2];
+                Log.e("origional_date", yy + "-" + mm + "-" + dd);
                 return newDate;
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
-            }finally {
+            } finally {
                 pristineDatabase.close();
                 pristineDatabase.destroyInstance();
             }

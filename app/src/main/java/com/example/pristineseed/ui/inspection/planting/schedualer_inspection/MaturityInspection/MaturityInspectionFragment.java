@@ -83,11 +83,11 @@ public class MaturityInspectionFragment extends Fragment {
     private Button bt_complete, btn_save_record;
     private SessionManagement sessionManagement;
 
-    private TextInputEditText ed_date_of_inspection, ed_yield_est, ed_pest_remark, ed_desease_remark, ed_remmmdn_date,ac_crop_state,
+    private TextInputEditText ed_date_of_inspection, ed_yield_est, ed_pest_remark, ed_desease_remark, ed_remmmdn_date, ac_crop_state,
             ed_actual_date,
             ed_seed_stng_per, ed_receipt_male, ed_receipt_female, ed_receipt_other;
 
-    private AutoCompleteTextView ac_crop_cond, ac_pest, ac_desease, ed_abiotic_streess,ed_seed_setting;
+    private AutoCompleteTextView ac_crop_cond, ac_pest, ac_desease, ed_abiotic_streess, ed_seed_setting;
 
     private TextView tv_date, tv_season, tv_season_name, tv_prod_cent_name, tv_prod_center,
             tv_farmer_name, village_address, tv_prod_lot_no, tv_crop_code, tv_varity_code, tv_sd_male, tv_sd_female, tv_org_name,
@@ -100,8 +100,7 @@ public class MaturityInspectionFragment extends Fragment {
     private Chip clear_image_btn;
     private String selected_file_path = "";
     private LinearLayout image_layout;
-   private List<String> imageEncodList = new ArrayList<>();
-
+    private List<String> imageEncodList = new ArrayList<>();
 
 
     @Override
@@ -145,11 +144,10 @@ public class MaturityInspectionFragment extends Fragment {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     try {
-                        if(maturityInspectionTable!=null && maturityInspectionTable.size()>0) {
+                        if (maturityInspectionTable != null && maturityInspectionTable.size() > 0) {
                             completeFloweringInspection();
-                        }
-                        else {
-                            Toast.makeText(getActivity(),"first insert line",Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(getActivity(), "first insert line", Toast.LENGTH_SHORT).show();
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -216,57 +214,53 @@ public class MaturityInspectionFragment extends Fragment {
         add_attachment = view.findViewById(R.id.add_attachment);
         clear_image_btn = view.findViewById(R.id.clear_img);
         try {
-            if(scheduler_header_table.getDate()!=null) {
+            if (scheduler_header_table.getDate() != null) {
                 tv_date.setText(DateTimeUtilsCustome.getDateMMMDDYYYYSlsh1(scheduler_header_table.getDate()));
-            }
-            else {
+            } else {
                 tv_date.setText("");
             }
-            tv_season.setText(scheduler_header_table.getSeason()+"("+scheduler_header_table.getSeason_name()+")");
-            tv_prod_cent_name.setText(scheduler_header_table.getProduction_centre()+"("+scheduler_header_table.getProduction_centre_name()+")");
+            tv_season.setText(scheduler_header_table.getSeason() + "(" + scheduler_header_table.getSeason_name() + ")");
+            tv_prod_cent_name.setText(scheduler_header_table.getProduction_centre() + "(" + scheduler_header_table.getProduction_centre_name() + ")");
 
-            tv_farmer_name.setText(schedulerInspectionLineTable.getGrower_land_owner_name() +"("+schedulerInspectionLineTable.getGrower_owner()+")");
+            tv_farmer_name.setText(schedulerInspectionLineTable.getGrower_land_owner_name() + "(" + schedulerInspectionLineTable.getGrower_owner() + ")");
             village_address.setText(schedulerInspectionLineTable.getGrower_village() + "(" + schedulerInspectionLineTable.getVariety_code() + ")"
                     + schedulerInspectionLineTable.getGrower_city() + "," + schedulerInspectionLineTable.getGrower_taluka_mandal());
             tv_prod_lot_no.setText(schedulerInspectionLineTable.getProduction_lot_no());
             tv_crop_code.setText(schedulerInspectionLineTable.getCrop_code());
 
-            String new_recommeded_date=getFemaleSowingDate();
+            String new_recommeded_date = getFemaleSowingDate();
             ed_remmmdn_date.setText(new_recommeded_date);
 
-            PristineDatabase pristineDatabase=PristineDatabase.getAppDatabase(getActivity());
-            try{
-                PlantingLineLotListDao plantingLineLotListDao=pristineDatabase.plantingLineLotListDao();
-                if(schedulerInspectionLineTable!=null){
-                    PlantingLineLotListTable plantingLineLotListTable=plantingLineLotListDao.getVaityCodeAliasName(production_lot_no,schedulerInspectionLineTable.getVariety_code());
-                    if(plantingLineLotListTable!=null) {
+            PristineDatabase pristineDatabase = PristineDatabase.getAppDatabase(getActivity());
+            try {
+                PlantingLineLotListDao plantingLineLotListDao = pristineDatabase.plantingLineLotListDao();
+                if (schedulerInspectionLineTable != null) {
+                    PlantingLineLotListTable plantingLineLotListTable = plantingLineLotListDao.getVaityCodeAliasName(production_lot_no, schedulerInspectionLineTable.getVariety_code());
+                    if (plantingLineLotListTable != null) {
                         tv_varity_code.setText(plantingLineLotListTable.getAlias_Name());
                     }
                 }
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
-            }
-            finally {
+            } finally {
                 pristineDatabase.close();
                 pristineDatabase.destroyInstance();
             }
-            if(schedulerInspectionLineTable.getSowing_date_male()!=null) {
+            if (schedulerInspectionLineTable.getSowing_date_male() != null) {
                 tv_sd_male.setText((DateTimeUtilsCustome.splitDateDDDMMYYYY(schedulerInspectionLineTable.getSowing_date_male())));
-            }
-            else {
+            } else {
                 tv_sd_male.setText("");
             }
 
-            if(schedulerInspectionLineTable.getSowing_date_female()!=null) {
+            if (schedulerInspectionLineTable.getSowing_date_female() != null) {
                 tv_sd_female.setText((DateTimeUtilsCustome.splitDateDDDMMYYYY(schedulerInspectionLineTable.getSowing_date_female())));
-            }
-            else {
+            } else {
                 tv_sd_female.setText("");
             }
-            tv_org_name.setText(schedulerInspectionLineTable.getOrganizer_code()+"("+schedulerInspectionLineTable.getOrganizer_name()+")");
+            tv_org_name.setText(schedulerInspectionLineTable.getOrganizer_code() + "(" + schedulerInspectionLineTable.getOrganizer_name() + ")");
             tv_item_prodGrp_code.setText(schedulerInspectionLineTable.getItem_product_group_code());
             tv_item_class_of_seed.setText(schedulerInspectionLineTable.getItem_class_of_seeds());
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -298,7 +292,7 @@ public class MaturityInspectionFragment extends Fragment {
 
         ac_crop_state.setText("Maturity");
 
-        ItemAdapter seed_setting_adapter=new ItemAdapter(getActivity(),R.layout.android_item_view,Arrays.asList(CommonData.seed_setting));
+        ItemAdapter seed_setting_adapter = new ItemAdapter(getActivity(), R.layout.android_item_view, Arrays.asList(CommonData.seed_setting));
         ed_seed_setting.setAdapter(seed_setting_adapter);
 
         add_attachment.setOnClickListener(v -> {
@@ -310,8 +304,8 @@ public class MaturityInspectionFragment extends Fragment {
     }
 
 
-  private List<MaturityInspectionTable> maturityInspectionTable;
-  private SchedulerInspectionLineTable scheduler_line_header_data = null;
+    private List<MaturityInspectionTable> maturityInspectionTable;
+    private SchedulerInspectionLineTable scheduler_line_header_data = null;
 
     private void insertMaturitiyInspectionLine(ArrayList<MaturityInspectionModel> maturityInspectionModelArrayList) {
 
@@ -322,7 +316,7 @@ public class MaturityInspectionFragment extends Fragment {
             if (maturityInspectionModelArrayList != null && maturityInspectionModelArrayList.size() > 0) {
                 for (int i = 0; i < maturityInspectionModelArrayList.size(); i++) {
                     MaturityInspectionTable maturityInspectionTable = MaturityInspectionTable.insertMatuirtyInspectionDataIntoLocal(maturityInspectionModelArrayList.get(i));
-                    if (maturityInspectionDao.isDataExist(maturityInspectionTable.getProduction_lot_no())>0) {
+                    if (maturityInspectionDao.isDataExist(maturityInspectionTable.getProduction_lot_no()) > 0) {
                         maturityInspectionDao.update(maturityInspectionTable);
                     } else if (maturityInspectionTable.getProduction_lot_no() != null || maturityInspectionTable.getScheduler_no() != null) {
                         maturityInspectionDao.insert(maturityInspectionTable);
@@ -372,7 +366,7 @@ public class MaturityInspectionFragment extends Fragment {
 
     private void showRefelectedFieldData() {
         if (maturityInspectionTable != null && maturityInspectionTable.size() > 0) {
-            if(maturityInspectionTable.get(0).getDate_of_inspection()!=null){
+            if (maturityInspectionTable.get(0).getDate_of_inspection() != null) {
                 ed_date_of_inspection.setText(DateTimeUtilsCustome.splitDateInYYYMMDDslsh(maturityInspectionTable.get(0).getDate_of_inspection()));
             }
             ac_crop_cond.setText(maturityInspectionTable.get(0).getCrop_condition());
@@ -388,7 +382,7 @@ public class MaturityInspectionFragment extends Fragment {
            /* if(maturityInspectionTable.get(0).getRecommended_date()!=null){
                 ed_remmmdn_date.setText(DateTimeUtilsCustome.splitDateInYYYMMDDslsh(maturityInspectionTable.get(0).getRecommended_date()));
             }*/
-            if(maturityInspectionTable.get(0).getActual_date()!=null) {
+            if (maturityInspectionTable.get(0).getActual_date() != null) {
                 ed_actual_date.setText(DateTimeUtilsCustome.splitDateInYYYMMDDslsh(maturityInspectionTable.get(0).getActual_date()));
             }
 
@@ -488,7 +482,7 @@ public class MaturityInspectionFragment extends Fragment {
             String base_64_image = StaticMethods.convertBase64(selected_file_path);
             maturityInspectionModel.attachment = base_64_image != null ? base_64_image : "";
 
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         boolean isNetwork = NetworkUtil.getConnectivityStatusBoolean(getActivity());
@@ -498,20 +492,16 @@ public class MaturityInspectionFragment extends Fragment {
 
         if (ed_pest_remark.getText().toString().length() > 120) {
             Toast.makeText(getActivity(), "Pest Remark value should be less than 120 characters in length ", Toast.LENGTH_SHORT).show();
-        } else if (ed_desease_remark.getText().toString().length() > 120 ) {
+        } else if (ed_desease_remark.getText().toString().length() > 120) {
             Toast.makeText(getActivity(), "Disease Remark value should be less than 120 characters in length ", Toast.LENGTH_SHORT).show();
-        }
-        else if(ac_crop_cond.getText().toString().trim().equalsIgnoreCase("")){
+        } else if (ac_crop_cond.getText().toString().trim().equalsIgnoreCase("")) {
             Toast.makeText(getActivity(), "Please enter crop condn. ", Toast.LENGTH_SHORT).show();
-        }
-        else if(ac_crop_state.getText().toString().trim().equalsIgnoreCase("")){
+        } else if (ac_crop_state.getText().toString().trim().equalsIgnoreCase("")) {
             Toast.makeText(getActivity(), "Please enter crop stage. ", Toast.LENGTH_SHORT).show();
 
-        }
-        else if(ed_actual_date.getText().toString().trim().equalsIgnoreCase("")){
+        } else if (ed_actual_date.getText().toString().trim().equalsIgnoreCase("")) {
             Toast.makeText(getActivity(), "Please enter actual date. ", Toast.LENGTH_SHORT).show();
-        }
-        else {
+        } else {
             if (isNetwork) {
                 NetworkInterface mAPIService = ApiUtils.getPristineAPIService();
                 Call<List<ResponseModel>> call = mAPIService.insertMaturityInsection(asJsonObject);
@@ -525,7 +515,7 @@ public class MaturityInspectionFragment extends Fragment {
                             if (response.isSuccessful()) {
                                 progressDialogLoading.hideDialog();
                                 List<ResponseModel> inserResponseList = response.body();
-                                if (inserResponseList!=null && inserResponseList.size() > 0 && inserResponseList.get(0).condition) {
+                                if (inserResponseList != null && inserResponseList.size() > 0 && inserResponseList.get(0).condition) {
                                     maturityInspectionModel.syncWithApi8 = 1;
                                     maturityInspectionModel.attachment = selected_file_path;
                                     maturityInspectionModelArrayList.add(maturityInspectionModel);
@@ -570,7 +560,7 @@ public class MaturityInspectionFragment extends Fragment {
         boolean network = NetworkUtil.getConnectivityStatusBoolean(getActivity());
         if (network) {
             NetworkInterface mAPIService = ApiUtils.getPristineAPIService();
-            Call<List<CompleteGerminationInspectionModel>> call = mAPIService.completeInspection("Inspection VIII", production_lot_no,scheduler_no);
+            Call<List<CompleteGerminationInspectionModel>> call = mAPIService.completeInspection("Inspection VIII", production_lot_no, scheduler_no);
             LoadingDialog progressDialogLoading = new LoadingDialog();
             progressDialogLoading.showLoadingDialog(getActivity());
             call.enqueue(new Callback<List<CompleteGerminationInspectionModel>>() {
@@ -580,7 +570,7 @@ public class MaturityInspectionFragment extends Fragment {
                         if (response.isSuccessful()) {
                             progressDialogLoading.hideDialog();
                             List<CompleteGerminationInspectionModel> completeResponseList = response.body();
-                            if (completeResponseList!=null && completeResponseList.size() > 0 && completeResponseList.get(0).condition) {
+                            if (completeResponseList != null && completeResponseList.size() > 0 && completeResponseList.get(0).condition) {
                                 if (completeResponseList.get(0).nav_condition != 0) {
                                     completeMaturityOnLineOfflineInspection("Online", 1, 1, maturityInspectionTable.get(0).getCreated_on(), 0, "");
                                     StaticMethods.showMDToast(getActivity(), completeResponseList.get(0).message + "//" + completeResponseList.get(0).nav_message + "//", MDToast.TYPE_SUCCESS);
@@ -627,10 +617,9 @@ public class MaturityInspectionFragment extends Fragment {
                 StaticMethods.showMDToast(getActivity(), "Inspection Completed !", MDToast.TYPE_SUCCESS);
             }
             insertMaturitiyInspectionLine(new ArrayList<>());
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             db.close();
             db.destroyInstance();
         }
@@ -640,21 +629,21 @@ public class MaturityInspectionFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-            if (requestCode == PICK_IMAGE_SINGLE && resultCode == RESULT_OK && null != data) {
-                if (data.getData() != null) {
-                    Uri mImageUri = data.getData();
-                    selected_file_path = FilePath.getPath(getActivity(), mImageUri);
-                    BitmapFactory.Options options = new BitmapFactory.Options();
-                    Bitmap bm = BitmapFactory.decodeFile(this.selected_file_path, options);
-                    setBitmapImage(bm,this.selected_file_path);
-                }
-            } else {
-                Toast.makeText(getActivity(), "You haven't picked Image",
-                        Toast.LENGTH_LONG).show();
+        if (requestCode == PICK_IMAGE_SINGLE && resultCode == RESULT_OK && null != data) {
+            if (data.getData() != null) {
+                Uri mImageUri = data.getData();
+                selected_file_path = FilePath.getPath(getActivity(), mImageUri);
+                BitmapFactory.Options options = new BitmapFactory.Options();
+                Bitmap bm = BitmapFactory.decodeFile(this.selected_file_path, options);
+                setBitmapImage(bm, this.selected_file_path);
             }
+        } else {
+            Toast.makeText(getActivity(), "You haven't picked Image",
+                    Toast.LENGTH_LONG).show();
+        }
     }
 
-    private void setBitmapImage(Bitmap img_file,   String selectedFilePath) {
+    private void setBitmapImage(Bitmap img_file, String selectedFilePath) {
         if (img_file != null) {
             File file = new File(selectedFilePath);
             long fileSizeInBytes = file.length();
@@ -686,15 +675,15 @@ public class MaturityInspectionFragment extends Fragment {
         super.onResume();
     }
 
-    private String getFemaleSowingDate(){
-        if(production_lot_no!=null) {
+    private String getFemaleSowingDate() {
+        if (production_lot_no != null) {
             PristineDatabase pristineDatabase = PristineDatabase.getAppDatabase(getActivity());
             try {
                 PlantingLineLotListDao plantingLineLotListDao = pristineDatabase.plantingLineLotListDao();
                 PlantingLineLotListTable plantingLineLotListTable = plantingLineLotListDao.getFemaleSowingDate(production_lot_no);
 
-                String date=plantingLineLotListTable.getSowing_Date_Female();
-                String date_sub_string=date.substring(0,10);
+                String date = plantingLineLotListTable.getSowing_Date_Female();
+                String date_sub_string = date.substring(0, 10);
 
                 SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
                 Date steepingdate = formatter.parse(date_sub_string);
@@ -708,12 +697,12 @@ public class MaturityInspectionFragment extends Fragment {
                 String[] parts = newDate.split("-");
                 String dd = parts[0];
                 String yy = parts[1];
-                String mm=parts[2];
-                Log.e("origional_date",yy+"-"+mm+"-"+dd);
+                String mm = parts[2];
+                Log.e("origional_date", yy + "-" + mm + "-" + dd);
                 return newDate;
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
-            }finally {
+            } finally {
                 pristineDatabase.close();
                 pristineDatabase.destroyInstance();
             }

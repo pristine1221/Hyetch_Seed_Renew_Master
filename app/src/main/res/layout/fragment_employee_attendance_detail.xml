@@ -50,7 +50,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_margin="5dp"
-                    app:cardElevation="5dp"
+                    app:cardElevation="3dp"
                     android:layout_weight="1">
 
                     <LinearLayout
@@ -155,7 +155,8 @@
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_emp_attendance_list"
-                    android:layout_margin="7dp"
+                    android:layout_marginLeft="4dp"
+                    android:layout_marginRight="4dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
             </LinearLayout>
