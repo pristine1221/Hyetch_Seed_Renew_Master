@@ -298,7 +298,7 @@ public class DateTimeUtilsCustome {
         try {
             SimpleDateFormat formatter1 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
             Date date = formatter1.parse(value);
-            SimpleDateFormat newFormat = new SimpleDateFormat("dd-MM-yyyy hh:mm aa");
+            SimpleDateFormat newFormat = new SimpleDateFormat("dd-MM-yyyy 'T' hh:mm aa");
             return newFormat.format(date);
         } catch (Exception e) {
             return value;

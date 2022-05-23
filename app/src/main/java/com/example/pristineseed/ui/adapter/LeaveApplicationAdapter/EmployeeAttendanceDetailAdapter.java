@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -36,10 +37,15 @@ public class EmployeeAttendanceDetailAdapter extends RecyclerView.Adapter<Employ
         holder.tv_emp_id.setText(model.emp_id);
         holder.tv_work_type.setText(model.work_type);
         holder.tv_work_loc.setText(model.work_location);
-        holder.tv_start_date.setText(DateTimeUtilsCustome.getDateOnly(model.start_datetime));
-        holder.tv_end_date.setText(DateTimeUtilsCustome.getDateOnly(model.end_datetime));
+        holder.tv_start_date.setText(DateTimeUtilsCustome.getDateDDMMYYY(model.start_datetime));
+        holder.tv_end_date.setText(DateTimeUtilsCustome.getDateDDMMYYY(model.end_datetime));
         holder.tv_start_loc.setText(model.start_location);
-        holder.tv_end_loc.setText(model.end_location);
+        if (!model.end_location.equalsIgnoreCase("")){
+            holder.end_loc_layout.setVisibility(View.VISIBLE);
+            holder.tv_end_loc.setText(model.end_location);
+        }else if(model.end_location.equalsIgnoreCase("") ){
+            holder.end_loc_layout.setVisibility(View.GONE);
+        }
         holder.tv_work_hour.setText(model.work_hours);
     }
 
@@ -50,6 +56,7 @@ public class EmployeeAttendanceDetailAdapter extends RecyclerView.Adapter<Employ
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         private TextView tv_emp_id, tv_work_type, tv_work_loc, tv_start_date, tv_end_date, tv_start_loc, tv_end_loc, tv_work_hour;
+        private LinearLayout end_loc_layout;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             tv_emp_id = itemView.findViewById(R.id.tv_emp_id);
@@ -60,6 +67,7 @@ public class EmployeeAttendanceDetailAdapter extends RecyclerView.Adapter<Employ
             tv_start_loc = itemView.findViewById(R.id.tv_start_loc);
             tv_end_loc = itemView.findViewById(R.id.tv_end_loc);
             tv_work_hour = itemView.findViewById(R.id.tv_work_hour);
+            end_loc_layout = itemView.findViewById(R.id.end_loc_layout);
         }
     }
 }

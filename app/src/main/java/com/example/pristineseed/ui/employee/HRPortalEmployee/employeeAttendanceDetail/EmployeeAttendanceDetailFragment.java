@@ -94,7 +94,7 @@ public class EmployeeAttendanceDetailFragment extends Fragment {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
-//                    new CustomDatePicker(getActivity()).showDatePickerDialog(et_start_date);
+                    et_end_date.setText("");
                     new MaterialDatePicker(getActivity()).disableDateAfterToday(et_start_date);
                 }
                 return true;

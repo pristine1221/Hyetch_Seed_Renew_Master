@@ -6,13 +6,17 @@ import android.widget.DatePicker;
 import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
+import com.valdesekamdem.library.mdtoast.MDToast;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
+
+import org.json.JSONObject;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Year;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -103,8 +107,6 @@ public class MaterialDatePicker {
                     }
                 };
                 datePickerDialog.setOnDateSetListener(onDateSetListener);
-
-//           datePickerDialog = DatePickerDialog.newInstance(onDateSetListener, year, month, day);
                 datePickerDialog.show(activity.getFragmentManager(), "DatePickerDialog");
                 datePickerDialog.setCancelable(true);
 
@@ -145,8 +147,6 @@ public class MaterialDatePicker {
                 }
 
                 datePickerDialog.setOnDateSetListener(onDateSetListener);
-
-//           datePickerDialog = DatePickerDialog.newInstance(onDateSetListener, year, month, day);
                 datePickerDialog.show(activity.getFragmentManager(), "DatePickerDialog");
                 datePickerDialog.setCancelable(true);
             }
@@ -181,6 +181,7 @@ public class MaterialDatePicker {
                         f_day = "0" + dayOfMonth;
                     }
                     String date = "" + f_day + "-" + f_month + "-" + year;
+
                     startDateEditText.setText(date);
                     startDateEditText.setSelection(startDateEditText.getText().length());
 //                    startDateEditText.setText(  monthOfYear+1  +"-" +dayOfMonth+"-" + year);
@@ -254,12 +255,6 @@ public class MaterialDatePicker {
         }
     }
 
-    public static long daysBetween(Calendar startDate, Calendar endDate) {
-        long end = endDate.getTimeInMillis();
-        long start = startDate.getTimeInMillis();
-        long get_date = TimeUnit.MILLISECONDS.toDays(Math.abs(end - start));
-        return get_date;
-    }
 
     //todo after selected date after and before disable all dates....
     public void disableAllDatesUnableOneMonthDates(TextInputEditText startDateEditText, TextInputEditText endDateEditText, String from_date) {
@@ -299,16 +294,32 @@ public class MaterialDatePicker {
                     if (dayOfMonth < 10) {
                         f_day = "0" + dayOfMonth;
                     }
-                    String date = "" +  f_day + "-" + f_month + "-" + year;
-                    endDateEditText.setText(date);
-//                    startDateEditText.setText(  monthOfYear+1  +"-" +dayOfMonth+"-" + year);
+                    String date = "" + f_day + "-" + f_month + "-" + year;
+
+                    //todo comparing selected date with current date and throwing error...
+                    SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+                    Date dateSource = null;
+                    Calendar cal = Calendar.getInstance();
+                    Date sysDate = cal.getTime(); //todo getting current date;
+                    try {
+                        dateSource = sdf.parse(date);
+                        if (dateSource.compareTo(sysDate) > 0) {
+                            MDToast.makeText(activity, "Can Not Select Future Date !", Toast.LENGTH_SHORT, MDToast.TYPE_ERROR).show();
+                            endDateEditText.setText("");
+                        }else if (dateSource.compareTo(sysDate) < 0) {
+                            endDateEditText.setText(date);
+                        }
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
+
                 }
             };
 
 
+            //todo disable all dates before today date...
             try {
                 if (!from_date.equals("")) {
-                    Log.e("date1", from_date);
 
                     int d = 0, m = 0, y = 0;
                     String[] split = from_date.split("-");
@@ -324,13 +335,11 @@ public class MaterialDatePicker {
                 }
             } catch (Exception e) {
                 e.printStackTrace();
-                Log.e("date1", from_date);
             }
 
-            //todo disable all dates after today date....
+            //todo disable all dates after one month...
             try {
                 if (!from_date.equals("")) {
-                    Log.e("date1", from_date);
 
                     int d = 0, m = 0, y = 0;
                     String[] split = from_date.split("-");
@@ -339,14 +348,13 @@ public class MaterialDatePicker {
                     y = Integer.valueOf(split[2]);
 
                     c.set(Calendar.YEAR, y);
-                    c.set(Calendar.MONTH, m +1);
-                    c.set(Calendar.DAY_OF_MONTH, d-1);
+                    c.set(Calendar.MONTH, m + 1);
+                    c.set(Calendar.DAY_OF_MONTH, d - 1);
 
                     datePickerDialog.setMaxDate(c);
                 }
             } catch (Exception e) {
                 e.printStackTrace();
-                Log.e("date1", from_date);
             }
 
             //todo these lines show date calender...
