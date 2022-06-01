@@ -424,13 +424,13 @@ public class Vegitative_Inspection_Fragment extends Fragment {
         ac_pest.setDropDownHeight(0);
         ac_vigore_.setEnabled(false);
         ac_vigore_.setDropDownHeight(0);
+        ac_vigore_.setFocusable(false);
         ac_crop_stage.setEnabled(false);
         ed_date_of_insp.setEnabled(false);
         ed_recommended_date.setFocusable(false);
         ed_isolation_time.setFocusable(false);
         ac_crop_codn.setFocusable(false);
         ac_pest.setFocusable(false);
-        ac_vigore_.setFocusable(false);
         ac_crop_stage.setFocusable(false);
         ac_crop_stage.setFocusable(false);
         ed_date_of_insp.setFocusable(false);

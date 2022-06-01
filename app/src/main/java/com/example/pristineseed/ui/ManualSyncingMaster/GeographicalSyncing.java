@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
@@ -124,7 +125,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class GeographicalSyncing extends Fragment {
+public class GeographicalSyncing extends Fragment implements View.OnClickListener {
     private LinearLayout sync_data_btn;
     private SessionManagement sessionManagement;
     private ImageView sync_img_;
@@ -158,6 +159,15 @@ public class GeographicalSyncing extends Fragment {
     }
 
     CountModel countmodel_gl = new CountModel();
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.sync_data_btn:
+//                  getServerData();
+                break;
+        }
+    }
 
     private class BG_async extends AsyncTask<Void, Void, Void> {
 
@@ -369,15 +379,19 @@ public class GeographicalSyncing extends Fragment {
             getActivity().getSupportFragmentManager().popBackStack();
         });
 
-        getAllRowCountFirstIfBackgraundSyncDone();
+        sync_data_btn.setOnClickListener(this);
 
+//        if (NetworkUtil.getConnectivityStatusBoolean(getActivity())) {
+            getAllRowCountFirstIfBackgraundSyncDone();
 
-        sync_data_btn.setOnClickListener(v -> {
-            if (!clickedButton) {
-                try {
-                    loadingDialog.showLoadingDialog(getActivity());
-                    clickedButton = true;
-                    getServerData();
+            sync_data_btn.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    if (!clickedButton) {
+                        try {
+                            loadingDialog.showLoadingDialog(getActivity());
+                            clickedButton = true;
+                            getServerData();
               /*  if (!BottomMainActivity.backgraund_syncing_is_running) {
                     sync_data_btn.setEnabled(true);
 
@@ -409,14 +423,18 @@ public class GeographicalSyncing extends Fragment {
                     StaticMethods.showMDToastOnTop(getActivity(),"Backgraund syncing is running!", MDToast.TYPE_INFO);
                 }*/
 
-                } catch (Exception e) {
-                    e.printStackTrace();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    } else {
+                        MDToast.makeText(getActivity(), "Please Wait Until Data Sync!", Toast.LENGTH_SHORT, MDToast.TYPE_ERROR).show();
+                    }
+                    return true;
                 }
-            } else {
-                MDToast.makeText(getActivity(), "Please Wait Until Data Sync!", Toast.LENGTH_SHORT, MDToast.TYPE_ERROR).show();
-            }
-        });
-
+            });
+      /*  }else {
+            return;
+        }*/
 
     }
 

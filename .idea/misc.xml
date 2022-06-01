@@ -12,6 +12,7 @@
         <entry key="..\:/Chanchal_Bhasker/Hytech_Android_(11-Apr_2022)/app/src/main/res/layout/add_lot_wise_seedling_inspection_field_popup.xml" value="0.25" />
         <entry key="..\:/Chanchal_Bhasker/Hytech_Android_(11-Apr_2022)/app/src/main/res/layout/add_marketing_indent_line_layout_pop_up.xml" value="0.25" />
         <entry key="..\:/Chanchal_Bhasker/Hytech_Android_(11-Apr_2022)/app/src/main/res/layout/add_order_booking_header_pop_layout.xml" value="0.25" />
+        <entry key="..\:/Chanchal_Bhasker/Hytech_Android_(11-Apr_2022)/app/src/main/res/layout/add_planting_header_detail_layout.xml" value="0.25" />
         <entry key="..\:/Chanchal_Bhasker/Hytech_Android_(11-Apr_2022)/app/src/main/res/layout/add_plough_down_popup.xml" value="0.2015625" />
         <entry key="..\:/Chanchal_Bhasker/Hytech_Android_(11-Apr_2022)/app/src/main/res/layout/add_product_on_ground_popup.xml" value="0.25" />
         <entry key="..\:/Chanchal_Bhasker/Hytech_Android_(11-Apr_2022)/app/src/main/res/layout/android_item_view.xml" value="0.2015625" />
@@ -25,10 +26,11 @@
         <entry key="..\:/Chanchal_Bhasker/Hytech_Android_(11-Apr_2022)/app/src/main/res/layout/fragment_germination_inspection.xml" value="0.22" />
         <entry key="..\:/Chanchal_Bhasker/Hytech_Android_(11-Apr_2022)/app/src/main/res/layout/fragment_leave_application.xml" value="0.2015625" />
         <entry key="..\:/Chanchal_Bhasker/Hytech_Android_(11-Apr_2022)/app/src/main/res/layout/fragment_nicking_inspection.xml" value="0.25" />
+        <entry key="..\:/Chanchal_Bhasker/Hytech_Android_(11-Apr_2022)/app/src/main/res/layout/fragment_profile.xml" value="0.2015625" />
         <entry key="..\:/Chanchal_Bhasker/Hytech_Android_(11-Apr_2022)/app/src/main/res/layout/fragment_vegetative_inspection.xml" value="0.22" />
         <entry key="..\:/Chanchal_Bhasker/Hytech_Android_(11-Apr_2022)/app/src/main/res/layout/fragment_view_mkt_indent_header_lines.xml" value="0.25" />
         <entry key="..\:/Chanchal_Bhasker/Hytech_Android_(11-Apr_2022)/app/src/main/res/layout/fragment_zone_or_distributorwise_mkt_indent_details.xml" value="0.25" />
-        <entry key="..\:/Chanchal_Bhasker/Hytech_Android_(11-Apr_2022)/app/src/main/res/layout/geo_setup_fragment.xml" value="0.2015625" />
+        <entry key="..\:/Chanchal_Bhasker/Hytech_Android_(11-Apr_2022)/app/src/main/res/layout/geo_setup_fragment.xml" value="0.25" />
         <entry key="..\:/Chanchal_Bhasker/Hytech_Android_(11-Apr_2022)/app/src/main/res/layout/getting_order_approval_list_layout.xml" value="0.25" />
         <entry key="..\:/Chanchal_Bhasker/Hytech_Android_(11-Apr_2022)/app/src/main/res/layout/lots_due_inspection_list.xml" value="0.2015625" />
         <entry key="..\:/Chanchal_Bhasker/Hytech_Android_(11-Apr_2022)/app/src/main/res/layout/marketing_indent_child_layout.xml" value="0.2015625" />
@@ -36,6 +38,7 @@
         <entry key="..\:/Chanchal_Bhasker/Hytech_Android_(11-Apr_2022)/app/src/main/res/layout/marketing_indent_header_layout.xml" value="0.2015625" />
         <entry key="..\:/Chanchal_Bhasker/Hytech_Android_(11-Apr_2022)/app/src/main/res/layout/marketing_indent_lines_details_adapter_layout.xml" value="0.25" />
         <entry key="..\:/Chanchal_Bhasker/Hytech_Android_(11-Apr_2022)/app/src/main/res/layout/order_booking_fragment_layout.xml" value="0.2015625" />
+        <entry key="..\:/Chanchal_Bhasker/Hytech_Android_(11-Apr_2022)/app/src/main/res/layout/planting_detail_fragment.xml" value="0.15925925925925927" />
         <entry key="..\:/Chanchal_Bhasker/Hytech_Android_(11-Apr_2022)/app/src/main/res/layout/post__flowering_inspection_fragment.xml" value="0.25" />
         <entry key="..\:/Chanchal_Bhasker/Hytech_Android_(11-Apr_2022)/app/src/main/res/layout/schedualer_inspection_fragment.xml" value="0.2015625" />
         <entry key="..\:/Chanchal_Bhasker/Hytech_Android_(11-Apr_2022)/app/src/main/res/layout/view_mkt_indent_header_lines.xml" value="0.25" />

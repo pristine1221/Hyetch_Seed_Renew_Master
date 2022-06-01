@@ -253,15 +253,15 @@ public class HarvestingInspectionFragment extends Fragment {
         //todo new changes auto select recommended date by recommneded days.
         ed_remmmdn_date.setText(getFemaleSowingDate());
 
-        ItemAdapter germination_arrayAdapater = new ItemAdapter(getActivity(), R.layout.item_view, Arrays.asList(CommonData.desease));
+        ItemAdapter germination_arrayAdapater = new ItemAdapter(getActivity(), R.layout.android_item_view, Arrays.asList(CommonData.desease));
         ac_pest.setAdapter(germination_arrayAdapater);
-        ItemAdapter ac_crop_adapter = new ItemAdapter(getActivity(), R.layout.item_view, Arrays.asList(CommonData.desease));
+        ItemAdapter ac_crop_adapter = new ItemAdapter(getActivity(), R.layout.android_item_view, Arrays.asList(CommonData.desease));
         ac_desease.setAdapter(ac_crop_adapter);
         ac_crop_state.setText("Harvesting");
-        ItemAdapter ac_crop_cond_adapter = new ItemAdapter(getActivity(), R.layout.item_view, Arrays.asList(CommonData.crop_condition));
+        ItemAdapter ac_crop_cond_adapter = new ItemAdapter(getActivity(), R.layout.android_item_view, Arrays.asList(CommonData.crop_condition));
         ac_crop_cond.setAdapter(ac_crop_cond_adapter);
 
-        ItemAdapter ac_over_all_agronomy_adapter = new ItemAdapter(getActivity(), R.layout.item_view, Arrays.asList(CommonData.over_all_agronomy));
+        ItemAdapter ac_over_all_agronomy_adapter = new ItemAdapter(getActivity(), R.layout.android_item_view, Arrays.asList(CommonData.over_all_agronomy));
         ac_over_all_agronomy.setAdapter(ac_over_all_agronomy_adapter);
 
         save_record_btn.setOnClickListener(v -> {
@@ -394,7 +394,6 @@ public class HarvestingInspectionFragment extends Fragment {
     private void disableAllInputField() {
         ac_crop_cond.setEnabled(false);
         ac_crop_cond.setDropDownHeight(0);
-        ac_crop_cond.setFocusableInTouchMode(false);
         ac_crop_cond.setFocusable(false);
         ac_crop_state.setEnabled(false);
         ac_crop_state.setFocusable(false);
