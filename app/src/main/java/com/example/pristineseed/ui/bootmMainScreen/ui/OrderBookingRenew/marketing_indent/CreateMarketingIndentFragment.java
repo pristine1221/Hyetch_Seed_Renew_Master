@@ -1240,7 +1240,7 @@ public class CreateMarketingIndentFragment extends Fragment implements RoleMaste
                     marketingIndentLine.variety_package_size = marketingIndentModel.marketing_indent_line.get(i).variety_package_size;
                     marketingIndentLine.variety_class_of_seeds = marketingIndentModel.marketing_indent_line.get(i).variety_class_of_seeds;
                     marketingIndentLine.variety_product_group_code = marketingIndentModel.marketing_indent_line.get(i).variety_product_group_code;
-                    marketingIndentLine.no_of_bags = marketingIndentModel.marketing_indent_line.get(i).no_of_bags;
+                    marketingIndentLine.no_of_bags = 1;// todo marketingIndentModel.marketing_indent_line.get(i).no_of_bags
                     marketingIndentLine.booking_indent_no = marketingIndentModel.marketing_indent_line.get(i).booking_indent_no;
                     marketingIndentLine.nav_booking_indent_no = marketingIndentModel.marketing_indent_line.get(i).nav_booking_indent_no;
                     marketingIndentLine.indent_qty = marketingIndentModel.marketing_indent_line.get(i).indent_qty;
@@ -1715,7 +1715,7 @@ public class CreateMarketingIndentFragment extends Fragment implements RoleMaste
         marketingIndentLine.variety_package_size = !ed_varity_pack_size.getText().toString().trim().equalsIgnoreCase("") ? ed_varity_pack_size.getText().toString().trim() : "0";
         marketingIndentLine.variety_class_of_seeds = ed_class_of_seed.getText().toString().trim();
         marketingIndentLine.variety_product_group_code = ""; //todo  ed_varity_product_group_code.getText().toString().trim(), field removed 14-04
-        marketingIndentLine.no_of_bags = "0"; //todo ed_no_of_bags.getText().toString().trim() ,, remove filed 14-04-22
+        marketingIndentLine.no_of_bags = 1; //todo ed_no_of_bags.getText().toString().trim() ,, remove filed 14-04-22
         marketingIndentLine.booking_indent_no = order_booking_indent_no;
         marketingIndentLine.indent_qty = ed_indent_qty.getText().toString().trim();
         marketingIndentLine.booking_qty = ed_booking_qty.getText().toString().trim();
@@ -1784,7 +1784,7 @@ public class CreateMarketingIndentFragment extends Fragment implements RoleMaste
         marketingIndentLine.variety_package_size = ed_varity_pack_size.getText().toString().trim();
         marketingIndentLine.variety_class_of_seeds = ed_class_of_seed.getText().toString().trim();
         marketingIndentLine.variety_product_group_code = ""; //todo ed_varity_product_group_code.getText().toString().trim() ..field removed 14-04
-        marketingIndentLine.no_of_bags = "0"; //todo ed_no_of_bags.getText().toString().trim() filed removed 14-04-22
+        marketingIndentLine.no_of_bags = 1; //todo ed_no_of_bags.getText().toString().trim() filed removed 14-04-22
         marketingIndentLine.booking_indent_no = order_booking_indent_no;
         marketingIndentLine.indent_qty = ed_indent_qty.getText().toString().trim();
         marketingIndentLine.unit_price = "0"; //todo ed_unit_price.getText().toString().trim().equals("") ? "0" : ed_unit_price.getText().toString().trim(), removed 14-04

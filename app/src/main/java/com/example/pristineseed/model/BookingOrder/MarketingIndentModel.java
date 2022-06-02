@@ -78,7 +78,7 @@ public class MarketingIndentModel {
         public String variety_package_size;
         public String variety_class_of_seeds;
         public String variety_product_group_code;
-        public String no_of_bags;
+        public int no_of_bags;
         public String VarietyGroup;
         public String booking_rate;
         public String booking_indent_no;
