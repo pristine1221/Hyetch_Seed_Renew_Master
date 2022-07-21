@@ -826,7 +826,7 @@
                                 android:layout_marginLeft="@dimen/_4sdp"
                                 app:boxCornerRadiusBottomEnd="15dp"
                                 app:boxCornerRadiusTopStart="15dp"
-                                android:hint="Pest">
+                                android:hint="Pest Infestation Level ">
 
                                 <AutoCompleteTextView
                                     android:id="@+id/ac_pest"
@@ -899,7 +899,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/_4sdp"
                                 android:layout_weight="1"
-                                android:hint="Diseases"
+                                android:hint="Disease infestation level"
                                 android:orientation="vertical"
                                 app:boxCornerRadiusBottomEnd="15dp"
                                 app:boxCornerRadiusTopStart="15dp">
@@ -1035,7 +1035,7 @@
                                 app:boxCornerRadiusTopStart="15dp">
 
                                 <AutoCompleteTextView
-                                    android:id="@+id/ac_pld"
+                                    android:id="@+id/ac_pld_reason"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:editable="false"

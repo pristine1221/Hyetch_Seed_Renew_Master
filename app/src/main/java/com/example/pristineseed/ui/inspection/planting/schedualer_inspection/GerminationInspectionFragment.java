@@ -85,7 +85,7 @@ GerminationInspectionFragment extends Fragment {
     private AutoCompleteTextView ac_germination_per, ac_crop_cond, ed_recmd_ds_fertz;
     private TextInputEditText recmd_ds_ftz_bgs, ed_basal_dos_bags, ed_remark_ftz,
             ed_receipt_male, ed_receipt_female, ed_receipt_other, ed_basal_dos, ed_date_of_insp, ed_seed_setting,
-            seed_setting_per, ac_crop_stage, ed_recommded_date,ac_sowing_acres;
+            seed_setting_per, ac_crop_stage, ed_recommded_date,ac_sowing_acres,ed_standing_acres;
 
     private Button bt_cmplt, bt_save_rcrd, btn_update_record;
     private String scheduler_no = "", production_lot_no = "";
@@ -163,6 +163,7 @@ GerminationInspectionFragment extends Fragment {
 
         ac_germination_per = view.findViewById(R.id.dropdown_germination_per);
         ed_basal_dos = view.findViewById(R.id.basal_dos);
+        ed_standing_acres = view.findViewById(R.id.ed_standing_acres);
         // btn_update_record = view.findViewById(R.id.update_record);
         ed_date_of_insp = view.findViewById(R.id.date_of_insp);
         ed_recmd_ds_fertz = view.findViewById(R.id.recmd_ds_fertz);
@@ -380,6 +381,7 @@ GerminationInspectionFragment extends Fragment {
         ac_germination_per.setFocusableInTouchMode(false);
         ac_germination_per.setDropDownHeight(0);
         ed_acutal_date.setEnabled(false);
+        ed_standing_acres.setEnabled(false);
         ac_germination_per.setFocusable(false);
         disableImageBtn();
         ed_date_of_insp.setOnTouchListener(null);
@@ -416,6 +418,7 @@ GerminationInspectionFragment extends Fragment {
                     e.printStackTrace();
                 }
                 ac_crop_stage.setText(germination_inspection_table.get(0).getCrop_stage());
+                ed_standing_acres.setText(germination_inspection_table.get(0).getStandingAcres());
                 //ac_sowing_acres.setText(germination_inspection_table.get(0).);
                 ac_crop_cond.setText(germination_inspection_table.get(0).getCrop_condition());
                 if(germination_inspection_table.get(0).getAttachment()!=null){
@@ -452,6 +455,7 @@ GerminationInspectionFragment extends Fragment {
             germination_inspectionLineModel.other_reciept_no = "0";
             germination_inspectionLineModel.recommended_date = DateTimeUtilsCustome.splitDateInYYYMMDD(ed_recommded_date.getText().toString().trim());
             germination_inspectionLineModel.actual_date = DateTimeUtilsCustome.splitDateInYYYMMDD(ed_acutal_date.getText().toString().trim());
+            germination_inspectionLineModel.standing_acres = ed_standing_acres.getText().toString().trim();
 
             if (selected_file_path != null && !selected_file_path.equalsIgnoreCase("")) {
                 String base_64_image = StaticMethods.convertBase64(selected_file_path);
@@ -725,7 +729,6 @@ GerminationInspectionFragment extends Fragment {
         }
         return "";
     }
-
 
     private void HitShowImageApi(String getImageId) {
         NetworkInterface mAPIService = ApiUtils.getPristineAPIService();

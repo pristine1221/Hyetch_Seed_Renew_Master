@@ -87,9 +87,9 @@ public class MaturityInspectionFragment extends Fragment {
 
     private TextInputEditText ed_date_of_inspection, ed_yield_est, ed_pest_remark, ed_desease_remark, ed_remmmdn_date, ac_crop_state,
             ed_actual_date,
-            ed_seed_stng_per, ed_receipt_male, ed_receipt_female, ed_receipt_other;
+            ed_seed_stng_per, ed_receipt_male, ed_receipt_female, ed_receipt_other,standing_acres,pld_acres,net_acres;
 
-    private AutoCompleteTextView ac_crop_cond, ac_pest, ac_desease, ed_abiotic_streess, ed_seed_setting;
+    private AutoCompleteTextView ac_crop_cond, ac_pest, ac_desease, ed_abiotic_streess, ed_seed_setting,ac_pld_reason;
 
     private TextView tv_date, tv_season, tv_season_name, tv_prod_cent_name, tv_prod_center,
             tv_farmer_name, village_address, tv_prod_lot_no, tv_crop_code, tv_varity_code, tv_sd_male, tv_sd_female, tv_org_name,
@@ -187,6 +187,9 @@ public class MaturityInspectionFragment extends Fragment {
         ed_receipt_female = view.findViewById(R.id.receipt_no_female);
         ed_receipt_other = view.findViewById(R.id.receipt_no_other);
         image_layout = view.findViewById(R.id.image_layout);
+        standing_acres = view.findViewById(R.id.standing_acres);
+        pld_acres = view.findViewById(R.id.pld_acres);
+        net_acres = view.findViewById(R.id.net_acres);
 
         //input field initlize .....
 
@@ -195,6 +198,7 @@ public class MaturityInspectionFragment extends Fragment {
         ac_crop_state = view.findViewById(R.id.crop_stage);
         ac_pest = view.findViewById(R.id.ac_pest);
         ac_desease = view.findViewById(R.id.ac_desease);
+        ac_pld_reason=view.findViewById(R.id.ac_pld_reason);
         ed_yield_est = view.findViewById(R.id.yeld_estimate);
         ed_abiotic_streess = view.findViewById(R.id.abitoic_stress);
         ed_pest_remark = view.findViewById(R.id.ed_remarks);

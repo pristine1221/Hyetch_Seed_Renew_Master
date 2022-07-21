@@ -263,6 +263,17 @@ public class GerminationInspection1_Table {
     @ColumnInfo(name = "actual_date")
     private String actual_date;
 
+    public String getStandingAcres() {
+        return standing_acres;
+    }
+
+    public void setStanding_acres(String standing_acres) {
+        this.standing_acres = standing_acres;
+    }
+
+    @ColumnInfo(name = "standing_acres")
+    private String standing_acres;
+
 
     public static GerminationInspection1_Table insertGerminationInspection(Germination_InspectionLineModel germination_inspectionLineModel) {
         GerminationInspection1_Table germinationInspection1_table = new GerminationInspection1_Table();
@@ -289,6 +300,7 @@ public class GerminationInspection1_Table {
         germinationInspection1_table.other_reciept_no = germination_inspectionLineModel.other_reciept_no;
         germinationInspection1_table.recommended_date  =germination_inspectionLineModel.recommended_date;
         germinationInspection1_table.actual_date=germination_inspectionLineModel.actual_date;
+        germinationInspection1_table.standing_acres=germination_inspectionLineModel.standing_acres;
 
         return germinationInspection1_table;
     }
