@@ -71,7 +71,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Header Detail"
+                        android:text="Header Details"
                         android:textColor="@color/black"
                         android:paddingLeft="@dimen/_5sdp"
                         android:fontFamily="@font/product_sans_bold">
@@ -511,7 +511,7 @@
                             android:layout_width="wrap_content"
                             android:fontFamily="@font/product_sans_bold"
                             android:textColor="@color/black"
-                            android:text="Nicking Field"
+                            android:text="Nicking Fields"
                             android:paddingLeft="@dimen/_8sdp"
                             android:textSize="@dimen/_12sdp"
                             android:layout_height="wrap_content">

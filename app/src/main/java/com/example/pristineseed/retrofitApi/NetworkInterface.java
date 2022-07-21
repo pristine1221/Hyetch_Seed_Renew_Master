@@ -39,6 +39,7 @@ import com.example.pristineseed.model.LeaveApplicationModel.LevaeTypeModel;
 import com.example.pristineseed.model.POG.POGModel;
 import com.example.pristineseed.model.PlantingModel.PlantingFsio_bsio_model;
 import com.example.pristineseed.model.PlantingModel.PlantingHeaderModel;
+import com.example.pristineseed.model.PlantingModel.PlantingLineDocNoDetails;
 import com.example.pristineseed.model.PlantingModel.PlantingLotModel;
 import com.example.pristineseed.model.PlantingModel.SeasonMasterModel;
 import com.example.pristineseed.model.Plough_down_List.PloghDownListModel;
@@ -175,6 +176,8 @@ public interface NetworkInterface {
     Call<List<LandSelectionDeleteModel>> postLandSelectionDelete(@Body JsonObject jsonObject);
 
     //todo inspection apies..............
+    @GET("/api/Inspection/Get_Image")
+    Call<ResponseBody> getImageInspection(@Query("id") String id);
 
     @GET("/api/Inspection/InspectionScheduler_sync")
     Call<List<SchedulerModel>> getSchedulerInspection(@Query("user_email") String user_email, @Query("user_type") String user_type);
@@ -183,7 +186,7 @@ public interface NetworkInterface {
     Call<List<GerminationInspectionHeaderModel>> getScanInspction(@Body JsonObject jsonObject);
 
     @POST("/api/Inspection/insert_germination_inspection_one")
-    Call<List<ResponseModel>> insertGermination(@Body JsonObject jsonObject);
+    Call<List<ResponseModel>>  insertGermination(@Body JsonObject jsonObject);
 
     @GET("/api/Inspection/Complete_inspection")
     Call<List<CompleteGerminationInspectionModel>> completeInspection(@Query("inspection_type") String inspection_type, @Query("production_lot_no") String production_lot_no, @Query("schedule_no") String schedule_no);
@@ -236,6 +239,10 @@ public interface NetworkInterface {
 
     @GET("/api/DistributorMaster/Season_sync")
     Call<List<SeasonMasterModel>> getSeasonMaster();
+
+    //todo get planting line details...............................................
+    @GET("/api/Inspection/planting_line_document_no_details_get")
+    Call<PlantingLineDocNoDetails> getPlantingLineDocDetails(@Query("document_no") String doc_no);
 
     @POST("/api/Inspection/insert_planting_header")
     Call<List<PlantingHeaderModel>> insertPlantingHeader(@Body JsonObject jsonObject);

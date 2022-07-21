@@ -460,8 +460,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/remarks_layout"
-                        android:layout_marginBottom="@dimen/_5sdp"
-                        android:layout_marginRight="5dp">
+                        android:layout_marginRight="5dp"
+                        android:layout_marginBottom="@dimen/_5sdp">
 
                         <com.google.android.material.chip.Chip
                             android:id="@+id/chip_create_planting_header"
@@ -742,7 +742,7 @@
                         android:fontFamily="@font/product_sans_bold"
                         android:maxLines="1"
                         android:padding="6dp"
-                        android:text="Dispatch Line Detail : "
+                        android:text="Dispatch Line Details : "
                         android:textColor="@color/black"
                         android:textSize="15sp" />
 

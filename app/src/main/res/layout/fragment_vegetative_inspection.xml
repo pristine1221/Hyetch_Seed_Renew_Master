@@ -329,7 +329,7 @@ android:descendantFocusability="beforeDescendants"-->
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:fontFamily="@font/product_sans_bold"
-                                android:text="Varity Code : "
+                                android:text="Variety Code : "
                                 android:textColor="@color/profileEditTextColor"
                                 android:textSize="13sp" />
 
@@ -553,7 +553,7 @@ android:descendantFocusability="beforeDescendants"-->
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:padding="5dp"
-                                    android:text="Vegitative Fields">
+                                    android:text="Vegetative Fields">
 
                                 </TextView>
 
@@ -668,7 +668,7 @@ android:descendantFocusability="beforeDescendants"-->
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:hint="Pest"
+                                android:hint="Pest Infestation Level"
                                 app:boxCornerRadiusBottomEnd="15dp"
                                 app:boxCornerRadiusTopStart="15dp">
 
@@ -688,7 +688,7 @@ android:descendantFocusability="beforeDescendants"-->
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:hint="Diseases"
+                                android:hint="Disease infestation level"
                                 android:layout_marginLeft="@dimen/_5sdp"
                                 app:boxCornerRadiusBottomEnd="15dp"
                                 app:boxCornerRadiusTopStart="15dp">
@@ -706,6 +706,138 @@ android:descendantFocusability="beforeDescendants"-->
 
                         </TableRow>
 
+                        <TableRow android:layout_marginTop="4dp">
+
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:visibility="visible"
+                                android:hint="Standing Acres"
+                                app:boxCornerRadiusBottomEnd="15dp"
+                                app:boxCornerRadiusTopStart="15dp">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/standing_acres"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:editable="false"
+                                    android:enabled="false"
+                                    android:maxLines="1" />
+
+                            </com.google.android.material.textfield.TextInputLayout>
+
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:layout_marginLeft="5dp"
+                                android:hint="PLD Acres"
+                                app:boxCornerRadiusBottomEnd="15dp"
+                                app:boxCornerRadiusTopStart="15dp">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/pld_acres"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:maxLines="1" />
+
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                        </TableRow>
+                        <TableRow android:layout_marginTop="4dp">
+
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:visibility="gone"
+                                android:hint="Date of inspection"
+                                app:boxCornerRadiusBottomEnd="15dp"
+                                app:boxCornerRadiusTopStart="15dp">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:editable="false"
+                                    android:maxLines="1" />
+
+                            </com.google.android.material.textfield.TextInputLayout>
+
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:hint="Net Acres"
+                                app:boxCornerRadiusBottomEnd="15dp"
+                                app:boxCornerRadiusTopStart="15dp">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/net_acres"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:editable="false"
+                                    android:enabled="false"
+                                    android:maxLines="1" />
+
+                            </com.google.android.material.textfield.TextInputLayout>
+
+
+                        </TableRow>
+
+                        <TableRow android:layout_marginTop="4dp">
+
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:visibility="gone"
+                                android:hint="Date of inspection"
+                                app:boxCornerRadiusBottomEnd="15dp"
+                                app:boxCornerRadiusTopStart="15dp">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/date_of_inspection"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:editable="false"
+                                    android:maxLines="1" />
+
+                            </com.google.android.material.textfield.TextInputLayout>
+
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:hint="PLD Reasons"
+                                app:boxCornerRadiusBottomEnd="15dp"
+                                app:boxCornerRadiusTopStart="15dp">
+
+                                <AutoCompleteTextView
+                                    android:id="@+id/ac_pld"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:editable="false"
+                                    android:inputType="none"
+                                    android:maxLines="1"
+                                    android:textColor="@color/black" />
+
+                            </com.google.android.material.textfield.TextInputLayout>
+
+
+                        </TableRow>
 
                         <TableRow
                             android:layout_marginTop="4dp">
@@ -1160,7 +1292,7 @@ android:descendantFocusability="beforeDescendants"-->
 
 
                             <LinearLayout
-                                android:id="@+id/image_layout"
+                                android:id="@+id/image_layout_vegi"
                                 android:layout_width="0dp"
                                 android:layout_weight="1"
                                 android:orientation="vertical"
@@ -1181,7 +1313,7 @@ android:descendantFocusability="beforeDescendants"-->
                                     android:layout_height="wrap_content">
 
                                     <ImageView
-                                        android:id="@+id/image_view"
+                                        android:id="@+id/vegi_image_view"
                                         android:layout_width="match_parent"
                                         android:scaleType="fitXY"
                                         android:visibility="gone"

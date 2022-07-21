@@ -28,6 +28,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.bumptech.glide.Glide;
 import com.example.pristineseed.DataBaseRepository.GeographicalRepo.PlantingLineLotListDao;
 import com.example.pristineseed.DataBaseRepository.GeographicalRepo.PlantingLineLotListTable;
 import com.example.pristineseed.DataBaseRepository.Scheduler.ScheduleInspectionLineDao;
@@ -72,6 +73,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -89,7 +91,7 @@ public class Seedling_InspectionFragment extends Fragment {
     private TextInputLayout tv_iso_dis_show, tv_iso_time_show, tv_iso_grain_show;
 
     private Button bt_complete, btn_save_record;
-    private AutoCompleteTextView ac_vigore_, ac_crop_codn, ac_desease, ac_pest, ed_isolation;
+    private AutoCompleteTextView ac_vigore_, ac_crop_codn, ac_desease, ac_pest, ac_pld,ed_isolation;
     private TextInputEditText ed_recommended_date, ed_actual_date, ed_isolation_time, ed_iso_distance,
             ed_Remarks, ed_deasease_remark, ed_date_of_insp, ed_seed_setting, ed_grain_remark,
             seed_setting_per, ed_receipt_male, ed_receipt_female, ed_receipt_other,ac_crop_stage;
@@ -163,6 +165,7 @@ public class Seedling_InspectionFragment extends Fragment {
         });
 
         ac_pest = view.findViewById(R.id.ac_pest);
+        ac_pld = view.findViewById(R.id.ac_pld);
         ed_recommended_date = view.findViewById(R.id.ed_recommended_date);
         ed_actual_date = view.findViewById(R.id.ed_actual_date);
         ed_isolation = view.findViewById(R.id.ed_isolation);
@@ -194,7 +197,9 @@ public class Seedling_InspectionFragment extends Fragment {
 
         List<String> crop_condn = Arrays.asList(CommonData.crop_condition);
         List<String> isoList = Arrays.asList(CommonData.isolation_);
+        List<String> pest = Arrays.asList(CommonData.pest);
         List<String> deasease = Arrays.asList(CommonData.desease);
+        List<String> pld = Arrays.asList(CommonData.pld);
         List<String> vigore = Arrays.asList(CommonData.vigor);
 
         ItemAdapter cropAdapter = new ItemAdapter(getActivity(), R.layout.android_item_view, crop_condn);
@@ -204,8 +209,10 @@ public class Seedling_InspectionFragment extends Fragment {
         ItemAdapter vigore_adapter = new ItemAdapter(getActivity(), R.layout.android_item_view, vigore);
         ac_vigore_.setAdapter(vigore_adapter);
         ac_crop_stage.setText("Seedling");
-        ItemAdapter pest_adapter = new ItemAdapter(getActivity(), R.layout.android_item_view, deasease);
+        ItemAdapter pest_adapter = new ItemAdapter(getActivity(), R.layout.android_item_view, pest);
         ac_pest.setAdapter(pest_adapter);
+        ItemAdapter pld_adapter = new ItemAdapter(getActivity(), R.layout.android_item_view, pld);
+        ac_pld.setAdapter(pld_adapter);
 
         //set header data....
         tv_date.setText(DateTimeUtilsCustome.getDateMMMDDYYYYSlsh1(scheduler_header_table.getDate()));
@@ -470,11 +477,17 @@ public class Seedling_InspectionFragment extends Fragment {
                 if(seedlingInspectionTable.get(0).getRecommended_date()!=null && !seedlingInspectionTable.get(0).getRecommended_date().equalsIgnoreCase("")) {
                     ed_recommended_date.setText(DateTimeUtilsCustome.splitDateInYYYMMDDslsh(seedlingInspectionTable.get(0).getRecommended_date()));
                 }
-                try {
-                    String file_attachment = seedlingInspectionTable.get(0).getAttachment();
+                if(seedlingInspectionTable.get(0).getAttachment()!=null) {
+                    try {
+                        String file_attachment = seedlingInspectionTable.get(0).getAttachment();
+                        HitShowImageApi(file_attachment);
 
-                } catch (Exception e) {
-                    e.getMessage();
+                    } catch (Exception e) {
+                        e.getMessage();
+                    }
+                }
+                else {
+                    Toast.makeText(getActivity(), "no data", Toast.LENGTH_SHORT).show();
                 }
             }
         } catch (Exception e) {
@@ -732,14 +745,14 @@ public class Seedling_InspectionFragment extends Fragment {
     }
 
 
-
+    PlantingLineLotListTable plantingLineLotListTable;
     private String getFemaleSowingDate(){
 
         if(production_lot_no!=null) {
             PristineDatabase pristineDatabase = PristineDatabase.getAppDatabase(getActivity());
             try {
                 PlantingLineLotListDao plantingLineLotListDao = pristineDatabase.plantingLineLotListDao();
-                PlantingLineLotListTable plantingLineLotListTable = plantingLineLotListDao.getFemaleSowingDate(production_lot_no);
+                plantingLineLotListTable = plantingLineLotListDao.getFemaleSowingDate(production_lot_no);
 
                 String date=plantingLineLotListTable.getSowing_Date_Female();
                 String date_sub_string=date.substring(0,10);
@@ -767,5 +780,43 @@ public class Seedling_InspectionFragment extends Fragment {
             }
         }
         return "";
+    }
+
+
+    private void HitShowImageApi(String getImageId) {
+        NetworkInterface mAPIService = ApiUtils.getPristineAPIService();
+        Call<ResponseBody> call = mAPIService.getImageInspection(getImageId);
+        LoadingDialog progressDialogLoading = new LoadingDialog();
+        progressDialogLoading.showLoadingDialog(getActivity());
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                try {
+                    if (response.isSuccessful()) {
+                        progressDialogLoading.hideDialog();
+                        image_layout.setVisibility(View.VISIBLE);
+                        setImageView.setVisibility(View.VISIBLE);
+                        Glide.with(getActivity())
+                                .load("https://hytechdev.pristinefulfil.com/api/Inspection/Get_Image?id="+getImageId) // image url
+                                .placeholder(R.drawable.noimage1) // any placeholder to load at start
+                                .into(setImageView);
+                    } else {
+                        progressDialogLoading.hideDialog();
+                        Toast.makeText(getActivity(), response.message() + ". Error Code:" + response.code(), Toast.LENGTH_SHORT).show();
+                    }
+
+                } catch (Exception e) {
+                    progressDialogLoading.hideDialog();
+                    Log.e("exception database", e.getMessage() + "cause");
+                    ApiRequestFailure.PostExceptionToServer(e, getClass().getName(), "insert_germination", getActivity());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                progressDialogLoading.hideDialog();
+                ApiRequestFailure.PostExceptionToServer(t, getClass().getName(), "insert_germination", getActivity());
+            }
+        });
     }
 }

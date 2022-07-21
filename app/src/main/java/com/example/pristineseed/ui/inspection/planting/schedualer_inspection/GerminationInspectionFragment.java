@@ -1,26 +1,19 @@
 package com.example.pristineseed.ui.inspection.planting.schedualer_inspection;
 
-import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
-import android.util.Base64;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.FrameLayout;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -28,21 +21,16 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.bumptech.glide.Glide;
 import com.example.pristineseed.DataBaseRepository.GeographicalRepo.PlantingLineLotListDao;
 import com.example.pristineseed.DataBaseRepository.GeographicalRepo.PlantingLineLotListTable;
-import com.example.pristineseed.DataBaseRepository.Planting.Planting_Lot_master_Table;
-import com.example.pristineseed.DataBaseRepository.Planting.Planting_lot_Dao;
 import com.example.pristineseed.DataBaseRepository.Scheduler.GerminationInspection1_Table;
 import com.example.pristineseed.DataBaseRepository.Scheduler.GerminationInspectionDao;
 import com.example.pristineseed.DataBaseRepository.Scheduler.ScheduleInspectionLineDao;
 import com.example.pristineseed.DataBaseRepository.Scheduler.SchedulerInspectionLineTable;
 import com.example.pristineseed.DataBaseRepository.Scheduler.Scheduler_Header_Table;
-import com.example.pristineseed.DataBaseRepository.Scheduler.Vegitative.VegitativeInspectionDao;
-import com.example.pristineseed.DataBaseRepository.Scheduler.Vegitative.VegitativeInspectionTable;
 import com.example.pristineseed.GlobalNotification.NetworkUtil;
 import com.example.pristineseed.R;
 import com.example.pristineseed.RoomDataBase.PristineDatabase;
@@ -51,7 +39,6 @@ import com.example.pristineseed.common_data.CommonData;
 import com.example.pristineseed.global.ApiRequestFailure;
 import com.example.pristineseed.global.CustomDatePicker;
 
-import com.example.pristineseed.global.CustomTimePicker;
 import com.example.pristineseed.global.DateTimeUtilsCustome;
 import com.example.pristineseed.global.FilePath;
 import com.example.pristineseed.global.LoadingDialog;
@@ -59,13 +46,11 @@ import com.example.pristineseed.global.LoadingDialog;
 import com.example.pristineseed.global.StaticMethods;
 import com.example.pristineseed.model.ResponseModel;
 import com.example.pristineseed.model.scheduler_inspection.CompleteGerminationInspectionModel;
-import com.example.pristineseed.model.scheduler_inspection.GerminationInspectionHeaderModel;
 import com.example.pristineseed.model.scheduler_inspection.Germination_InspectionLineModel;
 import com.example.pristineseed.retrofitApi.ApiUtils;
 import com.example.pristineseed.retrofitApi.NetworkInterface;
 
 import com.example.pristineseed.ui.adapter.ItemAdapter;
-import com.example.pristineseed.ui.adapter.PlantingAdapter.PlantingLotMFOAdapter;
 
 import com.google.android.material.chip.Chip;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
@@ -75,10 +60,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.valdesekamdem.library.mdtoast.MDToast;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.lang.reflect.Type;
-import java.net.URI;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -87,10 +69,10 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.http.Body;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -103,20 +85,20 @@ GerminationInspectionFragment extends Fragment {
     private AutoCompleteTextView ac_germination_per, ac_crop_cond, ed_recmd_ds_fertz;
     private TextInputEditText recmd_ds_ftz_bgs, ed_basal_dos_bags, ed_remark_ftz,
             ed_receipt_male, ed_receipt_female, ed_receipt_other, ed_basal_dos, ed_date_of_insp, ed_seed_setting,
-            seed_setting_per, ac_crop_stage, ed_recommded_date;
+            seed_setting_per, ac_crop_stage, ed_recommded_date,ac_sowing_acres;
 
     private Button bt_cmplt, bt_save_rcrd, btn_update_record;
     private String scheduler_no = "", production_lot_no = "";
     private SessionManagement sessionManagement;
     private Scheduler_Header_Table scheduler_header_table;
     private SchedulerInspectionLineTable schedulerInspectionLineTable;
-    private ImageView setImageView;
+    private ImageView germinationImageView;
     private FrameLayout close_dilog_bt;
     private Chip clear_image_btn;
     private int PICK_IMAGE_SINGLE = 1;
     private Chip add_image_btn;
     private String selected_file_path = "";
-    private LinearLayout image_layout;
+    private LinearLayout germinationImage_layout;
     private TextInputEditText ed_acutal_date;
 
     @Override
@@ -196,15 +178,15 @@ GerminationInspectionFragment extends Fragment {
         ed_item_name = view.findViewById(R.id.item_name);
         ac_crop_cond = view.findViewById(R.id.ac_crop_codn);
         ac_crop_stage = view.findViewById(R.id.ac_crop_stage);
-
+        ac_sowing_acres=view.findViewById(R.id.ac_sowing_acres);
         ed_seed_setting = view.findViewById(R.id.ed_seed_setting);
         seed_setting_per = view.findViewById(R.id.seed_setting_per);
 
         add_image_btn = view.findViewById(R.id.add_attachment);
-        setImageView = view.findViewById(R.id.image_view);
+        germinationImageView = view.findViewById(R.id.image_view);
         clear_image_btn = view.findViewById(R.id.clear_img);
         img_notify_msg = view.findViewById(R.id.img_notify_msg);
-        image_layout = view.findViewById(R.id.image_layout);
+        germinationImage_layout = view.findViewById(R.id.germinationImage_layout);
         ed_recommded_date = view.findViewById(R.id.ed_recommended_date);
         ed_acutal_date = view.findViewById(R.id.ed_acutal_date);
 
@@ -230,7 +212,8 @@ GerminationInspectionFragment extends Fragment {
             tv_item_class_of_seed.setText(schedulerInspectionLineTable.getItem_class_of_seeds());
             tv_item_prodGrp_code.setText(schedulerInspectionLineTable.getItem_product_group_code());
 
-            ed_recommded_date.setText(getFemaleSowingDate());
+            ed_recommded_date.setText(getFemaleSowingDate());//plantingLineLotListTable
+            ac_sowing_acres.setText(plantingLineLotListTable.getSowing_Area_In_Acres());
 
             PristineDatabase pristineDatabase = PristineDatabase.getAppDatabase(getActivity());
             try {
@@ -337,7 +320,8 @@ GerminationInspectionFragment extends Fragment {
             db.close();
             db.destroyInstance();
             if (germination_inspection_table != null) {
-                if (scheduler_line_header_data.getIns1_sync_with_server() > 0 || scheduler_line_header_data.getInspection_1() > 0) {
+                if (scheduler_line_header_data.getIns1_sync_with_server() > 0
+                        || scheduler_line_header_data.getInspection_1() > 0) {
                     if (scheduler_line_header_data.getInspection_1() > 0 && scheduler_line_header_data.getIns1_nav_sync() == 0 && scheduler_line_header_data.getNav_error_insp1_mesage() != null && !scheduler_line_header_data.getNav_error_insp1_mesage().equalsIgnoreCase("")) {
                         posting_error.setText("Post Error :" + scheduler_line_header_data.getNav_error_insp1_mesage());
                         posting_error.setVisibility(View.VISIBLE);
@@ -387,10 +371,12 @@ GerminationInspectionFragment extends Fragment {
         ed_receipt_other.setEnabled(false);
         ed_date_of_insp.setEnabled(false);
         ac_crop_stage.setEnabled(false);
+        ac_sowing_acres.setEnabled(false);
         ac_crop_cond.setEnabled(false);
         ac_crop_cond.setDropDownHeight(0);
         ac_crop_cond.setFocusableInTouchMode(false);
         ac_crop_stage.setFocusableInTouchMode(false);
+        ac_sowing_acres.setFocusable(false);
         ac_germination_per.setFocusableInTouchMode(false);
         ac_germination_per.setDropDownHeight(0);
         ed_acutal_date.setEnabled(false);
@@ -419,7 +405,7 @@ GerminationInspectionFragment extends Fragment {
                 recmd_ds_ftz_bgs.setText(germination_inspection_table.get(0).getRecommended_dose_of_fertilizer_in_bags());
                 ed_remark_ftz.setText(germination_inspection_table.get(0).getRemark_for_fertilizer());
                 ed_acutal_date.setText(DateTimeUtilsCustome.splitDateInYYYMMDD(germination_inspection_table.get(0).getActual_date()));
-                ed_recommded_date.setText(getFemaleSowingDate());
+                ed_recommded_date.setText(DateTimeUtilsCustome.splitDateInYYYMMDD(germination_inspection_table.get(0).getRecommended_date()));
                 try {
                     if (germination_inspection_table.get(0).getDate_of_inspection() != null && !germination_inspection_table.get(0).getDate_of_inspection().equalsIgnoreCase("")) {
                         ed_date_of_insp.setText(DateTimeUtilsCustome.splitDateInYYYMMDD(germination_inspection_table.get(0).getDate_of_inspection()));
@@ -430,10 +416,18 @@ GerminationInspectionFragment extends Fragment {
                     e.printStackTrace();
                 }
                 ac_crop_stage.setText(germination_inspection_table.get(0).getCrop_stage());
+                //ac_sowing_acres.setText(germination_inspection_table.get(0).);
                 ac_crop_cond.setText(germination_inspection_table.get(0).getCrop_condition());
+                if(germination_inspection_table.get(0).getAttachment()!=null){
+                    String getImageId=germination_inspection_table.get(0).getAttachment();
+                    HitShowImageApi(getImageId );
+                }
+                else {
+                    Toast.makeText(getActivity(), germination_inspection_table.get(0).getAttachment(), Toast.LENGTH_SHORT).show();
+                }
 
             } catch (Exception e) {
-                e.printStackTrace();
+                //throw  e;
             }
         }
     }
@@ -674,19 +668,19 @@ GerminationInspectionFragment extends Fragment {
             long fileSizeInMB = fileSizeInKB / 1024;
             if (fileSizeInMB > 2) {
                 clear_image_btn.setVisibility(View.GONE);
-                setImageView.setVisibility(View.GONE);
-                image_layout.setVisibility(View.GONE);
+                germinationImageView.setVisibility(View.GONE);
+                germinationImage_layout.setVisibility(View.GONE);
                 Toast.makeText(getActivity(), "File size must be less than 2MB.", Toast.LENGTH_SHORT).show();
             } else if (imageEncodList.size() != 2) {
                 imageEncodList.add(selected_file_path);
-                image_layout.setVisibility(View.VISIBLE);
+                germinationImage_layout.setVisibility(View.VISIBLE);
                 clear_image_btn.setVisibility(View.VISIBLE);
-                setImageView.setVisibility(View.VISIBLE);
-                setImageView.setImageBitmap(img_file);
+                germinationImageView.setVisibility(View.VISIBLE);
+                germinationImageView.setImageBitmap(img_file);
                 clear_image_btn.setOnClickListener(v -> {
-                    setImageView.setImageBitmap(null);
+                    germinationImageView.setImageBitmap(null);
                     imageEncodList.clear();
-                    image_layout.setVisibility(View.GONE);
+                    germinationImage_layout.setVisibility(View.GONE);
                     clear_image_btn.setVisibility(View.GONE);
                 });
             }
@@ -698,13 +692,14 @@ GerminationInspectionFragment extends Fragment {
         super.onResume();
 
     }
-
+    PlantingLineLotListTable plantingLineLotListTable;
     private String getFemaleSowingDate() {
         if (production_lot_no != null) {
             PristineDatabase pristineDatabase = PristineDatabase.getAppDatabase(getActivity());
             try {
                 PlantingLineLotListDao plantingLineLotListDao = pristineDatabase.plantingLineLotListDao();
-                PlantingLineLotListTable plantingLineLotListTable = plantingLineLotListDao.getFemaleSowingDate(production_lot_no);
+                plantingLineLotListTable = plantingLineLotListDao.getFemaleSowingDate(production_lot_no);
+               // PlantingLineLotListTable plantingLineLotListTable = plantingLineLotListDao.getFemaleSowingDate(production_lot_no);
                 String date = plantingLineLotListTable.getSowing_Date_Female();
                 String date_sub_string = date.substring(0, 10);
                 SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy"); //Signature by Arjun sir/ Abhit
@@ -729,6 +724,44 @@ GerminationInspectionFragment extends Fragment {
             }
         }
         return "";
+    }
+
+
+    private void HitShowImageApi(String getImageId) {
+        NetworkInterface mAPIService = ApiUtils.getPristineAPIService();
+        Call<ResponseBody> call = mAPIService.getImageInspection(getImageId);
+        LoadingDialog progressDialogLoading = new LoadingDialog();
+        progressDialogLoading.showLoadingDialog(getActivity());
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                try {
+                    if (response.isSuccessful()) {
+                        progressDialogLoading.hideDialog();
+                        germinationImage_layout.setVisibility(View.VISIBLE);
+                        germinationImageView.setVisibility(View.VISIBLE);
+                        Glide.with(getActivity())
+                                .load("https://hytechdev.pristinefulfil.com/api/Inspection/Get_Image?id="+getImageId) // image url
+                                .placeholder(R.drawable.noimage1) // any placeholder to load at start
+                                .into(germinationImageView);
+                    } else {
+                        progressDialogLoading.hideDialog();
+                        //Toast.makeText(getActivity(), response.message() + ". Error Code:" + response.code(), Toast.LENGTH_SHORT).show();
+                    }
+
+                } catch (Exception e) {
+                    progressDialogLoading.hideDialog();
+                    Log.e("exception database", e.getMessage() + "cause");
+                    ApiRequestFailure.PostExceptionToServer(e, getClass().getName(), "insert_germination", getActivity());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                progressDialogLoading.hideDialog();
+                ApiRequestFailure.PostExceptionToServer(t, getClass().getName(), "insert_germination", getActivity());
+            }
+        });
     }
 }
 

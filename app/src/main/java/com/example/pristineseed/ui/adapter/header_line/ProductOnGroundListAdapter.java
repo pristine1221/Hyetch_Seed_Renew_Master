@@ -70,7 +70,11 @@ public class ProductOnGroundListAdapter extends BaseAdapter {
         tv_season.setText("Season : "+listdata.get(position).season);
         tv_remarks.setText("Remarks : "+listdata.get(position).remarks);
         tv_date_time.setText(listdata.get(position).date);
-        tv_character_ofImageView.setText("POG");
+
+        String currentString = listdata.get(position).pog_code;
+        String[] separated = currentString.split("-");
+        tv_character_ofImageView.setText(separated[1]);
+
         tv_character_ofImageView.setTextSize(17);
         Drawable unwrappedDrawable = AppCompatResources.getDrawable(activity, R.drawable.circle_yellow_icon);
         Drawable wrappedDrawable = DrawableCompat.wrap(unwrappedDrawable);

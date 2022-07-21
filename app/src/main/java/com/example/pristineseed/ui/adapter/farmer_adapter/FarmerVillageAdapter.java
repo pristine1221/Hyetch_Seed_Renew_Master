@@ -6,64 +6,36 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.Filter;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.pristineseed.R;
 import com.example.pristineseed.model.GeoSetupModel.DispatchFarmerModel;
+import com.example.pristineseed.model.item.OrganizerModel;
+import com.example.pristineseed.ui.adapter.item.OrganizerAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class FarmerVillageAdapter extends ArrayAdapter<DispatchFarmerModel.Data> {
-    Context context;
-    int resourceId;
-    List<DispatchFarmerModel.Data> items, tempItems, suggestions;
+import retrofit2.Callback;
 
-    public FarmerVillageAdapter(@NonNull Context context, int resourceId, List<DispatchFarmerModel.Data> items) {
-        super(context, resourceId, items);
+public class FarmerVillageAdapter extends RecyclerView.Adapter<FarmerVillageAdapter.ViewHolder> {
+    Context context;
+
+    List<DispatchFarmerModel.Data> items;
+
+    public FarmerVillageAdapter(@NonNull Context context, List<DispatchFarmerModel.Data> items) {
+        super();
         this.items = items;
         this.context = context;
-        this.resourceId = resourceId;
-        tempItems = new ArrayList<DispatchFarmerModel.Data>(items);
-        suggestions = new ArrayList<DispatchFarmerModel.Data>();
 
     }
-
-    @NonNull
-    @Override
-    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        View view = convertView;
-        if (convertView == null) {
-            LayoutInflater inflater = ((Activity) context).getLayoutInflater();
-            view = inflater.inflate(resourceId, parent, false);
-        }
-        DispatchFarmerModel.Data data = getItem(position);
-        TextView name = (TextView) view.findViewById(R.id.text_view);
-        name.setText(data.Village + "(" + data.Name + ")");
-        return view;
-    }
-
-    @Nullable
-    @Override
-    public DispatchFarmerModel.Data getItem(int position) {
-        return items.get(position);
-    }
-
-    @Override
-    public int getCount() {
-        return items.size();
-    }
-
-    @Override
-    public long getItemId(int position) {
-        return position;
-    }
-
-    @NonNull
+   /* @NonNull
     @Override
     public Filter getFilter() {
         return customerFilter;
@@ -107,5 +79,42 @@ public class FarmerVillageAdapter extends ArrayAdapter<DispatchFarmerModel.Data>
                 }
             }
         }
-    };
+    };*/
+
+    @NonNull
+    @Override
+    public FarmerVillageAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
+        View listItem = layoutInflater.inflate(R.layout.item_view, parent, false);
+        ViewHolder viewHolder = new ViewHolder(listItem);
+        return viewHolder;
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull FarmerVillageAdapter.ViewHolder holder, int position) {
+        DispatchFarmerModel.Data data= items.get(position);
+
+        holder.tv_name.setText(data.Village + "(" + data.Name + ")");
+
+       /* holder.tv_name.setOnClickListener(v -> {
+            ClickListner.ItemClick(position);
+        });*/
+    }
+
+    @Override
+    public int getItemCount() {
+        return items.size();
+    }
+
+    public class ViewHolder extends RecyclerView.ViewHolder {
+        TextView tv_name;
+
+        public ViewHolder(@NonNull View itemView) {
+            super(itemView);
+            tv_name = (TextView) itemView.findViewById(R.id.text_view);
+        }
+    }
+  /*  public void VillageClickListner(VillageItemClickListner ClickListner){
+        this.ClickListner=ClickListner;
+    }*/
 }

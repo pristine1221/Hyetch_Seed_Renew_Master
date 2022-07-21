@@ -214,7 +214,7 @@ public class BackgruandSyncing_process extends AsyncTask<Void, Void, Void> {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            Log.e("time", String.valueOf(Schedulertimercounter));
+           // Log.e("time", String.valueOf(Schedulertimercounter));
         }
         return null;
     }
@@ -263,7 +263,7 @@ public class BackgruandSyncing_process extends AsyncTask<Void, Void, Void> {
         } finally {
             db.close();
             db.destroyInstance();
-            Log.e("Insert Sheduler", "Success");
+            //Log.e("Insert Sheduler", "Success");
         }
     }
 
@@ -316,7 +316,7 @@ public class BackgruandSyncing_process extends AsyncTask<Void, Void, Void> {
             } catch (Exception e) {
                 e.printStackTrace();
             } finally {
-                Log.e("Insert Germination:", "Line Sync Success");
+                //Log.e("Insert Germination:", "Line Sync Success");
             }
             //todo third step complete Line..
             try {
@@ -343,14 +343,14 @@ public class BackgruandSyncing_process extends AsyncTask<Void, Void, Void> {
             } catch (Exception e) {
                 e.printStackTrace();
             } finally {
-                Log.e("Germ. Insp. Complete :", "Complete Sync Success");
+                //Log.e("Germ. Insp. Complete :", "Complete Sync Success");
             }
         } catch (Exception e) {
             ApiRequestFailure.PostExceptionToServer(e, getClass().getName(), "Sync Schedule Germination Insert", activity);
         } finally {
             db.close();
             db.destroyInstance();
-            Log.e("Germ. Insp. Complete", " Success");
+            //Log.e("Germ. Insp. Complete", " Success");
         }
     }
 
@@ -422,7 +422,7 @@ public class BackgruandSyncing_process extends AsyncTask<Void, Void, Void> {
                 e.printStackTrace();
 
             } finally {
-                Log.e("Insert Seedling:", "Line Sync Success");
+               // Log.e("Insert Seedling:", "Line Sync Success");
             }
             //todo third step complete Line..
             try {
@@ -449,14 +449,14 @@ public class BackgruandSyncing_process extends AsyncTask<Void, Void, Void> {
             } catch (Exception e) {
                 e.printStackTrace();
             } finally {
-                Log.e("Seed. Insp. Complete :", "Complete Sync Success");
+                //Log.e("Seed. Insp. Complete :", "Complete Sync Success");
             }
         } catch (Exception e) {
             ApiRequestFailure.PostExceptionToServer(e, getClass().getName(), "Sync Schedule Seedling Complete", activity);
         } finally {
             db.close();
             db.destroyInstance();
-            Log.e("Seed. Insp. Complete", " Success");
+            //Log.e("Seed. Insp. Complete", " Success");
         }
 
     }
@@ -564,7 +564,7 @@ public class BackgruandSyncing_process extends AsyncTask<Void, Void, Void> {
         } finally {
             db.close();
             db.destroyInstance();
-            Log.e("Veg. Insp. Complete", " Success");
+            //Log.e("Veg. Insp. Complete", " Success");
         }
 
     }
@@ -649,7 +649,7 @@ public class BackgruandSyncing_process extends AsyncTask<Void, Void, Void> {
         } finally {
             db.close();
             db.destroyInstance();
-            Log.e("Nick. Insp. Complete", " Success");
+            //Log.e("Nick. Insp. Complete", " Success");
         }
 
     }
@@ -728,14 +728,14 @@ public class BackgruandSyncing_process extends AsyncTask<Void, Void, Void> {
             } catch (Exception e) {
                 e.printStackTrace();
             } finally {
-                Log.e("Nick2. Insp. Complete :", "Complete Sync Success");
+                //Log.e("Nick2. Insp. Complete :", "Complete Sync Success");
             }
         } catch (Exception e) {
             ApiRequestFailure.PostExceptionToServer(e, getClass().getName(), "Sync Schedule Nick2. Complete", activity);
         } finally {
             db.close();
             db.destroyInstance();
-            Log.e("Nick2. Insp. Complete", " Success");
+           // Log.e("Nick2. Insp. Complete", " Success");
         }
 
     }
@@ -828,14 +828,14 @@ public class BackgruandSyncing_process extends AsyncTask<Void, Void, Void> {
             } catch (Exception e) {
                 e.printStackTrace();
             } finally {
-                Log.e("FlwringInsp. Complete :", "Complete Sync Success");
+                //Log.e("FlwringInsp. Complete :", "Complete Sync Success");
             }
         } catch (Exception e) {
             ApiRequestFailure.PostExceptionToServer(e, getClass().getName(), "Sync Schedule FlwringInsp. Complete", activity);
         } finally {
             db.close();
             db.destroyInstance();
-            Log.e("FlwringInsp. Complete", " Success");
+           // Log.e("FlwringInsp. Complete", " Success");
         }
 
     }
@@ -905,7 +905,7 @@ public class BackgruandSyncing_process extends AsyncTask<Void, Void, Void> {
             } catch (Exception e) {
                 e.printStackTrace();
             } finally {
-                Log.e("Insert pstflwring:", "Line Sync Success");
+                //Log.e("Insert pstflwring:", "Line Sync Success");
             }
             //todo third step complete Line..
             try {
@@ -931,14 +931,14 @@ public class BackgruandSyncing_process extends AsyncTask<Void, Void, Void> {
             } catch (Exception e) {
                 e.printStackTrace();
             } finally {
-                Log.e("pstflwring. Complete :", "Complete Sync Success");
+               // Log.e("pstflwring. Complete :", "Complete Sync Success");
             }
         } catch (Exception e) {
             ApiRequestFailure.PostExceptionToServer(e, getClass().getName(), "Sync Schedule pstflwring. Complete", activity);
         } finally {
             db.close();
             db.destroyInstance();
-            Log.e("pstflwring. Complete", " Success");
+            //Log.e("pstflwring. Complete", " Success");
         }
 
     }
@@ -964,7 +964,7 @@ public class BackgruandSyncing_process extends AsyncTask<Void, Void, Void> {
                 hashMap.addProperty("method", exception_list.get(i).getMethod());
                 Call<List<ExceptionModel>> call = mAPIService.Exception(hashMap);
                 Response<List<ExceptionModel>> response = call.execute();
-                Log.e("Result", response.body().get(0).message);
+                //Log.e("Result", response.body().get(0).message);
             }
             if (exception_list.size() > 0) {
                 int a = exceptionTable.deleteAllRecord();
@@ -1043,7 +1043,7 @@ public class BackgruandSyncing_process extends AsyncTask<Void, Void, Void> {
                 e.printStackTrace();
 
             } finally {
-                Log.e("Insert maturty:", "Line Sync Success");
+               // Log.e("Insert maturty:", "Line Sync Success");
             }
             //todo third step complete Line..
             try {
@@ -1069,14 +1069,14 @@ public class BackgruandSyncing_process extends AsyncTask<Void, Void, Void> {
             } catch (Exception e) {
                 e.printStackTrace();
             } finally {
-                Log.e("maturtyInsp. Complete :", "Complete Sync Success");
+               // Log.e("maturtyInsp. Complete :", "Complete Sync Success");
             }
         } catch (Exception e) {
             ApiRequestFailure.PostExceptionToServer(e, getClass().getName(), "Sync Schedule maturtyInsp. Complete", activity);
         } finally {
             db.close();
             db.destroyInstance();
-            Log.e("maturtyInsp. Complete", " Success");
+            //Log.e("maturtyInsp. Complete", " Success");
         }
 
     }
@@ -1154,7 +1154,7 @@ public class BackgruandSyncing_process extends AsyncTask<Void, Void, Void> {
                 e.printStackTrace();
 
             } finally {
-                Log.e("Insert harvstng:", "Line Sync Success");
+               // Log.e("Insert harvstng:", "Line Sync Success");
             }
             //todo third step complete Line..
             try {
@@ -1180,14 +1180,14 @@ public class BackgruandSyncing_process extends AsyncTask<Void, Void, Void> {
             } catch (Exception e) {
                 e.printStackTrace();
             } finally {
-                Log.e("harvstng. Complete :", "Complete Sync Success");
+                //Log.e("harvstng. Complete :", "Complete Sync Success");
             }
         } catch (Exception e) {
             ApiRequestFailure.PostExceptionToServer(e, getClass().getName(), "Sync Schedule harvstng. Complete", activity);
         } finally {
             db.close();
             db.destroyInstance();
-            Log.e("harvstng. Complete", " Success");
+            //Log.e("harvstng. Complete", " Success");
         }
 
     }
@@ -1266,7 +1266,7 @@ public class BackgruandSyncing_process extends AsyncTask<Void, Void, Void> {
                 e.printStackTrace();
 
             } finally {
-                Log.e("Insert Qc:", "Line Sync Success");
+               // Log.e("Insert Qc:", "Line Sync Success");
             }
             //todo third step complete Line..
             try {
@@ -1292,14 +1292,14 @@ public class BackgruandSyncing_process extends AsyncTask<Void, Void, Void> {
             } catch (Exception e) {
                 e.printStackTrace();
             } finally {
-                Log.e("QcInsp. Complete :", "Complete Sync Success");
+                //Log.e("QcInsp. Complete :", "Complete Sync Success");
             }
         } catch (Exception e) {
             ApiRequestFailure.PostExceptionToServer(e, getClass().getName(), "Sync Schedule QcInsp. Complete", activity);
         } finally {
             db.close();
             db.destroyInstance();
-            Log.e("QcInsp. Complete", " Success");
+           // Log.e("QcInsp. Complete", " Success");
         }
 
     }
@@ -1446,7 +1446,7 @@ public class BackgruandSyncing_process extends AsyncTask<Void, Void, Void> {
             districMasterTableList.add(districMasterTable);
         }
         districMasterDao.insert(districMasterTableList);
-        Log.e("list", new Gson().toJson(districMasterTableList));
+        //Log.e("list", new Gson().toJson(districMasterTableList));
         return districMasterDao.getRowCount();
     }
 
@@ -1512,7 +1512,7 @@ public class BackgruandSyncing_process extends AsyncTask<Void, Void, Void> {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            Log.e("location_master", "success");
+           // Log.e("location_master", "success");
         }
     }
 
@@ -1525,7 +1525,7 @@ public class BackgruandSyncing_process extends AsyncTask<Void, Void, Void> {
             if (templantingList_fsio.size() > 0 && templantingList_fsio.get(0).condition) {
                 PristineDatabase pristinedb = PristineDatabase.getAppDatabase(activity);
                 try {
-                    Log.e("sucess", "success");
+                    //Log.e("sucess", "success");
                  bindPlantingFsio_data_IntoLocal(templantingList_fsio, pristinedb);
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -1535,10 +1535,10 @@ public class BackgruandSyncing_process extends AsyncTask<Void, Void, Void> {
                 }
             }
         } catch (Exception e) {
-            Log.e("exception database", e.getMessage() + "cause");
+            //Log.e("exception database", e.getMessage() + "cause");
             ApiRequestFailure.PostExceptionToServer(e, getClass().getName(), "planting_fsio_bsio_fragment_", activity);
         } finally {
-            Log.e("planting_fsio_bsio", "Done");
+           // Log.e("planting_fsio_bsio", "Done");
         }
     }
 
@@ -1574,13 +1574,12 @@ public class BackgruandSyncing_process extends AsyncTask<Void, Void, Void> {
                 }
             }
         } catch (Exception e) {
-            Log.e("exception database", e.getMessage() + "cause");
+            //Log.e("exception database", e.getMessage() + "cause");
             ApiRequestFailure.PostExceptionToServer(e, getClass().getName(), "planting_season_", activity);
         } finally {
-            Log.e("season", "done");
+           // Log.e("season", "done");
         }
     }
-
 
     private void bindSeaonListIntoLocal(List<SeasonMasterModel> templantingList_season, PristineDatabase pristineDatabase) {
         SeasonDao seasonDao = pristineDatabase.seasonDao();
@@ -2021,7 +2020,7 @@ public class BackgruandSyncing_process extends AsyncTask<Void, Void, Void> {
         } catch (Exception e) {
             ApiRequestFailure.PostExceptionToServer(e, getClass().getName(), "get_ship_details", activity);
         } finally {
-            Log.e("ship_address_details", "done");
+            //Log.e("ship_address_details", "done");
         }
     }
 
@@ -2055,7 +2054,7 @@ public class BackgruandSyncing_process extends AsyncTask<Void, Void, Void> {
         } catch (Exception e) {
             ApiRequestFailure.PostExceptionToServer(e, getClass().getName(), "getPlanting_line_lotList", activity);
         } finally {
-            Log.e("planting_line_lotlist", "done");
+            //Log.e("planting_line_lotlist", "done");
         }
     }
 
@@ -2097,7 +2096,7 @@ public class BackgruandSyncing_process extends AsyncTask<Void, Void, Void> {
                     ApiRequestFailure.PostExceptionToServer(e, getClass().getName(), "fsio_bsio_sale_order_no_list",activity);
                 }
               finally {
-                  Log.e("fsio_sale_list","sync_done");
+                 // Log.e("fsio_sale_list","sync_done");
               }
               }
 }

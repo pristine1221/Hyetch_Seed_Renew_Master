@@ -239,172 +239,212 @@ public class CreateInspectionFragment extends Fragment {
         tv_header_title_text = view.findViewById(R.id.tv_header_title);
 
         germination_insp.setOnClickListener(v -> {
-            if (contain_pld_status > 0) {
-                Toast.makeText(getActivity(), "You can't perform any action as PLD Status is mark", Toast.LENGTH_SHORT).show();
-            } else {
-                Bundle bundle = new Bundle();
-                bundle.putString("header_detail", new Gson().toJson(inspectionHeader));
-                bundle.putString("scheduler_line_detail", new Gson().toJson(inspectionline));
-                bundle.putString("scheduler_no", inspectionline != null ? inspectionline.getSchedule_no() : "");
-                bundle.putString("production_lot_no", inspectionline.getProduction_lot_no() != null ? inspectionline.getProduction_lot_no() : "");
-                GerminationInspectionFragment inspectionOneFragment = new GerminationInspectionFragment();
-                inspectionOneFragment.setArguments(bundle);
-                StaticMethods.loadFragmentsWithBackStack(getActivity(), inspectionOneFragment, "Germination_inspection1");
+            try {
+                if (contain_pld_status > 0) {
+                    Toast.makeText(getActivity(), "You can't perform any action as PLD Status is mark", Toast.LENGTH_SHORT).show();
+                } else {
+                    Bundle bundle = new Bundle();
+                    bundle.putString("header_detail", new Gson().toJson(inspectionHeader));
+                    bundle.putString("scheduler_line_detail", new Gson().toJson(inspectionline));
+                    bundle.putString("scheduler_no", inspectionline != null ? inspectionline.getSchedule_no() : "");
+                    bundle.putString("production_lot_no", inspectionline.getProduction_lot_no() != null ? inspectionline.getProduction_lot_no() : "");
+                    GerminationInspectionFragment inspectionOneFragment = new GerminationInspectionFragment();
+                    inspectionOneFragment.setArguments(bundle);
+                    StaticMethods.loadFragmentsWithBackStack(getActivity(), inspectionOneFragment, "Germination_inspection1");
+                }
+            }
+            catch (Exception e){
+                e.printStackTrace();
             }
         });
 
         seedling_insp.setOnClickListener(v -> {
-            if (contain_pld_status > 0) {
-                Toast.makeText(getActivity(), "You can't perform any action as PLD Status is mark", Toast.LENGTH_SHORT).show();
-            } else {
-                if (inspectionline.getInspection_1() > 0 || inspectionline.getIns1_sync_with_server() > 0) {
-                    Bundle bundle = new Bundle();
-                    bundle.putString("header_detail", new Gson().toJson(inspectionHeader));
-                    bundle.putString("production_lot_no", inspectionline.getProduction_lot_no());
-                    bundle.putString("scheduler_no", inspectionline != null ? inspectionline.getSchedule_no() : "");
-                    bundle.putString("scheduler_line_detail", new Gson().toJson(inspectionline));
-                    Seedling_InspectionFragment inspectionTwoFragment = new Seedling_InspectionFragment();
-                    inspectionTwoFragment.setArguments(bundle);
-                    StaticMethods.loadFragmentsWithBackStack(getActivity(), inspectionTwoFragment, "Seedling_inspection2");
+            try {
+                if (contain_pld_status > 0) {
+                    Toast.makeText(getActivity(), "You can't perform any action as PLD Status is mark", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(getActivity(), "First complete previous inspection!", Toast.LENGTH_SHORT).show();
+                    if (inspectionline.getInspection_1() > 0 || inspectionline.getIns1_sync_with_server() > 0) {
+                        Bundle bundle = new Bundle();
+                        bundle.putString("header_detail", new Gson().toJson(inspectionHeader));
+                        bundle.putString("production_lot_no", inspectionline.getProduction_lot_no());
+                        bundle.putString("scheduler_no", inspectionline != null ? inspectionline.getSchedule_no() : "");
+                        bundle.putString("scheduler_line_detail", new Gson().toJson(inspectionline));
+                        Seedling_InspectionFragment inspectionTwoFragment = new Seedling_InspectionFragment();
+                        inspectionTwoFragment.setArguments(bundle);
+                        StaticMethods.loadFragmentsWithBackStack(getActivity(), inspectionTwoFragment, "Seedling_inspection2");
+                    } else {
+                        Toast.makeText(getActivity(), "First complete previous inspection!", Toast.LENGTH_SHORT).show();
+                    }
                 }
+            }
+            catch (Exception e){
+                e.printStackTrace();
             }
         });
 
         vegitative_insp.setOnClickListener(v -> {
-            if (contain_pld_status > 0) {
-                Toast.makeText(getActivity(), "You can't perform any action as PLD Status is mark", Toast.LENGTH_SHORT).show();
-            } else {
-                if (inspectionline.getInspection_2() > 0 || inspectionline.getIns2_sync_with_server() > 0) {
-                    Bundle bundle = new Bundle();
-                    bundle.putString("header_detail", new Gson().toJson(inspectionHeader));
-                    bundle.putString("production_lot_no", inspectionline.getProduction_lot_no());
-                    bundle.putString("scheduler_no", inspectionline != null ? inspectionline.getSchedule_no() : "");
-                    bundle.putString("scheduler_line_detail", new Gson().toJson(inspectionline));
-                    Vegitative_Inspection_Fragment vegitative_inspection_fragment = new Vegitative_Inspection_Fragment();
-                    vegitative_inspection_fragment.setArguments(bundle);
-                    StaticMethods.loadFragmentsWithBackStack(getActivity(), vegitative_inspection_fragment, "Vegitative_inspection3");
+            try {
+                if (contain_pld_status > 0) {
+                    Toast.makeText(getActivity(), "You can't perform any action as PLD Status is mark", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(getActivity(), "First complete previous inspection!", Toast.LENGTH_SHORT).show();
+                    if (inspectionline.getInspection_2() > 0 || inspectionline.getIns2_sync_with_server() > 0) {
+                        Bundle bundle = new Bundle();
+                        bundle.putString("header_detail", new Gson().toJson(inspectionHeader));
+                        bundle.putString("production_lot_no", inspectionline.getProduction_lot_no());
+                        bundle.putString("scheduler_no", inspectionline != null ? inspectionline.getSchedule_no() : "");
+                        bundle.putString("scheduler_line_detail", new Gson().toJson(inspectionline));
+                        Vegitative_Inspection_Fragment vegitative_inspection_fragment = new Vegitative_Inspection_Fragment();
+                        vegitative_inspection_fragment.setArguments(bundle);
+                        StaticMethods.loadFragmentsWithBackStack(getActivity(), vegitative_inspection_fragment, "Vegitative_inspection3");
+                    } else {
+                        Toast.makeText(getActivity(), "First complete previous inspection!", Toast.LENGTH_SHORT).show();
+                    }
                 }
+            }
+            catch (Exception e){
+                e.printStackTrace();
             }
         });
 
         nicking_insp.setOnClickListener(v -> {
-            if (contain_pld_status > 0) {
-                Toast.makeText(getActivity(), "You can't perform any action as PLD Status is mark", Toast.LENGTH_SHORT).show();
-            } else {
-                if (inspectionline.getInspection_3() > 0 || inspectionline.getIns3_sync_with_server() > 0) {
-                    Bundle bundle = new Bundle();
-                    bundle.putString("header_detail", new Gson().toJson(inspectionHeader));
-                    bundle.putString("production_lot_no", inspectionline.getProduction_lot_no());
-                    bundle.putString("scheduler_no", inspectionline != null ? inspectionline.getSchedule_no() : "");
-                    bundle.putString("scheduler_line_detail", new Gson().toJson(inspectionline));
-                    NickingInspectionFragment inspectionFragment = new NickingInspectionFragment();
-                    inspectionFragment.setArguments(bundle);
-                    StaticMethods.loadFragmentsWithBackStack(getActivity(), inspectionFragment, "Nicking_inspection4");
-
+            try {
+                if (contain_pld_status > 0) {
+                    Toast.makeText(getActivity(), "You can't perform any action as PLD Status is mark", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(getActivity(), "First complete previous inspection!", Toast.LENGTH_SHORT).show();
+                    if (inspectionline.getInspection_3() > 0 || inspectionline.getIns3_sync_with_server() > 0) {
+                        Bundle bundle = new Bundle();
+                        bundle.putString("header_detail", new Gson().toJson(inspectionHeader));
+                        bundle.putString("production_lot_no", inspectionline.getProduction_lot_no());
+                        bundle.putString("scheduler_no", inspectionline != null ? inspectionline.getSchedule_no() : "");
+                        bundle.putString("scheduler_line_detail", new Gson().toJson(inspectionline));
+                        NickingInspectionFragment inspectionFragment = new NickingInspectionFragment();
+                        inspectionFragment.setArguments(bundle);
+                        StaticMethods.loadFragmentsWithBackStack(getActivity(), inspectionFragment, "Nicking_inspection4");
+
+                    } else {
+                        Toast.makeText(getActivity(), "First complete previous inspection!", Toast.LENGTH_SHORT).show();
+                    }
                 }
+            }
+            catch (Exception e){
+               e.printStackTrace();
             }
         });
 
         nicking2_insp.setOnClickListener(v -> {
-            if (contain_pld_status > 0) {
-                Toast.makeText(getActivity(), "You can't perform any action as PLD Status is mark", Toast.LENGTH_SHORT).show();
-            } else {
-                if (next_plan_action != null && !next_plan_action.equalsIgnoreCase("")) {
-                    if (inspectionline.getInspection_4() > 0 || inspectionline.getIns4_sync_with_server() > 0) {
-                        Bundle bundle = new Bundle();
-                        bundle.putString("header_detail", new Gson().toJson(inspectionHeader));
-                        bundle.putString("production_lot_no", inspectionline.getProduction_lot_no());
-                        bundle.putString("scheduler_no", inspectionline != null ? inspectionline.getSchedule_no() : "");
-                        bundle.putString("scheduler_line_detail", new Gson().toJson(inspectionline));
-                        Nicking2InspectionFragment nicking2InspectionFragment = new Nicking2InspectionFragment();
-                        nicking2InspectionFragment.setArguments(bundle);
-                        StaticMethods.loadFragmentsWithBackStack(getActivity(), nicking2InspectionFragment, "Nicking2_inspection5");
-                    } else {
-                        Toast.makeText(getActivity(), "First complete previous inspection!", Toast.LENGTH_SHORT).show();
-                    }
+            try {
+                if (contain_pld_status > 0) {
+                    Toast.makeText(getActivity(), "You can't perform any action as PLD Status is mark", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(getActivity(), "You cant' perfrom this acction as next plan of action is blank . Please move to next inspection!", Toast.LENGTH_SHORT).show();
+                    if (next_plan_action != null && !next_plan_action.equalsIgnoreCase("")) {
+                        if (inspectionline.getInspection_4() > 0 || inspectionline.getIns4_sync_with_server() > 0) {
+                            Bundle bundle = new Bundle();
+                            bundle.putString("header_detail", new Gson().toJson(inspectionHeader));
+                            bundle.putString("production_lot_no", inspectionline.getProduction_lot_no());
+                            bundle.putString("scheduler_no", inspectionline != null ? inspectionline.getSchedule_no() : "");
+                            bundle.putString("scheduler_line_detail", new Gson().toJson(inspectionline));
+                            Nicking2InspectionFragment nicking2InspectionFragment = new Nicking2InspectionFragment();
+                            nicking2InspectionFragment.setArguments(bundle);
+                            StaticMethods.loadFragmentsWithBackStack(getActivity(), nicking2InspectionFragment, "Nicking2_inspection5");
+                        } else {
+                            Toast.makeText(getActivity(), "First complete previous inspection!", Toast.LENGTH_SHORT).show();
+                        }
+                    } else {
+                        Toast.makeText(getActivity(), "You cant' perfrom this acction as next plan of action is blank . Please move to next inspection!", Toast.LENGTH_SHORT).show();
+                    }
                 }
+            }
+            catch (Exception e){
+                e.printStackTrace();
             }
         });
 
         flowering_insp.setOnClickListener(v -> {
-            if (contain_pld_status > 0) {
-                Toast.makeText(getActivity(), "You can't perform any action as PLD Status is mark", Toast.LENGTH_SHORT).show();
-            } else {
-                if (next_plan_action != null && !next_plan_action.equalsIgnoreCase("")) {
-                    if (inspectionline.getInspection_5() > 0 || inspectionline.getIns5_sync_with_server() > 0) {
-                        Bundle bundle = new Bundle();
-                        bundle.putString("header_detail", new Gson().toJson(inspectionHeader));
-                        bundle.putString("production_lot_no", inspectionline.getProduction_lot_no());
-                        bundle.putString("scheduler_no", inspectionline != null ? inspectionline.getSchedule_no() : "");
-                        bundle.putString("scheduler_line_detail", new Gson().toJson(inspectionline));
-                        FloweringInspectionFragment floweringInspectionFragment = new FloweringInspectionFragment();
-                        floweringInspectionFragment.setArguments(bundle);
-                        StaticMethods.loadFragmentsWithBackStack(getActivity(), floweringInspectionFragment, "Flowering_inspection6");
-                    } else {
-                        Toast.makeText(getActivity(), "First complete previous inspection!", Toast.LENGTH_SHORT).show();
-                    }
+            try {
+                if (contain_pld_status > 0) {
+                    Toast.makeText(getActivity(), "You can't perform any action as PLD Status is mark", Toast.LENGTH_SHORT).show();
                 } else {
-                    if (inspectionline.getInspection_4() > 0 || inspectionline.getIns4_sync_with_server() > 0) {
+                    if (next_plan_action != null && !next_plan_action.equalsIgnoreCase("")) {
+                        if (inspectionline.getInspection_5() > 0 || inspectionline.getIns5_sync_with_server() > 0) {
+                            Bundle bundle = new Bundle();
+                            bundle.putString("header_detail", new Gson().toJson(inspectionHeader));
+                            bundle.putString("production_lot_no", inspectionline.getProduction_lot_no());
+                            bundle.putString("scheduler_no", inspectionline != null ? inspectionline.getSchedule_no() : "");
+                            bundle.putString("scheduler_line_detail", new Gson().toJson(inspectionline));
+                            FloweringInspectionFragment floweringInspectionFragment = new FloweringInspectionFragment();
+                            floweringInspectionFragment.setArguments(bundle);
+                            StaticMethods.loadFragmentsWithBackStack(getActivity(), floweringInspectionFragment, "Flowering_inspection6");
+                        } else {
+                            Toast.makeText(getActivity(), "First complete previous inspection!", Toast.LENGTH_SHORT).show();
+                        }
+                    } else {
+                        if (inspectionline.getInspection_4() > 0 || inspectionline.getIns4_sync_with_server() > 0) {
+                            Bundle bundle = new Bundle();
+                            bundle.putString("header_detail", new Gson().toJson(inspectionHeader));
+                            bundle.putString("production_lot_no", inspectionline.getProduction_lot_no());
+                            bundle.putString("scheduler_no", inspectionline != null ? inspectionline.getSchedule_no() : "");
+                            bundle.putString("scheduler_line_detail", new Gson().toJson(inspectionline));
+                            FloweringInspectionFragment floweringInspectionFragment = new FloweringInspectionFragment();
+                            floweringInspectionFragment.setArguments(bundle);
+                            StaticMethods.loadFragmentsWithBackStack(getActivity(), floweringInspectionFragment, "Flowering_inspection6");
+                        } else {
+                            Toast.makeText(getActivity(), "First complete previous inspection!", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }
+            }
+            catch (Exception e){
+                e.printStackTrace();
+            }
+        });
+
+        post_flowering_insp.setOnClickListener(v -> {
+            try {
+                if (contain_pld_status > 0) {
+                    Toast.makeText(getActivity(), "You can't perform any action as PLD Status is mark", Toast.LENGTH_SHORT).show();
+                } else {
+                    if (inspectionline.getInspection_6() > 0 || inspectionline.getIns6_sync_with_server() > 0) {
                         Bundle bundle = new Bundle();
                         bundle.putString("header_detail", new Gson().toJson(inspectionHeader));
                         bundle.putString("production_lot_no", inspectionline.getProduction_lot_no());
                         bundle.putString("scheduler_no", inspectionline != null ? inspectionline.getSchedule_no() : "");
                         bundle.putString("scheduler_line_detail", new Gson().toJson(inspectionline));
-                        FloweringInspectionFragment floweringInspectionFragment = new FloweringInspectionFragment();
-                        floweringInspectionFragment.setArguments(bundle);
-                        StaticMethods.loadFragmentsWithBackStack(getActivity(), floweringInspectionFragment, "Flowering_inspection6");
+                        PostFloweringInspectionFragment postfloweringInspectionFragment = new PostFloweringInspectionFragment();
+                        postfloweringInspectionFragment.setArguments(bundle);
+                        StaticMethods.loadFragmentsWithBackStack(getActivity(), postfloweringInspectionFragment, "Post_Flowering_inspection7");
+
                     } else {
                         Toast.makeText(getActivity(), "First complete previous inspection!", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
-
-        });
-
-        post_flowering_insp.setOnClickListener(v -> {
-            if (contain_pld_status > 0) {
-                Toast.makeText(getActivity(), "You can't perform any action as PLD Status is mark", Toast.LENGTH_SHORT).show();
-            } else {
-                if (inspectionline.getInspection_6() > 0 || inspectionline.getIns6_sync_with_server() > 0) {
-                    Bundle bundle = new Bundle();
-                    bundle.putString("header_detail", new Gson().toJson(inspectionHeader));
-                    bundle.putString("production_lot_no", inspectionline.getProduction_lot_no());
-                    bundle.putString("scheduler_no", inspectionline != null ? inspectionline.getSchedule_no() : "");
-                    bundle.putString("scheduler_line_detail", new Gson().toJson(inspectionline));
-                    PostFloweringInspectionFragment postfloweringInspectionFragment = new PostFloweringInspectionFragment();
-                    postfloweringInspectionFragment.setArguments(bundle);
-                    StaticMethods.loadFragmentsWithBackStack(getActivity(), postfloweringInspectionFragment, "Post_Flowering_inspection7");
-
-                } else {
-                    Toast.makeText(getActivity(), "First complete previous inspection!", Toast.LENGTH_SHORT).show();
-                }
+            catch (Exception e){
+                e.printStackTrace();
             }
         });
 
         maturity_insp.setOnClickListener(v -> {
-            if (contain_pld_status > 0) {
-                Toast.makeText(getActivity(), "You can't perform any action as PLD Status is mark", Toast.LENGTH_SHORT).show();
-            } else {
-                if (inspectionline.getInspection_7() > 0 || inspectionline.getIns7_sync_with_server() > 0) {
-                    Bundle bundle = new Bundle();
-                    bundle.putString("header_detail", new Gson().toJson(inspectionHeader));
-                    bundle.putString("production_lot_no", inspectionline.getProduction_lot_no());
-                    bundle.putString("scheduler_no", inspectionline != null ? inspectionline.getSchedule_no() : "");
-                    bundle.putString("scheduler_line_detail", new Gson().toJson(inspectionline));
-                    MaturityInspectionFragment maturityInspectionFragment = new MaturityInspectionFragment();
-                    maturityInspectionFragment.setArguments(bundle);
-                    StaticMethods.loadFragmentsWithBackStack(getActivity(), maturityInspectionFragment, "Maturity_inspection8");
+            try {
+
+                if (contain_pld_status > 0) {
+                    Toast.makeText(getActivity(), "You can't perform any action as PLD Status is mark", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(getActivity(), "First complete previous inspection!", Toast.LENGTH_SHORT).show();
+                    if (inspectionline.getInspection_7() > 0 || inspectionline.getIns7_sync_with_server() > 0) {
+                        Bundle bundle = new Bundle();
+                        bundle.putString("header_detail", new Gson().toJson(inspectionHeader));
+                        bundle.putString("production_lot_no", inspectionline.getProduction_lot_no());
+                        bundle.putString("scheduler_no", inspectionline != null ? inspectionline.getSchedule_no() : "");
+                        bundle.putString("scheduler_line_detail", new Gson().toJson(inspectionline));
+                        MaturityInspectionFragment maturityInspectionFragment = new MaturityInspectionFragment();
+                        maturityInspectionFragment.setArguments(bundle);
+                        StaticMethods.loadFragmentsWithBackStack(getActivity(), maturityInspectionFragment, "Maturity_inspection8");
+                    } else {
+                        Toast.makeText(getActivity(), "First complete previous inspection!", Toast.LENGTH_SHORT).show();
+                    }
                 }
+            }
+            catch (Exception e){
+                e.printStackTrace();
             }
         });
 
@@ -412,17 +452,24 @@ public class CreateInspectionFragment extends Fragment {
             if (contain_pld_status > 0) {
                 Toast.makeText(getActivity(), "You can't perform any action as PLD Status is mark", Toast.LENGTH_SHORT).show();
             } else {
-                if (inspectionline.getInspection_8() > 0 || inspectionline.getIns8_sync_with_server() > 0) {
-                    Bundle bundle = new Bundle();
-                    bundle.putString("header_detail", new Gson().toJson(inspectionHeader));
-                    bundle.putString("production_lot_no", inspectionline.getProduction_lot_no());
-                    bundle.putString("scheduler_no", inspectionline != null ? inspectionline.getSchedule_no() : "");
-                    bundle.putString("scheduler_line_detail", new Gson().toJson(inspectionline));
-                    HarvestingInspectionFragment harvestingInspectionFragment = new HarvestingInspectionFragment();
-                    harvestingInspectionFragment.setArguments(bundle);
-                    StaticMethods.loadFragmentsWithBackStack(getActivity(), harvestingInspectionFragment, "harvesting_inspection9");
-                } else {
-                    Toast.makeText(getActivity(), "First complete previous inspection!", Toast.LENGTH_SHORT).show();
+                try {
+
+
+                    if (inspectionline.getInspection_8() > 0 || inspectionline.getIns8_sync_with_server() > 0) {
+                        Bundle bundle = new Bundle();
+                        bundle.putString("header_detail", new Gson().toJson(inspectionHeader));
+                        bundle.putString("production_lot_no", inspectionline.getProduction_lot_no());
+                        bundle.putString("scheduler_no", inspectionline != null ? inspectionline.getSchedule_no() : "");
+                        bundle.putString("scheduler_line_detail", new Gson().toJson(inspectionline));
+                        HarvestingInspectionFragment harvestingInspectionFragment = new HarvestingInspectionFragment();
+                        harvestingInspectionFragment.setArguments(bundle);
+                        StaticMethods.loadFragmentsWithBackStack(getActivity(), harvestingInspectionFragment, "harvesting_inspection9");
+                    } else {
+                        Toast.makeText(getActivity(), "First complete previous inspection!", Toast.LENGTH_SHORT).show();
+                    }
+                }
+                catch (Exception e){
+                    e.printStackTrace();
                 }
             }
         });
@@ -432,15 +479,20 @@ public class CreateInspectionFragment extends Fragment {
                 Toast.makeText(getActivity(), "You can't perform any action as PLD Status is mark", Toast.LENGTH_SHORT).show();
             } else {
                 //if (inspectionline.getInspection_9() > 0 || inspectionline.getIns9_sync_with_server() > 0) {
-                Bundle bundle = new Bundle();
-                bundle.putString("header_detail", new Gson().toJson(inspectionHeader));
-                bundle.putString("production_lot_no", inspectionline.getProduction_lot_no());
-                bundle.putString("scheduler_no", inspectionline != null ? inspectionline.getSchedule_no() : "");
-                bundle.putString("scheduler_line_detail", new Gson().toJson(inspectionline));
-                QCInspectionFragment qcInspectionFragment = new QCInspectionFragment();
-                qcInspectionFragment.setArguments(bundle);
-                StaticMethods.loadFragmentsWithBackStack(getActivity(), qcInspectionFragment, "harvesting_inspection10");
-            } /*else {
+                try {
+                    Bundle bundle = new Bundle();
+                    bundle.putString("header_detail", new Gson().toJson(inspectionHeader));
+                    bundle.putString("production_lot_no", inspectionline.getProduction_lot_no());
+                    bundle.putString("scheduler_no", inspectionline != null ? inspectionline.getSchedule_no() : "");
+                    bundle.putString("scheduler_line_detail", new Gson().toJson(inspectionline));
+                    QCInspectionFragment qcInspectionFragment = new QCInspectionFragment();
+                    qcInspectionFragment.setArguments(bundle);
+                    StaticMethods.loadFragmentsWithBackStack(getActivity(), qcInspectionFragment, "harvesting_inspection10");
+                }
+                catch (Exception e){
+                    e.printStackTrace();
+                }
+            }/*else {
                       Toast.makeText(getActivity(), "First complete previous inspection!", Toast.LENGTH_SHORT).show();
                   }*/
             // }
@@ -988,7 +1040,6 @@ public class CreateInspectionFragment extends Fragment {
         }
     }
 
-
     private void bindPostMaturityInspWithLocalData(List<MaturityInspectionModel> tempMaturityInspListModelList) {
         if (tempMaturityInspListModelList != null && tempMaturityInspListModelList.size() > 0) {
             PristineDatabase pristineDatabase = PristineDatabase.getAppDatabase(getContext());
@@ -1155,6 +1206,5 @@ public class CreateInspectionFragment extends Fragment {
 
         }
     }
-
 
 }

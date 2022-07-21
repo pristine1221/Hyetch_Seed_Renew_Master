@@ -53,7 +53,7 @@
                         android:maxLines="1"
                         android:paddingTop="@dimen/_5sdp"
                         android:paddingBottom="@dimen/_5sdp"
-                        android:text="Planting Detail :"
+                        android:text="Planting Details :"
                         android:textColor="@color/black"
                         android:textSize="15sp" />
 
@@ -148,7 +148,7 @@
                                 android:layout_marginBottom="4dp"
                                 android:layout_weight="1"
                                 android:id="@+id/select_season_layout"
-                                android:hint="Select loc. center"
+                                android:hint="Select location center"
                                 app:boxCornerRadiusBottomEnd="15dp"
                                 app:boxCornerRadiusTopStart="15dp">
 
@@ -247,8 +247,8 @@
                                     android:id="@+id/ac_org_name"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
-                                    android:textColor="@color/black"
-                                    android:maxLines="1" />
+                                    android:maxLines="1"
+                                    android:textColor="@color/black" />
 
                             </com.google.android.material.textfield.TextInputLayout>
 
@@ -345,7 +345,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginBottom="4dp"
-                                android:hint="Total Sowing Area(acrs)"
+                                android:hint="Total Sowing Area(acres)"
                                 android:id="@+id/total_sowing_area_input_layout"
                                 android:layout_below="@+id/stage_code_input_layout"
                                 app:boxCornerRadiusBottomEnd="15dp"
@@ -356,7 +356,7 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:editable="false"
-                                    android:text="0"
+                                    android:text="0.0"
                                     android:enabled="false"
                                     android:inputType="numberDecimal"
                                     android:maxLines="1" />
@@ -368,7 +368,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginBottom="4dp"
-                                android:hint="Total Land (acres)"
+                                android:hint="Total Land Area(acres)"
                                 android:id="@+id/total_land_layout"
                                 android:layout_below="@+id/total_sowing_area_input_layout"
                                 app:boxCornerRadiusBottomEnd="15dp"
@@ -380,7 +380,7 @@
                                     android:layout_height="wrap_content"
                                     android:editable="false"
                                     android:enabled="false"
-                                    android:text="0"
+                                    android:text="0.0"
                                     android:inputType="numberDecimal"
                                     android:maxLines="1" />
 
@@ -585,7 +585,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:fontFamily="@font/product_sans_bold"
-                                android:text="Doc.SubType : "
+                                android:text="Doc.SubType:"
                                 android:textColor="@color/profileEditTextColor"
                                 android:textSize="13sp" />
 
@@ -603,7 +603,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:fontFamily="@font/product_sans_bold"
-                                android:text="Parent typ : "
+                                android:text="Parent type : "
                                 android:textColor="@color/profileEditTextColor"
                                 android:textSize="13sp" />
 
@@ -646,7 +646,8 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:fontFamily="@font/product_sans_bold"
-                                android:text="Sowing(acr): "
+                                android:text="Sowing(acr):"
+                                android:maxLines="1"
                                 android:textColor="@color/profileEditTextColor"
                                 android:textSize="13sp" />
 
@@ -655,7 +656,6 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:text="0"
                                 android:fontFamily="@font/product_sans_regular"
                                 android:textColor="@color/black"
                                 android:textSize="13sp" />
@@ -755,7 +755,7 @@
                     android:fontFamily="@font/product_sans_bold"
                     android:maxLines="1"
                     android:padding="6dp"
-                    android:text="Line Detail :"
+                    android:text="Line Details :"
                     android:textColor="@color/black"
                     android:textSize="15sp" />
 

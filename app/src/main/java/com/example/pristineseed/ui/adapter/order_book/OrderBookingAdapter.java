@@ -68,7 +68,7 @@ public class OrderBookingAdapter extends BaseAdapter {
         tv_distbuter_name.setText("Distributor : " +bookingOrderList.get(position).distributor_code+"("+bookingOrderList.get(position).distributor_name+")");
         tv_crop.setText("Crop : "+bookingOrderList.get(position).crop_code);
 
-        tv_character_ofImageView_farmer_line.setText(String.valueOf("O"));
+        tv_character_ofImageView_farmer_line.setText(String.valueOf(position));
 
         tv_variety_name.setText("Variety : "+bookingOrderList.get(position).variety_name +",Book QTY : "+bookingOrderList.get(position).booking_qty);
 

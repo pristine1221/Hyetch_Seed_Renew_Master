@@ -400,7 +400,6 @@ public class CreateBookingOrderRename_Fragment extends Fragment {
             }
         });
 
-
         ac_variety.setOnItemClickListener((parent, view, position, id) -> {
             if (varity_list != null && varity_list.size() > 0) {
                 hybrid_item_table = varity_list.get(position);

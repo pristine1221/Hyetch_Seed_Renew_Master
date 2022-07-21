@@ -21,6 +21,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
+import com.bumptech.glide.Glide;
 import com.example.pristineseed.DataBaseRepository.GeographicalRepo.PlantingLineLotListDao;
 import com.example.pristineseed.DataBaseRepository.GeographicalRepo.PlantingLineLotListTable;
 import com.example.pristineseed.DataBaseRepository.Scheduler.PostFloweringInspection.PostFloweringDao;
@@ -65,6 +67,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -84,9 +87,9 @@ public class PostFloweringInspectionFragment extends Fragment {
     private String scheduler_no = "", production_lot_no = "";
     private Button bt_complete, btn_save_record;
     private TextInputEditText ed_pollen_shedd, ed_ohter_type, ed_pollen_shed_plants, ed_pollen_shedd_per, ed_pest_remark, ed_desease_remark,
-            ed_date_of_insp, recmnd_date, actual_date, ed_seed_stng_per, ed_receipt_male, ed_receipt_female, ed_receipt_other,ac_crop_stg;
+            ed_date_of_insp, recmnd_date, actual_date, ed_seed_stng_per, ed_receipt_male, ed_receipt_female, ed_receipt_other,ac_crop_stg,yield_estimation,standing_acres,pld_acres,net_acres;
 
-    private AutoCompleteTextView ac_pest, ac_desease, ac_crop_cond,ed_seed_setting;
+    private AutoCompleteTextView ac_pest, ac_desease, ac_crop_cond,ed_seed_setting,ac_pld;
     private SessionManagement sessionManagement;
     private ImageView imageView;
     private FrameLayout back_press_img;
@@ -187,7 +190,11 @@ public class PostFloweringInspectionFragment extends Fragment {
         ed_receipt_female = view.findViewById(R.id.receipt_no_female);
         ed_receipt_other = view.findViewById(R.id.receipt_no_other);
         image_layout = view.findViewById(R.id.image_layout);
-
+        yield_estimation = view.findViewById(R.id.yield_estimation);
+        standing_acres = view.findViewById(R.id.standing_acres);
+        pld_acres = view.findViewById(R.id.pld_acres);
+        net_acres = view.findViewById(R.id.net_acres);
+        ac_pld=view.findViewById(R.id.ac_pld);
         back_press_img.setOnClickListener(v -> {
             getFragmentManager().popBackStack();
         });
@@ -378,7 +385,13 @@ public class PostFloweringInspectionFragment extends Fragment {
                 actual_date.setText(DateTimeUtilsCustome.splitDateInYYYMMDDslsh(postfloweringInspectionTable.get(0).getActual_date()));
             }
             try {
-                String file_attachment = postfloweringInspectionTable.get(0).getAttachment();
+                if(postfloweringInspectionTable.get(0).getAttachment()!=null){
+                    String getImageId=postfloweringInspectionTable.get(0).getAttachment();
+                    HitShowImageApi(getImageId );
+                }
+                else {
+                    Toast.makeText(getActivity(), postfloweringInspectionTable.get(0).getAttachment(), Toast.LENGTH_SHORT).show();
+                }
 
             } catch (Exception e) {
                 e.getMessage();
@@ -711,5 +724,42 @@ public class PostFloweringInspectionFragment extends Fragment {
             }
         }
         return "";
+    }
+
+    private void HitShowImageApi(String getImageId) {
+        NetworkInterface mAPIService = ApiUtils.getPristineAPIService();
+        Call<ResponseBody> call = mAPIService.getImageInspection(getImageId);
+        LoadingDialog progressDialogLoading = new LoadingDialog();
+        progressDialogLoading.showLoadingDialog(getActivity());
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                try {
+                    if (response.isSuccessful()) {
+                        progressDialogLoading.hideDialog();
+                        image_layout.setVisibility(View.VISIBLE);
+                        imageView.setVisibility(View.VISIBLE);
+                        Glide.with(getActivity())
+                                .load("https://hytechdev.pristinefulfil.com/api/Inspection/Get_Image?id="+getImageId) // image url
+                                .placeholder(R.drawable.noimage1) // any placeholder to load at start
+                                .into(imageView);
+                    } else {
+                        progressDialogLoading.hideDialog();
+                        Toast.makeText(getActivity(), response.message() + ". Error Code:" + response.code(), Toast.LENGTH_SHORT).show();
+                    }
+
+                } catch (Exception e) {
+                    progressDialogLoading.hideDialog();
+                    Log.e("exception database", e.getMessage() + "cause");
+                    ApiRequestFailure.PostExceptionToServer(e, getClass().getName(), "insert_germination", getActivity());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                progressDialogLoading.hideDialog();
+                ApiRequestFailure.PostExceptionToServer(t, getClass().getName(), "insert_germination", getActivity());
+            }
+        });
     }
 }

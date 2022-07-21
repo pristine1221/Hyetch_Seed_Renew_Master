@@ -30,6 +30,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.bumptech.glide.Glide;
 import com.example.pristineseed.DataBaseRepository.GeographicalRepo.PlantingLineLotListDao;
 import com.example.pristineseed.DataBaseRepository.GeographicalRepo.PlantingLineLotListTable;
 import com.example.pristineseed.DataBaseRepository.Scheduler.FloweringInspectionTable.FloweringInspectionDao;
@@ -76,6 +77,7 @@ import java.util.Date;
 import java.util.List;
 
 import okhttp3.MultipartBody;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -206,7 +208,7 @@ public class FloweringInspectionFragment extends Fragment {
         tv_iso_time_show = view.findViewById(R.id.iso_time_show);
         tv_iso_grain_show = view.findViewById(R.id.iso_grain_show);
         ed_grain_remark = view.findViewById(R.id.grain_remark);
-        image_layout = view.findViewById(R.id.image_layout);
+        image_layout = view.findViewById(R.id.image_layout1);
 
         //find input field.....
         ed_date_of_insp = view.findViewById(R.id.ed_date_of_insp);
@@ -521,16 +523,17 @@ public class FloweringInspectionFragment extends Fragment {
                 ed_deease_remark.setText(floweringInspectionTable.get(0).getDiseases_remarks());
                 ed_polln_shed_pr.setText(String.valueOf(floweringInspectionTable.get(0).getPollen_shedding_plants_per()));
                 if (floweringInspectionTable.get(0).getRecommended_date() != null) {
-                    ed_remnd_date.setText(DateTimeUtilsCustome.splitDateInYYYMMDDslsh(floweringInspectionTable.get(0).getRecommended_date()));
+                    //ed_remnd_date.setText(DateTimeUtilsCustome.splitDateInYYYMMDDslsh(floweringInspectionTable.get(0).getRecommended_date()));
                 }
                 if (floweringInspectionTable.get(0).getActual_date() != null) {
                     ed_actual_date.setText(DateTimeUtilsCustome.splitDateInYYYMMDDslsh(floweringInspectionTable.get(0).getActual_date()));
                 }
-                try {
-                    String file_attachment = floweringInspectionTable.get(0).getAttachment();
-
-                } catch (Exception e) {
-                    e.getMessage();
+                if(floweringInspectionTable.get(0).getAttachment()!=null){
+                    String getImageId=floweringInspectionTable.get(0).getAttachment();
+                    HitShowImageApi(getImageId );
+                }
+                else {
+                    Toast.makeText(getActivity(), floweringInspectionTable.get(0).getAttachment(), Toast.LENGTH_SHORT).show();
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -839,5 +842,42 @@ public class FloweringInspectionFragment extends Fragment {
             }
         }
         return "";
+    }
+
+    private void HitShowImageApi(String getImageId) {
+        NetworkInterface mAPIService = ApiUtils.getPristineAPIService();
+        Call<ResponseBody> call = mAPIService.getImageInspection(getImageId);
+        LoadingDialog progressDialogLoading = new LoadingDialog();
+        progressDialogLoading.showLoadingDialog(getActivity());
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                try {
+                    if (response.isSuccessful()) {
+                        progressDialogLoading.hideDialog();
+                        image_layout.setVisibility(View.VISIBLE);
+                        imageView.setVisibility(View.VISIBLE);
+                        Glide.with(getActivity())
+                                .load("https://hytechdev.pristinefulfil.com/api/Inspection/Get_Image?id="+getImageId) // image url
+                                .placeholder(R.drawable.noimage1) // any placeholder to load at start
+                                .into(imageView);
+                    } else {
+                        progressDialogLoading.hideDialog();
+                        Toast.makeText(getActivity(), response.message() + ". Error Code:" + response.code(), Toast.LENGTH_SHORT).show();
+                    }
+
+                } catch (Exception e) {
+                    progressDialogLoading.hideDialog();
+                    Log.e("exception database", e.getMessage() + "cause");
+                    ApiRequestFailure.PostExceptionToServer(e, getClass().getName(), "insert_germination", getActivity());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                progressDialogLoading.hideDialog();
+                ApiRequestFailure.PostExceptionToServer(t, getClass().getName(), "insert_germination", getActivity());
+            }
+        });
     }
 }

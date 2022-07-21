@@ -28,6 +28,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.bumptech.glide.Glide;
 import com.example.pristineseed.DataBaseRepository.GeographicalRepo.PlantingLineLotListDao;
 import com.example.pristineseed.DataBaseRepository.GeographicalRepo.PlantingLineLotListTable;
 import com.example.pristineseed.DataBaseRepository.Scheduler.NickingInpection.NickingInspInsertDao;
@@ -74,6 +75,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -382,7 +384,13 @@ public class NickingInspectionFragment extends Fragment {
                 edt_date_of_inspection.setText("");
             }
             try {
-                String file_attachment = nickingInspectionTable.get(0).getAttachment();
+                if(nickingInspectionTable.get(0).getAttachment()!=null){
+                    String getImageId=nickingInspectionTable.get(0).getAttachment();
+                    HitShowImageApi(getImageId );
+                }
+                else {
+                    Toast.makeText(getActivity(), nickingInspectionTable.get(0).getAttachment(), Toast.LENGTH_SHORT).show();
+                }
             } catch (Exception e) {
                 e.getMessage();
             }
@@ -648,5 +656,42 @@ public class NickingInspectionFragment extends Fragment {
             }
         }
         return "";
+    }
+
+    private void HitShowImageApi(String getImageId) {
+        NetworkInterface mAPIService = ApiUtils.getPristineAPIService();
+        Call<ResponseBody> call = mAPIService.getImageInspection(getImageId);
+        LoadingDialog progressDialogLoading = new LoadingDialog();
+        progressDialogLoading.showLoadingDialog(getActivity());
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                try {
+                    if (response.isSuccessful()) {
+                        progressDialogLoading.hideDialog();
+                        image_layout.setVisibility(View.VISIBLE);
+                        imageView.setVisibility(View.VISIBLE);
+                        Glide.with(getActivity())
+                                .load("https://hytechdev.pristinefulfil.com/api/Inspection/Get_Image?id="+getImageId) // image url
+                                .placeholder(R.drawable.noimage1) // any placeholder to load at start
+                                .into(imageView);
+                    } else {
+                        progressDialogLoading.hideDialog();
+                        Toast.makeText(getActivity(), response.message() + ". Error Code:" + response.code(), Toast.LENGTH_SHORT).show();
+                    }
+
+                } catch (Exception e) {
+                    progressDialogLoading.hideDialog();
+                    Log.e("exception database", e.getMessage() + "cause");
+                    ApiRequestFailure.PostExceptionToServer(e, getClass().getName(), "insert_germination", getActivity());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                progressDialogLoading.hideDialog();
+                ApiRequestFailure.PostExceptionToServer(t, getClass().getName(), "insert_germination", getActivity());
+            }
+        });
     }
 }

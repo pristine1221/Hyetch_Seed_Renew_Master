@@ -1,0 +1,643 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/fsio_bsio_custom_layout"
+    android:background="@color/my_app_background_color"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:background="@color/my_app_background_color"
+            android:elevation="5dp"
+            app:cardCornerRadius="3dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:background="@color/bg_green2"
+                    android:padding="@dimen/_5sdp">
+
+                    <ImageView
+                        android:id="@+id/close_dilog_bt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:clickable="true"
+                        android:elevation="2dp"
+                        app:srcCompat="@drawable/ic_baseline_close_24" />
+
+                    <TextView
+                        style="@style/TextAppearance.MaterialComponents.Headline6"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical|center_horizontal"
+                        android:text="FSIO/BSIO Doc Code Details"
+                        android:textAlignment="center" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="@drawable/bottom_shadow_gradient">
+
+                </View>
+
+                <LinearLayout
+                    android:id="@+id/planting_detail_header_section"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="visible">
+
+                    <TableLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="5dp">
+
+                        <TableRow
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_bold"
+                                android:text="Document Number : "
+                                android:textColor="@color/profileEditTextColor"
+                                android:textSize="12sp" />
+
+                            <TextView
+                                android:id="@+id/tv_doc_no"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_regular"
+                                android:textColor="@color/dark_green"
+                                android:textSize="10sp" />
+                        </TableRow>
+
+                        <TableRow
+                            android:layout_height="match_parent"
+                            android:layout_width="wrap_content">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_bold"
+                                android:text="Document Order No :"
+                                android:textColor="@color/profileEditTextColor"
+                                android:textSize="12sp" />
+
+                            <TextView
+                                android:id="@+id/tv_order_no"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_regular"
+                                android:textColor="@color/black"
+                                android:textSize="10sp" />
+
+                        </TableRow>
+
+                        <TableRow
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_bold"
+                                android:text="Customer Posting Group : "
+                                android:textColor="@color/profileEditTextColor"
+                                android:textSize="12sp" />
+
+                            <TextView
+                                android:id="@+id/tv_customer_posting_grp"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_regular"
+                                android:textColor="@color/black"
+                                android:textSize="10sp" />
+
+                        </TableRow>
+
+                        <TableRow
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_bold"
+                                android:text="Sell-to Customer No:"
+                                android:textColor="@color/profileEditTextColor"
+                                android:textSize="12sp" />
+
+                            <TextView
+                                android:id="@+id/sell_cutomer_no"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_regular"
+                                android:textColor="@color/black"
+                                android:textSize="10sp" />
+
+                        </TableRow>
+
+                        <TableRow
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_bold"
+                                android:text="Sell-to Customer Name : "
+                                android:textColor="@color/profileEditTextColor"
+                                android:textSize="12sp" />
+
+                            <TextView
+                                android:id="@+id/sell_customer_name"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_regular"
+                                android:textColor="@color/black"
+                                android:textSize="10sp" />
+
+
+                        </TableRow>
+
+                        <TableRow
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_bold"
+                                android:text="Sell-to Customer Address : "
+                                android:textColor="@color/profileEditTextColor"
+                                android:textSize="12sp" />
+
+                            <TextView
+                                android:id="@+id/sell_customer_address"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_regular"
+                                android:textColor="@color/black"
+                                android:textSize="10sp" />
+
+                        </TableRow>
+
+                        <TableRow
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_bold"
+                                android:text="Sell-to Customer City : "
+                                android:textColor="@color/profileEditTextColor"
+                                android:textSize="12sp" />
+
+                            <TextView
+                                android:id="@+id/sell_customer_city"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_regular"
+                                android:textColor="@color/black"
+                                android:textSize="10sp" />
+
+                        </TableRow>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="2dp"
+                            android:background="@drawable/bottom_shadow_gradient" />
+
+                        <TableRow
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_bold"
+                                android:text="DocSubType :"
+                                android:textColor="@color/profileEditTextColor"
+                                android:textSize="12sp" />
+
+                            <TextView
+                                android:id="@+id/doc_sub_type"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_regular"
+                                android:textColor="@color/black"
+                                android:textSize="10sp" />
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_bold"
+                                android:text="Seed Type : "
+                                android:textColor="@color/profileEditTextColor"
+                                android:textSize="12sp" />
+
+                            <TextView
+                                android:id="@+id/tv_seed_type"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_regular"
+                                android:textColor="@color/black"
+                                android:textSize="10sp" />
+                        </TableRow>
+
+
+                        <TableRow
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_bold"
+                                android:text="Seed Name : "
+                                android:textColor="@color/profileEditTextColor"
+                                android:textSize="12sp" />
+
+                            <TextView
+                                android:id="@+id/tv_seed_name"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_regular"
+                                android:textColor="@color/black"
+                                android:textSize="10sp" />
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_bold"
+                                android:text="Seed No : "
+                                android:textColor="@color/profileEditTextColor"
+                                android:textSize="12sp" />
+
+                            <TextView
+                                android:id="@+id/tv_seed_no"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_regular"
+                                android:textColor="@color/black"
+                                android:textSize="10sp" />
+                        </TableRow>
+
+                        <TableRow
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_bold"
+                                android:text="Crop Code : "
+                                android:textColor="@color/profileEditTextColor"
+                                android:textSize="12sp" />
+
+                            <TextView
+                                android:id="@+id/tv_crop_code"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_regular"
+                                android:textColor="@color/black"
+                                android:textSize="10sp" />
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_bold"
+                                android:text="Business : "
+                                android:textColor="@color/profileEditTextColor"
+                                android:textSize="12sp" />
+
+                            <TextView
+                                android:id="@+id/tv_business_type"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_regular"
+                                android:textColor="@color/black"
+                                android:textSize="10sp" />
+                        </TableRow>
+
+                        <TableRow
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_bold"
+                                android:text="Location  : "
+                                android:textColor="@color/profileEditTextColor"
+                                android:textSize="12sp" />
+
+                            <TextView
+                                android:id="@+id/tv_location"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_regular"
+                                android:textColor="@color/black"
+                                android:textSize="10sp" />
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_bold"
+                                android:text="Loc Code : "
+                                android:textColor="@color/profileEditTextColor"
+                                android:textSize="12sp" />
+
+                            <TextView
+                                android:id="@+id/tv_location_code"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_regular"
+                                android:textColor="@color/black"
+                                android:textSize="10sp" />
+                        </TableRow>
+
+                        <TableRow
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_bold"
+                                android:text="State Name : "
+                                android:textColor="@color/profileEditTextColor"
+                                android:textSize="12sp" />
+
+                            <TextView
+                                android:id="@+id/tv_state_name"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_regular"
+                                android:textColor="@color/black"
+                                android:textSize="10sp" />
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_bold"
+                                android:text="Territory  : "
+                                android:textColor="@color/profileEditTextColor"
+                                android:textSize="12sp" />
+
+                            <TextView
+                                android:id="@+id/tv_territory"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_regular"
+                                android:textColor="@color/black"
+                                android:textSize="10sp" />
+                        </TableRow>
+
+                        <TableRow
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_bold"
+                                android:text="RegionName : "
+                                android:textColor="@color/profileEditTextColor"
+                                android:textSize="12sp" />
+
+                            <TextView
+                                android:id="@+id/tv_reagion"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_regular"
+                                android:textColor="@color/black"
+                                android:textSize="10sp" />
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_bold"
+                                android:text="Dist Name : "
+                                android:textColor="@color/profileEditTextColor"
+                                android:textSize="12sp" />
+
+                            <TextView
+                                android:id="@+id/tv_district"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_regular"
+                                android:textColor="@color/black"
+                                android:textSize="10sp" />
+                        </TableRow>
+
+                        <TableRow
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_bold"
+                                android:text="Zone Code : "
+                                android:textColor="@color/profileEditTextColor"
+                                android:textSize="12sp" />
+
+                            <TextView
+                                android:id="@+id/tv_zone"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_regular"
+                                android:textColor="@color/black"
+                                android:textSize="10sp" />
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_bold"
+                                android:text="Land Acres : "
+                                android:textColor="@color/profileEditTextColor"
+                                android:textSize="12sp" />
+
+                            <TextView
+                                android:id="@+id/tv_land_arc"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_regular"
+                                android:textColor="@color/black"
+                                android:textSize="10sp" />
+                        </TableRow>
+
+                        <TableRow
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_bold"
+                                android:text="Order Date : "
+                                android:textColor="@color/profileEditTextColor"
+                                android:textSize="12sp" />
+
+                            <TextView
+                                android:id="@+id/tv_order_date"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_regular"
+                                android:textColor="@color/black"
+                                android:textSize="10sp" />
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_bold"
+                                android:text="Post Date : "
+                                android:textColor="@color/profileEditTextColor"
+                                android:textSize="12sp" />
+
+                            <TextView
+                                android:id="@+id/tv_posting_date"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_regular"
+                                android:textColor="@color/black"
+                                android:textSize="10sp" />
+                        </TableRow>
+
+                        <TableRow
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_bold"
+                                android:text="User ID : "
+                                android:textColor="@color/profileEditTextColor"
+                                android:textSize="12sp" />
+
+                            <TextView
+                                android:id="@+id/tv_user_id"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_regular"
+                                android:textColor="@color/black"
+                                android:textSize="10sp" />
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_bold"
+                                android:text="Message : "
+                                android:textColor="@color/profileEditTextColor"
+                                android:textSize="12sp" />
+
+                            <TextView
+                                android:id="@+id/tv_message"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_regular"
+                                android:textColor="@color/dark_green"
+                                android:textSize="10sp" />
+                        </TableRow>
+
+
+                    </TableLayout>
+
+
+                </LinearLayout>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+        <!--<View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="1dp"
+            android:background="@drawable/bottom_shadow_gradient" />-->
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:text="Document Number Lines :"
+            android:textColor="@color/black"
+            android:fontFamily="@font/product_sans_bold"/>
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/doc_detalis_listView"
+            android:divider="@null"
+            android:background="@color/gray4"/>
+    </LinearLayout>
+</RelativeLayout>

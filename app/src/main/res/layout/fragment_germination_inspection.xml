@@ -76,7 +76,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:padding="5dp"
-                        android:text="Header Detail">
+                        android:text="Header Details">
                     </TextView>
 
                     <View
@@ -265,8 +265,6 @@
                         android:padding="5dp">
 
 
-
-
                         <TableRow
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -296,19 +294,19 @@
                                 android:layout_weight="1"
                                 android:fontFamily="@font/product_sans_bold"
                                 android:text="Org. code : "
-                                android:visibility="gone"
                                 android:textColor="@color/profileEditTextColor"
-                                android:textSize="13sp" />
+                                android:textSize="13sp"
+                                android:visibility="gone" />
 
                             <TextView
                                 android:id="@+id/org_code"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:visibility="gone"
                                 android:fontFamily="@font/product_sans_regular"
                                 android:textColor="@color/black"
-                                android:textSize="13sp" />
+                                android:textSize="13sp"
+                                android:visibility="gone" />
 
                         </TableRow>
 
@@ -341,7 +339,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:fontFamily="@font/product_sans_bold"
-                                android:text="Varity Code : "
+                                android:text="Variety Code : "
                                 android:textColor="@color/profileEditTextColor"
                                 android:textSize="13sp" />
 
@@ -380,7 +378,6 @@
                                 android:textSize="13sp" />
 
 
-
                             <TextView
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
@@ -400,14 +397,13 @@
                                 android:textSize="13sp" />
 
 
-
                         </TableRow>
+
                         <TableRow
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:visibility="gone"
-                            android:padding="2dp">
-
+                            android:padding="2dp"
+                            android:visibility="gone">
 
 
                             <TextView
@@ -429,6 +425,7 @@
                                 android:textSize="13sp" />
 
                         </TableRow>
+
                         <TableRow
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -476,6 +473,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:padding="2dp">
+
                             <TextView
                                 android:id="@+id/grwer_name"
                                 android:layout_width="0dp"
@@ -495,15 +493,16 @@
                                 android:fontFamily="@font/product_sans_regular"
                                 android:textColor="@color/black"
                                 android:textSize="13sp" />
+
                             <TextView
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:fontFamily="@font/product_sans_bold"
                                 android:text="Item n. :"
-                                android:visibility="gone"
                                 android:textColor="@color/profileEditTextColor"
-                                android:textSize="13sp" />
+                                android:textSize="13sp"
+                                android:visibility="gone" />
 
 
                             <TextView
@@ -511,11 +510,12 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:visibility="gone"
                                 android:fontFamily="@font/product_sans_regular"
                                 android:textColor="@color/black"
-                                android:textSize="13sp" />
+                                android:textSize="13sp"
+                                android:visibility="gone" />
                         </TableRow>
+
                         <TableRow
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -552,11 +552,11 @@
 
                                 <TextView
                                     android:id="@+id/posting_error"
-                                    android:visibility="gone"
                                     android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
                                     android:fontFamily="@font/product_sans_regular"
                                     android:textColor="@color/my_app_error_color"
-                                    android:layout_height="wrap_content"/>
+                                    android:visibility="gone" />
 
                                 <TextView
                                     style="@style/TextAppearance.MaterialComponents.Subtitle2"
@@ -607,8 +607,8 @@
                                     android:layout_height="wrap_content"
                                     android:editable="false"
                                     android:inputType="none"
-                                    android:textColor="@color/black"
-                                    android:maxLines="1"/>
+                                    android:maxLines="1"
+                                    android:textColor="@color/black" />
 
                             </com.google.android.material.textfield.TextInputLayout>
                         </TableRow>
@@ -641,16 +641,16 @@
                                     android:layout_height="wrap_content"
                                     android:editable="false"
                                     android:enabled="false"
-                                    android:textColor="@color/black"
-                                    android:maxLines="1"/>
+                                    android:maxLines="1"
+                                    android:textColor="@color/black" />
 
                             </com.google.android.material.textfield.TextInputLayout>
                         </TableRow>
 
                         <TableRow
                             android:layout_marginTop="8dp"
-                            android:visibility="gone"
-                            android:layout_marginBottom="4dp">
+                            android:layout_marginBottom="4dp"
+                            android:visibility="gone">
 
                             <ImageView
                                 android:layout_width="50dp"
@@ -674,14 +674,15 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:enabled="false"
-                                    android:textColor="@color/black"
-                                    android:maxLines="1" />
+                                    android:maxLines="1"
+                                    android:textColor="@color/black" />
 
                             </com.google.android.material.textfield.TextInputLayout>
                         </TableRow>
 
 
-                        <TableRow android:layout_marginTop="10dp"
+                        <TableRow
+                            android:layout_marginTop="10dp"
                             android:layout_marginBottom="4dp">
 
                             <ImageView
@@ -708,17 +709,16 @@
                                     android:layout_height="wrap_content"
                                     android:editable="false"
                                     android:inputType="none"
-                                    android:textColor="@color/black"
-                                    android:maxLines="1"/>
+                                    android:maxLines="1"
+                                    android:textColor="@color/black" />
 
                             </com.google.android.material.textfield.TextInputLayout>
 
                         </TableRow>
 
 
-
-
-                        <TableRow android:layout_marginTop="10dp"
+                        <TableRow
+                            android:layout_marginTop="10dp"
                             android:layout_marginBottom="4dp">
 
                             <ImageView
@@ -745,14 +745,15 @@
                                     android:layout_height="wrap_content"
                                     android:editable="false"
                                     android:enabled="false"
-                                    android:textColor="@color/black"
-                                    android:maxLines="1"/>
+                                    android:maxLines="1"
+                                    android:textColor="@color/black" />
 
                             </com.google.android.material.textfield.TextInputLayout>
 
                         </TableRow>
 
-                        <TableRow android:layout_marginTop="10dp"
+                        <TableRow
+                            android:layout_marginTop="10dp"
                             android:layout_marginBottom="4dp">
 
                             <ImageView
@@ -780,8 +781,78 @@
                                     android:layout_height="wrap_content"
                                     android:editable="false"
                                     android:inputType="none"
-                                    android:textColor="@color/black"
-                                    android:maxLines="1"/>
+                                    android:maxLines="1"
+                                    android:textColor="@color/black" />
+
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                        </TableRow>
+
+                        <TableRow
+                            android:layout_marginTop="10dp"
+                            android:layout_marginBottom="4dp">
+
+                            <ImageView
+                                android:layout_width="50dp"
+                                android:layout_height="match_parent"
+                                android:padding="10dp"
+                                android:src="@drawable/ic_sowingarea">
+
+                            </ImageView>
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="4dp"
+                                android:layout_weight="1"
+                                android:hint="Sowing Acres  "
+                                app:boxCornerRadiusBottomEnd="15dp"
+
+                                app:boxCornerRadiusTopStart="15dp">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/ac_sowing_acres"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:editable="false"
+                                    android:inputType="none"
+                                    android:maxLines="1"
+                                    android:textColor="@color/black" />
+
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                        </TableRow>
+
+                        <TableRow
+                            android:layout_marginTop="10dp"
+                            android:layout_marginBottom="4dp">
+
+                            <ImageView
+                                android:layout_width="50dp"
+                                android:layout_height="match_parent"
+                                android:padding="10dp"
+                                android:src="@drawable/ic_sowingarea">
+
+                            </ImageView>
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="4dp"
+                                android:layout_weight="1"
+                                android:hint="Standing Acres "
+                                app:boxCornerRadiusBottomEnd="15dp"
+                                app:boxCornerRadiusTopStart="15dp">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/ed_standing_acres"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:inputType="number"
+                                    android:maxLines="1"
+                                    android:textColor="@color/black" />
 
                             </com.google.android.material.textfield.TextInputLayout>
 
@@ -801,7 +872,7 @@
 
                             <com.google.android.material.textfield.TextInputLayout
                                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
-                                android:layout_width="match_parent"
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:hint="Recommended Dose of Fertilizer"
@@ -812,9 +883,9 @@
                                     android:id="@+id/recmd_ds_fertz"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:textColor="@color/black"
                                     android:editable="false"
-                                    android:maxLines="1" />
+                                    android:maxLines="1"
+                                    android:textColor="@color/black" />
 
                             </com.google.android.material.textfield.TextInputLayout>
 
@@ -822,6 +893,8 @@
                         </TableRow>
 
                         <TableRow
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
                             android:layout_marginTop="8dp"
                             android:layout_marginBottom="4dp">
 
@@ -835,9 +908,9 @@
 
                             <com.google.android.material.textfield.TextInputLayout
                                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
+                                android:layout_width="0dp"
                                 android:layout_weight="1"
+                                android:layout_height="wrap_content"
                                 android:hint="Recommend Dose of Fertilizer in Bags"
                                 app:boxCornerRadiusBottomEnd="15dp"
                                 app:boxCornerRadiusTopStart="15dp">
@@ -847,15 +920,16 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:inputType="numberDecimal"
-                                    android:textColor="@color/black"
-                                    android:maxLines="1" />
+                                    android:maxLines="1"
+                                    android:textColor="@color/black" />
 
                             </com.google.android.material.textfield.TextInputLayout>
 
 
                         </TableRow>
 
-                        <TableRow android:layout_marginTop="10dp"
+                        <TableRow
+                            android:layout_marginTop="10dp"
                             android:layout_marginBottom="4dp">
 
                             <ImageView
@@ -878,11 +952,11 @@
 
                                 <com.google.android.material.textfield.TextInputEditText
                                     android:id="@+id/basal_dos"
-                                    android:layout_width="match_parent"
+                                    android:layout_width="360dp"
                                     android:layout_height="wrap_content"
                                     android:inputType="number"
-                                    android:textColor="@color/black"
-                                    android:maxLines="1" />
+                                    android:maxLines="1"
+                                    android:textColor="@color/black" />
 
                             </com.google.android.material.textfield.TextInputLayout>
 
@@ -915,8 +989,8 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:inputType="numberDecimal"
-                                    android:textColor="@color/black"
-                                    android:maxLines="1" />
+                                    android:maxLines="1"
+                                    android:textColor="@color/black" />
 
                             </com.google.android.material.textfield.TextInputLayout>
 
@@ -928,27 +1002,28 @@
                             android:layout_marginTop="8dp"
                             android:layout_marginBottom="4dp"
                             android:visibility="gone">
+
                             <ImageView
                                 android:layout_width="50dp"
                                 android:layout_height="match_parent"
                                 android:padding="10dp"
-                                android:src="@drawable/ic_baseline_supervised_user_circle_24">
-                            </ImageView>
+                                android:src="@drawable/ic_baseline_supervised_user_circle_24"></ImageView>
+
                             <com.google.android.material.textfield.TextInputLayout
                                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/_4sdp"
                                 android:layout_weight="1"
+                                android:hint="Seed Setting"
                                 app:boxCornerRadiusBottomEnd="15dp"
-                                app:boxCornerRadiusTopStart="15dp"
-                                android:hint="Seed Setting">
+                                app:boxCornerRadiusTopStart="15dp">
 
                                 <com.google.android.material.textfield.TextInputEditText
                                     android:id="@+id/ed_seed_setting"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:maxLines="1"/>
+                                    android:maxLines="1" />
                             </com.google.android.material.textfield.TextInputLayout>
 
                         </TableRow>
@@ -958,21 +1033,22 @@
                             android:layout_marginTop="8dp"
                             android:layout_marginBottom="4dp"
                             android:visibility="gone">
+
                             <ImageView
                                 android:layout_width="50dp"
                                 android:layout_height="match_parent"
                                 android:padding="10dp"
-                                android:src="@drawable/ic_baseline_supervised_user_circle_24">
-                            </ImageView>
+                                android:src="@drawable/ic_baseline_supervised_user_circle_24"></ImageView>
+
                             <com.google.android.material.textfield.TextInputLayout
                                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/_4sdp"
                                 android:layout_weight="1"
+                                android:hint="Seed Setting %"
                                 app:boxCornerRadiusBottomEnd="15dp"
-                                app:boxCornerRadiusTopStart="15dp"
-                                android:hint="Seed Setting %">
+                                app:boxCornerRadiusTopStart="15dp">
 
                                 <com.google.android.material.textfield.TextInputEditText
                                     android:id="@+id/seed_setting_per"
@@ -980,7 +1056,7 @@
                                     android:layout_height="wrap_content"
                                     android:editable="false"
                                     android:inputType="numberDecimal"
-                                    android:maxLines="1"/>
+                                    android:maxLines="1" />
                             </com.google.android.material.textfield.TextInputLayout>
 
                         </TableRow>
@@ -993,9 +1069,8 @@
                             <ImageView
                                 android:layout_width="50dp"
                                 android:layout_height="match_parent"
-                                android:src="@drawable/ic_remark_img"
-                                android:padding="10dp">
-                            </ImageView>
+                                android:padding="10dp"
+                                android:src="@drawable/ic_remark_img"></ImageView>
 
                             <com.google.android.material.textfield.TextInputLayout
                                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
@@ -1012,8 +1087,8 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:lines="2"
-                                    android:textColor="@color/black"
-                                    android:maxLines="1"/>
+                                    android:maxLines="1"
+                                    android:textColor="@color/black" />
 
                             </com.google.android.material.textfield.TextInputLayout>
 
@@ -1021,15 +1096,14 @@
 
                         <TableRow
                             android:layout_marginTop="8dp"
-                            android:visibility="gone"
-                            android:layout_marginBottom="4dp">
+                            android:layout_marginBottom="4dp"
+                            android:visibility="gone">
 
                             <ImageView
                                 android:layout_width="50dp"
                                 android:layout_height="match_parent"
-                                android:src="@drawable/ic_baseline_supervised_user_circle_24"
-                                android:padding="10dp">
-                            </ImageView>
+                                android:padding="10dp"
+                                android:src="@drawable/ic_baseline_supervised_user_circle_24"></ImageView>
 
                             <com.google.android.material.textfield.TextInputLayout
                                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
@@ -1044,10 +1118,10 @@
                                     android:id="@+id/receipt_no_male"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
+                                    android:editable="false"
                                     android:lines="2"
                                     android:maxLength="150"
-                                    android:editable="false"
-                                    android:maxLines="1"/>
+                                    android:maxLines="1" />
 
                             </com.google.android.material.textfield.TextInputLayout>
 
@@ -1055,15 +1129,14 @@
 
                         <TableRow
                             android:layout_marginTop="8dp"
-                            android:visibility="gone"
-                            android:layout_marginBottom="4dp">
+                            android:layout_marginBottom="4dp"
+                            android:visibility="gone">
 
                             <ImageView
                                 android:layout_width="50dp"
                                 android:layout_height="match_parent"
-                                android:src="@drawable/ic_baseline_supervised_user_circle_24"
-                                android:padding="10dp">
-                            </ImageView>
+                                android:padding="10dp"
+                                android:src="@drawable/ic_baseline_supervised_user_circle_24"></ImageView>
 
                             <com.google.android.material.textfield.TextInputLayout
                                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
@@ -1079,9 +1152,9 @@
                                     android:id="@+id/receipt_no_female"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:lines="2"
                                     android:editable="false"
-                                    android:maxLines="1"/>
+                                    android:lines="2"
+                                    android:maxLines="1" />
 
                             </com.google.android.material.textfield.TextInputLayout>
 
@@ -1095,9 +1168,8 @@
                             <ImageView
                                 android:layout_width="50dp"
                                 android:layout_height="match_parent"
-                                android:src="@drawable/ic_baseline_supervised_user_circle_24"
-                                android:padding="10dp">
-                            </ImageView>
+                                android:padding="10dp"
+                                android:src="@drawable/ic_baseline_supervised_user_circle_24"></ImageView>
 
                             <com.google.android.material.textfield.TextInputLayout
                                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
@@ -1113,16 +1185,16 @@
                                     android:id="@+id/receipt_no_other"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:lines="2"
                                     android:editable="false"
-                                    android:maxLines="1"/>
+                                    android:lines="2"
+                                    android:maxLines="1" />
 
                             </com.google.android.material.textfield.TextInputLayout>
 
                         </TableRow>
                     </TableLayout>
 
-                        <LinearLayout
+                    <LinearLayout
                             android:orientation="horizontal"
                             android:layout_marginTop="5dp"
                             android:layout_marginBottom="4dp"
@@ -1178,7 +1250,7 @@
 
 
                             <LinearLayout
-                                android:id="@+id/image_layout"
+                                android:id="@+id/germinationImage_layout"
                                 android:layout_width="0dp"
                                 android:layout_weight="1"
                                 android:orientation="vertical"

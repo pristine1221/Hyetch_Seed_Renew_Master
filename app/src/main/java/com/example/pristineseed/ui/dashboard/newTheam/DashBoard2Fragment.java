@@ -94,8 +94,8 @@ public class DashBoard2Fragment extends Fragment {
     private TextView notification_count;
     private RecyclerView grid_image_list;
     private Integer[] image_array={R.drawable.slide_das_img1,R.drawable.slide_dash_img2,R.drawable.slide_dash_img3,
-            R.drawable.musterd_img,R.drawable.hytech_img,
-            R.drawable.face_book_and_linkedin,R.drawable.gallery_slide_das_0612,R.drawable.gallery_award_pic};
+            R.drawable.slide_dash_img3,R.drawable.musterd_img,R.drawable.hytech_img,
+            R.drawable.gallery_slide_das_0612,R.drawable.gallery_award_pic, R.drawable.face_book_and_linkedin,};
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

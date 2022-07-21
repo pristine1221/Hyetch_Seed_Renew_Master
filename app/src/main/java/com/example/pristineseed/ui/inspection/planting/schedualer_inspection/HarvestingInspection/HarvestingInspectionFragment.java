@@ -25,6 +25,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.bumptech.glide.Glide;
 import com.example.pristineseed.DataBaseRepository.GeographicalRepo.PlantingLineLotListDao;
 import com.example.pristineseed.DataBaseRepository.GeographicalRepo.PlantingLineLotListTable;
 import com.example.pristineseed.DataBaseRepository.Scheduler.GerminationInspection1_Table;
@@ -70,6 +71,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -300,7 +302,7 @@ public class HarvestingInspectionFragment extends Fragment {
     }
 
 
-    private List<HarvestingInspectionTable> harvestingInspectionTableList = null;
+    private List<HarvestingInspectionTable> harvestingInspectionTableList = new ArrayList<>();
     private SchedulerInspectionLineTable scheduler_line_header_data = null;
 
     private void insertHarvstingInspectionLine(List<HarvestingInspectionModel> schedule_scan_lot_list) {
@@ -375,15 +377,22 @@ public class HarvestingInspectionFragment extends Fragment {
             }
               /*if(harvestingInspectionTableList.get(0).getRecommended_date()!=null){
                   ed_remmmdn_date.setText(DateTimeUtilsCustome.splitDateInYYYMMDDslsh(harvestingInspectionTableList.get(0).getRecommended_date()));
-                  ed_actual_date.setText(DateTimeUtilsCustome.splitDateInYYYMMDDslsh(harvestingInspectionTableList.get(0).getRecommended_date()));
+
               }*/
+            ed_actual_date.setText(DateTimeUtilsCustome.splitDateInYYYMMDDslsh(harvestingInspectionTableList.get(0).getActual_date()));
             ed_remmmdn_date.setText(getFemaleSowingDate());
             ed_sorting_grade.setText(harvestingInspectionTableList.get(0).getSorting_grading());
             ed_remark.setText(harvestingInspectionTableList.get(0).getRemarks());
             ed_pest_reamrk.setText(harvestingInspectionTableList.get(0).getPest_remarks());
             ed_desease_remark.setText(harvestingInspectionTableList.get(0).getDiseases_remarks());
             try {
-                String file_attachment = harvestingInspectionTableList.get(0).getAttachment();
+                if(harvestingInspectionTableList.get(0).getAttachment()!=null){
+                    String getImageId=harvestingInspectionTableList.get(0).getAttachment();
+                    HitShowImageApi(getImageId );
+                }
+                else {
+                    Toast.makeText(getActivity(), harvestingInspectionTableList.get(0).getAttachment(), Toast.LENGTH_SHORT).show();
+                }
 
             } catch (Exception e) {
                 e.getMessage();
@@ -723,5 +732,42 @@ public class HarvestingInspectionFragment extends Fragment {
         }
 
         return "";
+    }
+
+    private void HitShowImageApi(String getImageId) {
+        NetworkInterface mAPIService = ApiUtils.getPristineAPIService();
+        Call<ResponseBody> call = mAPIService.getImageInspection(getImageId);
+        LoadingDialog progressDialogLoading = new LoadingDialog();
+        progressDialogLoading.showLoadingDialog(getActivity());
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                try {
+                    if (response.isSuccessful()) {
+                        progressDialogLoading.hideDialog();
+                        image_layout.setVisibility(View.VISIBLE);
+                        imageView.setVisibility(View.VISIBLE);
+                        Glide.with(getActivity())
+                                .load("https://hytechdev.pristinefulfil.com/api/Inspection/Get_Image?id="+getImageId) // image url
+                                .placeholder(R.drawable.noimage1) // any placeholder to load at start
+                                .into(imageView);
+                    } else {
+                        progressDialogLoading.hideDialog();
+                        Toast.makeText(getActivity(), response.message() + ". Error Code:" + response.code(), Toast.LENGTH_SHORT).show();
+                    }
+
+                } catch (Exception e) {
+                    progressDialogLoading.hideDialog();
+                    Log.e("exception database", e.getMessage() + "cause");
+                    ApiRequestFailure.PostExceptionToServer(e, getClass().getName(), "insert_germination", getActivity());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                progressDialogLoading.hideDialog();
+                ApiRequestFailure.PostExceptionToServer(t, getClass().getName(), "insert_germination", getActivity());
+            }
+        });
     }
 }

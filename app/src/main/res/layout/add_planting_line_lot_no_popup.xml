@@ -84,6 +84,7 @@
                             android:orientation="horizontal">
 
                             <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/ac_doc_no_layout"
                                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
@@ -97,13 +98,14 @@
                                     android:id="@+id/ac_doc_no"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:maxLines="1"
+                                    android:clickable="true"
                                     android:editable="false"
-                                    android:inputType="none"
-                                    android:textColor="@color/black"
                                     android:fontFamily="@font/product_sans_regular"
-                                    android:textSize="@dimen/_10sdp"
-                                    android:overScrollMode="never" />
+                                    android:inputType="none"
+                                    android:maxLines="1"
+                                    android:overScrollMode="never"
+                                    android:textColor="@color/black"
+                                    android:textSize="@dimen/_10sdp" />
 
                             </com.google.android.material.textfield.TextInputLayout>
                         </LinearLayout>
@@ -436,7 +438,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:paddingLeft="@dimen/_5sdp"
-                        android:text="Village Detail" />
+                        android:text="Village Details" />
 
 
                     <LinearLayout
@@ -479,7 +481,7 @@
                             android:layout_height="wrap_content"
                             android:orientation="horizontal">
 
-                            <com.google.android.material.textfield.TextInputLayout
+                           <!-- <com.google.android.material.textfield.TextInputLayout
                                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
@@ -498,10 +500,71 @@
                                     android:textSize="@dimen/_10sdp"
                                     android:maxLines="1" />
 
+                            </com.google.android.material.textfield.TextInputLayout>-->
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                                android:id="@+id/village_input_layout"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="4dp"
+                                android:layout_weight="1"
+                                android:hint="Village Name"
+                                app:boxCornerRadiusBottomEnd="15dp"
+                                app:boxCornerRadiusTopStart="15dp">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/et_village"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:textColor="@color/black"
+                                    android:maxLines="1" />
+
                             </com.google.android.material.textfield.TextInputLayout>
 
                         </LinearLayout>
+                        <com.google.android.material.card.MaterialCardView
+                            android:id="@+id/frame_layout_village_list"
+                            android:layout_below="@+id/village_input_layout"
+                            android:layout_marginTop="5dp"
+                            android:elevation="5dp"
+                            android:visibility="gone"
+                            android:layout_width="match_parent"
+                            android:layout_marginLeft="5dp"
+                            app:cardElevation="@dimen/_5sdp"
+                            android:layout_marginRight="5dp"
+                            app:cardBackgroundColor="@color/colorWhite"
+                            app:rippleColor="@color/chip_ripple"
+                            app:cardCornerRadius="@dimen/_5sdp"
+                            app:strokeWidth="@dimen/_1sdp"
+                            app:strokeColor="@color/gray1"
+                            android:layout_height="wrap_content">
 
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:orientation="vertical"
+                                android:background="@color/colorWhite"
+                                android:layout_height="wrap_content">
+                                <ProgressBar
+                                    android:id="@+id/loading_item"
+                                    android:layout_width="30dp"
+                                    android:visibility="gone"
+                                    android:indeterminateTint="@color/chip_ripple"
+                                    android:layout_gravity="center|top"
+                                    android:layout_height="30dp"/>
+
+                                <androidx.recyclerview.widget.RecyclerView
+                                    android:id="@+id/village_recyclerView"
+                                    android:layout_width="match_parent"
+                                    android:layout_marginBottom="@dimen/_10sdp"
+                                    android:scrollbars="none"
+                                    android:divider="@null"
+                                    android:nestedScrollingEnabled="false"
+                                    android:background="@color/colorWhite"
+                                    android:layout_height="wrap_content"/>
+                            </LinearLayout>
+
+                        </com.google.android.material.card.MaterialCardView>
 
                     </LinearLayout>
 
@@ -511,7 +574,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:paddingLeft="@dimen/_5sdp"
-                        android:text="Farmer Detail">
+                        android:text="Farmer Details">
 
                     </TextView>
 
@@ -534,7 +597,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginBottom="4dp"
                                 android:layout_weight="1"
-                                android:hint="Growner Name"
+                                android:hint="Grower Name"
                                 app:boxCornerRadiusBottomEnd="15dp"
                                 app:boxCornerRadiusTopStart="15dp">
 
@@ -1059,7 +1122,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
                         android:paddingLeft="@dimen/_5sdp"
-                        android:text="Other Field">
+                        android:text="Other Fields">
 
                     </TextView>
 

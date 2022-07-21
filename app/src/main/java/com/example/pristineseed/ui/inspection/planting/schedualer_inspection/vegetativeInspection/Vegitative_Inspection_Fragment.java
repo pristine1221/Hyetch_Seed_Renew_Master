@@ -28,6 +28,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.bumptech.glide.Glide;
 import com.example.pristineseed.DataBaseRepository.GeographicalRepo.PlantingLineLotListDao;
 import com.example.pristineseed.DataBaseRepository.GeographicalRepo.PlantingLineLotListTable;
 import com.example.pristineseed.DataBaseRepository.Planting.PlantingLineDao;
@@ -74,6 +75,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -89,10 +91,10 @@ public class Vegitative_Inspection_Fragment extends Fragment {
 
 
     private Button bt_complete, btn_save_record;
-    private AutoCompleteTextView ac_vigore_, ac_pest, ac_crop_codn, ac_desease, ac_isolation, ac_top_dressing_bags, ac_top_dressing;
+    private AutoCompleteTextView ac_vigore_, ac_pest, ac_crop_codn, ac_desease, ac_isolation, ac_top_dressing_bags, ac_top_dressing,ac_pld;
     private TextInputEditText ed_recommended_date, ed_actual_date, ed_isolation_time, ed_iso_distance,
             ed_other_tps, ed_pest_remark, ed_remarks, ed_desease_remark, ed_date_of_insp, ed_seed_setting, seed_setting_per, ed_receipt_male, ed_receipt_female,
-            ed_receipt_other, ed_grain_remark, ac_crop_stage;
+            ed_receipt_other, ed_grain_remark, ac_crop_stage,standing_acres,pld_acres,net_acres;
 
     private Scheduler_Header_Table scheduler_header_table;
     private SchedulerInspectionLineTable schedulerInspectionLineTable;
@@ -195,8 +197,12 @@ public class Vegitative_Inspection_Fragment extends Fragment {
         ac_top_dressing_bags = view.findViewById(R.id.ac_top_dressing_bags);
         ac_vigore_ = view.findViewById(R.id.ac_vigore);
         ac_pest = view.findViewById(R.id.dropdown_pest_diseases);
+        ac_pld = view.findViewById(R.id.ac_pld);
         ac_crop_codn = view.findViewById(R.id.crop_condn);
         ac_crop_stage = view.findViewById(R.id.crop_stage);
+        standing_acres = view.findViewById(R.id.standing_acres);
+        pld_acres = view.findViewById(R.id.pld_acres);
+        net_acres = view.findViewById(R.id.net_acres);
         bt_complete = view.findViewById(R.id.complete_btn);
         btn_save_record = view.findViewById(R.id.save_record_btn);
         ed_other_tps = view.findViewById(R.id.ed_other_tps);
@@ -212,11 +218,11 @@ public class Vegitative_Inspection_Fragment extends Fragment {
         ed_receipt_other = view.findViewById(R.id.receipt_no_other);
         ed_grain_remark = view.findViewById(R.id.grain_remark);
 
-        image_layout = view.findViewById(R.id.image_layout);
+        image_layout = view.findViewById(R.id.image_layout_vegi);
         ed_seed_setting = view.findViewById(R.id.ed_seed_setting);
         seed_setting_per = view.findViewById(R.id.seed_setting_per);
 
-        imageView = view.findViewById(R.id.image_view);
+        imageView = view.findViewById(R.id.vegi_image_view);
         add_image_btn = view.findViewById(R.id.add_attachment);
         clear_image_btn = view.findViewById(R.id.clear_img);
 
@@ -242,6 +248,8 @@ public class Vegitative_Inspection_Fragment extends Fragment {
 
         List<String> crop_condn = Arrays.asList(CommonData.crop_condition);
         List<String> desease_list = Arrays.asList(CommonData.desease);
+        List<String> pest_list = Arrays.asList(CommonData.pest);
+        List<String> pld_list = Arrays.asList(CommonData.pld);
         List<String> vigore = Arrays.asList(CommonData.vigor);
         List<String> isolation_List = Arrays.asList(CommonData.isolation_);
 
@@ -252,8 +260,10 @@ public class Vegitative_Inspection_Fragment extends Fragment {
         ItemAdapter vigore_adapter = new ItemAdapter(getActivity(), R.layout.android_item_view, vigore);
         ac_vigore_.setAdapter(vigore_adapter);
         ac_crop_stage.setText("Vegetative");
-        ItemAdapter pest_adpter = new ItemAdapter(getActivity(), R.layout.android_item_view, desease_list);
+        ItemAdapter pest_adpter = new ItemAdapter(getActivity(), R.layout.android_item_view, pest_list);
         ac_pest.setAdapter(pest_adpter);
+        ItemAdapter pld_adpter = new ItemAdapter(getActivity(), R.layout.android_item_view, pld_list);
+        ac_pld.setAdapter(pld_adpter);
 
         ItemAdapter topdress_adapter = new ItemAdapter(getActivity(), R.layout.android_item_view, Arrays.asList(CommonData.first_top_dressing));
         ac_top_dressing.setAdapter(topdress_adapter);
@@ -468,12 +478,12 @@ public class Vegitative_Inspection_Fragment extends Fragment {
         try {
             if (vegitativeInspectionTable != null && vegitativeInspectionTable.size() > 0) {
                 ac_desease.setText(vegitativeInspectionTable.get(0).getDiseases());
-                //  if (vegitativeInspectionTable.get(0).getRecommended_date() != null) {
+                  if (vegitativeInspectionTable.get(0).getRecommended_date() != null) {
 
-                ed_recommended_date.setText(getFemaleSowingDate());
-                //   } else {
-                // ed_recommended_date.setText("");
-                //  }
+                ed_recommended_date.setText(vegitativeInspectionTable.get(0).getRecommended_date());
+                  } else {
+                 ed_recommended_date.setText("");
+                  }
                 if (vegitativeInspectionTable.get(0).getActual_date() != null) {
                     ed_actual_date.setText(DateTimeUtilsCustome.splitDateInYYYMMDDslsh(vegitativeInspectionTable.get(0).getActual_date()));
                 } else {
@@ -510,6 +520,16 @@ public class Vegitative_Inspection_Fragment extends Fragment {
                 } else {
                     ed_date_of_insp.setText("");
                 }
+                if(vegitativeInspectionTable.get(0).getAttachment()!=null){
+                    image_layout.setVisibility(View.VISIBLE);
+                    imageView.setVisibility(View.VISIBLE);
+                    String getImageId=vegitativeInspectionTable.get(0).getAttachment();
+                    HitShowImageApi(getImageId );
+                }
+                else {
+                    Toast.makeText(getActivity(), vegitativeInspectionTable.get(0).getAttachment(), Toast.LENGTH_SHORT).show();
+                }
+
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -807,7 +827,42 @@ public class Vegitative_Inspection_Fragment extends Fragment {
         return "";
 
     }
+    private void HitShowImageApi(String getImageId) {
+        NetworkInterface mAPIService = ApiUtils.getPristineAPIService();
+        Call<ResponseBody> call = mAPIService.getImageInspection(getImageId);
+        LoadingDialog progressDialogLoading = new LoadingDialog();
+        progressDialogLoading.showLoadingDialog(getActivity());
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                try {
+                    if (response.isSuccessful()) {
+                        progressDialogLoading.hideDialog();
+                        image_layout.setVisibility(View.VISIBLE);
+                        imageView.setVisibility(View.VISIBLE);
+                        Glide.with(getActivity())
+                                .load("https://hytechdev.pristinefulfil.com/api/Inspection/Get_Image?id="+getImageId) // image url
+                                .placeholder(R.drawable.noimage1) // any placeholder to load at start
+                                .into(imageView);
+                    } else {
+                        progressDialogLoading.hideDialog();
+                        Toast.makeText(getActivity(), response.message() + ". Error Code:" + response.code(), Toast.LENGTH_SHORT).show();
+                    }
 
+                } catch (Exception e) {
+                    progressDialogLoading.hideDialog();
+                    Log.e("exception database", e.getMessage() + "cause");
+                    ApiRequestFailure.PostExceptionToServer(e, getClass().getName(), "insert_germination", getActivity());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                progressDialogLoading.hideDialog();
+                ApiRequestFailure.PostExceptionToServer(t, getClass().getName(), "insert_germination", getActivity());
+            }
+        });
+    }
 
 }
 

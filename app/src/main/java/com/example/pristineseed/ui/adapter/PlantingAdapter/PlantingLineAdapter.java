@@ -54,13 +54,14 @@ public class PlantingLineAdapter extends BaseAdapter {
         FrameLayout circuler_text_land_selection = convertView.findViewById(R.id.circuler_text_section);
         TextView sowing_area = convertView.findViewById(R.id.sowing_area);
         TextView tv_sowing_date_male = convertView.findViewById(R.id.tv_sowing_date_male);
+        TextView tv_sowing_date_female = convertView.findViewById(R.id.tv_sowing_date_female);
         TextView tv_planting_no = convertView.findViewById(R.id.tv_planting_no);
         TextView tv_character_ofImageView=convertView.findViewById(R.id.tv_character_ofImageView);
         //todo set the data into list
         tv_planting_no.setText("Line no. : " + listDataLand.get(position).line_no+"("+listDataLand.get(position).grower_land_owner_name+")");
-        sowing_area.setText("Sowing Area(acr) : "+listDataLand.get(position).sowing_area_In_acres);
+        sowing_area.setText("Sowing Area(acres) : "+listDataLand.get(position).sowing_area_In_acres);
         tv_sowing_date_male.setText("Sowing Date male : " + listDataLand.get(position).sowing_date_male);
-
+        tv_sowing_date_female.setText("Sowing Date female :" +listDataLand.get(position).sowing_date_female);
         if (listDataLand.get(position).grower_land_owner_name!= null && !listDataLand.get(position).grower_land_owner_name.equalsIgnoreCase("")) {
             tv_character_ofImageView.setText(String.valueOf(listDataLand.get(position).grower_land_owner_name.charAt(0)).toUpperCase());
         }

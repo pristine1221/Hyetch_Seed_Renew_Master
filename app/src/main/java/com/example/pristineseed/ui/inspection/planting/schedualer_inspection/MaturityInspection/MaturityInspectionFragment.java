@@ -25,6 +25,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.bumptech.glide.Glide;
 import com.example.pristineseed.DataBaseRepository.GeographicalRepo.PlantingLineLotListDao;
 import com.example.pristineseed.DataBaseRepository.GeographicalRepo.PlantingLineLotListTable;
 import com.example.pristineseed.DataBaseRepository.Scheduler.MaturityInspection.MaturityInspectionDao;
@@ -69,6 +70,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -213,6 +215,7 @@ public class MaturityInspectionFragment extends Fragment {
         imageView = view.findViewById(R.id.image_view);
         add_attachment = view.findViewById(R.id.add_attachment);
         clear_image_btn = view.findViewById(R.id.clear_img);
+
         try {
             if (scheduler_header_table.getDate() != null) {
                 tv_date.setText(DateTimeUtilsCustome.getDateMMMDDYYYYSlsh1(scheduler_header_table.getDate()));
@@ -227,9 +230,7 @@ public class MaturityInspectionFragment extends Fragment {
                     + schedulerInspectionLineTable.getGrower_city() + "," + schedulerInspectionLineTable.getGrower_taluka_mandal());
             tv_prod_lot_no.setText(schedulerInspectionLineTable.getProduction_lot_no());
             tv_crop_code.setText(schedulerInspectionLineTable.getCrop_code());
-
-            String new_recommeded_date = getFemaleSowingDate();
-            ed_remmmdn_date.setText(new_recommeded_date);
+            ed_remmmdn_date.setText(getFemaleSowingDate());
 
             PristineDatabase pristineDatabase = PristineDatabase.getAppDatabase(getActivity());
             try {
@@ -304,7 +305,7 @@ public class MaturityInspectionFragment extends Fragment {
     }
 
 
-    private List<MaturityInspectionTable> maturityInspectionTable;
+    private List<MaturityInspectionTable> maturityInspectionTable=new ArrayList<>();
     private SchedulerInspectionLineTable scheduler_line_header_data = null;
 
     private void insertMaturitiyInspectionLine(ArrayList<MaturityInspectionModel> maturityInspectionModelArrayList) {
@@ -378,10 +379,9 @@ public class MaturityInspectionFragment extends Fragment {
             ed_pest_remark.setText(maturityInspectionTable.get(0).getPest_remarks());
             ed_desease_remark.setText(maturityInspectionTable.get(0).getDiseases_remarks());
 
-            ed_remmmdn_date.setText(getFemaleSowingDate());
-           /* if(maturityInspectionTable.get(0).getRecommended_date()!=null){
+            if(maturityInspectionTable.get(0).getRecommended_date()!=null){
                 ed_remmmdn_date.setText(DateTimeUtilsCustome.splitDateInYYYMMDDslsh(maturityInspectionTable.get(0).getRecommended_date()));
-            }*/
+            }
             if (maturityInspectionTable.get(0).getActual_date() != null) {
                 ed_actual_date.setText(DateTimeUtilsCustome.splitDateInYYYMMDDslsh(maturityInspectionTable.get(0).getActual_date()));
             }
@@ -389,7 +389,13 @@ public class MaturityInspectionFragment extends Fragment {
             ed_seed_setting.setText(maturityInspectionTable.get(0).getSeed_setting());
             ed_seed_stng_per.setText(maturityInspectionTable.get(0).getSeed_setting_prcnt());
             try {
-                String file_attachment = maturityInspectionTable.get(0).getAttachment();
+                if(maturityInspectionTable.get(0).getAttachment()!=null){
+                    String getImageId=maturityInspectionTable.get(0).getAttachment();
+                    HitShowImageApi(getImageId );
+                }
+                else {
+                    Toast.makeText(getActivity(), maturityInspectionTable.get(0).getAttachment(), Toast.LENGTH_SHORT).show();
+                }
 
             } catch (Exception e) {
                 e.getMessage();
@@ -709,6 +715,42 @@ public class MaturityInspectionFragment extends Fragment {
         }
 
         return "";
+    }
+    private void HitShowImageApi(String getImageId) {
+        NetworkInterface mAPIService = ApiUtils.getPristineAPIService();
+        Call<ResponseBody> call = mAPIService.getImageInspection(getImageId);
+        LoadingDialog progressDialogLoading = new LoadingDialog();
+        progressDialogLoading.showLoadingDialog(getActivity());
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                try {
+                    if (response.isSuccessful()) {
+                        progressDialogLoading.hideDialog();
+                        image_layout.setVisibility(View.VISIBLE);
+                        imageView.setVisibility(View.VISIBLE);
+                        Glide.with(getActivity())
+                                .load("https://hytechdev.pristinefulfil.com/api/Inspection/Get_Image?id="+getImageId) // image url
+                                .placeholder(R.drawable.noimage1) // any placeholder to load at start
+                                .into(imageView);
+                    } else {
+                        progressDialogLoading.hideDialog();
+                        Toast.makeText(getActivity(), response.message() + ". Error Code:" + response.code(), Toast.LENGTH_SHORT).show();
+                    }
+
+                } catch (Exception e) {
+                    progressDialogLoading.hideDialog();
+                    Log.e("exception database", e.getMessage() + "cause");
+                    ApiRequestFailure.PostExceptionToServer(e, getClass().getName(), "insert_germination", getActivity());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                progressDialogLoading.hideDialog();
+                ApiRequestFailure.PostExceptionToServer(t, getClass().getName(), "insert_germination", getActivity());
+            }
+        });
     }
 }
 

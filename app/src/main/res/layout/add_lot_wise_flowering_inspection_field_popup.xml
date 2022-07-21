@@ -74,7 +74,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:padding="5dp"
-                        android:text="Header Detail">
+                        android:text="Header Details">
 
                     </TextView>
 
@@ -329,7 +329,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:fontFamily="@font/product_sans_bold"
-                                android:text="Varity Code : "
+                                android:text="Variety Code : "
                                 android:textColor="@color/profileEditTextColor"
                                 android:textSize="13sp" />
 
@@ -890,6 +890,7 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:inputType="numberDecimal"
+                                    android:textColor="@color/black"
                                     android:maxLines="1" />
 
                             </com.google.android.material.textfield.TextInputLayout>
@@ -1162,7 +1163,7 @@
                             </LinearLayout>
 
                             <LinearLayout
-                                android:id="@+id/image_layout"
+                                android:id="@+id/image_layout1"
                                 android:layout_width="0dp"
                                 android:layout_weight="1"
                                 android:orientation="vertical"

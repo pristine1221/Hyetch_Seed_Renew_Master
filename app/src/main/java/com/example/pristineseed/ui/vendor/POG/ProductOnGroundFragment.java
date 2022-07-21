@@ -68,7 +68,6 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-
 public class ProductOnGroundFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -285,7 +284,6 @@ public class ProductOnGroundFragment extends Fragment {
                 if(s!=null && !s.toString().equalsIgnoreCase("")){
                     getRoleMasterC_DData(content_loading, ac_customer, s.toString());
                 }
-
             }
         });
         PristineDatabase pristineDatabase = PristineDatabase.getAppDatabase(getActivity());

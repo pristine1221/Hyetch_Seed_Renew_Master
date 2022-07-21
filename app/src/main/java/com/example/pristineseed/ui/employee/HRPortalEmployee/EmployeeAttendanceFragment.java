@@ -271,7 +271,7 @@ public class EmployeeAttendanceFragment extends Fragment {
                                     progressDialogLoading.hideDialog();
                                 }*/
                             } else {
-                                Toast.makeText(getContext(), "Error" + list.get(0).message, Toast.LENGTH_LONG).show();
+                                Toast.makeText(getContext(), "Error " + list.get(0).message, Toast.LENGTH_LONG).show();
                                 progressDialogLoading.hideDialog();
                             }
                         }
@@ -316,7 +316,6 @@ public class EmployeeAttendanceFragment extends Fragment {
             postedJson.addProperty("EmployeeID", sessionManagement.getemp_id());
             postedJson.addProperty("ID", leave_id);
             postedJson.addProperty("EndLocation",city);
-
             Call<List<EndClockAttendanceModel>> call = mAPIService.End(postedJson);
             call.enqueue(new Callback<List<EndClockAttendanceModel>>() {
                 @Override

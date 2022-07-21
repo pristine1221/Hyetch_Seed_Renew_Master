@@ -427,7 +427,7 @@ public class GeographicalSyncing extends Fragment implements View.OnClickListene
                             e.printStackTrace();
                         }
                     } else {
-                        MDToast.makeText(getActivity(), "Please Wait Until Data Sync!", Toast.LENGTH_SHORT, MDToast.TYPE_ERROR).show();
+                        MDToast.makeText(getActivity(), "Please Wait Until Data Sync!", Toast.LENGTH_SHORT, MDToast.TYPE_SUCCESS).show();
                     }
                     return true;
                 }
@@ -681,9 +681,14 @@ public class GeographicalSyncing extends Fragment implements View.OnClickListene
     private int bindHybridItemList(List<HybridItemMasterModel.Data> hybrid_item_list, PristineDatabase db) {
         HybridItemMasterDao hybridItemMasterDao = db.hybridItemMasterDao();
         hybridItemMasterDao.deleteAllRecord();
-        for (int i = 0; i < hybrid_item_list.size(); i++) {
-            Hybrid_Item_Table hybrid_item_table = Hybrid_Item_Table.insertHybridItem(hybrid_item_list.get(i));
-            hybridItemMasterDao.insert(hybrid_item_table);
+        try {
+            for (int i = 0; i < hybrid_item_list.size(); i++) {
+                Hybrid_Item_Table hybrid_item_table = Hybrid_Item_Table.insertHybridItem(hybrid_item_list.get(i));
+                hybridItemMasterDao.insert(hybrid_item_table);
+            }
+        }
+        catch (Exception e){
+            e.printStackTrace();
         }
         return hybridItemMasterDao.getRowCount();
     }
@@ -748,9 +753,15 @@ public class GeographicalSyncing extends Fragment implements View.OnClickListene
     private int bindPlantingLineLotData(List<PlantingProdcutionLotModel> planting_line_lot_list_, PristineDatabase db) {
         PlantingLineLotListDao plantingLineLotListDao = db.plantingLineLotListDao();
         plantingLineLotListDao.deleteAllRecord();
-        for (int i = 0; i < planting_line_lot_list_.size(); i++) {
-            PlantingLineLotListTable plantingLostParentTable = PlantingLineLotListTable.bindPLantingLotDetail(planting_line_lot_list_.get(i));
-            plantingLineLotListDao.insert(plantingLostParentTable);
+        try {
+
+            for (int i = 0; i < planting_line_lot_list_.size(); i++) {
+                PlantingLineLotListTable plantingLostParentTable = PlantingLineLotListTable.bindPLantingLotDetail(planting_line_lot_list_.get(i));
+                plantingLineLotListDao.insert(plantingLostParentTable);
+            }
+        }
+        catch (Exception e){
+            e.printStackTrace();
         }
         return plantingLineLotListDao.getRowCount();
     }
@@ -759,53 +770,68 @@ public class GeographicalSyncing extends Fragment implements View.OnClickListene
     private int setzoneMasterData(List<ZoneMaster> zoneMasters, PristineDatabase db) {
         ZoneMaterDao zoneMaterDao = db.zoneMaterDao();
         List<ZoneMasterTable> zoneMasterTableList = new ArrayList<>();
-        for (int i = 0; i < zoneMasters.size(); i++) {
-            ZoneMasterTable zoneMasterTable = new ZoneMasterTable();
-            zoneMasterTable.setCode(zoneMasters.get(i).code);
-            zoneMasterTable.setDescription(zoneMasters.get(i).description);
-            zoneMasterTable.setActive(zoneMasters.get(i).active);
-            zoneMasterTable.setUpdated_on(zoneMasters.get(i).updated_on);
-            zoneMasterTableList.add(zoneMasterTable);
+        try {
+            for (int i = 0; i < zoneMasters.size(); i++) {
+                ZoneMasterTable zoneMasterTable = new ZoneMasterTable();
+                zoneMasterTable.setCode(zoneMasters.get(i).code);
+                zoneMasterTable.setDescription(zoneMasters.get(i).description);
+                zoneMasterTable.setActive(zoneMasters.get(i).active);
+                zoneMasterTable.setUpdated_on(zoneMasters.get(i).updated_on);
+                zoneMasterTableList.add(zoneMasterTable);
+            }
+            zoneMaterDao.insert(zoneMasterTableList);
         }
-        zoneMaterDao.insert(zoneMasterTableList);
+        catch (Exception e){
+            e.printStackTrace();
+        }
         return zoneMaterDao.getRowCount();
     }
 
     private int setStateMasterData(List<StateMaster> stateMasters, PristineDatabase db) {
         StateMasterDao stateMasterDao = db.stateMasterDao();
         List<StateMasterTable> stateMasterTableList = new ArrayList<>();
-        for (int i = 0; i < stateMasters.size(); i++) {
-            StateMasterTable stateMasterTable = new StateMasterTable();
-            stateMasterTable.setCode(stateMasters.get(i).code);
-            stateMasterTable.setName(stateMasters.get(i).name);
-            stateMasterTable.setActive(stateMasters.get(i).active);
-            stateMasterTable.setUpdated_on(stateMasters.get(i).updated_on);
-            stateMasterTableList.add(stateMasterTable);
+        try {
+
+            for (int i = 0; i < stateMasters.size(); i++) {
+                StateMasterTable stateMasterTable = new StateMasterTable();
+                stateMasterTable.setCode(stateMasters.get(i).code);
+                stateMasterTable.setName(stateMasters.get(i).name);
+                stateMasterTable.setActive(stateMasters.get(i).active);
+                stateMasterTable.setUpdated_on(stateMasters.get(i).updated_on);
+                stateMasterTableList.add(stateMasterTable);
+            }
+            stateMasterDao.insert(stateMasterTableList);
         }
-        stateMasterDao.insert(stateMasterTableList);
+        catch (Exception e){
+            e.printStackTrace();
+        }
         return stateMasterDao.getRowCount();
     }
 
     private int setRegionMasterData(List<RegionMaster> regionMasters, PristineDatabase db) {
         RegionMasterDao regionMasterDao = db.regionMasterDao();
         List<RegionMasterTable> regionMasterTableList = new ArrayList<>();
-
-        for (int i = 0; i < regionMasters.size(); i++) {
-            RegionMasterTable regionMasterTable = new RegionMasterTable();
-            regionMasterTable.setCode(regionMasters.get(i).code);
-            regionMasterTable.setName(regionMasters.get(i).name);
-            regionMasterTable.setActive(regionMasters.get(i).active);
-            regionMasterTable.setUpdated_on(regionMasters.get(i).updated_on);
-            regionMasterTable.setRegional_head(regionMasters.get(i).regional_head);
-            regionMasterTable.setRegional_head_email_id(regionMasters.get(i).regional_head_email_id);
-            regionMasterTable.setRegional_head_emp_code(regionMasters.get(i).regional_head_emp_code);
-            regionMasterTable.setRegional_manager(regionMasters.get(i).regional_manager);
-            regionMasterTable.setRegional_manager_email_id(regionMasters.get(i).regional_manager_email_id);
-            regionMasterTable.setRegional_manager_emp_code(regionMasters.get(i).regional_manager_emp_code);
-            regionMasterTable.setRegional_manager_mobile(regionMasters.get(i).regional_manager_mobile);
-            regionMasterTableList.add(regionMasterTable);
+        try {
+            for (int i = 0; i < regionMasters.size(); i++) {
+                RegionMasterTable regionMasterTable = new RegionMasterTable();
+                regionMasterTable.setCode(regionMasters.get(i).code);
+                regionMasterTable.setName(regionMasters.get(i).name);
+                regionMasterTable.setActive(regionMasters.get(i).active);
+                regionMasterTable.setUpdated_on(regionMasters.get(i).updated_on);
+                regionMasterTable.setRegional_head(regionMasters.get(i).regional_head);
+                regionMasterTable.setRegional_head_email_id(regionMasters.get(i).regional_head_email_id);
+                regionMasterTable.setRegional_head_emp_code(regionMasters.get(i).regional_head_emp_code);
+                regionMasterTable.setRegional_manager(regionMasters.get(i).regional_manager);
+                regionMasterTable.setRegional_manager_email_id(regionMasters.get(i).regional_manager_email_id);
+                regionMasterTable.setRegional_manager_emp_code(regionMasters.get(i).regional_manager_emp_code);
+                regionMasterTable.setRegional_manager_mobile(regionMasters.get(i).regional_manager_mobile);
+                regionMasterTableList.add(regionMasterTable);
+            }
+            regionMasterDao.insert(regionMasterTableList);
         }
-        regionMasterDao.insert(regionMasterTableList);
+        catch (Exception e){
+            e.printStackTrace();
+        }
         return regionMasterDao.getRowCount();
     }
 
@@ -813,16 +839,21 @@ public class GeographicalSyncing extends Fragment implements View.OnClickListene
         DistricMasterDao districMasterDao = db.districMasterDao();
 
         List<DistricMasterTable> districMasterTableList = new ArrayList<>();
-        for (int i = 0; i < districtMasters.size(); i++) {
-            DistricMasterTable districMasterTable = new DistricMasterTable();
-            districMasterTable.setCode(districtMasters.get(i).code);
-            districMasterTable.setName(districtMasters.get(i).name);
-            districMasterTable.setActive(districtMasters.get(i).active);
-            districMasterTable.setUpdated_on(districtMasters.get(i).updated_on);
-            districMasterTable.setClass_of_city(districtMasters.get(i).class_of_city);
-            districMasterTableList.add(districMasterTable);
+        try {
+            for (int i = 0; i < districtMasters.size(); i++) {
+                DistricMasterTable districMasterTable = new DistricMasterTable();
+                districMasterTable.setCode(districtMasters.get(i).code);
+                districMasterTable.setName(districtMasters.get(i).name);
+                districMasterTable.setActive(districtMasters.get(i).active);
+                districMasterTable.setUpdated_on(districtMasters.get(i).updated_on);
+                districMasterTable.setClass_of_city(districtMasters.get(i).class_of_city);
+                districMasterTableList.add(districMasterTable);
+            }
+            districMasterDao.insert(districMasterTableList);
         }
-        districMasterDao.insert(districMasterTableList);
+        catch (Exception e){
+            e.printStackTrace();
+        }
         Log.e("list", new Gson().toJson(districMasterTableList));
         return districMasterDao.getRowCount();
     }
@@ -830,30 +861,39 @@ public class GeographicalSyncing extends Fragment implements View.OnClickListene
     private int setTalukaMaster(List<TalukaMaster> talukaMasters, PristineDatabase db) {
         TalukaMasterDao talukaMasterDao = db.talukaMasterDao();
         List<TalukaMasterTable> talukaMasterList = new ArrayList<>();
-
-        for (int i = 0; i < talukaMasters.size(); i++) {
-            TalukaMasterTable talukaMasterTable = new TalukaMasterTable();
-            talukaMasterTable.setCode(talukaMasters.get(i).code);
-            talukaMasterTable.setDescription(talukaMasters.get(i).description);
-            talukaMasterTable.setUpdated_on(talukaMasters.get(i).updated_on);
-            talukaMasterTable.setActive(talukaMasters.get(i).active);
-            talukaMasterList.add(talukaMasterTable);
-        }
-        talukaMasterDao.insert(talukaMasterList);
+         try {
+             for (int i = 0; i < talukaMasters.size(); i++) {
+                 TalukaMasterTable talukaMasterTable = new TalukaMasterTable();
+                 talukaMasterTable.setCode(talukaMasters.get(i).code);
+                 talukaMasterTable.setDescription(talukaMasters.get(i).description);
+                 talukaMasterTable.setUpdated_on(talukaMasters.get(i).updated_on);
+                 talukaMasterTable.setActive(talukaMasters.get(i).active);
+                 talukaMasterList.add(talukaMasterTable);
+             }
+             talukaMasterDao.insert(talukaMasterList);
+         }
+         catch (Exception e){
+             e.printStackTrace();
+         }
         return talukaMasterDao.getRowCount();
     }
 
     private int setArea(List<AreaMasterModel> areaMasterList, PristineDatabase pristineDatabase) {
         AreaDao areaDao = pristineDatabase.areaDao();
         List<AreaMasterTable> areaMasterTableList = new ArrayList<>();
-        for (int i = 0; i < areaMasterList.size(); i++) {
-            AreaMasterTable areaMasterTable = new AreaMasterTable();
-            areaMasterTable.setArea_name(areaMasterList.get(i).area_name);
-            areaMasterTable.setArea_code(areaMasterList.get(i).area_code);
-            areaMasterTable.setUpdated_on(areaMasterList.get(i).updated_on);
-            areaMasterTableList.add(areaMasterTable);
+        try {
+            for (int i = 0; i < areaMasterList.size(); i++) {
+                AreaMasterTable areaMasterTable = new AreaMasterTable();
+                areaMasterTable.setArea_name(areaMasterList.get(i).area_name);
+                areaMasterTable.setArea_code(areaMasterList.get(i).area_code);
+                areaMasterTable.setUpdated_on(areaMasterList.get(i).updated_on);
+                areaMasterTableList.add(areaMasterTable);
+            }
+            areaDao.insert(areaMasterTableList);
         }
-        areaDao.insert(areaMasterTableList);
+        catch (Exception e){
+            e.printStackTrace();
+        }
         return areaDao.getRowCount();
     }
 
@@ -941,14 +981,19 @@ public class GeographicalSyncing extends Fragment implements View.OnClickListene
         UserLocationMasterDao userLocationMasterDao = pristineDatabase.userLocationMasterDao();
         userLocationMasterDao.deleteAllRecord();
         List<LocationMasterTable> userLocationTableList = new ArrayList<>();
-        for (int i = 0; i < userLocationModelList.size(); i++) {
-            if (userLocationModelList.get(i).location_code != null) {
-                LocationMasterTable locationMasterTable = new LocationMasterTable();
-                locationMasterTable.setEmail_id(userLocationModelList.get(i).email_id);
-                locationMasterTable.setLocation_code(userLocationModelList.get(i).location_code);
-                locationMasterTable.setLocation_name(userLocationModelList.get(i).location_name);
-                userLocationTableList.add(locationMasterTable);
+        try {
+            for (int i = 0; i < userLocationModelList.size(); i++) {
+                if (userLocationModelList.get(i).location_code != null) {
+                    LocationMasterTable locationMasterTable = new LocationMasterTable();
+                    locationMasterTable.setEmail_id(userLocationModelList.get(i).email_id);
+                    locationMasterTable.setLocation_code(userLocationModelList.get(i).location_code);
+                    locationMasterTable.setLocation_name(userLocationModelList.get(i).location_name);
+                    userLocationTableList.add(locationMasterTable);
+                }
             }
+        }
+        catch (Exception e){
+            e.printStackTrace();
         }
         userLocationMasterDao.insert(userLocationTableList);
         return userLocationMasterDao.getRowCount();
@@ -1008,13 +1053,18 @@ public class GeographicalSyncing extends Fragment implements View.OnClickListene
         Planting_fsio_bsio_Dao planting_fsio_bsio_dao = pristineDatabase.planting_fsio_bsio_dao();
         planting_fsio_bsio_dao.deleteAllRecord();
         List<PlantingFSIO_BSIO_Table> plantingFSIOBsioTableList = new ArrayList<>();
-        for (int i = 0; i < templantingList_fsio.size(); i++) {
-            PlantingFSIO_BSIO_Table plantingFSIO_bsio_table = PlantingFSIO_BSIO_Table.getPlanting_fsio_bsio_data(templantingList_fsio.get(i));
-            if (plantingFSIO_bsio_table != null && plantingFSIO_bsio_table.getNo() != null) {
-                plantingFSIOBsioTableList.add(plantingFSIO_bsio_table);
+        try {
+            for (int i = 0; i < templantingList_fsio.size(); i++) {
+                PlantingFSIO_BSIO_Table plantingFSIO_bsio_table = PlantingFSIO_BSIO_Table.getPlanting_fsio_bsio_data(templantingList_fsio.get(i));
+                if (plantingFSIO_bsio_table != null && plantingFSIO_bsio_table.getNo() != null) {
+                    plantingFSIOBsioTableList.add(plantingFSIO_bsio_table);
+                }
             }
+            planting_fsio_bsio_dao.insertList(plantingFSIOBsioTableList);
         }
-        planting_fsio_bsio_dao.insertList(plantingFSIOBsioTableList);
+        catch (Exception e){
+            e.printStackTrace();
+        }
         return planting_fsio_bsio_dao.getRowCount();
     }
 
@@ -1069,15 +1119,20 @@ public class GeographicalSyncing extends Fragment implements View.OnClickListene
 
     private int bindSeaonListIntoLocal(List<SeasonMasterModel> templantingList_season, PristineDatabase pristineDatabase) {
         SeasonDao seasonDao = pristineDatabase.seasonDao();
-        for (int i = 0; i < templantingList_season.size(); i++) {
-            if (templantingList_season.get(i).sync_To_App.equalsIgnoreCase("True")) {
-                SeasonMasterTable seasonMasterTable = SeasonMasterTable.getSeasonMasterTable(templantingList_season.get(i));
-                if (seasonDao.isDataExist(templantingList_season.get(i).season_Code.toLowerCase()) > 0) {
-                    seasonDao.update(seasonMasterTable);
-                } else {
-                    seasonDao.insert(seasonMasterTable);
+        try {
+            for (int i = 0; i < templantingList_season.size(); i++) {
+                if (templantingList_season.get(i).sync_To_App.equalsIgnoreCase("True")) {
+                    SeasonMasterTable seasonMasterTable = SeasonMasterTable.getSeasonMasterTable(templantingList_season.get(i));
+                    if (seasonDao.isDataExist(templantingList_season.get(i).season_Code.toLowerCase()) > 0) {
+                        seasonDao.update(seasonMasterTable);
+                    } else {
+                        seasonDao.insert(seasonMasterTable);
+                    }
                 }
             }
+        }
+        catch (Exception e){
+            e.printStackTrace();
         }
 
         return seasonDao.getRowCount();
@@ -1141,13 +1196,18 @@ public class GeographicalSyncing extends Fragment implements View.OnClickListene
 
     private int bindOrganizerList(List<OrganizerModel.Data> orginer_list, PristineDatabase pristineDatabase) {
         Organizer_master_Dao organizer_master_dao = pristineDatabase.organizer_master_dao();
-        for (int i = 0; i < orginer_list.size(); i++) {
-            Organizer_master_Table organizer_master_table = Organizer_master_Table.insertOrganiserData(orginer_list.get(i));
-            if (organizer_master_dao.isDataExist(orginer_list.get(i).No.toLowerCase()) > 0) {
-                organizer_master_dao.update(organizer_master_table);
-            } else {
-                organizer_master_dao.insert(organizer_master_table);
+        try {
+            for (int i = 0; i < orginer_list.size(); i++) {
+                Organizer_master_Table organizer_master_table = Organizer_master_Table.insertOrganiserData(orginer_list.get(i));
+                if (organizer_master_dao.isDataExist(orginer_list.get(i).No.toLowerCase()) > 0) {
+                    organizer_master_dao.update(organizer_master_table);
+                } else {
+                    organizer_master_dao.insert(organizer_master_table);
+                }
             }
+        }
+        catch (Exception e){
+            e.printStackTrace();
         }
         return organizer_master_dao.getRowCount();
     }
@@ -1287,16 +1347,21 @@ public class GeographicalSyncing extends Fragment implements View.OnClickListene
     private int bindPlantingLotList(List<PlantingLotModel.Data> planting_lot_list, PristineDatabase pristineDatabase) {
         Planting_lot_Dao planting_lot_dao = pristineDatabase.planting_lot_dao();
         planting_lot_dao.deleteAllRecord();
-        for (int i = 0; i < planting_lot_list.size(); i++) {
-            Planting_Lot_master_Table planting_lot_master_table = new Planting_Lot_master_Table();
-            planting_lot_master_table.setLot_No(planting_lot_list.get(i).Lot_No);
-            planting_lot_master_table.setDocument_No(planting_lot_list.get(i).Document_No);
-            planting_lot_master_table.setDocument_SubType(planting_lot_list.get(i).Document_SubType);
-            planting_lot_master_table.setMale_Female_Other(planting_lot_list.get(i).Male_Female_Other);
-            planting_lot_master_table.setReceipt_No(planting_lot_list.get(i).Receipt_No);
-            planting_lot_master_table.setNo(planting_lot_list.get(i).No);
-            planting_lot_master_table.setQuantity(planting_lot_list.get(i).Quantity);
-            planting_lot_dao.insert(planting_lot_master_table);
+        try {
+            for (int i = 0; i < planting_lot_list.size(); i++) {
+                Planting_Lot_master_Table planting_lot_master_table = new Planting_Lot_master_Table();
+                planting_lot_master_table.setLot_No(planting_lot_list.get(i).Lot_No);
+                planting_lot_master_table.setDocument_No(planting_lot_list.get(i).Document_No);
+                planting_lot_master_table.setDocument_SubType(planting_lot_list.get(i).Document_SubType);
+                planting_lot_master_table.setMale_Female_Other(planting_lot_list.get(i).Male_Female_Other);
+                planting_lot_master_table.setReceipt_No(planting_lot_list.get(i).Receipt_No);
+                planting_lot_master_table.setNo(planting_lot_list.get(i).No);
+                planting_lot_master_table.setQuantity(planting_lot_list.get(i).Quantity);
+                planting_lot_dao.insert(planting_lot_master_table);
+            }
+        }
+        catch (Exception e){
+            e.printStackTrace();
         }
         return planting_lot_dao.getRowCount();
     }
@@ -1355,16 +1420,20 @@ public class GeographicalSyncing extends Fragment implements View.OnClickListene
     private int bindCityMasterList(List<CityMasterModel> cityMasterModelList, PristineDatabase pristineDatabase) {
         City_master_Dao city_master_dao = pristineDatabase.city_master_dao();
         city_master_dao.deleteAllRecord();
-        for (int i = 0; i < cityMasterModelList.size(); i++) {
-            CityMasterTable cityMasterTable = CityMasterTable.getCityMastertTableData(cityMasterModelList.get(i));
-            cityMasterTable.setClass_of_city(cityMasterModelList.get(i).class_of_city);
-            cityMasterTable.setCode(cityMasterModelList.get(i).code);
-            cityMasterTable.setCountry_region_code(cityMasterModelList.get(i).country_region_code);
-            cityMasterTable.setName(cityMasterModelList.get(i).name);
-            cityMasterTable.setActive(cityMasterModelList.get(i).active);
-            city_master_dao.insert(cityMasterTable);
+        try {
+            for (int i = 0; i < cityMasterModelList.size(); i++) {
+                CityMasterTable cityMasterTable = CityMasterTable.getCityMastertTableData(cityMasterModelList.get(i));
+                cityMasterTable.setClass_of_city(cityMasterModelList.get(i).class_of_city);
+                cityMasterTable.setCode(cityMasterModelList.get(i).code);
+                cityMasterTable.setCountry_region_code(cityMasterModelList.get(i).country_region_code);
+                cityMasterTable.setName(cityMasterModelList.get(i).name);
+                cityMasterTable.setActive(cityMasterModelList.get(i).active);
+                city_master_dao.insert(cityMasterTable);
+            }
         }
-
+        catch (Exception e){
+            e.printStackTrace();
+        }
         return city_master_dao.getRowCount();
     }
 
@@ -1426,11 +1495,16 @@ public class GeographicalSyncing extends Fragment implements View.OnClickListene
     private int bindCropMasterData(List<CropMassterModel.Data> cropmaster_model_list, PristineDatabase db) {
         CropHytechMasterDao cropHytechMasterDao = db.cropHytechMasterDao();
         cropHytechMasterDao.deleteAllRecord();
-        for (int i = 0; i < cropmaster_model_list.size(); i++) {
-            CropHytechMasterTable cropHytechMasterTable = new CropHytechMasterTable();
-            cropHytechMasterTable.setCode(cropmaster_model_list.get(i).Code);
-            cropHytechMasterTable.setDescription(cropmaster_model_list.get(i).Description);
-            cropHytechMasterDao.insert(cropHytechMasterTable);
+        try {
+            for (int i = 0; i < cropmaster_model_list.size(); i++) {
+                CropHytechMasterTable cropHytechMasterTable = new CropHytechMasterTable();
+                cropHytechMasterTable.setCode(cropmaster_model_list.get(i).Code);
+                cropHytechMasterTable.setDescription(cropmaster_model_list.get(i).Description);
+                cropHytechMasterDao.insert(cropHytechMasterTable);
+            }
+        }
+        catch (Exception e){
+            e.printStackTrace();
         }
         return cropHytechMasterDao.getRowCount();
     }
@@ -1680,9 +1754,14 @@ public class GeographicalSyncing extends Fragment implements View.OnClickListene
     private int bindBookingUnitPriceData(List<UnitPriceModel.Data> unitPricelist, PristineDatabase db) {
         BookingUnitPriceDao bookingUnitPriceDao = db.bookingUnitPriceDao();
         bookingUnitPriceDao.deleteAllRecord();
-        for (int i = 0; i < unitPricelist.size(); i++) {
-            BookingUnitPriceTable bookingUnitPriceTable = BookingUnitPriceTable.getBookingUnitPrice(unitPricelist.get(i));
-            bookingUnitPriceDao.insert(bookingUnitPriceTable);
+        try {
+            for (int i = 0; i < unitPricelist.size(); i++) {
+                BookingUnitPriceTable bookingUnitPriceTable = BookingUnitPriceTable.getBookingUnitPrice(unitPricelist.get(i));
+                bookingUnitPriceDao.insert(bookingUnitPriceTable);
+            }
+        }
+        catch (Exception e){
+            e.printStackTrace();
         }
         return bookingUnitPriceDao.getRowCount();
 
@@ -1691,9 +1770,14 @@ public class GeographicalSyncing extends Fragment implements View.OnClickListene
     private int bindUOMData(List<UnitOfMeasureModel.UnitOfMeasureModelList> uomList, PristineDatabase db) {
         UOMDao uomDao = db.uomDao();
         uomDao.deleteAllRecord();
-        for (int i = 0; i < uomList.size(); i++) {
-            UomTable uomTable = UomTable.insertUOMData(uomList.get(i));
-            uomDao.insert(uomTable);
+        try {
+            for (int i = 0; i < uomList.size(); i++) {
+                UomTable uomTable = UomTable.insertUOMData(uomList.get(i));
+                uomDao.insert(uomTable);
+            }
+        }
+        catch (Exception e){
+            e.printStackTrace();
         }
         return uomDao.getRowCount();
     }
@@ -1748,9 +1832,14 @@ public class GeographicalSyncing extends Fragment implements View.OnClickListene
     private int bindShipAdressData(List<ShipToAddressModel.Data> ship_address_list, PristineDatabase db) {
         ShipToAddressDao shipToAddressDao = db.shipToAddressDao();
         shipToAddressDao.deleteAllRecord();
-        for (int i = 0; i < ship_address_list.size(); i++) {
-            ShipToAddressDataTable shipToAddressDataTable = ShipToAddressDataTable.insertShipToAddressData(ship_address_list.get(i));
-            shipToAddressDao.insert(shipToAddressDataTable);
+        try {
+            for (int i = 0; i < ship_address_list.size(); i++) {
+                ShipToAddressDataTable shipToAddressDataTable = ShipToAddressDataTable.insertShipToAddressData(ship_address_list.get(i));
+                shipToAddressDao.insert(shipToAddressDataTable);
+            }
+        }
+        catch (Exception e){
+            e.printStackTrace();
         }
         return shipToAddressDao.getRowCount();
     }
@@ -1855,8 +1944,6 @@ public class GeographicalSyncing extends Fragment implements View.OnClickListene
             sale_order_no_loading.setVisibility(View.GONE);
         }
     }
-
-
 }
 
 

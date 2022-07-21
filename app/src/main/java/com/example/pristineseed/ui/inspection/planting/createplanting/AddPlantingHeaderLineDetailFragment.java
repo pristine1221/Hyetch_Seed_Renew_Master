@@ -7,6 +7,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -31,30 +32,15 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.pristineseed.BackgroundTask;
-import com.example.pristineseed.DataBaseRepository.GeographicalRepo.CropHytechMasterDao;
 import com.example.pristineseed.DataBaseRepository.GeographicalRepo.CropHytechMasterTable;
 import com.example.pristineseed.DataBaseRepository.GeographicalRepo.HybridItemMasterDao;
 import com.example.pristineseed.DataBaseRepository.GeographicalRepo.Hybrid_Item_Table;
-import com.example.pristineseed.DataBaseRepository.GeographicalRepo.LocationMasterTable;
-import com.example.pristineseed.DataBaseRepository.GeographicalRepo.UOMDao;
-import com.example.pristineseed.DataBaseRepository.GeographicalRepo.UomTable;
-import com.example.pristineseed.DataBaseRepository.GeographicalRepo.UserLocationMasterDao;
 import com.example.pristineseed.DataBaseRepository.GeographicalRepo.ZoneMasterTable;
 import com.example.pristineseed.DataBaseRepository.GeographicalRepo.ZoneMaterDao;
-import com.example.pristineseed.DataBaseRepository.Planting.PlantingDetailHeaderTable;
-import com.example.pristineseed.DataBaseRepository.Planting.PlantingFSIO_BSIO_Table;
 import com.example.pristineseed.DataBaseRepository.Planting.PlantingHeaderDao;
 import com.example.pristineseed.DataBaseRepository.Planting.PlantingLineDao;
 import com.example.pristineseed.DataBaseRepository.Planting.PlantingLineTable;
 import com.example.pristineseed.DataBaseRepository.Planting.Planting_Lot_master_Table;
-import com.example.pristineseed.DataBaseRepository.Planting.Planting_fsio_bsio_Dao;
-import com.example.pristineseed.DataBaseRepository.Planting.Planting_lot_Dao;
-import com.example.pristineseed.DataBaseRepository.Planting.SeasonDao;
-import com.example.pristineseed.DataBaseRepository.Planting.SeasonMasterTable;
-import com.example.pristineseed.DataBaseRepository.seed_dispatch_note.Organizer_master_Dao;
-import com.example.pristineseed.DataBaseRepository.seed_dispatch_note.Organizer_master_Table;
-import com.example.pristineseed.DataBaseRepository.seed_dispatch_note.SeedFarmerMasterDao;
-import com.example.pristineseed.DataBaseRepository.seed_dispatch_note.Seed_Farmer_master_Table;
 import com.example.pristineseed.GlobalNotification.NetworkUtil;
 import com.example.pristineseed.R;
 import com.example.pristineseed.RoomDataBase.PristineDatabase;
@@ -64,30 +50,28 @@ import com.example.pristineseed.global.ApiRequestFailure;
 import com.example.pristineseed.global.CustomDatePicker;
 import com.example.pristineseed.global.DateTimeUtilsCustome;
 import com.example.pristineseed.global.LoadingDialog;
-import com.example.pristineseed.model.GeoSetupModel.CountModel;
 import com.example.pristineseed.model.GeoSetupModel.DispatchFarmerModel;
 import com.example.pristineseed.model.GeoSetupModel.UserLocationModel;
 import com.example.pristineseed.model.PlantingModel.PlantingFsio_bsio_model;
 import com.example.pristineseed.model.PlantingModel.PlantingHeaderModel;
-import com.example.pristineseed.model.PlantingModel.PlantingHeaderResponseModel;
+import com.example.pristineseed.model.PlantingModel.PlantingLineDocNoDetails;
 import com.example.pristineseed.model.PlantingModel.PlantingLotModel;
 import com.example.pristineseed.model.PlantingModel.SeasonMasterModel;
 import com.example.pristineseed.model.ResponseModel;
 import com.example.pristineseed.model.item.OrganizerModel;
 import com.example.pristineseed.model.item.UnitOfMeasureModel;
-import com.example.pristineseed.model.reportModel.LotsDueInspectionModel;
-import com.example.pristineseed.model.seed_dispatch_note.SeedDispatchHeaderModel;
+import com.example.pristineseed.model.tfa.TFAHeaderModel;
 import com.example.pristineseed.retrofitApi.ApiUtils;
 import com.example.pristineseed.retrofitApi.NetworkInterface;
 import com.example.pristineseed.ui.adapter.ItemAdapter;
 import com.example.pristineseed.ui.adapter.PlantingAdapter.PlantingFsioBsioAdapter;
 import com.example.pristineseed.ui.adapter.PlantingAdapter.PlantingLineAdapter;
+import com.example.pristineseed.ui.adapter.PlantingAdapter.PlantingLineDocNoDetailLinesAdapter;
 import com.example.pristineseed.ui.adapter.PlantingAdapter.PlantingLotMFOAdapter;
 import com.example.pristineseed.ui.adapter.PlantingAdapter.SeasonMasterAdapter;
 import com.example.pristineseed.ui.adapter.ZoneMasterAdapter;
 import com.example.pristineseed.ui.adapter.farmer_adapter.FarmerVillageAdapter;
 import com.example.pristineseed.ui.adapter.item.FarmerListAdapter;
-import com.example.pristineseed.ui.adapter.item.HybridItemAliasNameAdapter;
 import com.example.pristineseed.ui.adapter.item.LocationMasterAdapter;
 import com.example.pristineseed.ui.adapter.item.OrganizerAdapter;
 import com.example.pristineseed.ui.adapter.item.UnitOfMeasureAdapter;
@@ -99,6 +83,7 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.valdesekamdem.library.mdtoast.MDToast;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -107,11 +92,13 @@ import java.util.Comparator;
 import java.util.List;
 
 import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class AddPlantingHeaderLineDetailFragment extends Fragment implements OrganizerAdapter.OnItemClickListner {
+public class AddPlantingHeaderLineDetailFragment extends Fragment implements OrganizerAdapter.OnItemClickListner{
+
     private SessionManagement sessionManagement;
     private AutoCompleteTextView dropdown_sesion_code, drop_down_parent, ac_select_loc, ac_type, ac_stage_code, ac_doc_sub_type;
     private TextInputEditText edit_date, ed_total_sowing_area, ed_date_of_harvest, ed_total_land_acres;
@@ -144,6 +131,7 @@ public class AddPlantingHeaderLineDetailFragment extends Fragment implements Org
     private List<UserLocationModel> locationMasterTableList = null;
     private List<Planting_Lot_master_Table> planting_lot_master_List = null;
     private OrganizerModel.Data organizer_master_table = null;
+    private DispatchFarmerModel.Data dispatchVillage_table=null;
 
     private PlantingHeaderModel plantingHeaderModel = null;
 
@@ -151,7 +139,7 @@ public class AddPlantingHeaderLineDetailFragment extends Fragment implements Org
             ed_parent_male, ed_receiptno_female, ed_receptno_male, ed_parent_female, ed_sowing_female, ed_sowing_male,
             ed_expected_yield, ed_sowing_date_other, revised_yield, ed_sowing_area, ed_land_lease, ed_item_clsof_seed,
             item_crop_type, ed_item_name, item_prod_grp_cd, ed_male_qty, ed_female_qty, ed_other_receipt_no,
-            ed_parent_other, ed_other_qty, dropdown_city, ac_state, ac_taluka, ac_crop_code, ac_organizer_name;
+            ed_parent_other, ed_other_qty, dropdown_city, ac_state, ac_taluka, ac_crop_code, ac_organizer_name,et_village;
 
     AutoCompleteTextView ac_doc_no, ac_parent_female_lot, ac_parent_male_lot, ac_parent_other_lot, ac_alias_name, ac_variety_code, ac_grwer_name, unit_of_msrd_cd, ed_vill_name, ac_zone_;
 
@@ -174,9 +162,13 @@ public class AddPlantingHeaderLineDetailFragment extends Fragment implements Org
     private RecyclerView lv_cust_dist_list;
     private TextInputLayout organser_input_layout, unit_of_msrd_cd_layout;
 
+    //todo declare for plantingLine doc details......................................
+    TextView tv_doc_no,tv_order_no,tv_customer_posting_grp,sell_cutomer_no,sell_customer_name,sell_customer_address,sell_customer_city,
+            doc_sub_type,tv_seed_type,tv_seed_name,tv_seed_no,tv_crop_code,tv_business_type,tv_location,tv_location_code,
+            tv_state_name,tv_territory,tv_reagion,tv_district,tv_zone,tv_land_arc,tv_order_date,tv_posting_date,tv_user_id,tv_message;
 
-    private List<DispatchFarmerModel.Data> village_list = null;
-
+    private List<PlantingLineDocNoDetails.Line> plantingDocDetailLineList ;
+    //private List<PlantingLineDocNoDetails.Line> plantingDocDetailLineList = new ArrayList<>();
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -273,6 +265,7 @@ public class AddPlantingHeaderLineDetailFragment extends Fragment implements Org
         back_button_go_topreviousPage.setOnClickListener(v -> {
             getParentFragmentManager().popBackStack();
         });
+
         ArrayAdapter<String> parent_type_adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, android.R.id.text1, Arrays.asList(CommonData.parent_type));
         drop_down_parent.setAdapter(parent_type_adapter);
 
@@ -298,8 +291,8 @@ public class AddPlantingHeaderLineDetailFragment extends Fragment implements Org
         });
 
         chip_add_line_planting.setOnClickListener(v -> {
-            if (plantingHeaderModel != null) {
-                AddNewItemPopup(plantingHeaderModel.Document_SubType, "", "insert", null);
+            if (plantingHeaderModel != null) {//plantingLineTableList.get(0).organizer_code
+                AddNewItemPopup(plantingHeaderModel.Document_SubType, plantingHeaderModel.organizer_code, "insert", null);
             } else {
                 Toast.makeText(getActivity(), "Header is empty !", Toast.LENGTH_SHORT).show();
                 return;
@@ -325,7 +318,6 @@ public class AddPlantingHeaderLineDetailFragment extends Fragment implements Org
                         .show();
             }
         });
-
 
         listview.setOnItemLongClickListener((parent, view1, position, id) -> {
             if (plantingHeaderModel == null) {
@@ -365,7 +357,6 @@ public class AddPlantingHeaderLineDetailFragment extends Fragment implements Org
             }
         });
 
-
         complete_header.setOnClickListener(v -> {
             if (plantingHeaderModel.code != null && !plantingHeaderModel.code.equalsIgnoreCase("")) {
                 new MaterialAlertDialogBuilder(getActivity())
@@ -383,423 +374,12 @@ public class AddPlantingHeaderLineDetailFragment extends Fragment implements Org
                 Toast.makeText(getActivity(), "Planting code can't be null.", Toast.LENGTH_SHORT).show();
             }
         });
+
     }
-
-    private void initView(View view) {
-        dropdown_sesion_code = view.findViewById(R.id.dropdown_sesion_code);
-        edit_date = view.findViewById(R.id.ed_date);
-        ac_organizer_name = view.findViewById(R.id.ac_org_name);
-        drop_down_parent = view.findViewById(R.id.drop_down_parent);
-        ac_select_loc = view.findViewById(R.id.ac_select_loc);
-        ed_date_of_harvest = view.findViewById(R.id.ed_date_of_harvest);
-        ed_total_sowing_area = view.findViewById(R.id.ed_total_sowing_area);
-        ed_total_land_acres = view.findViewById(R.id.ed_total_land_acres);
-        ac_doc_sub_type = view.findViewById(R.id.ac_doc_sub_type);
-        ac_stage_code = view.findViewById(R.id.ac_stage_code);
-        create_header_btn = view.findViewById(R.id.create_header_btn);
-        header_create_section = view.findViewById(R.id.header_create_section);
-        planting_detail_header_section = view.findViewById(R.id.planting_detail_header_section);
-        ac_type = view.findViewById(R.id.ac_type);
-        loading_content = view.findViewById(R.id.content_loading);
-        //header section input field....
-        tv_palnting_no = view.findViewById(R.id.tv_palnting_no);
-        tv_date = view.findViewById(R.id.tv_date);
-        tv_season_code = view.findViewById(R.id.tv_season_code);
-        tv_parent_type = view.findViewById(R.id.tv_parent_type);
-        tv_header_no = view.findViewById(R.id.tv_header_no);
-        tv_doc_subtype = view.findViewById(R.id.tv_doc_subtype);
-        tv_land_acr = view.findViewById(R.id.land_acr);
-        tv_sowing_acr_type = view.findViewById(R.id.tv_sowing_acr_type);
-        tv_stage_code = view.findViewById(R.id.tv_stage_code);
-        tv_org_name = view.findViewById(R.id.tv_org_name);
-        tv_org_code = view.findViewById(R.id.tv_org_code);
-        // create planting line...
-        listview = view.findViewById(R.id.line_listview);
-        chip_add_line_planting = view.findViewById(R.id.chip_add_line_planting);
-        delete_header_chip = view.findViewById(R.id.delete_header);
-        back_button_go_topreviousPage = view.findViewById(R.id.back_button_go_topreviousPage);
-        line_cardview = view.findViewById(R.id.line_cardview);
-        complete_header = view.findViewById(R.id.complete_header);
-        frame_layout_org_list = view.findViewById(R.id.frame_layout_org_list);
-        search_loading_item = view.findViewById(R.id.loading_item);
-        lv_cust_dist_list = view.findViewById(R.id.lv_cust_dist_list);
-        ac_organizer_name = view.findViewById(R.id.ac_org_name);
-        organser_input_layout = view.findViewById(R.id.organser_input_layout);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
-        lv_cust_dist_list.setLayoutManager(layoutManager);
-        unit_of_msrd_cd_layout = view.findViewById(R.id.unit_of_msrd_cd_layout);
-    }
-
-    private void getPlantingHeaderData() {
-        if (view_flag != null) {
-            if (view_flag.equalsIgnoreCase("view_header_line")) {
-                if (plantingHeaderModel != null) {
-                    if (plantingHeaderModel.status > 0) {
-                        header_create_section.setVisibility(View.GONE);
-                        planting_detail_header_section.setVisibility(View.VISIBLE);
-                        line_cardview.setVisibility(View.VISIBLE);
-                        chip_add_line_planting.setVisibility(View.GONE);
-                        delete_header_chip.setVisibility(View.GONE);
-                        complete_header.setVisibility(View.GONE);
-                    } else {
-                        header_create_section.setVisibility(View.GONE);
-                        line_cardview.setVisibility(View.VISIBLE);
-                        chip_add_line_planting.setVisibility(View.VISIBLE);
-                        delete_header_chip.setVisibility(View.VISIBLE);
-                        planting_detail_header_section.setVisibility(View.VISIBLE);
-                        complete_header.setVisibility(View.VISIBLE);
-                    }
-                    try {
-                        setHeaderDetailData();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                    plantingLineTableList = plantingHeaderModel.pl;
-                    setLineAdapter();
-                } else {
-                    // header_create_section.setVisibility(View.VISIBLE);
-                    line_cardview.setVisibility(View.GONE);
-                    planting_detail_header_section.setVisibility(View.GONE);
-                    delete_header_chip.setVisibility(View.GONE);
-                }
-            }
-        }
-    }
-
-    private void setLineAdapter() {
-        if (this.plantingLineTableList != null && this.plantingLineTableList.size() > 0 && this.plantingLineTableList.get(0).line_no != null) {
-            plantingLineAdapter = new PlantingLineAdapter(getActivity(), this.plantingLineTableList);
-            listview.setAdapter(plantingLineAdapter);
-        } else {
-            listview.setAdapter(null);
-        }
-    }
-
-
-    private void getSeasonMaster() {
-        loading_content.setVisibility(View.VISIBLE);
-        NetworkInterface mAPIService = ApiUtils.getPristineAPIService();
-        Call<List<SeasonMasterModel>> call = mAPIService.getSeasonMaster();
-        call.enqueue(new Callback<List<SeasonMasterModel>>() {
-            @Override
-            public void onResponse(Call<List<SeasonMasterModel>> call, Response<List<SeasonMasterModel>> response) {
-                try {
-                    if (response.isSuccessful()) {
-                        loading_content.setVisibility(View.GONE);
-                        List<SeasonMasterModel> templantingList_season = response.body();
-                        if (templantingList_season != null && templantingList_season.size() > 0) {
-                            seasonMasterTableList = templantingList_season;
-                            SeasonMasterAdapter seasonMasterAdapter = new SeasonMasterAdapter(getActivity(), R.layout.android_item_view, seasonMasterTableList);
-                            dropdown_sesion_code.setAdapter(seasonMasterAdapter);
-                        } else {
-                            loading_content.setVisibility(View.GONE);
-                            dropdown_sesion_code.setText("");
-                            dropdown_sesion_code.setAdapter(null);
-                            Toast.makeText(getActivity(), templantingList_season != null && templantingList_season.size() > 0 ? "Season Record not found !" : "Api not respoding.", Toast.LENGTH_SHORT).show();
-                        }
-                    } else {
-                        loading_content.setVisibility(View.GONE);
-                        Toast.makeText(getActivity(), response.message() + ". Error Code:" + response.code(), Toast.LENGTH_SHORT).show();
-                    }
-                } catch (Exception e) {
-                    loading_content.setVisibility(View.GONE);
-                    Log.e("exception database", e.getMessage() + "cause");
-                    ApiRequestFailure.PostExceptionToServer(e, getClass().getName(), "get_season", getActivity());
-                } finally {
-                    loading_content.setVisibility(View.GONE);
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<SeasonMasterModel>> call, Throwable t) {
-                loading_content.setVisibility(View.GONE);
-                ApiRequestFailure.PostExceptionToServer(t, getClass().getName(), "get_season", getActivity());
-            }
-        });
-    }
-
-
-    private List<OrganizerModel.Data> organizer_master_tableList = null;
-
-    private void getOrganizerList(String filter_key) {
-        search_loading_item.setVisibility(View.VISIBLE);
-        NetworkInterface mAPIService = ApiUtils.getPristineAPIService();
-        Call<OrganizerModel> call = mAPIService.getOrgnizerData("O_D", filter_key);
-        call.enqueue(new Callback<OrganizerModel>() {
-            @Override
-            public void onResponse(Call<OrganizerModel> call, Response<OrganizerModel> response) {
-                try {
-                    if (response.isSuccessful()) {
-                        search_loading_item.setVisibility(View.GONE);
-                        OrganizerModel organizerModel = response.body();
-                        if (organizerModel != null && organizerModel.condition) {
-                            List<OrganizerModel.Data> organizerList = organizerModel.data;
-                            if (organizerList != null && organizerList.size() > 0) {
-                                organizer_master_tableList = organizerList;
-                                setOrganiserAdapter();
-                            } else {
-                                lv_cust_dist_list.setAdapter(null);
-                                search_loading_item.setVisibility(View.GONE);
-                                frame_layout_org_list.setVisibility(View.GONE);
-                            }
-                        } else {
-                            search_loading_item.setVisibility(View.GONE);
-                            Toast.makeText(getActivity(), "Organizer Record not found !", Toast.LENGTH_SHORT).show();
-                        }
-
-                    } else {
-                        search_loading_item.setVisibility(View.GONE);
-                        Toast.makeText(getActivity(), response.message() + ". Error Code:" + response.code(), Toast.LENGTH_SHORT).show();
-                    }
-
-                } catch (Exception e) {
-                    search_loading_item.setVisibility(View.GONE);
-                    Log.e("exception database", e.getMessage() + "cause");
-                    ApiRequestFailure.PostExceptionToServer(e, getClass().getName(), "organizer_list", getActivity());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<OrganizerModel> call, Throwable t) {
-                search_loading_item.setVisibility(View.GONE);
-                ApiRequestFailure.PostExceptionToServer(t, getClass().getName(), "organizer_list", getActivity());
-            }
-        });
-    }
-
-    private void setOrganiserAdapter() {
-        OrganizerAdapter organizerAdapter = new OrganizerAdapter(getActivity(), organizer_master_tableList);
-        lv_cust_dist_list.setAdapter(organizerAdapter);
-        organizerAdapter.setClickListner(this);
-    }
-
-    private void callSubmitPlantingheader() {
-        if (ac_doc_sub_type.getText().toString().trim().equalsIgnoreCase("")) {
-            Toast.makeText(getActivity(), "Please select doc. type", Toast.LENGTH_SHORT).show();
-        } else if (ac_select_loc.getText().toString().equalsIgnoreCase("")) {
-            Toast.makeText(getActivity(), "Pleasse select location", Toast.LENGTH_SHORT).show();
-
-        } else if (ac_stage_code.getText().toString().trim().equalsIgnoreCase("")) {
-            Toast.makeText(getActivity(), "Please select stage code", Toast.LENGTH_SHORT).show();
-        } else if (edit_date.getText().toString().trim().equalsIgnoreCase("")) {
-            Toast.makeText(getActivity(), "Please select date.", Toast.LENGTH_SHORT).show();
-        } else if (ed_date_of_harvest.getText().toString().trim().equalsIgnoreCase("")) {
-            Toast.makeText(getActivity(), "Please select date of harvests.", Toast.LENGTH_SHORT).show();
-        } else if (dropdown_sesion_code.getText().toString().trim().equalsIgnoreCase("")) {
-            Toast.makeText(getActivity(), "Please select season.", Toast.LENGTH_SHORT).show();
-        } else if (ac_organizer_name.getText().toString().trim().equalsIgnoreCase("")) {
-            Toast.makeText(getActivity(), "Please select organizer.", Toast.LENGTH_SHORT).show();
-        } else if (organizer_master_table == null || organizer_master_table.No == null) {
-            Toast.makeText(getActivity(), "Please select organiser", Toast.LENGTH_SHORT).show();
-        } else {
-
-            PlantingHeaderModel plantingHeaderModel1 = new PlantingHeaderModel();
-            plantingHeaderModel1.production_centre_loc = locationMasterTable.location_code;
-            plantingHeaderModel1.date = DateTimeUtilsCustome.splitDateInMMDDYYYYDash(edit_date.getText().toString().trim());
-            plantingHeaderModel1.date_of_harvest = DateTimeUtilsCustome.splitDateInMMDDYYYYDash(ed_date_of_harvest.getText().toString().trim());
-            plantingHeaderModel1.season_code = seasonMasterTable.season_Code != null ? seasonMasterTable.season_Code : "";
-            plantingHeaderModel1.season_name = dropdown_sesion_code.getText().toString().trim();
-            plantingHeaderModel1.type = ac_type.getText().toString().trim();
-            plantingHeaderModel1.stage_code = ac_stage_code.getText().toString().trim();
-            plantingHeaderModel1.total_sowing_area_in_acres = ed_total_sowing_area.getText().toString().trim() != null ? ed_total_sowing_area.getText().toString().trim() : "0";
-            plantingHeaderModel1.total_land_in_acres = ed_total_land_acres.getText().toString().trim() != null ? ed_total_land_acres.getText().toString().trim() : "0";
-            plantingHeaderModel1.parent_type = drop_down_parent.getText().toString().trim();//ac_type.getText().toString().trim();
-            plantingHeaderModel1.Document_SubType = ac_doc_sub_type.getText().toString().trim();
-            plantingHeaderModel1.created_by = sessionManagement.getUserEmail();
-            plantingHeaderModel1.organizer_code = organizer_master_table.No;
-            plantingHeaderModel1.organizer_name = organizer_master_table.Name != null && !organizer_master_table.Name.equalsIgnoreCase("") ? organizer_master_table.Name : "";
-
-            boolean isNetwork = NetworkUtil.getConnectivityStatusBoolean(getActivity());
-            if (isNetwork) {
-                String jsonString = new Gson().toJson(plantingHeaderModel1);
-                JsonObject asJsonObject = JsonParser.parseString(jsonString).getAsJsonObject();
-                NetworkInterface mAPIService = ApiUtils.getPristineAPIService();
-                Call<List<PlantingHeaderModel>> call = mAPIService.insertPlantingHeader(asJsonObject);
-                LoadingDialog progressDialogLoading = new LoadingDialog();
-                progressDialogLoading.showLoadingDialog(getActivity());
-                //List<PlantingHeaderModel> plantingHeaderModelList = new ArrayList<>();
-                call.enqueue(new Callback<List<PlantingHeaderModel>>() {
-                    @Override
-                    public void onResponse(Call<List<PlantingHeaderModel>> call, Response<List<PlantingHeaderModel>> response) {
-                        try {
-                            if (response.isSuccessful()) {
-                                progressDialogLoading.hideDialog();
-                                List<PlantingHeaderModel> header_response_modelList = response.body();
-                                if (header_response_modelList != null && header_response_modelList.size() > 0 && header_response_modelList.get(0).condition) {
-                                    // plantingHeaderModel.code = header_response_modelList.get(0).planting_code;
-                                    plantingHeaderModel = header_response_modelList.get(0);
-
-                                    //plantingHeaderModel.add_online_offlie_header = 0;
-                                    //plantingHeaderModelList.add(plantingHeaderModel);
-                                    bindPlantingHeaderData();
-                                    Toast.makeText(getActivity(), "Planting code :" + header_response_modelList.get(0).code + "," + header_response_modelList.get(0).message, Toast.LENGTH_SHORT).show();
-                                } else {
-                                    progressDialogLoading.hideDialog();
-                                    Toast.makeText(getActivity(), header_response_modelList.size() > 0 ? header_response_modelList.get(0).message : "Api not respoding.", Toast.LENGTH_SHORT).show();
-                                }
-                            } else {
-                                progressDialogLoading.hideDialog();
-                                Toast.makeText(getActivity(), response.message() + ". Error Code:" + response.code(), Toast.LENGTH_SHORT).show();
-                            }
-                        } catch (Exception e) {
-                            progressDialogLoading.hideDialog();
-                            Log.e("exception database", e.getMessage() + "cause");
-                            Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
-                            ApiRequestFailure.PostExceptionToServer(e, getClass().getName(), "header_response_model", getActivity());
-                        } finally {
-                            progressDialogLoading.hideDialog();
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<List<PlantingHeaderModel>> call, Throwable t) {
-                        progressDialogLoading.hideDialog();
-                        ApiRequestFailure.PostExceptionToServer(t, getClass().getName(), "header_response_model", getActivity());
-                    }
-                });
-            } else {
-                Toast.makeText(getActivity(), "Please wait for internet connection. ", Toast.LENGTH_SHORT).show();
-              /*  List<PlantingHeaderModel> plantingHeaderModelList = new ArrayList<>();
-                plantingHeaderModel.code = "0";
-                plantingHeaderModel.add_online_offlie_header = 1;
-                plantingHeaderModelList.add(plantingHeaderModel);*/
-                //bindPlantingHeaderData(plantingHeaderModelList);
-                //offline network calling...
-            }
-        }
-    }
-
-
-    private void bindPlantingHeaderData() {
-      /*  PristineDatabase pristineDatabase = PristineDatabase.getAppDatabase(getActivity());
-        PlantingHeaderDao plantingHeaderDao = pristineDatabase.plantingHeaderDao();
-        try {
-            PlantingDetailHeaderTable plantingDetailHeaderTable = new PlantingDetailHeaderTable();
-            plantingDetailHeaderTable.setProduction_centre_loc(plantingHeaderModelList.get(0).production_centre_loc);
-            plantingDetailHeaderTable.setCode(plantingHeaderModelList.get(0).code);
-            plantingDetailHeaderTable.setDate(plantingHeaderModelList.get(0).date);
-            plantingDetailHeaderTable.setDate_of_harvest(plantingHeaderModelList.get(0).date_of_harvest);
-            plantingDetailHeaderTable.setSeason_code(plantingHeaderModelList.get(0).season_name);
-            plantingDetailHeaderTable.setType(plantingHeaderModelList.get(0).type);
-            plantingDetailHeaderTable.setStage_code(plantingHeaderModelList.get(0).stage_code);
-            plantingDetailHeaderTable.setTotal_sowing_area_in_acres(plantingHeaderModelList.get(0).total_sowing_area_in_acres);
-            plantingDetailHeaderTable.setTotal_land_in_acres(plantingHeaderModelList.get(0).total_land_in_acres);
-            plantingDetailHeaderTable.setParent_type(plantingHeaderModelList.get(0).parent_type);
-            plantingDetailHeaderTable.setDocument_SubType(plantingHeaderModelList.get(0).Document_SubType);
-            plantingDetailHeaderTable.setCreated_by(plantingHeaderModelList.get(0).created_by);
-            plantingDetailHeaderTable.setOrganizer_name(plantingHeaderModelList.get(0).organizer_name);
-            plantingDetailHeaderTable.setOrganizer_code(plantingHeaderModelList.get(0).organizer_code);
-
-            if (plantingHeaderDao.isDataExist(plantingDetailHeaderTable.getCode())) {
-                plantingHeaderDao.update(plantingDetailHeaderTable);
-            } else {
-                plantingHeaderDao.insert(plantingDetailHeaderTable);
-            }
-           // plantingHeaderModel = plantingHeaderDao.getHeaderByPlantingno(plantingDetailHeaderTable.getCode());
-
-            Log.e("planting_list", new Gson().toJson(plantingHeaderModel));
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            pristineDatabase.close();
-            pristineDatabase.destroyInstance();*/
-        try {
-            if (plantingHeaderModel != null) {
-                header_create_section.setVisibility(View.GONE);
-                planting_detail_header_section.setVisibility(View.VISIBLE);
-                delete_header_chip.setVisibility(View.VISIBLE);
-                line_cardview.setVisibility(View.VISIBLE);
-                setHeaderDetailData();
-                if (plantingLineTableList != null && plantingLineTableList.size() > 0) {
-                    complete_header.setVisibility(View.VISIBLE);
-                }
-            } else {
-                header_create_section.setVisibility(View.VISIBLE);
-                line_cardview.setVisibility(View.GONE);
-                complete_header.setVisibility(View.GONE);
-                planting_detail_header_section.setVisibility(View.GONE);
-                delete_header_chip.setVisibility(View.GONE);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        // }
-    }
-
-    private void setHeaderDetailData() throws Exception {
-        tv_header_no.setText("(" + plantingHeaderModel.code + ")");
-        tv_palnting_no.setText(plantingHeaderModel.code);
-        tv_date.setText(plantingHeaderModel.date);
-        tv_season_code.setText(plantingHeaderModel.season_code);
-        tv_doc_subtype.setText(plantingHeaderModel.Document_SubType);
-        tv_parent_type.setText(plantingHeaderModel.parent_type);
-        tv_stage_code.setText(plantingHeaderModel.stage_code);
-        tv_org_code.setText(plantingHeaderModel.organizer_code);
-        tv_org_name.setText(plantingHeaderModel.organizer_name);
-
-        if (plantingLineTableList != null && plantingLineTableList.size() > 0) {
-            double total_sowing_area = 0.0, grant_total = 0.0;
-            for (int i = 0; i < plantingLineTableList.size(); i++) {
-                if (plantingLineTableList.get(i).sowing_area_In_acres != null && !plantingLineTableList.get(i).sowing_area_In_acres.equalsIgnoreCase("")) {
-                    total_sowing_area = Double.parseDouble((plantingLineTableList.get(i).sowing_area_In_acres));
-                    grant_total = grant_total + total_sowing_area;
-                }
-            }
-            tv_sowing_acr_type.setText(String.valueOf(grant_total));
-            Log.e("sowing_area", String.valueOf(grant_total));
-        } else {
-            tv_sowing_acr_type.setText("0");
-        }
-    }
-
-    private PlantingFsio_bsio_model planting_doc_table = null;
-    private List<PlantingFsio_bsio_model> plantingFsioList = null;
-
-    private void getAcDocNo(ProgressBar content_loading, String doc_sub_type, String org_no) {
-        content_loading.setVisibility(View.VISIBLE);
-        NetworkInterface mAPIService = ApiUtils.getPristineAPIService();
-        Call<List<PlantingFsio_bsio_model>> call = mAPIService.getPlantingFsioBsioData(doc_sub_type, org_no);
-        call.enqueue(new Callback<List<PlantingFsio_bsio_model>>() {
-            @Override
-            public void onResponse(Call<List<PlantingFsio_bsio_model>> call, Response<List<PlantingFsio_bsio_model>> response) {
-                try {
-                    if (response.isSuccessful()) {
-                        content_loading.setVisibility(View.GONE);
-                        List<PlantingFsio_bsio_model> templantingList_fsio = response.body();
-                        if (templantingList_fsio != null && templantingList_fsio.size() > 0 && templantingList_fsio.get(0).condition) {
-                            plantingFsioList = templantingList_fsio;
-                            PlantingFsioBsioAdapter plantingFsioBsioAdapter = new PlantingFsioBsioAdapter(getActivity(), R.layout.android_item_view, templantingList_fsio);
-                            ac_doc_no.setAdapter(plantingFsioBsioAdapter);
-
-                        } else {
-                            content_loading.setVisibility(View.GONE);
-                            ac_doc_no.setAdapter(null);
-                            // Toast.makeText(getActivity(), templantingList_fsio==null && templantingList_fsio.size() > 0 && templantingList_fsio.get(0).No==null ? "Planting Fsio/Bsio Record not found !" : "Api not respoding.", Toast.LENGTH_SHORT).show();
-                        }
-                    } else {
-                        content_loading.setVisibility(View.GONE);
-                        Toast.makeText(getActivity(), response.message() + ". Error Code:" + response.code(), Toast.LENGTH_SHORT).show();
-                    }
-                } catch (Exception e) {
-                    content_loading.setVisibility(View.GONE);
-                    Log.e("exception database", e.getMessage() + "cause");
-                    //   Toast.makeText(getActivity(), response.message() + ". Error Code:" + response.code(), Toast.LENGTH_SHORT).show();
-                    ApiRequestFailure.PostExceptionToServer(e, getClass().getName(), "planting_fsio_bsio_fragment_", getActivity());
-                } finally {
-                    content_loading.setVisibility(View.GONE);
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<PlantingFsio_bsio_model>> call, Throwable t) {
-                content_loading.setVisibility(View.GONE);
-                ApiRequestFailure.PostExceptionToServer(t, getClass().getName(), "planting_fsio_bsio_fragment_", getActivity());
-            }
-        });
-    }
-
 
     public void AddNewItemPopup(String Doucment_subtype, String organiser_code, String flag, PlantingHeaderModel.PlantingLine plantingLineModel) {
+        RecyclerView village_recyclerView;
+
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View popupView = inflater.inflate(R.layout.add_planting_line_lot_no_popup, null);
         Dialog dialog = new Dialog(getActivity(), android.R.style.Theme_DeviceDefault_DialogWhenLarge_NoActionBar);
@@ -809,12 +389,13 @@ public class AddPlantingHeaderLineDetailFragment extends Fragment implements Org
         dialog.show();
 
         ImageView close_dilog_bt = popupView.findViewById(R.id.close_dilog_bt);
+        frame_layout_org_list=popupView.findViewById(R.id.frame_layout_village_list);
+        et_village=popupView.findViewById(R.id.et_village);
+        village_recyclerView=popupView.findViewById(R.id.village_recyclerView);
         ac_grwer_name = popupView.findViewById(R.id.ac_grwer_name);
         ed_supervsr_name = popupView.findViewById(R.id.ed_supervsr_name);
         ed_grower_code = popupView.findViewById(R.id.gr_owner_code);
-
         ac_doc_no = popupView.findViewById(R.id.ac_doc_no);
-        ed_vill_name = popupView.findViewById(R.id.ed_vill_name);
         ac_taluka = popupView.findViewById(R.id.ac_taluka);
         ac_state = popupView.findViewById(R.id.dropdown_state);
         dropdown_city = popupView.findViewById(R.id.dropdown_city);
@@ -860,18 +441,25 @@ public class AddPlantingHeaderLineDetailFragment extends Fragment implements Org
         MaterialProgressBar content_loading = popupView.findViewById(R.id.content_loading);
         Button filter_apply_bt = popupView.findViewById(R.id.submit_line_btn);
         ac_grwer_name.setSelection(ac_grwer_name.getText().length());
-        ed_vill_name.setSelection(ed_vill_name.getText().length());
-        getAcDocNo(content_loading, Doucment_subtype, organiser_code);
+        //ed_vill_name.setSelection(ed_vill_name.getText().length());
+
+        getAcDocNo(content_loading,Doucment_subtype, organiser_code);
+
         getUnitOfMeasureData(content_loading);
-        getFarmerAndGrower_master(content_loading, "", "");
+
 
         ac_grwer_name.setOnItemClickListener((parent, view, position, id) -> {
             farmer_grower_model = farmer_grower_list.get(position);
-            ac_grwer_name.setText(farmer_grower_model.Name);
+
             if (farmer_grower_model != null) {
                 ac_grwer_name.setText(farmer_grower_model.Name);
                 loading_content.setVisibility(View.VISIBLE);
-                NetworkInterface mAPIService = ApiUtils.getPristineAPIService();
+                ed_grower_code.setText(village_list.get(0).No);
+                ac_state.setText(village_list.get(0).State_Code);
+                ac_taluka.setText(village_list.get(0).Territory_Name);
+                dropdown_city.setText(village_list.get(0).City);
+                ed_address_.setText(village_list.get(0).Address);
+               /* NetworkInterface mAPIService = ApiUtils.getPristineAPIService();
                 Call<DispatchFarmerModel> call = mAPIService.getDispatchFarmerList("");
                 call.enqueue(new Callback<DispatchFarmerModel>() {
                     @Override
@@ -891,6 +479,7 @@ public class AddPlantingHeaderLineDetailFragment extends Fragment implements Org
                                         dropdown_city.setText(farmer_grower_list.get(0).City != null ? farmer_grower_list.get(0).City : "");
                                         ed_address_.setText(farmer_grower_list.get(0).Address != null ? farmer_grower_list.get(0).Address : "");
                                         ed_grower_code.setText(farmer_grower_list.get(0).No != null ? farmer_grower_list.get(0).No : "");
+
                                     }
                                 } else {
                                     loading_content.setVisibility(View.GONE);
@@ -914,17 +503,42 @@ public class AddPlantingHeaderLineDetailFragment extends Fragment implements Org
                         loading_content.setVisibility(View.GONE);
                         ApiRequestFailure.PostExceptionToServer(t, getClass().getName(), "farmer_list", getActivity());
                     }
-                });
+                });*/
             }
-        });
-        ed_vill_name.setOnItemClickListener((parent, view, position, id) -> {
-            if (village_list != null && village_list.size() > 0) {
-                ed_vill_name.setText(village_list.get(position).Village);
-                getFarmerAndGrower_master(content_loading, "Village", village_list.get(position).Village);
+            else {
+                ac_grwer_name.setText("");
+                loading_content.setVisibility(View.GONE);
             }
         });
 
+        //todo for filter..................................................
+        et_village.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int i, int i1, int i2) {
+                et_village.setSelection(s.toString().length());
+                if (!s.toString().equalsIgnoreCase("")) {
+                    frame_layout_org_list.setVisibility(View.VISIBLE);
+                    getFarmerAndGrower_master(village_recyclerView,content_loading,s.toString());
+                } else {
+                    frame_layout_org_list.setVisibility(View.GONE);
+                    content_loading.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
+        //todo for female ,male and other lot no set................
         ac_doc_no.setOnItemClickListener((parent, view, position, id) -> {
+
             try {
                 planting_doc_table = plantingFsioList.get(position);
                 if (planting_doc_table != null) {
@@ -951,6 +565,7 @@ public class AddPlantingHeaderLineDetailFragment extends Fragment implements Org
                         ed_parent_other.setText("");
                         ed_other_qty.setText("");
                         getPlantingLotListMale(content_loading, planting_doc_table.No,"FSIO", "Male");
+
                         getPlantingLotListFemale(content_loading,  planting_doc_table.No,"FSIO", "Female");
 
                     } else if (planting_doc_table.Document_SubType.equalsIgnoreCase("BSIO")) {
@@ -1048,7 +663,17 @@ public class AddPlantingHeaderLineDetailFragment extends Fragment implements Org
             }
         });
 
-       /* if (hybrid_item_tableList != null && hybrid_item_tableList.size() > 0) {
+        //todo for ac_parent_male_lot click listener.................
+       /* ac_parent_male_lot.setOnClickListener(v->{
+            getPlantingLotListMale(loading_content,plantingLineModel.doc_no,Doucment_subtype,"MALE");//MaterialProgressBar loading_content,String doc_no, String flag,  String gender_flag
+        });
+
+        ac_parent_female_lot.setOnClickListener(v->{
+            getPlantingLotListFemale(loading_content,plantingLineModel.doc_no,Doucment_subtype,"FEMALE");
+        });*/
+
+
+       /*if (hybrid_item_tableList != null && hybrid_item_tableList.size() > 0) {
             HybridItemAliasNameAdapter hybridItemAdapter = new HybridItemAliasNameAdapter(getActivity(), R.layout.android_item_view, hybrid_item_tableList);
             ac_alias_name.setAdapter(hybridItemAdapter);
         }*/
@@ -1130,7 +755,7 @@ public class AddPlantingHeaderLineDetailFragment extends Fragment implements Org
                             plantingLine.expected_yield = "0.0";
                         }
                     }
-                    plantingLine.village_name = ed_vill_name.getText().toString().trim();
+                    plantingLine.village_name = et_village.getText().toString().trim();
                     plantingLine.address = ed_address_.getText().toString().trim();
                     plantingLine.zone = zone_code;
                     plantingLine.taluka = ac_taluka.getText().toString().trim();
@@ -1166,7 +791,9 @@ public class AddPlantingHeaderLineDetailFragment extends Fragment implements Org
                     insertPlantingLine(plantingLine, dialog);
                 }
             });
-        } else if (flag.equals("view")) {
+        }
+
+        else if (flag.equals("view")) {
             filter_apply_bt.setVisibility(View.GONE);
 //            PlantingHeaderModel.PlantingLine plantingLine = new PlantingHeaderModel().new PlantingLine();
             if (NetworkUtil.getConnectivityStatusBoolean(getActivity())) {
@@ -1212,9 +839,9 @@ public class AddPlantingHeaderLineDetailFragment extends Fragment implements Org
                 if (plantingLineModel.doc_no != null && !plantingLineModel.doc_no.equalsIgnoreCase("")) {
                     ac_doc_no.setText(plantingLineModel.doc_no);
                     ac_doc_no.clearFocus();
-                    ac_doc_no.setFocusableInTouchMode(false);
-                    ac_doc_no.setEnabled(false);
-                    ac_doc_no.setFocusable(false);
+                    ac_doc_no.setFocusableInTouchMode(true);
+                    ac_doc_no.setEnabled(true);
+                    ac_doc_no.setFocusable(true);
                 } else {
                     ac_doc_no.setText("");
                     ac_doc_no.setFocusableInTouchMode(false);
@@ -1353,18 +980,17 @@ public class AddPlantingHeaderLineDetailFragment extends Fragment implements Org
                 }
 
                 if(plantingLineModel.village_name != null && !plantingLineModel.village_name.equalsIgnoreCase("")){
-                    ed_vill_name.setText(plantingLineModel.village_name);
-                    ed_vill_name.setDropDownHeight(0);
-                    ed_vill_name.clearFocus();
-                    ed_vill_name.setFocusableInTouchMode(false);
-                    ed_vill_name.setFocusable(false);
-                    ed_vill_name.setEnabled(false);
+
+                    et_village.setText(plantingLineModel.village_name);
+                    et_village.clearFocus();
+                    et_village.setFocusableInTouchMode(false);
+                    et_village.setFocusable(false);
+                    et_village.setEnabled(false);
                 }
                 else {
-                    ed_vill_name.setText("");
-                    ed_vill_name.setDropDownHeight(0);
-                    ed_vill_name.setFocusable(false);
-                    ed_vill_name.setEnabled(false);
+                    et_village.setText("");
+                    et_village.setFocusable(false);
+                    et_village.setEnabled(false);
                 }
 
                 if(plantingLineModel.taluka != null && !plantingLineModel.taluka.equalsIgnoreCase("")){
@@ -1524,7 +1150,6 @@ public class AddPlantingHeaderLineDetailFragment extends Fragment implements Org
                     ed_male_qty.setFocusable(false);
                     ed_male_qty.setEnabled(false);
                 }
-                //todo
 
                 if(plantingLineModel.sowing_date_female != null && !plantingLineModel.sowing_date_female.equalsIgnoreCase("")){
                     ed_sowing_female.setText(plantingLineModel.sowing_date_female);
@@ -1645,6 +1270,554 @@ public class AddPlantingHeaderLineDetailFragment extends Fragment implements Org
             }
         }
 
+        //todo for fsio and bsio doc code show details
+        ac_doc_no.setOnClickListener(v->{
+            if(!ac_doc_no.getText().toString().isEmpty()){
+                String acDocNo=ac_doc_no.getText().toString();
+                NetworkInterface networkInterface=ApiUtils.getPristineAPIService();
+                Call<PlantingLineDocNoDetails> call=networkInterface.getPlantingLineDocDetails(acDocNo);
+                call.enqueue(new Callback<PlantingLineDocNoDetails>() {
+                    @Override
+                    public void onResponse(Call<PlantingLineDocNoDetails> call, Response<PlantingLineDocNoDetails> response) {
+                        if(response.isSuccessful()){
+                            PlantingLineDocNoDetails plantingLineDocNoDetails=response.body();
+                            Log.d("ggg",response.body().toString());
+                            showFsioBsioCodeDetails(plantingLineDocNoDetails);
+                        }
+                        else {
+                            MDToast.makeText(getActivity(),response.message(),MDToast.LENGTH_SHORT,MDToast.TYPE_ERROR).show();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<PlantingLineDocNoDetails> call, Throwable t) {
+                        MDToast.makeText(getActivity(),t.getMessage(),MDToast.LENGTH_SHORT,MDToast.TYPE_ERROR).show();
+                    }
+                });;
+            }
+            else {
+                ac_doc_no.setFocusableInTouchMode(true);
+                ac_doc_no.setEnabled(true);
+                ac_doc_no.setFocusable(true);
+            }
+        });
+    }
+
+    private void initView(View view) {
+        plantingDocDetailLineList = new ArrayList<>();
+        dropdown_sesion_code = view.findViewById(R.id.dropdown_sesion_code);
+        edit_date = view.findViewById(R.id.ed_date);
+        ac_organizer_name = view.findViewById(R.id.ac_org_name);
+        drop_down_parent = view.findViewById(R.id.drop_down_parent);
+        ac_select_loc = view.findViewById(R.id.ac_select_loc);
+        ed_date_of_harvest = view.findViewById(R.id.ed_date_of_harvest);
+        ed_total_sowing_area = view.findViewById(R.id.ed_total_sowing_area);
+        ed_total_land_acres = view.findViewById(R.id.ed_total_land_acres);
+        ac_doc_sub_type = view.findViewById(R.id.ac_doc_sub_type);
+        ac_stage_code = view.findViewById(R.id.ac_stage_code);
+        create_header_btn = view.findViewById(R.id.create_header_btn);
+        header_create_section = view.findViewById(R.id.header_create_section);
+        planting_detail_header_section = view.findViewById(R.id.planting_detail_header_section);
+        ac_type = view.findViewById(R.id.ac_type);
+        loading_content = view.findViewById(R.id.content_loading);
+        //header section input field....
+        tv_palnting_no = view.findViewById(R.id.tv_palnting_no);
+        tv_date = view.findViewById(R.id.tv_date);
+        tv_season_code = view.findViewById(R.id.tv_season_code);
+        tv_parent_type = view.findViewById(R.id.tv_parent_type);
+        tv_header_no = view.findViewById(R.id.tv_header_no);
+        tv_doc_subtype = view.findViewById(R.id.tv_doc_subtype);
+        tv_land_acr = view.findViewById(R.id.land_acr);
+        tv_sowing_acr_type = view.findViewById(R.id.tv_sowing_acr_type);
+        tv_stage_code = view.findViewById(R.id.tv_stage_code);
+        tv_org_name = view.findViewById(R.id.tv_org_name);
+        tv_org_code = view.findViewById(R.id.tv_org_code);
+        // create planting line...
+        listview = view.findViewById(R.id.line_listview);
+        chip_add_line_planting = view.findViewById(R.id.chip_add_line_planting);
+        delete_header_chip = view.findViewById(R.id.delete_header);
+        back_button_go_topreviousPage = view.findViewById(R.id.back_button_go_topreviousPage);
+        line_cardview = view.findViewById(R.id.line_cardview);
+        complete_header = view.findViewById(R.id.complete_header);
+        frame_layout_org_list = view.findViewById(R.id.frame_layout_org_list);
+        search_loading_item = view.findViewById(R.id.loading_item);
+        lv_cust_dist_list = view.findViewById(R.id.lv_cust_dist_list);
+        ac_organizer_name = view.findViewById(R.id.ac_org_name);
+        organser_input_layout = view.findViewById(R.id.organser_input_layout);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
+        lv_cust_dist_list.setLayoutManager(layoutManager);
+        unit_of_msrd_cd_layout = view.findViewById(R.id.unit_of_msrd_cd_layout);
+    }
+
+    private void getPlantingHeaderData() {
+        if (view_flag != null) {
+            if (view_flag.equalsIgnoreCase("view_header_line")) {
+                if (plantingHeaderModel != null) {
+                    if (plantingHeaderModel.status > 0) {
+                        header_create_section.setVisibility(View.GONE);
+                        planting_detail_header_section.setVisibility(View.VISIBLE);
+                        line_cardview.setVisibility(View.VISIBLE);
+                        chip_add_line_planting.setVisibility(View.GONE);
+                        delete_header_chip.setVisibility(View.GONE);
+                        complete_header.setVisibility(View.GONE);
+                    } else {
+                        header_create_section.setVisibility(View.GONE);
+                        line_cardview.setVisibility(View.VISIBLE);
+                        chip_add_line_planting.setVisibility(View.VISIBLE);
+                        delete_header_chip.setVisibility(View.VISIBLE);
+                        planting_detail_header_section.setVisibility(View.VISIBLE);
+                        complete_header.setVisibility(View.VISIBLE);
+                    }
+                    try {
+                        setHeaderDetailData();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    plantingLineTableList = plantingHeaderModel.pl;
+                    setLineAdapter();
+                } else {
+                    // header_create_section.setVisibility(View.VISIBLE);
+                    line_cardview.setVisibility(View.GONE);
+                    planting_detail_header_section.setVisibility(View.GONE);
+                    delete_header_chip.setVisibility(View.GONE);
+                }
+            }
+        }
+    }
+
+    private void setLineAdapter() {
+        if (this.plantingLineTableList != null && this.plantingLineTableList.size() > 0 && this.plantingLineTableList.get(0).line_no != null) {
+            plantingLineAdapter = new PlantingLineAdapter(getActivity(), this.plantingLineTableList);
+            listview.setAdapter(plantingLineAdapter);
+        } else {
+            listview.setAdapter(null);
+        }
+    }
+
+    private void getSeasonMaster() {
+        loading_content.setVisibility(View.VISIBLE);
+        NetworkInterface mAPIService = ApiUtils.getPristineAPIService();
+        Call<List<SeasonMasterModel>> call = mAPIService.getSeasonMaster();
+        call.enqueue(new Callback<List<SeasonMasterModel>>() {
+            @Override
+            public void onResponse(Call<List<SeasonMasterModel>> call, Response<List<SeasonMasterModel>> response) {
+                try {
+                    if (response.isSuccessful()) {
+                        loading_content.setVisibility(View.GONE);
+                        List<SeasonMasterModel> templantingList_season = response.body();
+                        if (templantingList_season != null && templantingList_season.size() > 0) {
+                            seasonMasterTableList = templantingList_season;
+                            SeasonMasterAdapter seasonMasterAdapter = new SeasonMasterAdapter(getActivity(), R.layout.android_item_view, seasonMasterTableList);
+                            dropdown_sesion_code.setAdapter(seasonMasterAdapter);
+                        } else {
+                            loading_content.setVisibility(View.GONE);
+                            dropdown_sesion_code.setText("");
+                            dropdown_sesion_code.setAdapter(null);
+                            Toast.makeText(getActivity(), templantingList_season != null && templantingList_season.size() > 0 ? "Season Record not found !" : "Api not respoding.", Toast.LENGTH_SHORT).show();
+                        }
+                    } else {
+                        loading_content.setVisibility(View.GONE);
+                        Toast.makeText(getActivity(), response.message() + ". Error Code:" + response.code(), Toast.LENGTH_SHORT).show();
+                    }
+                } catch (Exception e) {
+                    loading_content.setVisibility(View.GONE);
+                    Log.e("exception database", e.getMessage() + "cause");
+                    ApiRequestFailure.PostExceptionToServer(e, getClass().getName(), "get_season", getActivity());
+                } finally {
+                    loading_content.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<SeasonMasterModel>> call, Throwable t) {
+                loading_content.setVisibility(View.GONE);
+                ApiRequestFailure.PostExceptionToServer(t, getClass().getName(), "get_season", getActivity());
+            }
+        });
+    }
+
+    private List<OrganizerModel.Data> organizer_master_tableList = null;
+
+    private void getOrganizerList(String filter_key) {
+        search_loading_item.setVisibility(View.VISIBLE);
+        NetworkInterface mAPIService = ApiUtils.getPristineAPIService();
+        Call<OrganizerModel> call = mAPIService.getOrgnizerData("O_D", filter_key);
+        call.enqueue(new Callback<OrganizerModel>() {
+            @Override
+            public void onResponse(Call<OrganizerModel> call, Response<OrganizerModel> response) {
+                try {
+                    if (response.isSuccessful()) {
+                        search_loading_item.setVisibility(View.GONE);
+                        OrganizerModel organizerModel = response.body();
+                        if (organizerModel != null && organizerModel.condition) {
+                            List<OrganizerModel.Data> organizerList = organizerModel.data;
+                            if (organizerList != null && organizerList.size() > 0) {
+                                organizer_master_tableList = organizerList;
+                                setOrganiserAdapter();
+                            } else {
+                                lv_cust_dist_list.setAdapter(null);
+                                search_loading_item.setVisibility(View.GONE);
+                                frame_layout_org_list.setVisibility(View.GONE);
+                            }
+                        } else {
+                            search_loading_item.setVisibility(View.GONE);
+                            Toast.makeText(getActivity(), "Organizer Record not found !", Toast.LENGTH_SHORT).show();
+                        }
+
+                    } else {
+                        search_loading_item.setVisibility(View.GONE);
+                        Toast.makeText(getActivity(), response.message() + ". Error Code:" + response.code(), Toast.LENGTH_SHORT).show();
+                    }
+
+                } catch (Exception e) {
+                    search_loading_item.setVisibility(View.GONE);
+                    Log.e("exception database", e.getMessage() + "cause");
+                    ApiRequestFailure.PostExceptionToServer(e, getClass().getName(), "organizer_list", getActivity());
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<OrganizerModel> call, Throwable t) {
+                search_loading_item.setVisibility(View.GONE);
+                ApiRequestFailure.PostExceptionToServer(t, getClass().getName(), "organizer_list", getActivity());
+            }
+        });
+    }
+
+    private void setOrganiserAdapter() {
+        OrganizerAdapter organizerAdapter = new OrganizerAdapter(getActivity(), organizer_master_tableList);
+        lv_cust_dist_list.setAdapter(organizerAdapter);
+        organizerAdapter.setClickListner(this);
+    }
+
+    private void callSubmitPlantingheader() {
+        if (ac_doc_sub_type.getText().toString().trim().equalsIgnoreCase("")) {
+            Toast.makeText(getActivity(), "Please select doc. type", Toast.LENGTH_SHORT).show();
+        } else if (ac_select_loc.getText().toString().equalsIgnoreCase("")) {
+            Toast.makeText(getActivity(), "Pleasse select location", Toast.LENGTH_SHORT).show();
+
+        } else if (ac_stage_code.getText().toString().trim().equalsIgnoreCase("")) {
+            Toast.makeText(getActivity(), "Please select stage code", Toast.LENGTH_SHORT).show();
+        } else if (edit_date.getText().toString().trim().equalsIgnoreCase("")) {
+            Toast.makeText(getActivity(), "Please select date.", Toast.LENGTH_SHORT).show();
+        } else if (ed_date_of_harvest.getText().toString().trim().equalsIgnoreCase("")) {
+            Toast.makeText(getActivity(), "Please select date of harvests.", Toast.LENGTH_SHORT).show();
+        } else if (dropdown_sesion_code.getText().toString().trim().equalsIgnoreCase("")) {
+            Toast.makeText(getActivity(), "Please select season.", Toast.LENGTH_SHORT).show();
+        } else if (ac_organizer_name.getText().toString().trim().equalsIgnoreCase("")) {
+            Toast.makeText(getActivity(), "Please select organizer.", Toast.LENGTH_SHORT).show();
+        } else if (organizer_master_table == null || organizer_master_table.No == null) {
+            Toast.makeText(getActivity(), "Please select organiser", Toast.LENGTH_SHORT).show();
+        } else {
+
+            PlantingHeaderModel plantingHeaderModel1 = new PlantingHeaderModel();
+            plantingHeaderModel1.production_centre_loc = locationMasterTable.location_code;
+            plantingHeaderModel1.date = DateTimeUtilsCustome.splitDateInMMDDYYYYDash(edit_date.getText().toString().trim());
+            plantingHeaderModel1.date_of_harvest = DateTimeUtilsCustome.splitDateInMMDDYYYYDash(ed_date_of_harvest.getText().toString().trim());
+            plantingHeaderModel1.season_code = seasonMasterTable.season_Code != null ? seasonMasterTable.season_Code : "";
+            plantingHeaderModel1.season_name = dropdown_sesion_code.getText().toString().trim();
+            plantingHeaderModel1.type = ac_type.getText().toString().trim();
+            plantingHeaderModel1.stage_code = ac_stage_code.getText().toString().trim();
+            plantingHeaderModel1.total_sowing_area_in_acres = ed_total_sowing_area.getText().toString().trim() != null ? ed_total_sowing_area.getText().toString().trim() : "0";
+            plantingHeaderModel1.total_land_in_acres = ed_total_land_acres.getText().toString().trim() != null ? ed_total_land_acres.getText().toString().trim() : "0";
+            plantingHeaderModel1.parent_type = drop_down_parent.getText().toString().trim();//ac_type.getText().toString().trim();
+            plantingHeaderModel1.Document_SubType = ac_doc_sub_type.getText().toString().trim();
+            plantingHeaderModel1.created_by = sessionManagement.getUserEmail();
+            plantingHeaderModel1.organizer_code = organizer_master_table.No;
+            plantingHeaderModel1.organizer_name = organizer_master_table.Name != null && !organizer_master_table.Name.equalsIgnoreCase("") ? organizer_master_table.Name : "";
+
+            boolean isNetwork = NetworkUtil.getConnectivityStatusBoolean(getActivity());
+            if (isNetwork) {
+                String jsonString = new Gson().toJson(plantingHeaderModel1);
+                JsonObject asJsonObject = JsonParser.parseString(jsonString).getAsJsonObject();
+                NetworkInterface mAPIService = ApiUtils.getPristineAPIService();
+                Call<List<PlantingHeaderModel>> call = mAPIService.insertPlantingHeader(asJsonObject);
+                LoadingDialog progressDialogLoading = new LoadingDialog();
+                progressDialogLoading.showLoadingDialog(getActivity());
+                //List<PlantingHeaderModel> plantingHeaderModelList = new ArrayList<>();
+                call.enqueue(new Callback<List<PlantingHeaderModel>>() {
+                    @Override
+                    public void onResponse(Call<List<PlantingHeaderModel>> call, Response<List<PlantingHeaderModel>> response) {
+                        try {
+                            if (response.isSuccessful()) {
+                                progressDialogLoading.hideDialog();
+                                List<PlantingHeaderModel> header_response_modelList = response.body();
+                                if (header_response_modelList != null && header_response_modelList.size() > 0 && header_response_modelList.get(0).condition) {
+                                    // plantingHeaderModel.code = header_response_modelList.get(0).planting_code;
+                                    plantingHeaderModel = header_response_modelList.get(0);
+
+                                    //plantingHeaderModel.add_online_offlie_header = 0;
+                                    //plantingHeaderModelList.add(plantingHeaderModel);
+                                    bindPlantingHeaderData();
+                                    Toast.makeText(getActivity(), "Planting code :" + header_response_modelList.get(0).code + "," + header_response_modelList.get(0).message, Toast.LENGTH_SHORT).show();
+                                } else {
+                                    progressDialogLoading.hideDialog();
+                                    Toast.makeText(getActivity(), header_response_modelList.size() > 0 ? header_response_modelList.get(0).message : "Api not respoding.", Toast.LENGTH_SHORT).show();
+                                }
+                            } else {
+                                progressDialogLoading.hideDialog();
+                                Toast.makeText(getActivity(), response.message() + ". Error Code:" + response.code(), Toast.LENGTH_SHORT).show();
+                            }
+                        } catch (Exception e) {
+                            progressDialogLoading.hideDialog();
+                            Log.e("exception database", e.getMessage() + "cause");
+                            Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                            ApiRequestFailure.PostExceptionToServer(e, getClass().getName(), "header_response_model", getActivity());
+                        } finally {
+                            progressDialogLoading.hideDialog();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<List<PlantingHeaderModel>> call, Throwable t) {
+                        progressDialogLoading.hideDialog();
+                        ApiRequestFailure.PostExceptionToServer(t, getClass().getName(), "header_response_model", getActivity());
+                    }
+                });
+            } else {
+                Toast.makeText(getActivity(), "Please wait for internet connection. ", Toast.LENGTH_SHORT).show();
+              /*  List<PlantingHeaderModel> plantingHeaderModelList = new ArrayList<>();
+                plantingHeaderModel.code = "0";
+                plantingHeaderModel.add_online_offlie_header = 1;
+                plantingHeaderModelList.add(plantingHeaderModel);*/
+                //bindPlantingHeaderData(plantingHeaderModelList);
+                //offline network calling...
+            }
+        }
+    }
+
+
+    private void bindPlantingHeaderData() {
+      /*  PristineDatabase pristineDatabase = PristineDatabase.getAppDatabase(getActivity());
+        PlantingHeaderDao plantingHeaderDao = pristineDatabase.plantingHeaderDao();
+        try {
+            PlantingDetailHeaderTable plantingDetailHeaderTable = new PlantingDetailHeaderTable();
+            plantingDetailHeaderTable.setProduction_centre_loc(plantingHeaderModelList.get(0).production_centre_loc);
+            plantingDetailHeaderTable.setCode(plantingHeaderModelList.get(0).code);
+            plantingDetailHeaderTable.setDate(plantingHeaderModelList.get(0).date);
+            plantingDetailHeaderTable.setDate_of_harvest(plantingHeaderModelList.get(0).date_of_harvest);
+            plantingDetailHeaderTable.setSeason_code(plantingHeaderModelList.get(0).season_name);
+            plantingDetailHeaderTable.setType(plantingHeaderModelList.get(0).type);
+            plantingDetailHeaderTable.setStage_code(plantingHeaderModelList.get(0).stage_code);
+            plantingDetailHeaderTable.setTotal_sowing_area_in_acres(plantingHeaderModelList.get(0).total_sowing_area_in_acres);
+            plantingDetailHeaderTable.setTotal_land_in_acres(plantingHeaderModelList.get(0).total_land_in_acres);
+            plantingDetailHeaderTable.setParent_type(plantingHeaderModelList.get(0).parent_type);
+            plantingDetailHeaderTable.setDocument_SubType(plantingHeaderModelList.get(0).Document_SubType);
+            plantingDetailHeaderTable.setCreated_by(plantingHeaderModelList.get(0).created_by);
+            plantingDetailHeaderTable.setOrganizer_name(plantingHeaderModelList.get(0).organizer_name);
+            plantingDetailHeaderTable.setOrganizer_code(plantingHeaderModelList.get(0).organizer_code);
+
+            if (plantingHeaderDao.isDataExist(plantingDetailHeaderTable.getCode())) {
+                plantingHeaderDao.update(plantingDetailHeaderTable);
+            } else {
+                plantingHeaderDao.insert(plantingDetailHeaderTable);
+            }
+           // plantingHeaderModel = plantingHeaderDao.getHeaderByPlantingno(plantingDetailHeaderTable.getCode());
+
+            Log.e("planting_list", new Gson().toJson(plantingHeaderModel));
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            pristineDatabase.close();
+            pristineDatabase.destroyInstance();*/
+        try {
+            if (plantingHeaderModel != null) {
+                header_create_section.setVisibility(View.GONE);
+                planting_detail_header_section.setVisibility(View.VISIBLE);
+                delete_header_chip.setVisibility(View.VISIBLE);
+                line_cardview.setVisibility(View.VISIBLE);
+                loading_content.setVisibility(View.GONE);
+                setHeaderDetailData();
+                if (plantingLineTableList != null && plantingLineTableList.size() > 0) {
+                    complete_header.setVisibility(View.VISIBLE);
+                }
+            } else {
+                header_create_section.setVisibility(View.VISIBLE);
+                line_cardview.setVisibility(View.GONE);
+                complete_header.setVisibility(View.GONE);
+                planting_detail_header_section.setVisibility(View.GONE);
+                delete_header_chip.setVisibility(View.GONE);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        // }
+    }
+
+    private void setHeaderDetailData() throws Exception {
+        tv_header_no.setText("(" + plantingHeaderModel.code + ")");
+        tv_palnting_no.setText(plantingHeaderModel.code);
+        tv_date.setText(plantingHeaderModel.date);
+        tv_season_code.setText(plantingHeaderModel.season_code);
+        tv_doc_subtype.setText(plantingHeaderModel.Document_SubType);
+        tv_parent_type.setText(plantingHeaderModel.parent_type);
+        tv_stage_code.setText(plantingHeaderModel.stage_code);
+        tv_org_code.setText(plantingHeaderModel.organizer_code);
+        tv_org_name.setText(plantingHeaderModel.organizer_name);
+        tv_sowing_acr_type.setText(plantingHeaderModel.total_sowing_area_in_acres);
+
+       /* if (plantingLineTableList != null && plantingLineTableList.size() > 0) {
+            double total_sowing_area = 0.0, grant_total = 0.0;
+            for (int i = 0; i < plantingLineTableList.size(); i++) {
+                if (plantingLineTableList.get(i).sowing_area_In_acres != null && !plantingLineTableList.get(i).sowing_area_In_acres.equalsIgnoreCase("")) {
+                    total_sowing_area = Double.parseDouble((plantingLineTableList.get(i).sowing_area_In_acres));
+                    grant_total = grant_total + total_sowing_area;
+                }
+            }
+            tv_sowing_acr_type.setText(String.valueOf(grant_total));
+            Log.e("sowing_area", String.valueOf(grant_total));
+        } else {
+            tv_sowing_acr_type.setText("0");
+        }*/
+    }
+
+    private PlantingFsio_bsio_model planting_doc_table = null;
+    private List<PlantingFsio_bsio_model> plantingFsioList = null;
+
+    private void getAcDocNo(ProgressBar content_loading, String doc_sub_type, String org_no) {
+        content_loading.setVisibility(View.VISIBLE);
+        NetworkInterface mAPIService = ApiUtils.getPristineAPIService();
+        Call<List<PlantingFsio_bsio_model>> call = mAPIService.getPlantingFsioBsioData(doc_sub_type, org_no);//doc_sub_type, org_no
+        call.enqueue(new Callback<List<PlantingFsio_bsio_model>>() {
+            @Override
+            public void onResponse(Call<List<PlantingFsio_bsio_model>> call, Response<List<PlantingFsio_bsio_model>> response) {
+                try {
+                    if (response.isSuccessful()) {
+                        content_loading.setVisibility(View.GONE);
+                        List<PlantingFsio_bsio_model> templantingList_fsio = response.body();
+                        if (templantingList_fsio != null && templantingList_fsio.size() > 0 && templantingList_fsio.get(0).condition) {
+                            plantingFsioList = templantingList_fsio;
+
+                            PlantingFsioBsioAdapter plantingFsioBsioAdapter = new PlantingFsioBsioAdapter(getActivity(), R.layout.android_item_view, templantingList_fsio);
+                            ac_doc_no.setAdapter(plantingFsioBsioAdapter);
+
+                        } else {
+                            content_loading.setVisibility(View.GONE);
+                            ac_doc_no.setAdapter(null);
+                            // Toast.makeText(getActivity(), templantingList_fsio==null && templantingList_fsio.size() > 0 && templantingList_fsio.get(0).No==null ? "Planting Fsio/Bsio Record not found !" : "Api not respoding.", Toast.LENGTH_SHORT).show();
+                        }
+                    } else {
+                        content_loading.setVisibility(View.GONE);
+                        Toast.makeText(getActivity(), response.message() + ". Error Code:" + response.code(), Toast.LENGTH_SHORT).show();
+                    }
+                } catch (Exception e) {
+                    content_loading.setVisibility(View.GONE);
+                    Log.e("exception database", e.getMessage() + "cause");
+                    //   Toast.makeText(getActivity(), response.message() + ". Error Code:" + response.code(), Toast.LENGTH_SHORT).show();
+                    ApiRequestFailure.PostExceptionToServer(e, getClass().getName(), "planting_fsio_bsio_fragment_", getActivity());
+                } finally {
+                    content_loading.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<PlantingFsio_bsio_model>> call, Throwable t) {
+                content_loading.setVisibility(View.GONE);
+                ApiRequestFailure.PostExceptionToServer(t, getClass().getName(), "planting_fsio_bsio_fragment_", getActivity());
+            }
+        });
+    }
+
+    private List<PlantingLotModel.Data> planting_doc_no = null;
+
+    //todo for filter village..........................................................................
+
+    private List<DispatchFarmerModel.Data> village_list = null;
+    private void getFarmerAndGrower_master(RecyclerView village_recyclerView,MaterialProgressBar content_loading, String filter_village) {
+        content_loading.setVisibility(View.VISIBLE);
+        NetworkInterface mAPIService = ApiUtils.getPristineAPIService();
+        Call<DispatchFarmerModel> call = mAPIService.getDispatchFarmerList(filter_village);
+        call.enqueue(new Callback<DispatchFarmerModel>() {
+            @Override
+            public void onResponse(Call<DispatchFarmerModel> call, Response<DispatchFarmerModel> response) {
+                try {
+                    if (response.isSuccessful()) {
+                        DispatchFarmerModel farmerMasterModel = response.body();
+                        if (farmerMasterModel != null && farmerMasterModel.condition) {
+                            List<DispatchFarmerModel.Data> farmermaster_list = farmerMasterModel.data;
+                            if (farmermaster_list != null && farmermaster_list.size() > 0) {
+
+                                Collections.sort(farmermaster_list, new Comparator<DispatchFarmerModel.Data>() {
+                                    @Override
+                                    public int compare(DispatchFarmerModel.Data o1, DispatchFarmerModel.Data o2) {
+                                        return o1.Village.compareTo(o2.Village);
+                                    }
+                                });
+
+                                for (int i = 0; i < farmermaster_list.size(); i++) {
+                                    for (int j = i + 1; j < farmermaster_list.size(); j++) {
+                                        if (farmermaster_list.get(i).Village.equals(farmermaster_list.get(j).Village)) {
+                                            farmermaster_list.remove(j);
+                                            j--;
+                                        }
+                                    }
+                                }
+
+                                if (!filter_village.equalsIgnoreCase("")) {
+                                    LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
+                                    village_recyclerView.setLayoutManager(layoutManager);
+                                    village_list = farmermaster_list;
+                                    FarmerVillageAdapter village_adapter = new FarmerVillageAdapter(getActivity(), village_list);
+                                    village_recyclerView.setAdapter(village_adapter);
+
+                                    if(et_village.getText().toString()!=null) {
+                                        farmer_grower_list = farmermaster_list;
+                                        FarmerListAdapter roleMasterAdapter = new FarmerListAdapter(getActivity(), R.layout.android_item_view, farmer_grower_list);
+                                        ac_grwer_name.setThreshold(1);
+                                        ac_grwer_name.setAdapter(roleMasterAdapter);
+                                    }
+                                }
+
+                            }
+
+                        } else {
+                            content_loading.setVisibility(View.GONE);
+                            Toast.makeText(getActivity(), "Farmer Record not found !", Toast.LENGTH_SHORT).show();
+                        }
+                    } else {
+                        content_loading.setVisibility(View.GONE);
+                        Toast.makeText(getActivity(), response.message() + ". Error Code:" + response.code(), Toast.LENGTH_SHORT).show();
+                    }
+                } catch (Exception e) {
+                    content_loading.setVisibility(View.GONE);
+                    Log.e("exception database", e.getMessage() + "cause");
+                    ApiRequestFailure.PostExceptionToServer(e, getClass().getName(), "farmer_list", getActivity());
+                } finally {
+                    content_loading.setVisibility(View.GONE);
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<DispatchFarmerModel> call, Throwable t) {
+                content_loading.setVisibility(View.GONE);
+                ApiRequestFailure.PostExceptionToServer(t, getClass().getName(), "farmer_list", getActivity());
+            }
+        });
+        village_recyclerView.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
+            @Override
+            public boolean onInterceptTouchEvent(@NonNull RecyclerView recyclerView, @NonNull MotionEvent motionEvent) {
+                View child =recyclerView.findChildViewUnder(motionEvent.getX(),motionEvent.getY());
+                if(child!=null && village_recyclerView.onTouchEvent(motionEvent)) {
+                    int position = recyclerView.getChildLayoutPosition(child);
+                    et_village.setText(village_list.get(position).Village);
+                    frame_layout_org_list.setVisibility(View.GONE);
+                }
+                    return true;
+
+            }
+
+            @Override
+            public void onTouchEvent(@NonNull RecyclerView recyclerView, @NonNull MotionEvent motionEvent) {
+
+            }
+
+            @Override
+            public void onRequestDisallowInterceptTouchEvent(boolean b) {
+
+            }
+        });
     }
 
     private Hybrid_Item_Table hybrid_item_table_grp_code = null;
@@ -1696,7 +1869,8 @@ public class AddPlantingHeaderLineDetailFragment extends Fragment implements Org
                                 dialog.dismiss();
                                 // plantingList.add(plantingLine);
                                 // bindInsertLineData(dialog);
-                                Toast.makeText(getActivity(), insertLine_list.get(0).message, Toast.LENGTH_SHORT).show();
+                                MDToast.makeText(getActivity(), insertLine_list.get(0).message, Toast.LENGTH_SHORT,MDToast.TYPE_SUCCESS).show();
+
                             } else {
                                 progressDialogLoading.hideDialog();
                                 Toast.makeText(getActivity(), insertLine_list.size() > 0 ? insertLine_list.get(0).message : "Api not respoding.", Toast.LENGTH_SHORT).show();
@@ -1809,7 +1983,7 @@ public class AddPlantingHeaderLineDetailFragment extends Fragment implements Org
         }
     }
 
-    private void getFarmerAndGrower_master(MaterialProgressBar content_loading, String action_flag, String village_name) {
+   /* private void getFarmerAndGrower_master(MaterialProgressBar content_loading, String action_flag, String village_name) {
         content_loading.setVisibility(View.VISIBLE);
         NetworkInterface mAPIService = ApiUtils.getPristineAPIService();
         Call<DispatchFarmerModel> call = mAPIService.getDispatchFarmerList(village_name);
@@ -1875,7 +2049,7 @@ public class AddPlantingHeaderLineDetailFragment extends Fragment implements Org
                 ApiRequestFailure.PostExceptionToServer(t, getClass().getName(), "farmer_list", getActivity());
             }
         });
-    }
+    }*/
 
 
     private void getUnitOfMeasureData(MaterialProgressBar loading_content) {
@@ -2266,7 +2440,6 @@ public class AddPlantingHeaderLineDetailFragment extends Fragment implements Org
         });
     }
 
-
     private void getPlantingLotListOther(MaterialProgressBar loading_content, String flag, String doc_no, String gender_flag) {
         loading_content.setVisibility(View.VISIBLE);
         NetworkInterface mAPIService = ApiUtils.getPristineAPIService();
@@ -2307,7 +2480,6 @@ public class AddPlantingHeaderLineDetailFragment extends Fragment implements Org
             }
         });
     }
-
 
     private void attachFragment() {
         Fragment currentFragment = getParentFragmentManager().findFragmentByTag("add_planting_header_fragment");
@@ -2368,6 +2540,93 @@ public class AddPlantingHeaderLineDetailFragment extends Fragment implements Org
             frame_layout_org_list.setVisibility(View.VISIBLE);
         }
     }
+
+    //todo for fsio bsio show popup.............................................
+    private void showFsioBsioCodeDetails(PlantingLineDocNoDetails plantingLineDocNoDetails) {
+        LayoutInflater inflater = getActivity().getLayoutInflater();
+        View popup_view = inflater.inflate(R.layout.fsio_bsio_doc_code_details_popup, null);
+        Dialog dialog = new Dialog(getActivity(), android.R.style.Theme_DeviceDefault_DialogWhenLarge_NoActionBar);
+        dialog.setContentView(popup_view);
+        dialog.getWindow().getAttributes().windowAnimations = R.style.AppTheme_FullScreenDialog;
+        dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+        dialog.show();
+        ImageView close_dilog_bt = popup_view.findViewById(R.id.close_dilog_bt);
+
+        close_dilog_bt.setOnClickListener(v->{
+            dialog.dismiss();
+        });
+
+        //todo initialization.......................
+        listview=popup_view.findViewById(R.id.doc_detalis_listView);
+
+        tv_doc_no=popup_view.findViewById(R.id.tv_doc_no);
+        tv_order_no=popup_view.findViewById(R.id.tv_order_no);
+        tv_customer_posting_grp=popup_view.findViewById(R.id.tv_customer_posting_grp);
+        sell_cutomer_no=popup_view.findViewById(R.id.sell_cutomer_no);
+        sell_customer_name=popup_view.findViewById(R.id.sell_customer_name);
+        sell_customer_address=popup_view.findViewById(R.id.sell_customer_address);
+        sell_customer_city=popup_view.findViewById(R.id.sell_customer_city);
+        doc_sub_type=popup_view.findViewById(R.id.doc_sub_type);
+        tv_seed_type=popup_view.findViewById(R.id.tv_seed_type);
+        tv_seed_name=popup_view.findViewById(R.id.tv_seed_name);
+        tv_seed_no=popup_view.findViewById(R.id.tv_seed_no);
+        tv_crop_code=popup_view.findViewById(R.id.tv_crop_code);
+        tv_business_type=popup_view.findViewById(R.id.tv_business_type);
+        tv_location=popup_view.findViewById(R.id.tv_location);
+        tv_location_code=popup_view.findViewById(R.id.tv_location_code);
+        tv_state_name=popup_view.findViewById(R.id.tv_state_name);
+        tv_territory=popup_view.findViewById(R.id.tv_territory);
+        tv_reagion=popup_view.findViewById(R.id.tv_reagion);
+        tv_district=popup_view.findViewById(R.id.tv_district);
+        tv_zone=popup_view.findViewById(R.id.tv_zone);
+        tv_land_arc=popup_view.findViewById(R.id.tv_land_arc);
+        tv_order_date=popup_view.findViewById(R.id.tv_order_date);
+        tv_posting_date=popup_view.findViewById(R.id.tv_posting_date);
+        tv_user_id=popup_view.findViewById(R.id.tv_user_id);
+        tv_message=popup_view.findViewById(R.id.tv_message);
+
+        bindPlantingDocHeaderDetilas(plantingLineDocNoDetails);
+        setDocLinesadapter(plantingLineDocNoDetails);
+
+    }
+
+    private void bindPlantingDocHeaderDetilas(PlantingLineDocNoDetails plantingLineDocNoDetails) {
+        //todo bind details.................................
+            tv_doc_no.setText(plantingLineDocNoDetails.getNo());
+            tv_order_no.setText(plantingLineDocNoDetails.getOrderNo());
+            tv_customer_posting_grp.setText(plantingLineDocNoDetails.getCustomerPostingGroup());
+            sell_cutomer_no.setText(plantingLineDocNoDetails.getSellToCustomerNo());
+            sell_customer_name.setText(plantingLineDocNoDetails.getSellToCustomerName());
+            sell_customer_address.setText(plantingLineDocNoDetails.getSellToAddress());
+            sell_customer_city.setText(plantingLineDocNoDetails.getSellToCity());
+            doc_sub_type.setText(plantingLineDocNoDetails.getDocumentSubType());
+            tv_seed_type.setText(plantingLineDocNoDetails.getChildSeedType());
+            tv_seed_name.setText(plantingLineDocNoDetails.getChildSeedName());
+            tv_seed_no.setText(plantingLineDocNoDetails.getChildSeed());
+            tv_crop_code.setText(plantingLineDocNoDetails.getCropCode());
+            tv_business_type.setText(plantingLineDocNoDetails.getBussinessType());
+            tv_location.setText(plantingLineDocNoDetails.getLocationName());
+            tv_location_code.setText(plantingLineDocNoDetails.getLocationCode());
+            tv_state_name.setText(plantingLineDocNoDetails.getStateName());
+            tv_territory.setText(plantingLineDocNoDetails.getTerritoryName());
+            tv_reagion.setText(plantingLineDocNoDetails.getRegionName());
+            tv_district.setText(plantingLineDocNoDetails.getDistrictName());
+            tv_zone.setText(plantingLineDocNoDetails.getZoneCode());
+            tv_land_acr.setText(plantingLineDocNoDetails.getLandInAcres());
+            tv_order_date.setText(plantingLineDocNoDetails.getOrderDate());
+            tv_posting_date.setText(plantingLineDocNoDetails.getPostingDate());
+            tv_user_id.setText(plantingLineDocNoDetails.getUserID());
+            tv_message.setText(plantingLineDocNoDetails.getMessage());
+
+    }
+
+    //todo set adapter for doc no details lines.....................
+    private void setDocLinesadapter(PlantingLineDocNoDetails plantingLineDocNoDetails) {
+        plantingDocDetailLineList=plantingLineDocNoDetails.getLines();
+        PlantingLineDocNoDetailLinesAdapter pladapter=new PlantingLineDocNoDetailLinesAdapter(getActivity(),R.layout.planting_line_doc_no_details_lines_layout,plantingDocDetailLineList);
+        listview.setAdapter(pladapter);
+    }
+
 }
 
 

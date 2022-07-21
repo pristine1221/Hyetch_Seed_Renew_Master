@@ -69,7 +69,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:fontFamily="@font/product_sans_bold"
-                    android:text="Swng Ar(acr) :"
+                    android:text="Swng Ar(acres) :"
                     android:textColor="@color/profileEditTextColor"
                     android:textSize="13sp" />
 

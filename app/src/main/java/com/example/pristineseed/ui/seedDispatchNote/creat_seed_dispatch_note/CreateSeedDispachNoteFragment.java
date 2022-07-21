@@ -133,7 +133,7 @@ public class CreateSeedDispachNoteFragment extends Fragment implements Organizer
         super.onViewCreated(view, savedInstanceState);
         initView(view);
 
-        ItemAdapter doc_adapter = new ItemAdapter(getActivity(), R.layout.item_view, Arrays.asList(CommonData.doc_type));
+        ItemAdapter doc_adapter = new ItemAdapter(getActivity(), R.layout.android_item_view, Arrays.asList(CommonData.doc_type));
         ac_doc_doc_type.setAdapter(doc_adapter);
         chip_add_line_production_lot_number.setOnClickListener(v -> {
             AddLineNewItemPopup();//seedDispatchHeader_list.document_type, seedDispatchHeader_list.organizer_code
@@ -233,8 +233,8 @@ public class CreateSeedDispachNoteFragment extends Fragment implements Organizer
                 seedDispatchHeaderModel.created_by = sessionManagement.getUserEmail();
                 seedDispatchHeaderModel.document_type = ac_doc_doc_type.getText().toString().trim();
                 seedDispatchHeaderModel.refrence_no = ed_reference_no.getText().toString().trim();
-                boolean isNetwork = NetworkUtil.getConnectivityStatusBoolean(getActivity());
-                if (isNetwork) {
+                //boolean isNetwork = NetworkUtil.getConnectivityStatusBoolean(getActivity());
+               //if (isNetwork) {
                     String jsonString = new Gson().toJson(seedDispatchHeaderModel);
                     JsonObject asJsonObject = JsonParser.parseString(jsonString).getAsJsonObject();
                     NetworkInterface mAPIService = ApiUtils.getPristineAPIService();
@@ -280,7 +280,7 @@ public class CreateSeedDispachNoteFragment extends Fragment implements Organizer
                             ApiRequestFailure.PostExceptionToServer(t, getClass().getName(), "insert_dispatch_header", getActivity());
                         }
                     });
-                } else {
+                //} else {
                 /*    ArrayList<SeedDispatchHeaderModel> dispatch_header_list = new ArrayList<>();
                     seedDispatchHeaderModel.dispatch_no = "0";
                     seedDispatchHeaderModel.send_to_server_header = 1;
@@ -288,7 +288,7 @@ public class CreateSeedDispachNoteFragment extends Fragment implements Organizer
                     bindDispatchHeaderData(new ArrayList<>());*/
 
                     Toast.makeText(getActivity(), "Please wait for internet connection. ", Toast.LENGTH_SHORT).show();
-                }
+                //}
             }
         });
     }
@@ -413,7 +413,7 @@ public class CreateSeedDispachNoteFragment extends Fragment implements Organizer
             tv_From_Location.setText(seedDispatchHeader_list.from_location);
             tv_To_Location.setText(seedDispatchHeader_list.to_location);
             tv_Transporter.setText(seedDispatchHeader_list.transporter);
-            tv_Truck_Number.setText(seedDispatchHeader_list.transporter);
+            tv_Truck_Number.setText(seedDispatchHeader_list.truck_number);
             tv_doc_type.setText(seedDispatchHeader_list.document_type);
             tv_org_code.setText(seedDispatchHeader_list.organizer_code);
             tv_org_name.setText(seedDispatchHeader_list.organizer_name);
@@ -446,6 +446,7 @@ public class CreateSeedDispachNoteFragment extends Fragment implements Organizer
         edit_Truck_Number = view.findViewById(R.id.edit_Truck_Number);
         ed_camp_at = view.findViewById(R.id.ed_camp_at);
         ed_remarks = view.findViewById(R.id.ed_remarks);
+        ed_reference_no=view.findViewById(R.id.ed_reference_no);
         ac_doc_doc_type = view.findViewById(R.id.ac_doc_doc_type);
         content_loading = view.findViewById(R.id.content_loading);
         //tv_header show fields------

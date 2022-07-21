@@ -666,7 +666,6 @@ public class ZoneOrDistributorwiseMktIndentDetailsFragment extends Fragment impl
         iv_refresh_details.setVisibility(View.VISIBLE);
     }
 
-
     //todo set UI on else case on list null...
     public void listEmptyResponseUI() {
         iv_refresh_details.setVisibility(View.VISIBLE);

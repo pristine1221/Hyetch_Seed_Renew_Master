@@ -31,6 +31,4 @@ public interface ZoneMaterDao {
     @Query("SELECT COUNT(id) FROM zone_master_table")
     int getRowCount();
 
-
-
 }

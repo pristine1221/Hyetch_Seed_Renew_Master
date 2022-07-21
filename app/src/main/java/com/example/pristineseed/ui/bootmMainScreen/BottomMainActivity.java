@@ -1,5 +1,4 @@
 package com.example.pristineseed.ui.bootmMainScreen;
-
 import android.Manifest;
 import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
@@ -77,8 +76,6 @@ import retrofit2.Response;
 
 import static com.example.pristineseed.RoomDataBase.PristineDatabase.databaseWriteExecutor;
 import static com.example.pristineseed.ui.dashboard.newTheam.DashBoard2Fragment.backgroundServiceintent;
-
-
 public class BottomMainActivity extends AppCompatActivity implements BottomDialogFragmentNew.ItemClickListener {
     private SessionManagement sessionManagement;
     private NotificationSignalRService notificationSignalRService;
@@ -175,7 +172,6 @@ public class BottomMainActivity extends AppCompatActivity implements BottomDialo
         }
     };
 
-
     SignalRReceiveModel signalRReceiverdata;
 
     void ConnectTosignalR() throws Exception {
@@ -208,7 +204,6 @@ public class BottomMainActivity extends AppCompatActivity implements BottomDialo
         manager.notify(0, builder.build());
     }
 
-
     @Override
     public void onItemClick(String child_title, MenuData menuData) {
         MenuMainPageFragment menuMainPageFragment = new MenuMainPageFragment();
@@ -218,7 +213,6 @@ public class BottomMainActivity extends AppCompatActivity implements BottomDialo
         menuMainPageFragment.setArguments(bundle);
         loadFragments(menuMainPageFragment, "MenuMainFragment");
     }
-
 
     public class SignalRReceiveModel {
         public String connectionID;
@@ -354,12 +348,21 @@ public class BottomMainActivity extends AppCompatActivity implements BottomDialo
         super.onBackPressed();
         FragmentManager fragmentManager = getSupportFragmentManager();
         List<Fragment> fragments = fragmentManager.getFragments();
-        if (fragments.size() > 0) {
-            for (Fragment fragment : fragments) {
-                if (fragment != null && fragment.isVisible()) {
-                    PerformActionFragment(fragment.getTag() == null ? "" : fragment.getTag());
+        try {
+
+            if (fragments.size() > 0) {
+                for (Fragment fragment : fragments) {
+                    if (fragment != null && fragment.isVisible()) {
+                        PerformActionFragment(fragment.getTag() == null ? "" : fragment.getTag());
+                    }
                 }
             }
+            else {
+
+            }
+        }
+        catch (Exception e){
+            e.printStackTrace();
         }
     }
 
@@ -480,7 +483,8 @@ public class BottomMainActivity extends AppCompatActivity implements BottomDialo
                     if (ContextCompat.checkSelfPermission(BottomMainActivity.this,
                             Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
                         if (ContextCompat.checkSelfPermission(BottomMainActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED)
-                            Toast.makeText(this, "Permission Granted", Toast.LENGTH_SHORT).show();
+                            return;//
+                            //Toast.makeText(this, "Permission Granted", Toast.LENGTH_SHORT).show();
                     }
                 } else {
                     Toast.makeText(this, "Permission Denied", Toast.LENGTH_SHORT).show();
@@ -515,7 +519,6 @@ public class BottomMainActivity extends AppCompatActivity implements BottomDialo
                 }
             }
         }
-
 
     }
 

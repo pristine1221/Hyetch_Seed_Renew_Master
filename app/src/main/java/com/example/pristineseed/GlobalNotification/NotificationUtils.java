@@ -109,7 +109,7 @@ public class NotificationUtils {
             importance = NotificationManager.IMPORTANCE_HIGH;
         }
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        if (Build.VERSION.SDK_INT >= 26) {//Build.VERSION_CODES.O
             NotificationChannel mChannel = new NotificationChannel(
                     String.valueOf(channel_id), channelName, importance);
            // mChannel.setSound(NOTIFICATION_SOUND_URI, createAudioAttributes());
@@ -146,7 +146,7 @@ public class NotificationUtils {
 
     private AudioAttributes createAudioAttributes() {
         AudioAttributes audioAttributes = null;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+        if (Build.VERSION.SDK_INT >= 26) {//Build.VERSION_CODES.LOLLIPOP
             audioAttributes = new AudioAttributes.Builder()
                     .setUsage(AudioAttributes.USAGE_ASSISTANCE_SONIFICATION)
                     .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
@@ -161,7 +161,7 @@ public class NotificationUtils {
         String channelId = "channel-01";
         String channelName = "Channel Name";
         int importance = 0;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+        if (Build.VERSION.SDK_INT >=26 ) {//Build.VERSION_CODES.N
             importance = NotificationManager.IMPORTANCE_HIGH;
         }
 
@@ -237,7 +237,7 @@ public class NotificationUtils {
     public static boolean isAppIsInBackground(Context context) {
         boolean isInBackground = true;
         ActivityManager am = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
-        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT_WATCH) {
+        if (Build.VERSION.SDK_INT >19 ||Build.VERSION.SDK_INT >26) {//Build.VERSION_CODES.KITKAT_WATCH
             List<ActivityManager.RunningAppProcessInfo> runningProcesses = am.getRunningAppProcesses();
             for (ActivityManager.RunningAppProcessInfo processInfo : runningProcesses) {
                 if (processInfo.importance == ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND) {

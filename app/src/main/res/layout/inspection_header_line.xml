@@ -50,7 +50,7 @@
                             android:fontFamily="@font/product_sans_bold"
                             android:maxLines="1"
                             android:padding="7dp"
-                            android:text="Header Detail"
+                            android:text="Header Details"
                             android:textColor="@color/black"
                             android:textSize="15dp" />
 
@@ -413,7 +413,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/product_sans_bold"
-                            android:text="Vegitative Insp."
+                            android:text="Vegetative Insp."
                             android:textAppearance="@style/chipText"
                             android:textColor="@color/gray1"
                             android:visibility="visible"
