@@ -109,7 +109,6 @@ public class Seedling_InspectionFragment extends Fragment {
     private String iso_empty_value="";
 
 
-    //ROHIT
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
