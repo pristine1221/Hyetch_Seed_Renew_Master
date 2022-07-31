@@ -1929,7 +1929,7 @@ public class GeographicalSyncing extends Fragment implements View.OnClickListene
                     fsioBsioSaleOrderNoDao.insert(fsioBsioSaleOrderNoTable);
                 }
                 countModel.fsio_bsio_sale_order_no_count = fsioBsioSaleOrderNoDao.getRowCount();
-                ;
+
             } catch (Exception e) {
                 e.printStackTrace();
             } finally {

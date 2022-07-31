@@ -12,8 +12,14 @@ public class HarvestingInspectionModel {
     public String overall_agronomy ;
     public String recommended_date ;
     public String actual_date;
-   // public String pest ;
+
+    public String  standing_acres;
+    public String  net_acre;
+    public String  pld_acre;
+    public String  pld_reason;
+    public String disease_infestation_level;
     public String diseases ;
+
     public String pest_remarks ;
     public String diseases_remarks ;
     public String remarks ;

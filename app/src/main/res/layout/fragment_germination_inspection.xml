@@ -812,7 +812,7 @@
                                 app:boxCornerRadiusTopStart="15dp">
 
                                 <com.google.android.material.textfield.TextInputEditText
-                                    android:id="@+id/ac_sowing_acres"
+                                    android:id="@+id/ed_sowing_acres"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:editable="false"

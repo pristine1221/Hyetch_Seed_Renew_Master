@@ -11,6 +11,8 @@ public class Vegitative_InspectionModel {
     public String vigor;
     public String pest;
     public String diseases;
+    public String pest_infestation_level ;
+    public String disease_infestation_level ;
     public String pest_remarks;
     public String diseases_remarks;
     public String recommended_date;
@@ -33,10 +35,16 @@ public class Vegitative_InspectionModel {
     public String other_types;
     public String first_top_dressing;
     public String first_top_dressing_bags;
+    public String standing_acres;
+    public String pld_reason;
+    public String pld_acre;
+    public String  net_acre;
 
     //for inspection syncing...
     public int syncWithApi;
     public String nav_error;
+
+
 
 
 }

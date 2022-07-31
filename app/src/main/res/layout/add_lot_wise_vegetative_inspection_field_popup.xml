@@ -492,7 +492,7 @@
                                 app:boxCornerRadiusTopStart="15dp">
 
                                 <AutoCompleteTextView
-                                    android:id="@+id/dropdown_pest_diseases"
+                                    android:id="@+id/ac_pest"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:editable="false"

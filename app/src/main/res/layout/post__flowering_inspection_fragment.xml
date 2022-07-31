@@ -735,11 +735,55 @@
                         </TableRow>
 
 
+                        <TableRow android:layout_marginTop="4dp">
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:hint="Pest"
+                                app:boxCornerRadiusBottomEnd="15dp"
+                                app:boxCornerRadiusTopStart="15dp">
+
+                                <AutoCompleteTextView
+                                    android:id="@+id/ac_pest"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:editable="false"
+                                    android:inputType="none"
+                                    android:textColor="@color/black"
+                                    android:maxLines="1" />
+
+                            </com.google.android.material.textfield.TextInputLayout>
+
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="5dp"
+                                android:layout_weight="1"
+                                android:hint="Disease "
+                                app:boxCornerRadiusBottomEnd="15dp"
+                                app:boxCornerRadiusTopStart="15dp">
+
+                                <AutoCompleteTextView
+                                    android:id="@+id/ac_desease"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:editable="false"
+                                    android:inputType="none"
+                                    android:textColor="@color/black"
+                                    android:maxLines="1" />
+
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                        </TableRow>
+
                         <TableRow
                             android:layout_marginTop="4dp"
                             android:layout_marginBottom="4dp">
-
-
                             <com.google.android.material.textfield.TextInputLayout
                                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
                                 android:layout_width="0dp"
@@ -750,7 +794,7 @@
                                 android:hint="Pest Infestation Level">
 
                                 <AutoCompleteTextView
-                                    android:id="@+id/ac_pest"
+                                    android:id="@+id/ac_pest_insfestation"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:editable="false"
@@ -771,7 +815,7 @@
                                 android:hint="Disease infestation level">
 
                                 <AutoCompleteTextView
-                                    android:id="@+id/ac_desease"
+                                    android:id="@+id/ac_desease_inflation"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:editable="false"
@@ -801,6 +845,7 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:editable="false"
+                                    android:textColor="@color/black"
                                     android:enabled="false"
                                     android:maxLines="1" />
 
@@ -821,6 +866,8 @@
                                     android:id="@+id/pld_acres"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
+                                    android:inputType="number"
+                                    android:textColor="@color/black"
                                     android:maxLines="1" />
 
                             </com.google.android.material.textfield.TextInputLayout>
@@ -843,6 +890,7 @@
                                     android:id="@+id/yield_estimation"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
+                                    android:textColor="@color/black"
                                     android:inputType="number"
                                     android:maxLines="1" />
 
@@ -863,6 +911,7 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:editable="false"
+                                    android:textColor="@color/black"
                                     android:enabled="false"
                                     android:maxLines="1" />
 

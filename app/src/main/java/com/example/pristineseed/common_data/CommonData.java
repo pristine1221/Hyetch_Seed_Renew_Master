@@ -27,7 +27,11 @@ public final class CommonData {
    public static String[] pest={"Stem Borer","Fall Army Worm","Leaf Hopper","Leaf Folder","Pink Stem Borer","Cut Worm","Cob Borer","Thrips","Aphids","Shoot Fly","Nematode","Termites"};
    public static String[] desease={"Bacterial Leaf Blight (BLB)","Leaf Blast","Brown Spot","Bacterial Stalk Rot","Rust","Wilt","mosiac Virus","Roor Rot","Downy Mildew"};
    public static String[] pld={"Poor Male Germination","Poor Female Germination","Low Plant Population","Irrigation Stress","Water Logging Condition","Heavy Weeds"," Un-inform field","Poor Crop Estabilishment","Pest / Disease Damage","Male - Female Mixing","Animal Damage","Poor Grower Managament"};
+
+   public static String[] pest_infalation={"0-3","4-6","7-9"};
+   public static String[] desease_infalation={"0-3","4-6","7-9"};
    public static  String[] crop_condition={"Good","Average","Poor"};
+   public static  String[] male_female={"Male","Female"};
 
    public static String[] over_all_agronomy={"A","B","C"};
 

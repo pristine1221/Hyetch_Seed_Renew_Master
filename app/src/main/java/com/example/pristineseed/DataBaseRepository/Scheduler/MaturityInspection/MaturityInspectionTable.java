@@ -200,6 +200,60 @@ public class MaturityInspectionTable {
   @ColumnInfo(name = "attachment")
  private String attachment;
 
+
+  //todo new fields.................
+    @ColumnInfo(name = "pest_infestation_level")
+    private String pest_infestation_level ;
+
+    @ColumnInfo(name = "disease_infestation_level")
+    private String disease_infestation_level;
+
+    @ColumnInfo(name = "standing_acres")
+    private String standing_acres;
+
+    @ColumnInfo(name = "pld_acre")
+    private String pld_acre;
+
+    @ColumnInfo(name = "pld_reason")//
+    private String pld_reason;
+
+
+    public String getPest_infestation_level() {
+        return pest_infestation_level;
+    }
+    public void setPest_infestation_level(String pest_infestation_level) {
+        this.pest_infestation_level = pest_infestation_level;
+    }
+
+    public String getDisease_infestation_level() {
+        return disease_infestation_level;
+    }
+    public void setDisease_infestation_level(String disease_infestation_level) {
+        this.disease_infestation_level = disease_infestation_level;
+    }
+
+    public String getStanding_acres() {
+        return standing_acres;
+    }
+    public void setStanding_acres(String standing_acres) {
+        this.standing_acres = standing_acres;
+    }
+
+    public String getPld_acre() {
+        return pld_acre;
+    }
+    public void setPld_acre(String pld_acre) {
+        this.pld_acre = pld_acre;
+    }
+
+    public String getPld_reason() {
+        return pld_reason;
+    }
+    public void setPld_reason(String pld_reason) {
+        this.pld_reason = pld_reason;
+    }
+
+
   public String getAttachment() {
     return attachment;
   }
@@ -284,11 +338,16 @@ public class MaturityInspectionTable {
   maturityInspectionTable.seed_setting=maturity_inspectionModel.seed_setting;
   maturityInspectionTable.seed_setting_prcnt=maturity_inspectionModel.seed_setting_prcnt;
   maturityInspectionTable.attachment=maturity_inspectionModel.attachment;
+  maturityInspectionTable.male_reciept_no=maturity_inspectionModel.male_reciept_no;
+  maturityInspectionTable.female_reciept_no=maturity_inspectionModel.female_reciept_no;
+  maturityInspectionTable.other_reciept_no=maturity_inspectionModel.other_reciept_no;
 
-        maturityInspectionTable.male_reciept_no=maturity_inspectionModel.male_reciept_no;
-        maturityInspectionTable.female_reciept_no=maturity_inspectionModel.female_reciept_no;
-        maturityInspectionTable.other_reciept_no=maturity_inspectionModel.other_reciept_no;
-
+        //todo new fields....................
+        maturityInspectionTable.pest_infestation_level=maturity_inspectionModel.pest_infestation_level;
+        maturityInspectionTable.disease_infestation_level=maturity_inspectionModel.disease_infestation_level;
+        maturityInspectionTable.standing_acres=maturity_inspectionModel.standing_acres;
+        maturityInspectionTable.pld_acre=maturity_inspectionModel.pld_acre;
+        maturityInspectionTable.pld_reason=maturity_inspectionModel.pld_reason;
 
 
         return  maturityInspectionTable;

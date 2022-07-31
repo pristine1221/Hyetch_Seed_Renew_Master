@@ -478,18 +478,18 @@ public class Nicking2InspectionFragment extends Fragment {
                                         nicking2InspectionModel.attachment = selected_file_path;
                                         nicking2InspectionModelArrayList.add(nicking2InspectionModel);
                                         insertNicking2InspectionLineIntoLocal(nicking2InspectionModelArrayList);
-                                        Toast.makeText(getActivity(), inserResponseList.get(0).message, Toast.LENGTH_SHORT).show();
+                                        MDToast.makeText(getActivity(), inserResponseList.get(0).message, MDToast.LENGTH_SHORT,MDToast.TYPE_SUCCESS).show();
                                     } else {
                                         progressDialogLoading.hideDialog();
-                                        Toast.makeText(getActivity(), inserResponseList.size() > 0 ? inserResponseList.get(0).message : "Api not respoding.", Toast.LENGTH_SHORT).show();
+                                        MDToast.makeText(getActivity(), inserResponseList.size() > 0 ? inserResponseList.get(0).message : "Api not respoding.", MDToast.LENGTH_SHORT,MDToast.TYPE_ERROR).show();
                                     }
                                 } else {
                                     progressDialogLoading.hideDialog();
-                                    Toast.makeText(getActivity(), response.message() + ". Error Code:" + response.code(), Toast.LENGTH_SHORT).show();
+                                    MDToast.makeText(getActivity(), response.message() + ". Error Code:" + response.code(), MDToast.LENGTH_SHORT,MDToast.TYPE_ERROR).show();
                                 }
                             } catch (Exception e) {
                                 progressDialogLoading.hideDialog();
-                                Log.e("exception database", e.getMessage() + "cause");
+                                //Log.e("exception database", e.getMessage() + "cause");
                                 //   Toast.makeText(getActivity(), response.message() + ". Error Code:" + response.code(), Toast.LENGTH_SHORT).show();
                                 ApiRequestFailure.PostExceptionToServer(e, getClass().getName(), "insert_nicking2", getActivity());
                             }
@@ -507,7 +507,7 @@ public class Nicking2InspectionFragment extends Fragment {
                     nicking2InspectionModel.attachment = selected_file_path;
                     nicking2InspectionModelArrayList.add(nicking2InspectionModel);
                     insertNicking2InspectionLineIntoLocal(nicking2InspectionModelArrayList);
-                    Toast.makeText(getActivity(), "insert Successful !", Toast.LENGTH_SHORT).show();
+                    MDToast.makeText(getActivity(), "insert Successful !", MDToast.LENGTH_SHORT,MDToast.TYPE_SUCCESS).show();
                 }
             }
         } catch (Exception e) {
@@ -598,8 +598,8 @@ public class Nicking2InspectionFragment extends Fragment {
                 setBitmapImage(bm, this.selected_file_path);
             }
         } else {
-            Toast.makeText(getActivity(), "You haven't picked Image",
-                    Toast.LENGTH_LONG).show();
+            MDToast.makeText(getActivity(), "You haven't picked Image",
+                    MDToast.LENGTH_LONG,MDToast.TYPE_ERROR).show();
         }
     }
 
@@ -655,7 +655,6 @@ public class Nicking2InspectionFragment extends Fragment {
                                 .into(imageView);
                     } else {
                         progressDialogLoading.hideDialog();
-                        Toast.makeText(getActivity(), response.message() + ". Error Code:" + response.code(), Toast.LENGTH_SHORT).show();
                     }
 
                 } catch (Exception e) {

@@ -49,10 +49,16 @@ public class HarvestingInspectionTable {
     @ColumnInfo(name = "actual_date")
   private String actual_date ;
 
-    @ColumnInfo(name = "pest")
-  private String pest ;
-
-
+    @ColumnInfo(name="standing_acres ")
+    private String standing_acres;
+    @ColumnInfo(name="pld_acre ")
+    private String pld_acre;
+    @ColumnInfo(name = "net_acre")
+    private String net_acre;
+    @ColumnInfo(name="pld_reason")
+    private String pld_reason;
+    @ColumnInfo(name = "disease_infestation_level ")
+    private String disease_infestation_level ;
     @ColumnInfo(name = "diseases")
   private String diseases ;
 
@@ -159,20 +165,47 @@ public class HarvestingInspectionTable {
         this.actual_date = actual_date;
     }
 
-    public String getPest() {
-        return pest;
+    //todo new fields......................................
+    public String getDisease_infestation_level(){
+        return disease_infestation_level;
     }
-
-    public void setPest(String pest) {
-        this.pest = pest;
+    public void setDisease_infestation_level(String disease_infestation_level){
+        this.disease_infestation_level=disease_infestation_level;
     }
 
     public String getDiseases() {
         return diseases;
     }
-
     public void setDiseases(String diseases) {
         this.diseases = diseases;
+    }
+
+    public String getStanding_acres(){
+        return standing_acres;
+    }
+    public void setStanding_acres(String standing_acres){
+        this.standing_acres=standing_acres;
+    }
+
+    public String getPld_acre(){
+        return pld_acre;
+    }
+    public void setPld_acre(String pld_acre){
+        this.pld_acre=pld_acre;
+    }
+
+    public String getNet_acre(){
+        return net_acre;
+    }
+    public void setNet_acre(String net_acre){
+        this.net_acre=net_acre;
+    }
+
+    public String getPld_reason(){
+        return pld_reason;
+    }
+    public void setPld_reason(String pld_reason){
+        this.pld_reason=pld_reason;
     }
 
     public String getPest_remarks() {
@@ -252,6 +285,7 @@ public class HarvestingInspectionTable {
         this.seed_setting_prcnt = seed_setting_prcnt;
     }
 
+
     @ColumnInfo(name = "seed_setting")
    private String seed_setting ;
 
@@ -305,8 +339,6 @@ public class HarvestingInspectionTable {
       harvestingInspectionTable.overall_agronomy =harvestingInspectionModel.overall_agronomy;
       harvestingInspectionTable.recommended_date =harvestingInspectionModel.recommended_date;
       harvestingInspectionTable.actual_date=harvestingInspectionModel.actual_date;
-      //harvestingInspectionTable.pest =harvestingInspectionModel.pest;
-      harvestingInspectionTable.diseases =harvestingInspectionModel.diseases;
       harvestingInspectionTable.pest_remarks =harvestingInspectionModel.pest_remarks;
       harvestingInspectionTable.diseases_remarks =harvestingInspectionModel.diseases_remarks;
       harvestingInspectionTable.remarks =harvestingInspectionModel.remarks;
@@ -315,10 +347,16 @@ public class HarvestingInspectionTable {
       harvestingInspectionTable.seed_setting=harvestingInspectionModel.seed_setting;
       harvestingInspectionTable.seed_setting_prcnt=harvestingInspectionModel.seed_setting_prcnt;
       harvestingInspectionTable.attachment=harvestingInspectionModel.attachment;
-        harvestingInspectionTable.male_reciept_no=harvestingInspectionModel.male_reciept_no;
-        harvestingInspectionTable.female_reciept_no=harvestingInspectionModel.female_reciept_no;
-        harvestingInspectionTable.other_reciept_no=harvestingInspectionModel.other_reciept_no;
+      harvestingInspectionTable.male_reciept_no=harvestingInspectionModel.male_reciept_no;
+      harvestingInspectionTable.female_reciept_no=harvestingInspectionModel.female_reciept_no;
+      harvestingInspectionTable.other_reciept_no=harvestingInspectionModel.other_reciept_no;
 
+        harvestingInspectionTable.disease_infestation_level=harvestingInspectionModel.disease_infestation_level;
+        harvestingInspectionTable.diseases =harvestingInspectionModel.diseases;
+        harvestingInspectionTable.net_acre=harvestingInspectionModel.net_acre;
+        harvestingInspectionTable.standing_acres=harvestingInspectionModel.standing_acres;
+        harvestingInspectionTable.pld_acre=harvestingInspectionModel.pld_acre;
+        harvestingInspectionTable.pld_reason=harvestingInspectionModel.pld_reason;
 
         return harvestingInspectionTable ;
     }

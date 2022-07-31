@@ -85,7 +85,7 @@ GerminationInspectionFragment extends Fragment {
     private AutoCompleteTextView ac_germination_per, ac_crop_cond, ed_recmd_ds_fertz;
     private TextInputEditText recmd_ds_ftz_bgs, ed_basal_dos_bags, ed_remark_ftz,
             ed_receipt_male, ed_receipt_female, ed_receipt_other, ed_basal_dos, ed_date_of_insp, ed_seed_setting,
-            seed_setting_per, ac_crop_stage, ed_recommded_date,ac_sowing_acres,ed_standing_acres;
+            seed_setting_per, ac_crop_stage, ed_recommded_date,ed_sowing_acres,ed_standing_acres;
 
     private Button bt_cmplt, bt_save_rcrd, btn_update_record;
     private String scheduler_no = "", production_lot_no = "";
@@ -179,7 +179,7 @@ GerminationInspectionFragment extends Fragment {
         ed_item_name = view.findViewById(R.id.item_name);
         ac_crop_cond = view.findViewById(R.id.ac_crop_codn);
         ac_crop_stage = view.findViewById(R.id.ac_crop_stage);
-        ac_sowing_acres=view.findViewById(R.id.ac_sowing_acres);
+        ed_sowing_acres=view.findViewById(R.id.ed_sowing_acres);
         ed_seed_setting = view.findViewById(R.id.ed_seed_setting);
         seed_setting_per = view.findViewById(R.id.seed_setting_per);
 
@@ -214,7 +214,7 @@ GerminationInspectionFragment extends Fragment {
             tv_item_prodGrp_code.setText(schedulerInspectionLineTable.getItem_product_group_code());
 
             ed_recommded_date.setText(getFemaleSowingDate());//plantingLineLotListTable
-            ac_sowing_acres.setText(plantingLineLotListTable.getSowing_Area_In_Acres());
+            ed_sowing_acres.setText(plantingLineLotListTable.getSowing_Area_In_Acres());
 
             PristineDatabase pristineDatabase = PristineDatabase.getAppDatabase(getActivity());
             try {
@@ -372,12 +372,12 @@ GerminationInspectionFragment extends Fragment {
         ed_receipt_other.setEnabled(false);
         ed_date_of_insp.setEnabled(false);
         ac_crop_stage.setEnabled(false);
-        ac_sowing_acres.setEnabled(false);
+        ed_sowing_acres.setEnabled(false);
         ac_crop_cond.setEnabled(false);
         ac_crop_cond.setDropDownHeight(0);
         ac_crop_cond.setFocusableInTouchMode(false);
         ac_crop_stage.setFocusableInTouchMode(false);
-        ac_sowing_acres.setFocusable(false);
+        ed_sowing_acres.setFocusable(false);
         ac_germination_per.setFocusableInTouchMode(false);
         ac_germination_per.setDropDownHeight(0);
         ed_acutal_date.setEnabled(false);
@@ -418,7 +418,7 @@ GerminationInspectionFragment extends Fragment {
                     e.printStackTrace();
                 }
                 ac_crop_stage.setText(germination_inspection_table.get(0).getCrop_stage());
-                ed_standing_acres.setText(germination_inspection_table.get(0).getStandingAcres());
+                ed_standing_acres.setText(germination_inspection_table.get(0).getStanding_acres());
                 //ac_sowing_acres.setText(germination_inspection_table.get(0).);
                 ac_crop_cond.setText(germination_inspection_table.get(0).getCrop_condition());
                 if(germination_inspection_table.get(0).getAttachment()!=null){
@@ -430,7 +430,8 @@ GerminationInspectionFragment extends Fragment {
                 }
 
             } catch (Exception e) {
-                //throw  e;
+                //throw  e
+                e.printStackTrace();
             }
         }
     }
@@ -456,6 +457,7 @@ GerminationInspectionFragment extends Fragment {
             germination_inspectionLineModel.recommended_date = DateTimeUtilsCustome.splitDateInYYYMMDD(ed_recommded_date.getText().toString().trim());
             germination_inspectionLineModel.actual_date = DateTimeUtilsCustome.splitDateInYYYMMDD(ed_acutal_date.getText().toString().trim());
             germination_inspectionLineModel.standing_acres = ed_standing_acres.getText().toString().trim();
+            germination_inspectionLineModel.sown_acres = ed_sowing_acres.getText().toString().trim();
 
             if (selected_file_path != null && !selected_file_path.equalsIgnoreCase("")) {
                 String base_64_image = StaticMethods.convertBase64(selected_file_path);
@@ -749,7 +751,6 @@ GerminationInspectionFragment extends Fragment {
                                 .into(germinationImageView);
                     } else {
                         progressDialogLoading.hideDialog();
-                        //Toast.makeText(getActivity(), response.message() + ". Error Code:" + response.code(), Toast.LENGTH_SHORT).show();
                     }
 
                 } catch (Exception e) {

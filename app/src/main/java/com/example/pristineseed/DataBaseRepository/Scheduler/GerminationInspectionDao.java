@@ -37,6 +37,9 @@ public interface GerminationInspectionDao {
     @Query("SELECT * FROM germination_inspection_table WHERE production_lot_no=:production_lot_no")
     GerminationInspection1_Table getGerminationCreatedOn(String production_lot_no);
 
+    @Query("SELECT * FROM germination_inspection_table WHERE production_lot_no=:production_lot_no")
+    GerminationInspection1_Table getGerminationStandingAcres(String production_lot_no);
+
     @Query("SELECT * FROM germination_inspection_table WHERE  sync_with_api=0")
     List<GerminationInspection1_Table> getSavedLineIntoLocal();
 
@@ -47,6 +50,7 @@ public interface GerminationInspectionDao {
 
     @Query("SELECT * from scheduler_line_table sl INNER JOIN germination_inspection_table gi on sl.production_lot_no=gi.production_lot_no and gi.sync_with_api=0 and sl.inspection_1=0")
     List<GerminationInspection1_Table> getUnpostedLine();
+
 
 
 }

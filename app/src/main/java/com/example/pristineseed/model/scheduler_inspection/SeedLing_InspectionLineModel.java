@@ -10,6 +10,8 @@ public class SeedLing_InspectionLineModel {
       public String vigor;
       public String pest;
       public String diseases;
+      public String pest_infestation_level ;
+      public String disease_infestation_level ;
       public String pest_remarks;
       public String diseases_remarks;
       public String recommended_date;
@@ -26,5 +28,9 @@ public class SeedLing_InspectionLineModel {
       public String female_reciept_no;
       public String  other_reciept_no;
       public String  grain_remarks;
+      public String  standing_acres;
+      public String  pld_acre;
+      public String  net_acre;
+      public String  pld_reason;
 
 }

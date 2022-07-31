@@ -859,8 +859,6 @@
 
                         </LinearLayout>
 
-
-
                         <LinearLayout
                             android:orientation="horizontal"
                             android:layout_height="wrap_content"
@@ -900,8 +898,7 @@
                             android:layout_margin="4dp"
                             android:orientation="horizontal"
                             android:layout_height="wrap_content"
-                            android:layout_width="match_parent"
-                            >
+                            android:layout_width="match_parent">
 
                             <ImageView
                                 android:layout_width="wrap_content"
@@ -909,9 +906,42 @@
                                 android:backgroundTint="@color/colorPrimary"
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginRight="@dimen/_5sdp"
-                                android:src="@drawable/ic_baseline_verified_user_24"
-                                />
+                                android:src="@drawable/ic_baseline_verified_user_24" />
 
+                            <com.google.android.material.textfield.TextInputLayout
+                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                app:boxCornerRadiusBottomEnd="15dp"
+                                app:boxCornerRadiusTopStart="15dp"
+                                android:hint="Disease">
+
+                                <AutoCompleteTextView
+                                    android:id="@+id/ac_disease"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:editable="false"
+                                    android:inputType="none"
+                                    android:textColor="@color/black"
+                                    android:maxLines="1" />
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_margin="4dp"
+                            android:orientation="horizontal"
+                            android:layout_height="wrap_content"
+                            android:layout_width="match_parent">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:backgroundTint="@color/colorPrimary"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginRight="@dimen/_5sdp"
+                                android:src="@drawable/ic_baseline_verified_user_24" />
 
                             <com.google.android.material.textfield.TextInputLayout
                                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
@@ -923,7 +953,7 @@
                                 android:hint="Disease infestation level ">
 
                                 <AutoCompleteTextView
-                                    android:id="@+id/ac_dease"
+                                    android:id="@+id/ac_disease_inflaion"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:editable="false"
@@ -985,6 +1015,7 @@
                                     android:id="@+id/pld_acres"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
+                                    android:inputType="number"
                                     android:maxLines="1" />
 
                             </com.google.android.material.textfield.TextInputLayout>
@@ -1016,9 +1047,10 @@
                                 android:hint="Net Acres">
 
                                 <com.google.android.material.textfield.TextInputEditText
-                                    android:id="@+id/ed_net_acres"
+                                    android:id="@+id/net_acres"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
+                                    android:inputType="number"
                                     android:textColor="@color/black"
                                     android:maxLines="1" />
 

@@ -389,7 +389,7 @@ public class NickingInspectionFragment extends Fragment {
                     HitShowImageApi(getImageId );
                 }
                 else {
-                    Toast.makeText(getActivity(), nickingInspectionTable.get(0).getAttachment(), Toast.LENGTH_SHORT).show();
+                    MDToast.makeText(getActivity(), nickingInspectionTable.get(0).getAttachment(), MDToast.LENGTH_SHORT,MDToast.TYPE_ERROR).show();
                 }
             } catch (Exception e) {
                 e.getMessage();
@@ -677,7 +677,6 @@ public class NickingInspectionFragment extends Fragment {
                                 .into(imageView);
                     } else {
                         progressDialogLoading.hideDialog();
-                        Toast.makeText(getActivity(), response.message() + ". Error Code:" + response.code(), Toast.LENGTH_SHORT).show();
                     }
 
                 } catch (Exception e) {

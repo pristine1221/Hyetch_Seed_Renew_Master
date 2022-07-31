@@ -48,7 +48,6 @@ public interface PlantingLineLotListDao {
     @Query("SELECT * from planting_line_lot_table WHERE production_Lot_No=:production_lot_no ") /*and crop_Code='Corn' OR crop_Code='Millet' OR crop_Code='SSG' OR crop_Code='Mustard' OR crop_Code='F.Sorghum'*/
     PlantingLineLotListTable getFemaleSowingDate(String production_lot_no);
 
-
     @Query("SELECT * from planting_line_lot_table WHERE production_Lot_No=:production_lot_no ") /*and crop_Code='Corn' OR crop_Code='Millet' OR crop_Code='SSG' OR crop_Code='Mustard' OR crop_Code='F.Sorghum'*/
     PlantingLineLotListTable getAllDetail(String production_lot_no);
 

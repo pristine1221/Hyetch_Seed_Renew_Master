@@ -26,6 +26,7 @@ public class Germination_InspectionLineModel {
          public String recommended_date;
          public String actual_date;
          public String standing_acres;
+         public String sown_acres;
     //public String save_attachment_into_local;
 
 

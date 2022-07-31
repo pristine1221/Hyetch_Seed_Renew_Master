@@ -36,6 +36,7 @@ public class PlantingProdcutionLotModel {
        public String sowing_Date_Female;
        public String sowing_Date_Other;
        public String sowing_Area_In_Acres;
+       public String standing_acres;
        public String inspection_I;
        public String inspection_II;
        public String inspection_III;

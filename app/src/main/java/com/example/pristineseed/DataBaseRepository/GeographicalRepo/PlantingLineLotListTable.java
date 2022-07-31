@@ -118,6 +118,9 @@ public class PlantingLineLotListTable {
     @ColumnInfo(name = "sowing_Area_In_Acres")
     private String sowing_Area_In_Acres;
 
+    @ColumnInfo(name = "standing_acres")
+    private String standing_acres;
+
     @ColumnInfo(name = "inspection_I")
     private String inspection_I;
 
@@ -445,6 +448,13 @@ public class PlantingLineLotListTable {
         this.sowing_Area_In_Acres = sowing_Area_In_Acres;
     }
 
+    public String getStanding_acres(){
+        return standing_acres;
+    }
+    public void setStanding_acres(String standing_acres){
+        this.standing_acres=standing_acres;
+    }
+
     public String getInspection_I() {
         return inspection_I;
     }
@@ -650,6 +660,7 @@ public class PlantingLineLotListTable {
         planting_lot_master_table.sowing_Date_Female=plantingLotParentTypeModel.sowing_Date_Female;
         planting_lot_master_table.sowing_Date_Other=plantingLotParentTypeModel.sowing_Date_Other;
         planting_lot_master_table.sowing_Area_In_Acres=plantingLotParentTypeModel.sowing_Area_In_Acres;
+        planting_lot_master_table.standing_acres=plantingLotParentTypeModel.standing_acres;
         planting_lot_master_table.inspection_I=plantingLotParentTypeModel.inspection_I;
         planting_lot_master_table.inspection_II=plantingLotParentTypeModel.inspection_II;
         planting_lot_master_table.inspection_III=plantingLotParentTypeModel.inspection_III;

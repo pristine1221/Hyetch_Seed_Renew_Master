@@ -59,1075 +59,1814 @@
 
         </View>
 
-            <ScrollView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-                <LinearLayout
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="5dp">
+
+                <TextView
+                    style="@style/TextAppearance.MaterialComponents.Subtitle2"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:text="Header Details">
+
+                </TextView>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginBottom="2dp"
+                    android:layout_weight="1"
+                    android:background="#72AAAAAA">
+
+                </View>
+
+                <TableLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:padding="5dp">
 
-                    <TextView
-                        style="@style/TextAppearance.MaterialComponents.Subtitle2"
+                    <TableRow
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:padding="5dp"
-                        android:text="Header Details">
-
-                    </TextView>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_marginTop="2dp"
-                        android:layout_marginBottom="2dp"
-                        android:layout_weight="1"
-                        android:background="#72AAAAAA">
-
-                    </View>
-
-                    <TableLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:padding="5dp">
-
-                        <TableRow
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:padding="2dp">
-
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:fontFamily="@font/product_sans_bold"
-                                android:text="Date:"
-                                android:textColor="@color/profileEditTextColor"
-                                android:textSize="13sp" />
-
-                            <TextView
-                                android:id="@+id/tv_date"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:fontFamily="@font/product_sans_regular"
-                                android:textColor="@color/black"
-                                android:textSize="13sp" />
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:fontFamily="@font/product_sans_bold"
-                                android:text="Season: "
-                                android:textColor="@color/profileEditTextColor"
-                                android:textSize="13sp" />
-
-                            <TextView
-                                android:id="@+id/tv_season"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:fontFamily="@font/product_sans_regular"
-                                android:textColor="@color/black"
-                                android:textSize="13sp" />
-                        </TableRow>
-
-                        <TableRow
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:padding="2dp">
-
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:visibility="gone"
-                                android:fontFamily="@font/product_sans_bold"
-                                android:text="Season name: "
-                                android:textColor="@color/profileEditTextColor"
-                                android:textSize="13sp" />
-
-                            <TextView
-                                android:id="@+id/season_name"
-                                android:layout_width="0dp"
-                                android:visibility="gone"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:fontFamily="@font/product_sans_regular"
-                                android:textColor="@color/black"
-                                android:textSize="13sp" />
-
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:fontFamily="@font/product_sans_bold"
-                                android:text="Prod.cnt: "
-                                android:textColor="@color/profileEditTextColor"
-                                android:textSize="13sp" />
-
-                            <TextView
-                                android:id="@+id/prod_cent_name"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="3"
-                                android:fontFamily="@font/product_sans_regular"
-                                android:textColor="@color/black"
-                                android:textSize="13sp" />
-
-                        </TableRow>
-
-                        <TableRow
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:visibility="gone"
-                            android:padding="2dp">
-
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:fontFamily="@font/product_sans_bold"
-                                android:text="Prod. center:"
-                                android:textColor="@color/profileEditTextColor"
-                                android:textSize="13sp" />
-
-                            <TextView
-                                android:id="@+id/prod_center"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="3"
-                                android:fontFamily="@font/product_sans_regular"
-                                android:textColor="@color/black"
-                                android:textSize="13sp" />
-
-                        </TableRow>
-
-                    </TableLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:orientation="horizontal"
-                        android:layout_height="wrap_content">
-                        <TextView
-                            style="@style/TextAppearance.MaterialComponents.Subtitle2"
-                            android:layout_width="0dp"
-                            android:layout_weight="2"
-                            android:layout_height="wrap_content"
-                            android:text="Production Lot Details"/>
+                        android:padding="2dp">
 
                         <TextView
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:fontFamily="@font/product_sans_bold"
-                            android:text="Prod Lot No : "
-                            android:gravity="end"
-                            android:textColor="@color/colorPrimaryDark"
-                            android:textSize="13sp"/>
+                            android:text="Date:"
+                            android:textColor="@color/profileEditTextColor"
+                            android:textSize="13sp" />
 
                         <TextView
-                            android:id="@+id/prod_lot_no"
+                            android:id="@+id/tv_date"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:textStyle="bold"
                             android:fontFamily="@font/product_sans_regular"
-                            android:textColor="@color/colorPrimary"
+                            android:textColor="@color/black"
                             android:textSize="13sp" />
 
-                    </LinearLayout>
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/product_sans_bold"
+                            android:text="Season: "
+                            android:textColor="@color/profileEditTextColor"
+                            android:textSize="13sp" />
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_marginTop="2dp"
-                        android:layout_marginBottom="2dp"
-                        android:layout_weight="1"
-                        android:background="#72AAAAAA"/>
+                        <TextView
+                            android:id="@+id/tv_season"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/product_sans_regular"
+                            android:textColor="@color/black"
+                            android:textSize="13sp" />
+                    </TableRow>
 
-                    <TableLayout
+                    <TableRow
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:padding="5dp">
+                        android:padding="2dp">
 
-
-
-                        <TableRow
-                            android:layout_width="match_parent"
+                        <TextView
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:padding="2dp">
+                            android:layout_weight="1"
+                            android:fontFamily="@font/product_sans_bold"
+                            android:text="Season name: "
+                            android:textColor="@color/profileEditTextColor"
+                            android:textSize="13sp"
+                            android:visibility="gone" />
 
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:fontFamily="@font/product_sans_bold"
-                                android:text="Org. name: "
-                                android:textColor="@color/profileEditTextColor"
-                                android:textSize="13sp" />
-
-                            <TextView
-                                android:id="@+id/org_name"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="3"
-                                android:fontFamily="@font/product_sans_regular"
-                                android:textColor="@color/black"
-                                android:textSize="13sp" />
-
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:fontFamily="@font/product_sans_bold"
-                                android:text="Org. code : "
-                                android:visibility="gone"
-                                android:textColor="@color/profileEditTextColor"
-                                android:textSize="13sp" />
-
-                            <TextView
-                                android:id="@+id/org_code"
-                                android:layout_width="0dp"
-                                android:visibility="gone"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:fontFamily="@font/product_sans_regular"
-                                android:textColor="@color/black"
-                                android:textSize="13sp" />
-
-                        </TableRow>
-
-                        <TableRow
-                            android:layout_width="match_parent"
+                        <TextView
+                            android:id="@+id/season_name"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:padding="2dp">
+                            android:layout_weight="1"
+                            android:fontFamily="@font/product_sans_regular"
+                            android:textColor="@color/black"
+                            android:textSize="13sp"
+                            android:visibility="gone" />
 
-
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:fontFamily="@font/product_sans_bold"
-                                android:text="Crop Code : "
-                                android:textColor="@color/profileEditTextColor"
-                                android:textSize="13sp" />
-
-                            <TextView
-                                android:id="@+id/crop_code"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:fontFamily="@font/product_sans_regular"
-                                android:textColor="@color/black"
-                                android:textSize="13sp" />
-
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:fontFamily="@font/product_sans_bold"
-                                android:text="Variety Code : "
-                                android:textColor="@color/profileEditTextColor"
-                                android:textSize="13sp" />
-
-                            <TextView
-                                android:id="@+id/variety_code"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:fontFamily="@font/product_sans_regular"
-                                android:textColor="@color/black"
-                                android:textSize="13sp" />
-
-                        </TableRow>
-
-                        <TableRow
-                            android:layout_width="match_parent"
+                        <TextView
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:padding="2dp">
+                            android:layout_weight="1"
+                            android:fontFamily="@font/product_sans_bold"
+                            android:text="Prod.cnt: "
+                            android:textColor="@color/profileEditTextColor"
+                            android:textSize="13sp" />
 
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:fontFamily="@font/product_sans_bold"
-                                android:text="It. prodGrp cd. : "
-                                android:textColor="@color/profileEditTextColor"
-                                android:textSize="13sp" />
-
-                            <TextView
-                                android:id="@+id/item_prodGrp_code"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:fontFamily="@font/product_sans_regular"
-                                android:textColor="@color/black"
-                                android:textSize="13sp" />
-
-
-
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:fontFamily="@font/product_sans_bold"
-                                android:text="ItmclsofSds : "
-                                android:textColor="@color/profileEditTextColor"
-                                android:textSize="13sp" />
-
-                            <TextView
-                                android:id="@+id/item_class_of_seed"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:fontFamily="@font/product_sans_regular"
-                                android:textColor="@color/black"
-                                android:textSize="13sp" />
-
-                        </TableRow>
-
-                        <TableRow
-                            android:layout_width="match_parent"
+                        <TextView
+                            android:id="@+id/prod_cent_name"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:visibility="gone"
-                            android:padding="2dp">
+                            android:layout_weight="3"
+                            android:fontFamily="@font/product_sans_regular"
+                            android:textColor="@color/black"
+                            android:textSize="13sp" />
 
+                    </TableRow>
 
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:fontFamily="@font/product_sans_bold"
-                                android:text="Crop typ : "
-                                android:textColor="@color/profileEditTextColor"
-                                android:textSize="13sp" />
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="2dp"
+                        android:visibility="gone">
 
-                            <TextView
-                                android:id="@+id/crop_type"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:fontFamily="@font/product_sans_regular"
-                                android:textColor="@color/black"
-                                android:textSize="13sp" />
-
-                        </TableRow>
-
-                        <TableRow
-                            android:layout_width="match_parent"
+                        <TextView
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:padding="2dp">
+                            android:layout_weight="1"
+                            android:fontFamily="@font/product_sans_bold"
+                            android:text="Prod. center:"
+                            android:textColor="@color/profileEditTextColor"
+                            android:textSize="13sp" />
 
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:fontFamily="@font/product_sans_bold"
-                                android:text="S.D.M.: "
-                                android:textColor="@color/profileEditTextColor"
-                                android:textSize="13sp" />
-
-                            <TextView
-                                android:id="@+id/tv_sd_male"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:fontFamily="@font/product_sans_regular"
-                                android:textColor="@color/black"
-                                android:textSize="13sp" />
-
-
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:fontFamily="@font/product_sans_bold"
-                                android:text="S.D.F: "
-                                android:textColor="@color/profileEditTextColor"
-                                android:textSize="13sp" />
-
-                            <TextView
-                                android:id="@+id/tv_sd_female"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:fontFamily="@font/product_sans_regular"
-                                android:textColor="@color/black"
-                                android:textSize="13sp" />
-
-                        </TableRow>
-                        <TableRow
-                            android:layout_width="match_parent"
+                        <TextView
+                            android:id="@+id/prod_center"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:padding="2dp">
-                            <TextView
-                                android:id="@+id/grwer_name"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:fontFamily="@font/product_sans_bold"
-                                android:text="Farmer :"
-                                android:textColor="@color/profileEditTextColor"
-                                android:textSize="13sp" />
+                            android:layout_weight="3"
+                            android:fontFamily="@font/product_sans_regular"
+                            android:textColor="@color/black"
+                            android:textSize="13sp" />
+
+                    </TableRow>
+
+                </TableLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/TextAppearance.MaterialComponents.Subtitle2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:text="Production Lot Details" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/product_sans_bold"
+                        android:gravity="end"
+                        android:text="Prod Lot No : "
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="13sp" />
+
+                    <TextView
+                        android:id="@+id/prod_lot_no"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/product_sans_regular"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="13sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginBottom="2dp"
+                    android:layout_weight="1"
+                    android:background="#72AAAAAA" />
+
+                <TableLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp">
 
 
-                            <TextView
-                                android:id="@+id/farmer_name"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="3"
-                                android:visibility="visible"
-                                android:fontFamily="@font/product_sans_regular"
-                                android:textColor="@color/black"
-                                android:textSize="13sp" />
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:visibility="gone"
-                                android:fontFamily="@font/product_sans_bold"
-                                android:text="Item n. :"
-                                android:textColor="@color/profileEditTextColor"
-                                android:textSize="13sp" />
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="2dp">
 
-
-                            <TextView
-                                android:id="@+id/item_name"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:visibility="gone"
-                                android:fontFamily="@font/product_sans_regular"
-                                android:textColor="@color/black"
-                                android:textSize="13sp" />
-                        </TableRow>
-                        <TableRow
-                            android:layout_width="match_parent"
+                        <TextView
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:padding="2dp">
+                            android:layout_weight="1"
+                            android:fontFamily="@font/product_sans_bold"
+                            android:text="Org. name: "
+                            android:textColor="@color/profileEditTextColor"
+                            android:textSize="13sp" />
+
+                        <TextView
+                            android:id="@+id/org_name"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="3"
+                            android:fontFamily="@font/product_sans_regular"
+                            android:textColor="@color/black"
+                            android:textSize="13sp" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/product_sans_bold"
+                            android:text="Org. code : "
+                            android:textColor="@color/profileEditTextColor"
+                            android:textSize="13sp"
+                            android:visibility="gone" />
+
+                        <TextView
+                            android:id="@+id/org_code"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/product_sans_regular"
+                            android:textColor="@color/black"
+                            android:textSize="13sp"
+                            android:visibility="gone" />
+
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="2dp">
+
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/product_sans_bold"
+                            android:text="Crop Code : "
+                            android:textColor="@color/profileEditTextColor"
+                            android:textSize="13sp" />
+
+                        <TextView
+                            android:id="@+id/crop_code"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/product_sans_regular"
+                            android:textColor="@color/black"
+                            android:textSize="13sp" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/product_sans_bold"
+                            android:text="Variety Code : "
+                            android:textColor="@color/profileEditTextColor"
+                            android:textSize="13sp" />
+
+                        <TextView
+                            android:id="@+id/variety_code"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/product_sans_regular"
+                            android:textColor="@color/black"
+                            android:textSize="13sp" />
+
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="2dp">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/product_sans_bold"
+                            android:text="It. prodGrp cd. : "
+                            android:textColor="@color/profileEditTextColor"
+                            android:textSize="13sp" />
+
+                        <TextView
+                            android:id="@+id/item_prodGrp_code"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/product_sans_regular"
+                            android:textColor="@color/black"
+                            android:textSize="13sp" />
+
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/product_sans_bold"
+                            android:text="ItmclsofSds : "
+                            android:textColor="@color/profileEditTextColor"
+                            android:textSize="13sp" />
+
+                        <TextView
+                            android:id="@+id/item_class_of_seed"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/product_sans_regular"
+                            android:textColor="@color/black"
+                            android:textSize="13sp" />
+
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="2dp"
+                        android:visibility="gone">
+
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/product_sans_bold"
+                            android:text="Crop typ : "
+                            android:textColor="@color/profileEditTextColor"
+                            android:textSize="13sp" />
+
+                        <TextView
+                            android:id="@+id/crop_type"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/product_sans_regular"
+                            android:textColor="@color/black"
+                            android:textSize="13sp" />
+
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="2dp">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/product_sans_bold"
+                            android:text="S.D.M.: "
+                            android:textColor="@color/profileEditTextColor"
+                            android:textSize="13sp" />
+
+                        <TextView
+                            android:id="@+id/tv_sd_male"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/product_sans_regular"
+                            android:textColor="@color/black"
+                            android:textSize="13sp" />
+
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/product_sans_bold"
+                            android:text="S.D.F: "
+                            android:textColor="@color/profileEditTextColor"
+                            android:textSize="13sp" />
+
+                        <TextView
+                            android:id="@+id/tv_sd_female"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/product_sans_regular"
+                            android:textColor="@color/black"
+                            android:textSize="13sp" />
+
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="2dp">
+
+                        <TextView
+                            android:id="@+id/grwer_name"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/product_sans_bold"
+                            android:text="Farmer :"
+                            android:textColor="@color/profileEditTextColor"
+                            android:textSize="13sp" />
+
+
+                        <TextView
+                            android:id="@+id/farmer_name"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="3"
+                            android:fontFamily="@font/product_sans_regular"
+                            android:textColor="@color/black"
+                            android:textSize="13sp"
+                            android:visibility="visible" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/product_sans_bold"
+                            android:text="Item n. :"
+                            android:textColor="@color/profileEditTextColor"
+                            android:textSize="13sp"
+                            android:visibility="gone" />
+
+
+                        <TextView
+                            android:id="@+id/item_name"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/product_sans_regular"
+                            android:textColor="@color/black"
+                            android:textSize="13sp"
+                            android:visibility="gone" />
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="2dp">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/product_sans_bold"
+                            android:text="Village : "
+                            android:textColor="@color/profileEditTextColor"
+                            android:textSize="13sp" />
+
+                        <TextView
+                            android:id="@+id/vill_address"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="3"
+                            android:fontFamily="@font/product_sans_regular"
+                            android:textColor="@color/black"
+                            android:textSize="13sp" />
+
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_marginLeft="4dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginRight="4dp">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
 
                             <TextView
-                                android:layout_width="0dp"
+                                android:id="@+id/posting_error"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:fontFamily="@font/product_sans_bold"
-                                android:text="Village : "
-                                android:textColor="@color/profileEditTextColor"
-                                android:textSize="13sp" />
-
-                            <TextView
-                                android:id="@+id/vill_address"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="3"
                                 android:fontFamily="@font/product_sans_regular"
-                                android:textColor="@color/black"
-                                android:textSize="13sp" />
+                                android:textColor="@color/my_app_error_color"
+                                android:visibility="gone" />
 
-                        </TableRow>
-
-                        <TableRow
-                            android:layout_marginLeft="4dp"
-                            android:layout_marginRight="4dp"
-                            android:layout_marginTop="5dp">
-
-                            <LinearLayout
-                                android:layout_width="0dp"
+                            <TextView
+                                style="@style/TextAppearance.MaterialComponents.Subtitle2"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:padding="5dp"
+                                android:text="Flowering Fields">
+
+                            </TextView>
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"
+                                android:layout_marginTop="2dp"
+                                android:layout_marginBottom="2dp"
                                 android:layout_weight="1"
-                                android:orientation="vertical">
+                                android:background="#72AAAAAA">
 
-                                <TextView
-                                    android:id="@+id/posting_error"
-                                    android:visibility="gone"
-                                    android:layout_width="match_parent"
-                                    android:fontFamily="@font/product_sans_regular"
-                                    android:textColor="@color/my_app_error_color"
-                                    android:layout_height="wrap_content"/>
+                            </View>
+                        </LinearLayout>
+                    </TableRow>
 
-                                <TextView
-                                    style="@style/TextAppearance.MaterialComponents.Subtitle2"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:padding="5dp"
-                                    android:text="Flowering Fields">
+                    <TableRow>
 
-                                </TextView>
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:hint="Crop Codn"
+                            app:boxCornerRadiusBottomEnd="15dp"
+                            app:boxCornerRadiusTopStart="15dp">
 
-                                <View
-                                    android:layout_width="match_parent"
-                                    android:layout_height="1dp"
-                                    android:layout_marginTop="2dp"
-                                    android:layout_marginBottom="2dp"
-                                    android:layout_weight="1"
-                                    android:background="#72AAAAAA">
-
-                                </View>
-                            </LinearLayout>
-                        </TableRow>
-
-                        <TableRow>
-
-                            <com.google.android.material.textfield.TextInputLayout
-                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
-                                android:layout_width="0dp"
+                            <AutoCompleteTextView
+                                android:id="@+id/crop_condn"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:hint="Crop Codn"
-                                app:boxCornerRadiusBottomEnd="15dp"
-                                app:boxCornerRadiusTopStart="15dp">
+                                android:editable="false"
+                                android:inputType="none"
+                                android:maxLines="1"
+                                android:textColor="@color/black" />
 
-                                <AutoCompleteTextView
-                                    android:id="@+id/crop_condn"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:editable="false"
-                                    android:inputType="none"
-                                    android:textColor="@color/black"
-                                    android:maxLines="1" />
+                        </com.google.android.material.textfield.TextInputLayout>
 
-                            </com.google.android.material.textfield.TextInputLayout>
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/_4sdp"
+                            android:layout_weight="1"
+                            android:hint="Crop Stage"
+                            app:boxCornerRadiusBottomEnd="15dp"
+                            app:boxCornerRadiusTopStart="15dp">
 
-                            <com.google.android.material.textfield.TextInputLayout
-                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                                android:layout_width="0dp"
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/crop_stage"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:layout_marginLeft="@dimen/_4sdp"
-                                android:hint="Crop Stage"
-                                app:boxCornerRadiusBottomEnd="15dp"
-                                app:boxCornerRadiusTopStart="15dp">
-
-                                <com.google.android.material.textfield.TextInputEditText
-                                    android:id="@+id/crop_stage"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:editable="false"
-                                    android:enabled="false"
-                                    android:textColor="@color/black"
-                                    android:maxLines="1" />
-
-                            </com.google.android.material.textfield.TextInputLayout>
-
-                        </TableRow>
-                        <TableRow
-                            android:layout_marginTop="4dp"
-                            android:layout_marginBottom="4dp">
-                            <com.google.android.material.textfield.TextInputLayout
-                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_marginBottom="4dp"
-                                android:layout_weight="1"
-                                android:visibility="gone"
-                                android:hint="Date Of Inspection"
-                                app:boxCornerRadiusBottomEnd="15dp"
-                                app:boxCornerRadiusTopStart="15dp">
-
-                                <com.google.android.material.textfield.TextInputEditText
-                                    android:id="@+id/ed_date_of_insp"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:editable="false"
-                                    android:lines="1" />
-
-                            </com.google.android.material.textfield.TextInputLayout>
-
-                            <com.google.android.material.textfield.TextInputLayout
-                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                app:boxCornerRadiusBottomEnd="15dp"
-                                app:boxCornerRadiusTopStart="15dp"
-                                android:hint="Other-types">
-
-                                <com.google.android.material.textfield.TextInputEditText
-                                    android:id="@+id/other_types"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:textColor="@color/black"
-                                    android:maxLines="1" />
-
-                            </com.google.android.material.textfield.TextInputLayout>
-
-                        </TableRow>
-
-                        <TableRow>
-                            <com.google.android.material.textfield.TextInputLayout
-                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_marginBottom="4dp"
-                                android:layout_weight="1"
-                                app:boxCornerRadiusBottomEnd="15dp"
-                                app:boxCornerRadiusTopStart="15dp"
-                                android:hint="Male Shed Plants %">
-
-                                <com.google.android.material.textfield.TextInputEditText
-                                    android:id="@+id/ed_polln_shed_pr"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:inputType="numberDecimal"
-                                    android:textColor="@color/black"
-                                    android:maxLines="1" />
-
-                            </com.google.android.material.textfield.TextInputLayout>
-
-
-                        </TableRow>
-
-                        <TableRow>
-
-                            <com.google.android.material.textfield.TextInputLayout
-                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:hint="Pest"
-                                app:boxCornerRadiusBottomEnd="15dp"
-                                app:boxCornerRadiusTopStart="15dp">
-
-                                <AutoCompleteTextView
-                                    android:id="@+id/ac_pest"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:editable="false"
-                                    android:inputType="none"
-                                    android:textColor="@color/black"
-                                    android:maxLines="1" />
-                            </com.google.android.material.textfield.TextInputLayout>
-
-                            <com.google.android.material.textfield.TextInputLayout
-                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:hint="Diseases"
-                                android:layout_marginLeft="@dimen/_5sdp"
-                                app:boxCornerRadiusBottomEnd="15dp"
-                                app:boxCornerRadiusTopStart="15dp">
-
-                                <AutoCompleteTextView
-                                    android:id="@+id/ac_desease"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:editable="false"
-                                    android:inputType="none"
-                                    android:textColor="@color/black"
-                                    android:maxLines="1" />
-                            </com.google.android.material.textfield.TextInputLayout>
-
-                        </TableRow>
-
-                        <TableRow>
-
-                            <com.google.android.material.textfield.TextInputLayout
-                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                app:boxCornerRadiusBottomEnd="15dp"
-                                app:boxCornerRadiusTopStart="15dp"
-                                android:hint="Pest Remark">
-
-                                <com.google.android.material.textfield.TextInputEditText
-                                    android:id="@+id/pest_remark"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:textColor="@color/black"
-                                    android:maxLines="1" />
-
-                            </com.google.android.material.textfield.TextInputLayout>
-
-                            <com.google.android.material.textfield.TextInputLayout
-                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:layout_marginLeft="@dimen/_5sdp"
-                                app:boxCornerRadiusBottomEnd="15dp"
-                                app:boxCornerRadiusTopStart="15dp"
-                                android:hint="Diseases Remark">
-
-                                <com.google.android.material.textfield.TextInputEditText
-                                    android:id="@+id/deease_remark"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:textColor="@color/black"
-                                    android:maxLines="1" />
-
-                            </com.google.android.material.textfield.TextInputLayout>
-                        </TableRow>
-
-
-
-                        <TableRow
-                            android:layout_marginTop="8dp"
-                            android:layout_marginLeft="4dp"
-                            android:layout_marginRight="4dp"
-                            android:visibility="gone"
-                            android:layout_marginBottom="4dp">
-
-                            <com.google.android.material.textfield.TextInputLayout
-                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                app:boxCornerRadiusBottomEnd="15dp"
-                                app:boxCornerRadiusTopStart="15dp"
-                                android:hint="Pollen shedders">
-
-                                <com.google.android.material.textfield.TextInputEditText
-                                    android:id="@+id/pollen_shedder"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:inputType="number"
-                                    android:maxLines="1" />
-
-                            </com.google.android.material.textfield.TextInputLayout>
-
-
-
-                        </TableRow>
-
-                        <TableRow>
-
-                            <com.google.android.material.textfield.TextInputLayout
-                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                app:boxCornerRadiusBottomEnd="15dp"
-                                app:boxCornerRadiusTopStart="15dp"
-                                app:endIconMode="custom"
-                                app:endIconDrawable="@drawable/ic_baseline_today_24"
-                                android:hint="Recommended Date">
-
-                                <com.google.android.material.textfield.TextInputEditText
-                                    android:id="@+id/ed_remnd_date"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:editable="false"
-                                    android:textColor="@color/black"
-                                    android:maxLines="1" />
-
-                            </com.google.android.material.textfield.TextInputLayout>
-
-                            <com.google.android.material.textfield.TextInputLayout
-                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:layout_marginLeft="@dimen/_5sdp"
-                                app:boxCornerRadiusBottomEnd="15dp"
-                                app:endIconMode="custom"
-                                app:endIconDrawable="@drawable/ic_baseline_today_24"
-                                app:boxCornerRadiusTopStart="15dp"
-                                android:hint="Actual Date">
-
-                                <com.google.android.material.textfield.TextInputEditText
-                                    android:id="@+id/ed_actual_date"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:editable="false"
-                                    android:textColor="@color/black"
-                                    android:maxLines="1" />
-
-                            </com.google.android.material.textfield.TextInputLayout>
-
-
-
-                        </TableRow>
-
-                        <TableRow>
-
-                            <com.google.android.material.textfield.TextInputLayout
-                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_marginBottom="4dp"
-                                android:layout_marginTop="4dp"
-                                android:layout_weight="1"
-                                android:hint="Isolation"
-                                app:boxCornerRadiusBottomEnd="15dp"
-                                app:boxCornerRadiusTopStart="15dp">
-
-
-                                <AutoCompleteTextView
-                                    android:id="@+id/ac_isolation"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:editable="false"
-                                    android:inputType="none"
-                                    android:textColor="@color/black"
-                                    android:maxLines="1" />
-
-                            </com.google.android.material.textfield.TextInputLayout>
-
-
-                        </TableRow>
-
-                        <TableRow>
-                            <com.google.android.material.textfield.TextInputLayout
-                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_marginBottom="4dp"
-                                android:layout_marginTop="4dp"
-                                android:layout_weight="1"
-                                android:id="@+id/iso_dis_show"
-                                android:visibility="gone"
-                                android:hint=" Iso. Distance"
-                                app:boxCornerRadiusBottomEnd="15dp"
-                                app:boxCornerRadiusTopStart="15dp">
-
-                                <com.google.android.material.textfield.TextInputEditText
-                                    android:id="@+id/ed_iso_dist"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:inputType="numberDecimal"
-                                    android:textColor="@color/black"
-                                    android:maxLines="1" />
-
-                            </com.google.android.material.textfield.TextInputLayout>
-
-                            <com.google.android.material.textfield.TextInputLayout
-                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_marginBottom="4dp"
-                                android:layout_weight="1"
-                                android:id="@+id/iso_time_show"
-                                android:hint=" Iso.Time"
-                                android:visibility="gone"
-                                app:boxCornerRadiusBottomEnd="15dp"
-                                app:boxCornerRadiusTopStart="15dp">
-
-                                <com.google.android.material.textfield.TextInputEditText
-                                    android:id="@+id/ed_iso_tym"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:maxLines="1" />
-
-                            </com.google.android.material.textfield.TextInputLayout>
-
-                        </TableRow>
-
-                        <TableRow>
-                            <com.google.android.material.textfield.TextInputLayout
-                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="4dp"
-                                android:layout_marginBottom="4dp"
-                                android:layout_weight="1"
-                                app:boxCornerRadiusBottomEnd="15dp"
-                                app:boxCornerRadiusTopStart="15dp"
-                                android:id="@+id/iso_grain_show"
-                                android:visibility="gone"
-                                android:hint="Grain Remark">
-
-                                <com.google.android.material.textfield.TextInputEditText
-                                    android:id="@+id/grain_remark"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:maxLines="1" />
-
-                            </com.google.android.material.textfield.TextInputLayout>
-                        </TableRow>
-
-
-                        <TableRow
-                            android:layout_marginLeft="4dp"
-                            android:layout_marginRight="4dp"
-                            android:layout_marginTop="4dp"
-                            android:visibility="gone">
-
-                            <com.google.android.material.textfield.TextInputLayout
-                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_marginBottom="4dp"
-                                android:layout_weight="1"
-                                android:hint="2 Top Dressing"
-                                app:boxCornerRadiusBottomEnd="15dp"
-                                app:boxCornerRadiusTopStart="15dp">
-
-                                <com.google.android.material.textfield.TextInputEditText
-                                    android:id="@+id/ed_top_dressing"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:inputType="number"
-                                    android:maxLines="1" />
-
-                            </com.google.android.material.textfield.TextInputLayout>
-
-
-                            <com.google.android.material.textfield.TextInputLayout
-                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="5dp"
-                                android:layout_marginBottom="4dp"
-                                android:layout_weight="1"
-                                android:hint="2 Top Dressing Bags"
-                                app:boxCornerRadiusBottomEnd="15dp"
-                                app:boxCornerRadiusTopStart="15dp">
-
-                                <com.google.android.material.textfield.TextInputEditText
-                                    android:id="@+id/ed_top_dressing_bags"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:inputType="number"
-                                    android:maxLines="1" />
-
-                            </com.google.android.material.textfield.TextInputLayout>
-
-                        </TableRow>
-
-
-
-                        <TableRow
-                            android:layout_marginTop="4dp"
-                            android:layout_marginLeft="4dp"
-                            android:layout_marginRight="4dp"
+                                android:editable="false"
+                                android:enabled="false"
+                                android:maxLines="1"
+                                android:textColor="@color/black" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_marginTop="4dp"
+                        android:layout_marginBottom="4dp">
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
                             android:layout_marginBottom="4dp"
-                            android:visibility="gone">
-
-
-
-                            <com.google.android.material.textfield.TextInputLayout
-                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="@dimen/_4sdp"
-                                android:layout_weight="1"
-                                app:boxCornerRadiusBottomEnd="15dp"
-                                app:boxCornerRadiusTopStart="15dp"
-                                android:hint="Seed Setting">
-
-                                <com.google.android.material.textfield.TextInputEditText
-                                    android:id="@+id/ed_seed_setting"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:editable="false"
-                                    android:maxLines="1" />
-
-                            </com.google.android.material.textfield.TextInputLayout>
-
-                        </TableRow>
-
-
-
-                        <TableRow
+                            android:layout_weight="1"
+                            android:hint="Date Of Inspection"
                             android:visibility="gone"
-                            android:layout_marginTop="@dimen/_4sdp">
+                            app:boxCornerRadiusBottomEnd="15dp"
+                            app:boxCornerRadiusTopStart="15dp">
 
-                            <com.google.android.material.textfield.TextInputLayout
-                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                                android:layout_width="0dp"
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/ed_date_of_insp"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginBottom="4dp"
-                                android:layout_weight="1"
-                                android:hint="Male Receipt No"
-                                app:boxCornerRadiusBottomEnd="15dp"
-                                app:boxCornerRadiusTopStart="15dp">
+                                android:editable="false"
+                                android:lines="1" />
 
-                                <com.google.android.material.textfield.TextInputEditText
-                                    android:id="@+id/receipt_no_male"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:enabled="false"
-                                    android:editable="false"
-                                    android:maxLines="2" />
+                        </com.google.android.material.textfield.TextInputLayout>
 
-                            </com.google.android.material.textfield.TextInputLayout>
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:hint="Other-types"
+                            app:boxCornerRadiusBottomEnd="15dp"
+                            app:boxCornerRadiusTopStart="15dp">
 
-                            <com.google.android.material.textfield.TextInputLayout
-                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                                android:layout_width="0dp"
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/other_types"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginLeft="@dimen/_4sdp"
-                                android:layout_weight="1"
-                                android:hint="Female Receipt No"
-                                app:boxCornerRadiusBottomEnd="15dp"
-                                app:boxCornerRadiusTopStart="15dp">
+                                android:maxLines="1"
+                                android:textColor="@color/black" />
 
-                                <com.google.android.material.textfield.TextInputEditText
-                                    android:id="@+id/receipt_no_female"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:editable="false"
-                                    android:enabled="false"
-                                    android:maxLines="1" />
+                        </com.google.android.material.textfield.TextInputLayout>
 
-                            </com.google.android.material.textfield.TextInputLayout>
+                    </TableRow>
 
-                        </TableRow>
+                    <TableRow>
 
-                        <TableRow
-                            android:visibility="gone"
-                            android:layout_marginTop="@dimen/_4sdp">
-
-                            <com.google.android.material.textfield.TextInputLayout
-                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_marginBottom="4dp"
-                                android:layout_weight="1"
-                                android:hint="Other Receipt No"
-                                app:boxCornerRadiusBottomEnd="15dp"
-                                app:boxCornerRadiusTopStart="15dp">
-
-                                <com.google.android.material.textfield.TextInputEditText
-                                    android:id="@+id/receipt_no_other"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:enabled="false"
-                                    android:editable="false"
-                                    android:maxLines="2" />
-
-                            </com.google.android.material.textfield.TextInputLayout>
-                        </TableRow>
-
-                        <TableRow
-                            android:id="@+id/til_seed_setng"
-                            android:visibility="gone"
-                            android:layout_margin="4dp">
-                            <com.google.android.material.textfield.TextInputLayout
-                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                app:boxCornerRadiusBottomEnd="15dp"
-                                app:boxCornerRadiusTopStart="15dp"
-                                android:hint="Seed Setting %">
-
-                                <com.google.android.material.textfield.TextInputEditText
-                                    android:id="@+id/ed_seed_stng_per"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:maxLines="1" />
-
-                            </com.google.android.material.textfield.TextInputLayout>
-                        </TableRow>
-
-
-
-                        <TableRow
-                            android:orientation="horizontal"
-                            android:layout_marginTop="5dp"
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
                             android:layout_marginBottom="4dp"
-                            android:layout_width="match_parent">
+                            android:layout_weight="1"
+                            android:hint="Male Shed Plants %"
+                            app:boxCornerRadiusBottomEnd="15dp"
+                            app:boxCornerRadiusTopStart="15dp">
 
-                            <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:orientation="vertical"
-                                android:layout_height="wrap_content">
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/ed_polln_shed_pr"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="numberDecimal"
+                                android:maxLines="1"
+                                android:textColor="@color/black" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+
+                    </TableRow>
+
+                    <TableRow>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:hint="Pest"
+                            app:boxCornerRadiusBottomEnd="15dp"
+                            app:boxCornerRadiusTopStart="15dp">
+
+                            <AutoCompleteTextView
+                                android:id="@+id/ac_pest"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:editable="false"
+                                android:inputType="none"
+                                android:maxLines="1"
+                                android:textColor="@color/black" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/_5sdp"
+                            android:layout_weight="1"
+                            android:hint="Diseases"
+                            app:boxCornerRadiusBottomEnd="15dp"
+                            app:boxCornerRadiusTopStart="15dp">
+
+                            <AutoCompleteTextView
+                                android:id="@+id/ac_desease"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:editable="false"
+                                android:inputType="none"
+                                android:maxLines="1"
+                                android:textColor="@color/black" />
+                        </com.google.android.material.textfield.TextInputLayout>
+                    </TableRow>
+
+                    <TableRow android:layout_marginTop="4dp">
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:hint="Pest Infestation Level"
+                            app:boxCornerRadiusBottomEnd="15dp"
+                            app:boxCornerRadiusTopStart="15dp">
+
+                            <AutoCompleteTextView
+                                android:id="@+id/ac_pest_insfestation"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:editable="false"
+                                android:inputType="none"
+                                android:textColor="@color/black"
+                                android:maxLines="1" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:layout_weight="1"
+                            android:hint="Disease infestation level "
+                            app:boxCornerRadiusBottomEnd="15dp"
+                            app:boxCornerRadiusTopStart="15dp">
+
+                            <AutoCompleteTextView
+                                android:id="@+id/ac_diseases_insfestation"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:editable="false"
+                                android:inputType="none"
+                                android:textColor="@color/black"
+                                android:maxLines="1" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                    </TableRow>
+
+                    <TableRow>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:hint="Pest Remark"
+                            app:boxCornerRadiusBottomEnd="15dp"
+                            app:boxCornerRadiusTopStart="15dp">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/pest_remark"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:maxLines="1"
+                                android:textColor="@color/black" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/_5sdp"
+                            android:layout_weight="1"
+                            android:hint="Diseases Remark"
+                            app:boxCornerRadiusBottomEnd="15dp"
+                            app:boxCornerRadiusTopStart="15dp">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/deease_remark"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:maxLines="1"
+                                android:textColor="@color/black" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+                    </TableRow>
+
+
+                    <TableRow android:layout_marginTop="4dp">
+
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:hint="Standing Acres"
+                            android:visibility="visible"
+                            app:boxCornerRadiusBottomEnd="15dp"
+                            app:boxCornerRadiusTopStart="15dp">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/ed_standing_acres"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:editable="false"
+                                android:enabled="false"
+                                android:maxLines="1"
+                                android:textColor="@color/black" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:layout_weight="1"
+                            android:hint="PLD Acres"
+                            app:boxCornerRadiusBottomEnd="15dp"
+                            app:boxCornerRadiusTopStart="15dp">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/ed_pld_acres"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:maxLines="1" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                    </TableRow>
+
+                    <TableRow android:layout_marginTop="4dp">
+
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:hint="Date of inspection"
+                            android:visibility="gone"
+                            app:boxCornerRadiusBottomEnd="15dp"
+                            app:boxCornerRadiusTopStart="15dp">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:editable="false"
+                                android:maxLines="1" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:hint="Net Acres"
+                            app:boxCornerRadiusBottomEnd="15dp"
+                            app:boxCornerRadiusTopStart="15dp">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/ed_net_acres"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:editable="false"
+                                android:enabled="false"
+                                android:maxLines="1" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+
+                    </TableRow>
+
+                    <TableRow android:layout_marginTop="4dp">
+
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:hint="Date of inspection"
+                            android:visibility="gone"
+                            app:boxCornerRadiusBottomEnd="15dp"
+                            app:boxCornerRadiusTopStart="15dp">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/date_of_inspection"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:editable="false"
+                                android:maxLines="1" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:hint="PLD Reasons"
+                            app:boxCornerRadiusBottomEnd="15dp"
+                            app:boxCornerRadiusTopStart="15dp">
+
+                            <AutoCompleteTextView
+                                android:id="@+id/ac_pld_reason"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:editable="false"
+                                android:inputType="none"
+                                android:maxLines="1"
+                                android:textColor="@color/black" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_marginLeft="4dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginRight="4dp"
+                        android:layout_marginBottom="4dp"
+                        android:visibility="gone">
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:hint="Pollen shedders"
+                            app:boxCornerRadiusBottomEnd="15dp"
+                            app:boxCornerRadiusTopStart="15dp">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/pollen_shedder"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="number"
+                                android:maxLines="1" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+                    </TableRow>
+
+                    <TableRow>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:hint="Recommended Date"
+                            app:boxCornerRadiusBottomEnd="15dp"
+                            app:boxCornerRadiusTopStart="15dp"
+                            app:endIconDrawable="@drawable/ic_baseline_today_24"
+                            app:endIconMode="custom">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/ed_remnd_date"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:editable="false"
+                                android:maxLines="1"
+                                android:textColor="@color/black" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/_5sdp"
+                            android:layout_weight="1"
+                            android:hint="Actual Date"
+                            app:boxCornerRadiusBottomEnd="15dp"
+                            app:boxCornerRadiusTopStart="15dp"
+                            app:endIconDrawable="@drawable/ic_baseline_today_24"
+                            app:endIconMode="custom">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/ed_actual_date"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:editable="false"
+                                android:maxLines="1"
+                                android:textColor="@color/black" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                    </TableRow>
+
+                    <TableRow>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:layout_marginBottom="4dp"
+                            android:layout_weight="1"
+                            android:hint="Isolation"
+                            app:boxCornerRadiusBottomEnd="15dp"
+                            app:boxCornerRadiusTopStart="15dp">
+
+
+                            <AutoCompleteTextView
+                                android:id="@+id/ac_isolation"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:editable="false"
+                                android:inputType="none"
+                                android:maxLines="1"
+                                android:textColor="@color/black" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+
+                    </TableRow>
+
+                    <TableRow>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/iso_dis_show"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:layout_marginBottom="4dp"
+                            android:layout_weight="1"
+                            android:hint=" Iso. Distance"
+                            android:visibility="gone"
+                            app:boxCornerRadiusBottomEnd="15dp"
+                            app:boxCornerRadiusTopStart="15dp">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/ed_iso_dist"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="numberDecimal"
+                                android:maxLines="1"
+                                android:textColor="@color/black" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/iso_time_show"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="4dp"
+                            android:layout_weight="1"
+                            android:hint=" Iso.Time"
+                            android:visibility="gone"
+                            app:boxCornerRadiusBottomEnd="15dp"
+                            app:boxCornerRadiusTopStart="15dp">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/ed_iso_tym"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:maxLines="1" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="4dp"
+                            android:layout_weight="1"
+                            android:hint="Grain Remark"
+                            android:visibility="gone"
+                            android:id="@+id/iso_grain_show"
+                            app:boxCornerRadiusBottomEnd="15dp"
+                            app:boxCornerRadiusTopStart="15dp">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/grain_remark"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/black"
+                                android:lines="2" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                    </TableRow>
+
+                    <TableRow android:orientation="vertical">
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:hint="Target Date Dateselling"
+                            app:boxCornerRadiusBottomEnd="15dp"
+                            app:boxCornerRadiusTopStart="15dp"
+                            app:endIconDrawable="@drawable/ic_baseline_today_24"
+                            app:endIconMode="custom">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/ed_target_date_of_dataselling"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:editable="false"
+                                android:maxLines="1"
+                                android:textColor="@color/black" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/_5sdp"
+                            android:layout_weight="1"
+                            android:baselineAligned="false"
+                            android:hint="Actual date Dataselling"
+                            app:boxCornerRadiusBottomEnd="15dp"
+                            app:boxCornerRadiusTopStart="15dp"
+                            app:endIconDrawable="@drawable/ic_baseline_today_24"
+                            app:endIconMode="custom">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/ed_actual_date_dataselling"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:editable="false"
+                                android:maxLines="1"
+                                android:textColor="@color/black" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+                    </TableRow>
+
+                    <TableRow>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/ed_netdeviationLayout"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:layout_marginBottom="4dp"
+                            android:layout_weight="1"
+                            android:hint="Net Daviation Days"
+                            android:visibility="visible"
+                            app:boxCornerRadiusBottomEnd="15dp"
+                            app:boxCornerRadiusTopStart="15dp">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/ed_net_deviation_days"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:maxLines="1" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+                    </TableRow>
+
+                    <TableRow android:orientation="vertical">
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:hint="Date First Pass"
+                            app:boxCornerRadiusBottomEnd="15dp"
+                            app:boxCornerRadiusTopStart="15dp"
+                            app:endIconDrawable="@drawable/ic_baseline_today_24"
+                            app:endIconMode="custom">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/ed_date_first_pass"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:editable="false"
+                                android:maxLines="1"
+                                android:textColor="@color/black" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                    </TableRow>
+
+                    <TableRow android:orientation="vertical">
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:hint="% of silk(1st pass)"
+                            app:boxCornerRadiusBottomEnd="15dp"
+                            app:boxCornerRadiusTopStart="15dp"
+                            app:endIconMode="custom">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/ed_silk_first_pass"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:editable="false"
+                                android:maxLines="1"
+                                android:inputType="numberDecimal"
+                                android:textColor="@color/black" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/_5sdp"
+                            android:layout_weight="1"
+                            android:baselineAligned="false"
+                            android:hint="% male sheduling(1st pass)"
+                            app:boxCornerRadiusBottomEnd="15dp"
+                            app:boxCornerRadiusTopStart="15dp"
+                            app:endIconMode="custom">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/ed_male_sheduling_first"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:editable="false"
+                                android:inputType="numberDecimal"
+                                android:maxLines="1"
+                                android:textColor="@color/black" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+                    </TableRow>
+
+                    <TableRow android:orientation="vertical">
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:hint="Date (2nd pass)"
+                            app:boxCornerRadiusBottomEnd="15dp"
+                            app:boxCornerRadiusTopStart="15dp"
+                            app:endIconDrawable="@drawable/ic_baseline_today_24"
+                            app:endIconMode="custom">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/ed_date_second_pass"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:editable="false"
+                                android:maxLines="1"
+                                android:textColor="@color/black" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+                    </TableRow>
+
+                    <TableRow android:orientation="vertical">
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:hint="% Silk(2nd pass)"
+                            app:boxCornerRadiusBottomEnd="15dp"
+                            app:boxCornerRadiusTopStart="15dp"
+                            app:endIconMode="custom">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/ed_silk_second_pass"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:editable="false"
+                                android:maxLines="1"
+                                android:inputType="numberDecimal"
+                                android:textColor="@color/black" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/_5sdp"
+                            android:layout_weight="1"
+                            android:baselineAligned="false"
+                            android:hint="% Male Sheduling(2nd pass)"
+                            app:boxCornerRadiusBottomEnd="15dp"
+                            app:boxCornerRadiusTopStart="15dp"
+                            app:endIconMode="custom">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/ed_male_sheduling_second"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:editable="false"
+                                android:inputType="numberDecimal"
+                                android:maxLines="1"
+                                android:textColor="@color/black" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+                    </TableRow>
+
+                    <TableRow android:orientation="vertical">
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:hint="Date (final pass)"
+                            app:boxCornerRadiusBottomEnd="15dp"
+                            app:boxCornerRadiusTopStart="15dp"
+                            app:endIconDrawable="@drawable/ic_baseline_today_24"
+                            app:endIconMode="custom">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/ed_date_final_pass"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:editable="false"
+                                android:maxLines="1"
+                                android:textColor="@color/black" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+                    </TableRow>
+
+                    <TableRow android:orientation="vertical">
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:hint="% Silk(final pass)"
+                            app:boxCornerRadiusBottomEnd="15dp"
+                            app:boxCornerRadiusTopStart="15dp"
+                            app:endIconMode="custom">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/ed_silk_final_pass"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:editable="false"
+                                android:inputType="numberDecimal"
+                                android:maxLines="1"
+                                android:textColor="@color/black" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/_5sdp"
+                            android:layout_weight="1"
+                            android:baselineAligned="false"
+                            android:hint="% Male Sheduling(final pass)"
+                            app:boxCornerRadiusBottomEnd="15dp"
+                            app:boxCornerRadiusTopStart="15dp"
+                            app:endIconMode="custom">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/ed_male_sheduling_final"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:editable="false"
+                                android:inputType="number"
+                                android:maxLines="1"
+                                android:textColor="@color/black" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+                    </TableRow>
+
+                    <TableRow android:orientation="vertical">
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:hint="Date (1st roughing)"
+                            app:boxCornerRadiusBottomEnd="15dp"
+                            app:boxCornerRadiusTopStart="15dp"
+                            app:endIconDrawable="@drawable/ic_baseline_today_24"
+                            app:endIconMode="custom">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/ed_date_first_roughing"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:editable="false"
+                                android:maxLines="1"
+                                android:textColor="@color/black" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+                    </TableRow>
+
+                    <TableRow android:orientation="vertical">
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:hint="Offtype(roughing 1)"
+                            app:boxCornerRadiusBottomEnd="15dp"
+                            app:boxCornerRadiusTopStart="15dp"
+                            app:endIconMode="custom">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/ed_off_type_roughing_1"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:editable="false"
+                                android:inputType="number"
+                                android:maxLines="1"
+                                android:textColor="@color/black" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_marginLeft="@dimen/_5sdp"
+                            android:hint="Male/Female(Roughing1)"
+                            app:boxCornerRadiusBottomEnd="15dp"
+                            app:boxCornerRadiusTopStart="15dp">
+
+                            <AutoCompleteTextView
+                                android:id="@+id/ac_male_female_roughing1"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:editable="false"
+                                android:inputType="none"
+                                android:maxLines="1"
+                                android:textColor="@color/black" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+                    </TableRow>
+
+                    <TableRow android:orientation="vertical">
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:hint="No of Off types (Roughing 1)"
+                            app:boxCornerRadiusBottomEnd="15dp"
+                            app:boxCornerRadiusTopStart="15dp"
+                            app:endIconMode="custom">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/ed_no_off_types_roughing1"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:editable="false"
+                                android:inputType="number"
+                                android:maxLines="1"
+                                android:textColor="@color/black" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+                    </TableRow>
+
+                    <TableRow android:orientation="vertical">
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:hint="Date (2nd roughing)"
+                            app:boxCornerRadiusBottomEnd="15dp"
+                            app:boxCornerRadiusTopStart="15dp"
+                            app:endIconDrawable="@drawable/ic_baseline_today_24"
+                            app:endIconMode="custom">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/ed_date_second_roughing"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:editable="false"
+                                android:maxLines="1"
+                                android:textColor="@color/black" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                    </TableRow>
+
+                    <TableRow android:orientation="vertical">
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:hint="Offtype(roughing 2)"
+                            app:boxCornerRadiusBottomEnd="15dp"
+                            app:boxCornerRadiusTopStart="15dp"
+                            app:endIconMode="custom">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/ed_off_type_roughing_2"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:editable="false"
+                                android:inputType="number"
+                                android:maxLines="1"
+                                android:textColor="@color/black" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:hint="Male/Female(Roughing2)"
+                            android:layout_marginLeft="@dimen/_5sdp"
+                            app:boxCornerRadiusBottomEnd="15dp"
+                            app:boxCornerRadiusTopStart="15dp">
+
+                            <AutoCompleteTextView
+                                android:id="@+id/ac_male_female_roughing2"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:editable="false"
+                                android:inputType="none"
+                                android:maxLines="1"
+                                android:textColor="@color/black" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+                    </TableRow>
+
+                    <TableRow android:orientation="vertical">
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:hint="No of Off types (Roughing 2)"
+                            app:boxCornerRadiusBottomEnd="15dp"
+                            app:boxCornerRadiusTopStart="15dp"
+                            app:endIconMode="custom">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/ed_no_off_types_roughing2"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:editable="false"
+                                android:inputType="number"
+                                android:maxLines="1"
+                                android:textColor="@color/black" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                    </TableRow>
+
+                    <TableRow android:orientation="vertical">
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:hint="Date (3rd roughing)"
+                            app:boxCornerRadiusBottomEnd="15dp"
+                            app:boxCornerRadiusTopStart="15dp"
+                            app:endIconDrawable="@drawable/ic_baseline_today_24"
+                            app:endIconMode="custom">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/ed_date_third_roughing"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:editable="false"
+                                android:maxLines="1"
+                                android:textColor="@color/black" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                    </TableRow>
+
+                    <TableRow android:orientation="vertical">
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:hint="Offtype(roughing 3)"
+                            app:boxCornerRadiusBottomEnd="15dp"
+                            app:boxCornerRadiusTopStart="15dp"
+                            app:endIconMode="custom">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/ed_off_type_roughing_3"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:editable="false"
+                                android:inputType="number"
+                                android:maxLines="1"
+                                android:textColor="@color/black" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_marginLeft="@dimen/_5sdp"
+                            android:hint="Male/Female(Roughing3)"
+                            app:boxCornerRadiusBottomEnd="15dp"
+                            app:boxCornerRadiusTopStart="15dp">
+
+                            <AutoCompleteTextView
+                                android:id="@+id/ac_male_female_roughing3"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:editable="false"
+                                android:inputType="none"
+                                android:maxLines="1"
+                                android:textColor="@color/black" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                    </TableRow>
+
+                    <TableRow android:orientation="vertical">
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:hint="No of Off types (Roughing 3)"
+                            app:boxCornerRadiusBottomEnd="15dp"
+                            app:boxCornerRadiusTopStart="15dp"
+                            app:endIconMode="custom">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/ed_no_off_types_roughing3"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:editable="false"
+                                android:inputType="number"
+                                android:maxLines="1"
+                                android:textColor="@color/black" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_marginLeft="4dp"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginRight="4dp"
+                        android:visibility="gone">
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="4dp"
+                            android:layout_weight="1"
+                            android:hint="2 Top Dressing"
+                            app:boxCornerRadiusBottomEnd="15dp"
+                            app:boxCornerRadiusTopStart="15dp">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/ed_top_dressing"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="number"
+                                android:maxLines="1" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginBottom="4dp"
+                            android:layout_weight="1"
+                            android:hint="2 Top Dressing Bags"
+                            app:boxCornerRadiusBottomEnd="15dp"
+                            app:boxCornerRadiusTopStart="15dp">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/ed_top_dressing_bags"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="number"
+                                android:maxLines="1" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                    </TableRow>
+
+
+                    <TableRow
+                        android:layout_marginLeft="4dp"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginRight="4dp"
+                        android:layout_marginBottom="4dp"
+                        android:visibility="gone">
+
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/_4sdp"
+                            android:layout_weight="1"
+                            android:hint="Seed Setting"
+                            app:boxCornerRadiusBottomEnd="15dp"
+                            app:boxCornerRadiusTopStart="15dp">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/ed_seed_setting"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:editable="false"
+                                android:maxLines="1" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                    </TableRow>
+
+
+                    <TableRow
+                        android:layout_marginTop="@dimen/_4sdp"
+                        android:visibility="gone">
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="4dp"
+                            android:layout_weight="1"
+                            android:hint="Male Receipt No"
+                            app:boxCornerRadiusBottomEnd="15dp"
+                            app:boxCornerRadiusTopStart="15dp">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/receipt_no_male"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:editable="false"
+                                android:enabled="false"
+                                android:maxLines="2" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/_4sdp"
+                            android:layout_weight="1"
+                            android:hint="Female Receipt No"
+                            app:boxCornerRadiusBottomEnd="15dp"
+                            app:boxCornerRadiusTopStart="15dp">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/receipt_no_female"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:editable="false"
+                                android:enabled="false"
+                                android:maxLines="1" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_marginTop="@dimen/_4sdp"
+                        android:visibility="gone">
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="4dp"
+                            android:layout_weight="1"
+                            android:hint="Other Receipt No"
+                            app:boxCornerRadiusBottomEnd="15dp"
+                            app:boxCornerRadiusTopStart="15dp">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/receipt_no_other"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:editable="false"
+                                android:enabled="false"
+                                android:maxLines="2" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+                    </TableRow>
+
+                    <TableRow
+                        android:id="@+id/til_seed_setng"
+                        android:layout_margin="4dp"
+                        android:visibility="gone">
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:hint="Seed Setting %"
+                            app:boxCornerRadiusBottomEnd="15dp"
+                            app:boxCornerRadiusTopStart="15dp">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/ed_seed_stng_per"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:maxLines="1" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="4dp"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
 
 
                             <com.google.android.material.chip.Chip
@@ -1135,12 +1874,12 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="@dimen/_40sdp"
                                 android:layout_marginLeft="@dimen/_4sdp"
-                                app:chipStrokeColor="@color/colorPrimary"
-                                app:chipStrokeWidth="0.5dp"
-                                app:rippleColor="@color/chip_ripple"
                                 android:text="Add Image"
                                 android:textColor="@color/colorPrimary"
-                                app:chipBackgroundColor="@color/my_app_background_color">
+                                app:chipBackgroundColor="@color/my_app_background_color"
+                                app:chipStrokeColor="@color/colorPrimary"
+                                app:chipStrokeWidth="0.5dp"
+                                app:rippleColor="@color/chip_ripple">
 
                             </com.google.android.material.chip.Chip>
 
@@ -1149,57 +1888,58 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/_4sdp"
-                                app:chipStrokeColor="@color/my_app_error_color"
-                                app:chipStrokeWidth="0.5dp"
-                                app:rippleColor="@color/profilePrimaryDark"
                                 android:text="Dlt img."
+                                android:textColor="@color/my_app_error_color"
                                 android:visibility="gone"
+                                app:chipBackgroundColor="@color/my_app_background_color"
                                 app:chipIcon="@drawable/delete"
                                 app:chipIconTint="@color/my_app_error_color"
-                                android:textColor="@color/my_app_error_color"
-                                app:chipBackgroundColor="@color/my_app_background_color">
+                                app:chipStrokeColor="@color/my_app_error_color"
+                                app:chipStrokeWidth="0.5dp"
+                                app:rippleColor="@color/profilePrimaryDark">
 
                             </com.google.android.material.chip.Chip>
-                            </LinearLayout>
+                        </LinearLayout>
 
-                            <LinearLayout
-                                android:id="@+id/image_layout1"
-                                android:layout_width="0dp"
-                                android:layout_weight="1"
-                                android:orientation="vertical"
-                                android:layout_gravity="center"
-                                android:gravity="center"
-                                android:visibility="gone"
-                                android:layout_height="wrap_content">
+                        <LinearLayout
+                            android:id="@+id/image_layout1"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            android:visibility="gone">
 
 
                             <androidx.cardview.widget.CardView
-                                    android:id="@+id/card_layout"
-                                    android:layout_width="wrap_content"
-                                    app:cardCornerRadius="@dimen/_5sdp"
-                                    android:layout_marginLeft="@dimen/_15sdp"
-                                    android:layout_height="wrap_content">
+                                android:id="@+id/card_layout"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/_15sdp"
+                                app:cardCornerRadius="@dimen/_5sdp">
 
                                 <FrameLayout
-                                    android:layout_width="match_parent"
-                                    android:visibility="visible"
                                     android:id="@+id/frame_layout"
-                                    android:layout_height="wrap_content">
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:visibility="visible">
 
                                     <ImageView
                                         android:id="@+id/image_view"
                                         android:layout_width="match_parent"
-                                        android:scaleType="fitXY"
-                                        android:layout_height="@dimen/_120sdp"/>
-                                      </FrameLayout>
-                          </androidx.cardview.widget.CardView>
-                            </LinearLayout>
+                                        android:layout_height="@dimen/_120sdp"
+                                        android:scaleType="fitXY" />
+                                </FrameLayout>
+                            </androidx.cardview.widget.CardView>
+                        </LinearLayout>
 
-                        </TableRow>
-                    </TableLayout>
+                    </TableRow>
 
-                </LinearLayout>
-            </ScrollView>
+                </TableLayout>
+
+            </LinearLayout>
+        </ScrollView>
 
 
     </LinearLayout>

@@ -826,10 +826,88 @@
                                 android:layout_marginLeft="@dimen/_4sdp"
                                 app:boxCornerRadiusBottomEnd="15dp"
                                 app:boxCornerRadiusTopStart="15dp"
-                                android:hint="Pest Infestation Level ">
+                                android:hint="Pest">
 
                                 <AutoCompleteTextView
                                     android:id="@+id/ac_pest"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:editable="false"
+                                    android:textColor="@color/black"
+                                    android:maxLines="1" />
+
+                            </com.google.android.material.textfield.TextInputLayout>
+
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_marginTop="4dp"
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="4dp">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:backgroundTint="@color/colorPrimary"
+                                android:layout_marginRight="@dimen/_5sdp"
+                                android:src="@drawable/ic_baseline_supervised_user_circle_24">
+
+                            </ImageView>
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:layout_marginLeft="@dimen/_4sdp"
+                                app:boxCornerRadiusBottomEnd="15dp"
+                                app:boxCornerRadiusTopStart="15dp"
+                                android:hint="Disease">
+
+                                <AutoCompleteTextView
+                                    android:id="@+id/ac_disease"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:editable="false"
+                                    android:textColor="@color/black"
+                                    android:maxLines="1" />
+
+                            </com.google.android.material.textfield.TextInputLayout>
+
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_marginTop="4dp"
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="4dp">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:backgroundTint="@color/colorPrimary"
+                                android:layout_marginRight="@dimen/_5sdp"
+                                android:src="@drawable/ic_baseline_supervised_user_circle_24">
+
+                            </ImageView>
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:layout_marginLeft="@dimen/_4sdp"
+                                app:boxCornerRadiusBottomEnd="15dp"
+                                app:boxCornerRadiusTopStart="15dp"
+                                android:hint="Pest Infestation Level ">
+
+                                <AutoCompleteTextView
+                                    android:id="@+id/ac_pest_insfestation"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:editable="false"
@@ -905,7 +983,7 @@
                                 app:boxCornerRadiusTopStart="15dp">
 
                                 <AutoCompleteTextView
-                                    android:id="@+id/ac_desease"
+                                    android:id="@+id/ac_disease_inflaion"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:editable="false"
@@ -915,138 +993,161 @@
                             </com.google.android.material.textfield.TextInputLayout>
                         </LinearLayout>
 
-                        <TableRow android:layout_marginTop="4dp">
+                        <LinearLayout
+                            android:layout_marginTop="8dp"
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="4dp">
 
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginRight="@dimen/_5sdp"
+                                android:src="@drawable/ic_baseline_verified_user_24">
+
+                            </ImageView>
 
                             <com.google.android.material.textfield.TextInputLayout
                                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:visibility="visible"
-                                android:hint="Standing Acres"
+                                android:layout_marginLeft="@dimen/_4sdp"
                                 app:boxCornerRadiusBottomEnd="15dp"
-                                app:boxCornerRadiusTopStart="15dp">
+                                app:boxCornerRadiusTopStart="15dp"
+                                android:hint="Standing Acres">
 
                                 <com.google.android.material.textfield.TextInputEditText
+
                                     android:id="@+id/standing_acres"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:editable="false"
-                                    android:enabled="false"
+                                    android:inputType="numberDecimal"
+                                    android:textColor="@color/black"
                                     android:maxLines="1" />
 
                             </com.google.android.material.textfield.TextInputLayout>
 
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_marginTop="8dp"
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="4dp">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginRight="@dimen/_5sdp"
+                                android:src="@drawable/ic_baseline_verified_user_24">
+
+                            </ImageView>
 
                             <com.google.android.material.textfield.TextInputLayout
                                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:layout_marginLeft="5dp"
-                                android:hint="PLD Acres"
+                                android:layout_marginLeft="@dimen/_4sdp"
                                 app:boxCornerRadiusBottomEnd="15dp"
-                                app:boxCornerRadiusTopStart="15dp">
+                                app:boxCornerRadiusTopStart="15dp"
+                                android:hint="PLD Acres">
 
                                 <com.google.android.material.textfield.TextInputEditText
+
                                     android:id="@+id/pld_acres"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
+                                    android:inputType="number"
+                                    android:textColor="@color/black"
                                     android:maxLines="1" />
 
                             </com.google.android.material.textfield.TextInputLayout>
+                        </LinearLayout>
 
-                        </TableRow>
-                        <TableRow android:layout_marginTop="4dp">
+                        <LinearLayout
+                            android:layout_marginTop="8dp"
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="4dp">
 
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginRight="@dimen/_5sdp"
+                                android:src="@drawable/ic_baseline_verified_user_24">
+
+                            </ImageView>
 
                             <com.google.android.material.textfield.TextInputLayout
                                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:visibility="gone"
-                                android:hint="Date of inspection"
+                                android:layout_marginLeft="@dimen/_4sdp"
                                 app:boxCornerRadiusBottomEnd="15dp"
-                                app:boxCornerRadiusTopStart="15dp">
+                                app:boxCornerRadiusTopStart="15dp"
+                                android:hint="Net Acres">
 
                                 <com.google.android.material.textfield.TextInputEditText
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:editable="false"
-                                    android:maxLines="1" />
 
-                            </com.google.android.material.textfield.TextInputLayout>
-
-
-                            <com.google.android.material.textfield.TextInputLayout
-                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:hint="Net Acres"
-                                app:boxCornerRadiusBottomEnd="15dp"
-                                app:boxCornerRadiusTopStart="15dp">
-
-                                <com.google.android.material.textfield.TextInputEditText
                                     android:id="@+id/net_acres"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:editable="false"
-                                    android:enabled="false"
+                                    android:inputType="number"
+                                    android:textColor="@color/black"
                                     android:maxLines="1" />
 
                             </com.google.android.material.textfield.TextInputLayout>
+                        </LinearLayout>
 
+                        <LinearLayout
+                            android:layout_marginTop="4dp"
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="4dp">
 
-                        </TableRow>
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:backgroundTint="@color/colorPrimary"
+                                android:layout_marginRight="@dimen/_5sdp"
+                                android:src="@drawable/ic_baseline_supervised_user_circle_24">
 
-                        <TableRow android:layout_marginTop="4dp">
-
-
-                            <com.google.android.material.textfield.TextInputLayout
-                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:visibility="gone"
-                                android:hint="Date of inspection"
-                                app:boxCornerRadiusBottomEnd="15dp"
-                                app:boxCornerRadiusTopStart="15dp">
-
-                                <com.google.android.material.textfield.TextInputEditText
-                                    android:id="@+id/date_of_inspection"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:editable="false"
-                                    android:maxLines="1" />
-
-                            </com.google.android.material.textfield.TextInputLayout>
-
+                            </ImageView>
 
                             <com.google.android.material.textfield.TextInputLayout
                                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
-                                android:layout_width="0dp"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:hint="PLD Reasons"
+                                android:layout_marginLeft="@dimen/_4sdp"
                                 app:boxCornerRadiusBottomEnd="15dp"
-                                app:boxCornerRadiusTopStart="15dp">
+                                app:boxCornerRadiusTopStart="15dp"
+                                android:hint="PLD Reason">
 
                                 <AutoCompleteTextView
                                     android:id="@+id/ac_pld_reason"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:editable="false"
-                                    android:inputType="none"
-                                    android:maxLines="1"
-                                    android:textColor="@color/black" />
+                                    android:textColor="@color/black"
+                                    android:maxLines="1" />
 
                             </com.google.android.material.textfield.TextInputLayout>
 
 
-                        </TableRow>
+                        </LinearLayout>
+
+
 
                         <LinearLayout
                             android:layout_marginTop="4dp"

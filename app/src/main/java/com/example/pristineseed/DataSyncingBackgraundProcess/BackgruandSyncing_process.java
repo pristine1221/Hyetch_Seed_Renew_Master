@@ -1,10 +1,18 @@
 package com.example.pristineseed.DataSyncingBackgraundProcess;
 
+import static androidx.core.content.ContextCompat.getSystemService;
+
 import android.app.Activity;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
+
+import androidx.core.app.NotificationCompat;
 
 import com.example.pristineseed.DataBaseRepository.GeographicalRepo.AreaDao;
 import com.example.pristineseed.DataBaseRepository.GeographicalRepo.AreaMasterTable;
@@ -76,6 +84,7 @@ import com.example.pristineseed.DataBaseRepository.seed_dispatch_note.SeedFarmer
 import com.example.pristineseed.DataBaseRepository.seed_dispatch_note.Seed_Farmer_master_Table;
 import com.example.pristineseed.DataBaseRepository.travel.CityMasterTable;
 import com.example.pristineseed.DataBaseRepository.travel.City_master_Dao;
+import com.example.pristineseed.R;
 import com.example.pristineseed.RoomDataBase.PristineDatabase;
 import com.example.pristineseed.SessionManageMent.SessionManagement;
 import com.example.pristineseed.global.ApiRequestFailure;
@@ -125,6 +134,7 @@ import com.example.pristineseed.retrofitApi.ApiUtils;
 import com.example.pristineseed.retrofitApi.NetworkInterface;
 import com.example.pristineseed.sql_lite_process.dao.ExceptionDao;
 import com.example.pristineseed.sql_lite_process.model.ExceptionTableModel;
+import com.example.pristineseed.ui.bootmMainScreen.BottomMainActivity;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -157,13 +167,15 @@ public class BackgruandSyncing_process extends AsyncTask<Void, Void, Void> {
     @Override
     protected void onProgressUpdate(Void... values) {
         super.onProgressUpdate(values);
+        //NotificationCall("syncing");
     }
 
     @Override
     protected Void doInBackground(Void... voids) {
         //todo get Inspection Scheduler who exist on server
         try {
-          //   getAllsecheduleInspectionData();
+           // NotificationCall("syncing");
+             getAllsecheduleInspectionData();
             //todo server sync data....
             syncDataGerminationInspection();
             syncDataSeedlingInspection();
@@ -740,7 +752,6 @@ public class BackgruandSyncing_process extends AsyncTask<Void, Void, Void> {
 
     }
 
-
     private void synDataFloweringInspection() {
         PristineDatabase db = PristineDatabase.getAppDatabase(activity);
         try {
@@ -943,41 +954,6 @@ public class BackgruandSyncing_process extends AsyncTask<Void, Void, Void> {
 
     }
 
-    @Override
-    protected void onPostExecute(Void aVoid) {
-        super.onPostExecute(aVoid);
-    }
-
-    //todo send Exception to server
-    private void exceptionSendToServer() {
-        PristineDatabase db = PristineDatabase.getAppDatabase(activity);
-        try {
-            ExceptionDao exceptionTable = db.exceptionDao();
-            List<ExceptionTableModel> exception_list = exceptionTable.getAllException();
-            NetworkInterface mAPIService = ApiUtils.getPristineAPIService();
-            for (int i = 0; i < exception_list.size(); i++) {
-                JsonObject hashMap = new JsonObject();
-                hashMap.addProperty("Exception", exception_list.get(i).getMyException());
-                hashMap.addProperty("ExceptionType", exception_list.get(i).getExceptionType());
-                hashMap.addProperty("lineNo", exception_list.get(i).getLineNo());
-                hashMap.addProperty("fragment", exception_list.get(i).getFragment());
-                hashMap.addProperty("method", exception_list.get(i).getMethod());
-                Call<List<ExceptionModel>> call = mAPIService.Exception(hashMap);
-                Response<List<ExceptionModel>> response = call.execute();
-                //Log.e("Result", response.body().get(0).message);
-            }
-            if (exception_list.size() > 0) {
-                int a = exceptionTable.deleteAllRecord();
-//                    Log.e("Delte",a+" ");
-            }
-        } catch (Exception e) {
-        } finally {
-            db.close();
-            db.destroyInstance();
-        }
-    }
-
-
     private void synDataPostMaturityInspection() {
         PristineDatabase db = PristineDatabase.getAppDatabase(activity);
         try {
@@ -1043,7 +1019,7 @@ public class BackgruandSyncing_process extends AsyncTask<Void, Void, Void> {
                 e.printStackTrace();
 
             } finally {
-               // Log.e("Insert maturty:", "Line Sync Success");
+                // Log.e("Insert maturty:", "Line Sync Success");
             }
             //todo third step complete Line..
             try {
@@ -1069,7 +1045,7 @@ public class BackgruandSyncing_process extends AsyncTask<Void, Void, Void> {
             } catch (Exception e) {
                 e.printStackTrace();
             } finally {
-               // Log.e("maturtyInsp. Complete :", "Complete Sync Success");
+                // Log.e("maturtyInsp. Complete :", "Complete Sync Success");
             }
         } catch (Exception e) {
             ApiRequestFailure.PostExceptionToServer(e, getClass().getName(), "Sync Schedule maturtyInsp. Complete", activity);
@@ -1080,7 +1056,6 @@ public class BackgruandSyncing_process extends AsyncTask<Void, Void, Void> {
         }
 
     }
-
 
     private void synDataPostHarvestingInspection() {
         PristineDatabase db = PristineDatabase.getAppDatabase(activity);
@@ -1154,7 +1129,7 @@ public class BackgruandSyncing_process extends AsyncTask<Void, Void, Void> {
                 e.printStackTrace();
 
             } finally {
-               // Log.e("Insert harvstng:", "Line Sync Success");
+                // Log.e("Insert harvstng:", "Line Sync Success");
             }
             //todo third step complete Line..
             try {
@@ -1191,7 +1166,6 @@ public class BackgruandSyncing_process extends AsyncTask<Void, Void, Void> {
         }
 
     }
-
 
     private void synDataPostQcInspection() {
         PristineDatabase db = PristineDatabase.getAppDatabase(activity);
@@ -1266,7 +1240,7 @@ public class BackgruandSyncing_process extends AsyncTask<Void, Void, Void> {
                 e.printStackTrace();
 
             } finally {
-               // Log.e("Insert Qc:", "Line Sync Success");
+                // Log.e("Insert Qc:", "Line Sync Success");
             }
             //todo third step complete Line..
             try {
@@ -1299,11 +1273,46 @@ public class BackgruandSyncing_process extends AsyncTask<Void, Void, Void> {
         } finally {
             db.close();
             db.destroyInstance();
-           // Log.e("QcInsp. Complete", " Success");
+            // Log.e("QcInsp. Complete", " Success");
         }
 
     }
 
+    @Override
+    protected void onPostExecute(Void aVoid) {
+
+        super.onPostExecute(aVoid);
+        //NotificationCall("completed syncing");
+    }
+
+    //todo send Exception to server
+    private void exceptionSendToServer() {
+        PristineDatabase db = PristineDatabase.getAppDatabase(activity);
+        try {
+            ExceptionDao exceptionTable = db.exceptionDao();
+            List<ExceptionTableModel> exception_list = exceptionTable.getAllException();
+            NetworkInterface mAPIService = ApiUtils.getPristineAPIService();
+            for (int i = 0; i < exception_list.size(); i++) {
+                JsonObject hashMap = new JsonObject();
+                hashMap.addProperty("Exception", exception_list.get(i).getMyException());
+                hashMap.addProperty("ExceptionType", exception_list.get(i).getExceptionType());
+                hashMap.addProperty("lineNo", exception_list.get(i).getLineNo());
+                hashMap.addProperty("fragment", exception_list.get(i).getFragment());
+                hashMap.addProperty("method", exception_list.get(i).getMethod());
+                Call<List<ExceptionModel>> call = mAPIService.Exception(hashMap);
+                Response<List<ExceptionModel>> response = call.execute();
+                //Log.e("Result", response.body().get(0).message);
+            }
+            if (exception_list.size() > 0) {
+                int a = exceptionTable.deleteAllRecord();
+//                    Log.e("Delte",a+" ");
+            }
+        } catch (Exception e) {
+        } finally {
+            db.close();
+            db.destroyInstance();
+        }
+    }
 
     private void getGeoServerData() {
         NetworkInterface mAPIService = ApiUtils.getPristineAPIService();
@@ -2099,5 +2108,24 @@ public class BackgruandSyncing_process extends AsyncTask<Void, Void, Void> {
                  // Log.e("fsio_sale_list","sync_done");
               }
               }
+
+    // declaring variables
+
+   /* void NotificationCall(String message) {
+        NotificationCompat.Builder builder =
+                new NotificationCompat.Builder(activity.getApplicationContext())
+                        .setSmallIcon(R.drawable.ic_notifications_black_24dp)
+                        .setContentTitle(message)
+                        .setContentText("This is a sync notification");
+
+        Intent notificationIntent = new Intent(activity.getApplicationContext(), BottomMainActivity.class);
+        PendingIntent contentIntent = PendingIntent.getActivity(activity.getApplicationContext(), 0, notificationIntent,
+                PendingIntent.FLAG_UPDATE_CURRENT);
+        builder.setContentIntent(contentIntent);
+        NotificationManager manager = (NotificationManager) (this.activity.getSystemService(Context.NOTIFICATION_SERVICE));
+        manager.notify(0, builder.build());
+    }*/
+
+
 }
 

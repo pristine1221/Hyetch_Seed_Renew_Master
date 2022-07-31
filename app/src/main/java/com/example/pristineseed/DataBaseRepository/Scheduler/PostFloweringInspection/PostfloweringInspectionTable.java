@@ -215,6 +215,70 @@ public class PostfloweringInspectionTable {
     @ColumnInfo(name = "attachment")
    private String attachment;
 
+    //todo new fields..................
+    @ColumnInfo(name = "pest_infestation_level")
+    private String pest_infestation_level ;
+
+    @ColumnInfo(name = "disease_infestation_level")
+    private String disease_infestation_level;
+
+    @ColumnInfo(name = "standing_acres")
+    private String standing_acres;
+
+    @ColumnInfo(name = "pld_acre")
+    private String pld_acre;
+
+    @ColumnInfo(name = "pld_reason")//
+    private String pld_reason;
+
+    @ColumnInfo(name = "yield_estimation")
+    private String yield_estimation;
+
+
+    public String getPest_infestation_level() {
+        return pest_infestation_level;
+    }
+    public void setPest_infestation_level(String pest_infestation_level) {
+        this.pest_infestation_level = pest_infestation_level;
+    }
+
+    public String getDisease_infestation_level() {
+        return disease_infestation_level;
+    }
+    public void setDisease_infestation_level(String disease_infestation_level) {
+        this.disease_infestation_level = disease_infestation_level;
+    }
+
+    public String getStanding_acres() {
+        return standing_acres;
+    }
+    public void setStanding_acres(String standing_acres) {
+        this.standing_acres = standing_acres;
+    }
+
+    public String getPld_acre() {
+        return pld_acre;
+    }
+    public void setPld_acre(String pld_acre) {
+        this.pld_acre = pld_acre;
+    }
+
+    public String getPld_reason() {
+        return pld_reason;
+    }
+    public void setPld_reason(String pld_reason) {
+        this.pld_reason = pld_reason;
+    }
+
+    public String getYield_estimation() {
+        return yield_estimation;
+    }
+    public void setYield_estimation(String yield_estimation) {
+        this.yield_estimation = yield_estimation;
+    }
+
+
+
     public String getAttachment() {
         return attachment;
     }
@@ -299,15 +363,19 @@ public class PostfloweringInspectionTable {
       postfloweringInspectionTable.created_on=postfloweringInspectionModel.created_on;
       postfloweringInspectionTable.attachment=postfloweringInspectionModel.attachment;
       postfloweringInspectionTable.synWithApi7=postfloweringInspectionModel.synWithApi7;
+      postfloweringInspectionTable.male_reciept_no=postfloweringInspectionModel.male_reciept_no;
+      postfloweringInspectionTable.female_reciept_no=postfloweringInspectionModel.female_reciept_no;
+      postfloweringInspectionTable.other_reciept_no=postfloweringInspectionModel.other_reciept_no;
 
-        postfloweringInspectionTable.male_reciept_no=postfloweringInspectionModel.male_reciept_no;
-        postfloweringInspectionTable.female_reciept_no=postfloweringInspectionModel.female_reciept_no;
-        postfloweringInspectionTable.other_reciept_no=postfloweringInspectionModel.other_reciept_no;
-
-
+      //todo new fields....................
+        postfloweringInspectionTable.pest_infestation_level=postfloweringInspectionModel.pest_infestation_level;
+        postfloweringInspectionTable.disease_infestation_level=postfloweringInspectionModel.disease_infestation_level;
+        postfloweringInspectionTable.standing_acres=postfloweringInspectionModel.standing_acres;
+        postfloweringInspectionTable.pld_acre=postfloweringInspectionModel.pld_acre;
+        postfloweringInspectionTable.pld_reason=postfloweringInspectionModel.pld_reason;
+        postfloweringInspectionTable.yield_estimation=postfloweringInspectionModel.yield_estimation;
 
         return postfloweringInspectionTable;
-
     }
 
 

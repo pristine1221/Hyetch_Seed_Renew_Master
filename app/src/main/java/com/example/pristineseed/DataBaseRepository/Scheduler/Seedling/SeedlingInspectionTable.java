@@ -107,6 +107,20 @@ public class SeedlingInspectionTable {
         this.diseases = diseases;
     }
 
+    public String getPest_infestation_level(){
+        return pest_infestation_level;
+    }
+    public void setPest_infestation_level(String pest_infestation_level){
+        this.pest_infestation_level=pest_infestation_level;
+    }
+
+    public String getDisease_infestation_level(){
+        return disease_infestation_level;
+    }
+    public void setDisease_infestation_level(String disease_infestation_level){
+        this.disease_infestation_level=disease_infestation_level;
+    }
+
     public String getPest_remarks() {
         return pest_remarks;
     }
@@ -181,6 +195,10 @@ public class SeedlingInspectionTable {
    private String pest;
     @ColumnInfo(name = "diseases")
    private String diseases;
+    @ColumnInfo(name = "pest_infestation_level ")
+    private String pest_infestation_level ;
+    @ColumnInfo(name = "disease_infestation_level  ")
+    private String disease_infestation_level  ;
     @ColumnInfo(name = "pest_remarks")
    private String pest_remarks;
     @ColumnInfo(name = "diseases_remarks")
@@ -197,6 +215,14 @@ public class SeedlingInspectionTable {
    private String isolation_time;
     @ColumnInfo(name = "created_on")
    private String created_on;
+    @ColumnInfo(name="standing_acres")
+    private String standing_acres;
+    @ColumnInfo(name="pld_acres")
+    private String pld_acres;
+    @ColumnInfo(name = "net_acres")
+    private String net_acres;
+    @ColumnInfo(name="pld_reason")
+    private String pld_reason;
 
     public int getSync_with_api_ins2() {
         return sync_with_api_ins2;
@@ -276,6 +302,34 @@ public class SeedlingInspectionTable {
         this.grain_remarks = grain_remarks;
     }
 
+    public String getStanding_acres(){
+        return standing_acres;
+    }
+    public void setStanding_acres(String standing_acres){
+        this.standing_acres=standing_acres;
+    }
+
+    public String getPld_acres(){
+        return pld_acres;
+    }
+    public void setPld_acres(String pld_acres){
+        this.pld_acres=pld_acres;
+    }
+
+    public String getNet_acres(){
+        return net_acres;
+    }
+    public void setNet_acres(String net_acres){
+        this.net_acres=net_acres;
+    }
+
+    public String getPld_reason(){
+        return pld_reason;
+    }
+    public void setPld_reason(String pld_reason){
+        this.pld_reason=pld_reason;
+    }
+
     @ColumnInfo(name = "female_reciept_no")
     private String female_reciept_no;
     @ColumnInfo(name = "other_reciept_no")
@@ -296,6 +350,8 @@ public class SeedlingInspectionTable {
      seedlingInspectionTable.vigor=seedLing_inspectionLineModel.vigor;
      seedlingInspectionTable.pest=seedLing_inspectionLineModel.pest;
      seedlingInspectionTable.diseases=seedLing_inspectionLineModel.diseases;
+     seedlingInspectionTable.pest_infestation_level=seedLing_inspectionLineModel.pest_infestation_level;
+     seedlingInspectionTable.disease_infestation_level=seedLing_inspectionLineModel.disease_infestation_level;
      seedlingInspectionTable.pest_remarks=seedLing_inspectionLineModel.pest_remarks;
      seedlingInspectionTable.diseases_remarks=seedLing_inspectionLineModel.diseases_remarks;
      seedlingInspectionTable.recommended_date=seedLing_inspectionLineModel.recommended_date;
@@ -312,6 +368,10 @@ public class SeedlingInspectionTable {
         seedlingInspectionTable.female_reciept_no = seedLing_inspectionLineModel.female_reciept_no;
         seedlingInspectionTable.other_reciept_no = seedLing_inspectionLineModel.other_reciept_no;
         seedlingInspectionTable.grain_remarks = seedLing_inspectionLineModel.grain_remarks;
+        seedlingInspectionTable.standing_acres=seedLing_inspectionLineModel.standing_acres;
+        seedlingInspectionTable.pld_acres=seedLing_inspectionLineModel.pld_acre;
+        seedlingInspectionTable.net_acres=seedLing_inspectionLineModel.net_acre;
+        seedlingInspectionTable.pld_reason=seedLing_inspectionLineModel.pld_reason;
 
      return seedlingInspectionTable;
 

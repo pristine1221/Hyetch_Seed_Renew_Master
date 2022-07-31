@@ -6,7 +6,10 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,11 +23,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
 import com.example.pristineseed.DataBaseRepository.GeographicalRepo.PlantingLineLotListDao;
 import com.example.pristineseed.DataBaseRepository.GeographicalRepo.PlantingLineLotListTable;
+import com.example.pristineseed.DataBaseRepository.Scheduler.GerminationInspection1_Table;
+import com.example.pristineseed.DataBaseRepository.Scheduler.GerminationInspectionDao;
 import com.example.pristineseed.DataBaseRepository.Scheduler.PostFloweringInspection.PostFloweringDao;
 import com.example.pristineseed.DataBaseRepository.Scheduler.PostFloweringInspection.PostfloweringInspectionTable;
 import com.example.pristineseed.DataBaseRepository.Scheduler.ScheduleInspectionLineDao;
@@ -89,7 +95,7 @@ public class PostFloweringInspectionFragment extends Fragment {
     private TextInputEditText ed_pollen_shedd, ed_ohter_type, ed_pollen_shed_plants, ed_pollen_shedd_per, ed_pest_remark, ed_desease_remark,
             ed_date_of_insp, recmnd_date, actual_date, ed_seed_stng_per, ed_receipt_male, ed_receipt_female, ed_receipt_other,ac_crop_stg,yield_estimation,standing_acres,pld_acres,net_acres;
 
-    private AutoCompleteTextView ac_pest, ac_desease, ac_crop_cond,ed_seed_setting,ac_pld;
+    private AutoCompleteTextView ac_pest, ac_desease, ac_crop_cond,ed_seed_setting,ac_pld,ac_pest_insfestation,ac_desease_inflation;
     private SessionManagement sessionManagement;
     private ImageView imageView;
     private FrameLayout back_press_img;
@@ -270,6 +276,10 @@ public class PostFloweringInspectionFragment extends Fragment {
 
         ac_pest = view.findViewById(R.id.ac_pest);
         ac_desease = view.findViewById(R.id.ac_desease);
+        ac_pest_insfestation = view.findViewById(R.id.ac_pest_insfestation);
+        ac_desease_inflation = view.findViewById(R.id.ac_desease_inflation);
+
+
         ac_crop_cond = view.findViewById(R.id.ac_crop_cond);
         ac_crop_stg = view.findViewById(R.id.ac_crop_stg);
 
@@ -287,19 +297,68 @@ public class PostFloweringInspectionFragment extends Fragment {
         //todo new changes auto select recommended date by recommneded days.
         recmnd_date.setText(getFemaleSowingDate());
 
+        List<String> pestList = Arrays.asList(CommonData.pest);
         List<String> deaseasList = Arrays.asList(CommonData.desease);
+
+        List<String> pldList = Arrays.asList(CommonData.pld);
+
+        List<String> pestListInflation = Arrays.asList(CommonData.pest_infalation);
+        List<String> deaseasListInflation = Arrays.asList(CommonData.desease_infalation);
+
+
         List<String> crop_condn = Arrays.asList(CommonData.crop_condition);
+
+        ItemAdapter pest_adapter = new ItemAdapter(getActivity(), R.layout.android_item_view, pestList);
+        ac_pest.setAdapter(pest_adapter);
+
         ItemAdapter desease_adapter = new ItemAdapter(getActivity(), R.layout.android_item_view, deaseasList);
         ac_desease.setAdapter(desease_adapter);
 
-        ItemAdapter pest_adapter = new ItemAdapter(getActivity(), R.layout.android_item_view, deaseasList);
-        ac_pest.setAdapter(pest_adapter);
+        ItemAdapter pld_adapter = new ItemAdapter(getActivity(), R.layout.android_item_view, pldList);
+        ac_pld.setAdapter(pld_adapter);//
+
+        ItemAdapter pest_inflation_adapter = new ItemAdapter(getActivity(), R.layout.android_item_view, pestListInflation);
+        ac_pest_insfestation.setAdapter(pest_inflation_adapter);
+
+        ItemAdapter desease_inflation_adapter = new ItemAdapter(getActivity(), R.layout.android_item_view, deaseasListInflation);
+        ac_desease_inflation.setAdapter(desease_inflation_adapter);
+
         ItemAdapter iso_adapter = new ItemAdapter(getActivity(), R.layout.android_item_view, crop_condn);
         ac_crop_cond.setAdapter(iso_adapter);
         ac_crop_stg.setText("Post Flowering");
 
         ItemAdapter seed_setting_item_adapter=new ItemAdapter(getActivity(),R.layout.android_item_view,Arrays.asList(CommonData.seed_setting));
         ed_seed_setting.setAdapter(seed_setting_item_adapter);
+
+        //todo for net acres................
+        pld_acres.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int i, int i1, int i2) {
+
+            }
+
+            @RequiresApi(api = Build.VERSION_CODES.N)
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(!s.toString().equalsIgnoreCase("")){
+                    double i=Double.parseDouble(standing_acres.getText().toString());
+                    double i1=Double.parseDouble(pld_acres.getText().toString());
+                    net_acres.setText(String.valueOf(i-i1));
+                }
+                else {
+                    MDToast.makeText(getActivity(),"pld acres can't blank or greater than standing acres",MDToast.LENGTH_SHORT,MDToast.TYPE_ERROR).show();
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
+        //todo for standing acres from germination table........................
+
+        standing_acres.setText(getStandingAcres());
     }
 
 
@@ -384,6 +443,23 @@ public class PostFloweringInspectionFragment extends Fragment {
             if(postfloweringInspectionTable.get(0).getActual_date()!=null) {
                 actual_date.setText(DateTimeUtilsCustome.splitDateInYYYMMDDslsh(postfloweringInspectionTable.get(0).getActual_date()));
             }
+            //todo new fields..................................
+
+            ac_pest_insfestation.setText(postfloweringInspectionTable.get(0).getPest_infestation_level());
+
+            ac_desease_inflation.setText(postfloweringInspectionTable.get(0).getDisease_infestation_level());
+
+            standing_acres.setText(postfloweringInspectionTable.get(0).getStanding_acres());
+
+            if(postfloweringInspectionTable.get(0).getPest_infestation_level()!=null) {
+                pld_acres.setText(postfloweringInspectionTable.get(0).getPld_acre());
+            }
+
+            ac_pld.setText(postfloweringInspectionTable.get(0).getPld_reason());
+
+            yield_estimation.setText(postfloweringInspectionTable.get(0).getYield_estimation());
+
+
             try {
                 if(postfloweringInspectionTable.get(0).getAttachment()!=null){
                     String getImageId=postfloweringInspectionTable.get(0).getAttachment();
@@ -413,14 +489,48 @@ public class PostFloweringInspectionFragment extends Fragment {
         recmnd_date.setFocusable(false);
         actual_date.setEnabled(false);
         actual_date.setFocusable(false);
+
         ac_pest.setEnabled(false);
         ac_pest.setDropDownHeight(0);
         ac_pest.setFocusable(false);
         ac_pest.setFocusableInTouchMode(false);
+
         ac_desease.setEnabled(false);
         ac_desease.setDropDownHeight(0);
         ac_desease.setFocusable(false);
         ac_desease.setFocusableInTouchMode(false);
+
+        ac_pest_insfestation.setEnabled(false);
+        ac_pest_insfestation.setDropDownHeight(0);
+        ac_pest_insfestation.setFocusable(false);
+        ac_pest_insfestation.setFocusableInTouchMode(false);
+
+        ac_desease_inflation.setEnabled(false);
+        ac_desease_inflation.setDropDownHeight(0);
+        ac_desease_inflation.setFocusable(false);
+        ac_desease_inflation.setFocusableInTouchMode(false);
+
+        ac_pld.setEnabled(false);
+        ac_pld.setDropDownHeight(0);
+        ac_pld.setFocusable(false);
+        ac_pld.setFocusableInTouchMode(false);
+
+        standing_acres.setEnabled(false);
+        standing_acres.setFocusable(false);
+        standing_acres.setFocusableInTouchMode(false);
+
+        pld_acres.setEnabled(false);
+        pld_acres.setFocusable(false);
+        pld_acres.setFocusableInTouchMode(false);
+
+        yield_estimation.setEnabled(false);
+        yield_estimation.setFocusable(false);
+        yield_estimation.setFocusableInTouchMode(false);
+
+        net_acres.setEnabled(false);
+        net_acres.setFocusable(false);
+        net_acres.setFocusableInTouchMode(false);
+
         ac_crop_cond.setEnabled(false);
         ac_crop_cond.setDropDownHeight(0);
         ac_crop_cond.setFocusableInTouchMode(false);
@@ -479,6 +589,38 @@ public class PostFloweringInspectionFragment extends Fragment {
 
             String base_64_image = StaticMethods.convertBase64(selected_file_path);
             postfloweringInspectionModel.attachment = base_64_image != null ? base_64_image : "";
+
+            //todo new fields......................................
+
+            postfloweringInspectionModel.pest_infestation_level = ac_pest_insfestation.getText().toString().trim();
+
+            postfloweringInspectionModel.disease_infestation_level = ac_desease_inflation.getText().toString().trim();
+
+            if (!standing_acres.getText().toString().trim().equalsIgnoreCase("")) {
+                postfloweringInspectionModel.standing_acres = standing_acres.getText().toString().trim();
+            } else {
+                postfloweringInspectionModel.standing_acres = "0.0";
+            }
+
+            if (!pld_acres.getText().toString().trim().equalsIgnoreCase("")) {
+                postfloweringInspectionModel.pld_acre = pld_acres.getText().toString().trim();
+            } else {
+                postfloweringInspectionModel.pld_acre = "0.0";
+            }
+
+            if (!ac_pld.getText().toString().trim().equalsIgnoreCase("")) {
+
+                postfloweringInspectionModel.pld_reason =ac_pld.getText().toString().trim();
+            } else {
+                postfloweringInspectionModel.pld_reason = "0.0";
+            }
+
+            if (!yield_estimation.getText().toString().trim().equalsIgnoreCase("")) {
+                postfloweringInspectionModel.yield_estimation = yield_estimation.getText().toString().trim();
+            } else {
+                postfloweringInspectionModel.yield_estimation = "0";
+            }
+
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -687,9 +829,7 @@ public class PostFloweringInspectionFragment extends Fragment {
         super.onResume();
     }
 
-
-
-
+    //todo for get recommended date  from planting table
     private String getFemaleSowingDate(){
 
         if(production_lot_no!=null) {
@@ -726,6 +866,28 @@ public class PostFloweringInspectionFragment extends Fragment {
         return "";
     }
 
+    //todo for get standing acres from germination table
+    GerminationInspection1_Table germinationInspection1_table;
+    private String getStandingAcres(){
+
+        if(production_lot_no!=null) {
+            PristineDatabase pristineDatabase = PristineDatabase.getAppDatabase(getActivity());
+            try {
+                GerminationInspectionDao germinationInspectionDao = pristineDatabase.germinationInspectionDao();
+                germinationInspection1_table = germinationInspectionDao.getGerminationStandingAcres(production_lot_no);
+                String standing_acres =germinationInspection1_table.getStanding_acres();
+                return standing_acres;
+            }catch (Exception e){
+                e.printStackTrace();
+            }finally {
+                pristineDatabase.close();
+                pristineDatabase.destroyInstance();
+            }
+        }
+        return "";
+    }
+
+    //todo for get image from api
     private void HitShowImageApi(String getImageId) {
         NetworkInterface mAPIService = ApiUtils.getPristineAPIService();
         Call<ResponseBody> call = mAPIService.getImageInspection(getImageId);
@@ -745,7 +907,6 @@ public class PostFloweringInspectionFragment extends Fragment {
                                 .into(imageView);
                     } else {
                         progressDialogLoading.hideDialog();
-                        Toast.makeText(getActivity(), response.message() + ". Error Code:" + response.code(), Toast.LENGTH_SHORT).show();
                     }
 
                 } catch (Exception e) {

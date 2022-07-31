@@ -24,4 +24,11 @@ public class MaturityInspectionModel {
     public String male_reciept_no;
     public String female_reciept_no;
     public String other_reciept_no;
+
+    public String pest_infestation_level;
+    public String disease_infestation_level;
+
+    public String standing_acres;
+    public String pld_acre;
+    public String pld_reason;
 }

@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -28,6 +29,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
@@ -35,6 +37,8 @@ import com.example.pristineseed.DataBaseRepository.GeographicalRepo.PlantingLine
 import com.example.pristineseed.DataBaseRepository.GeographicalRepo.PlantingLineLotListTable;
 import com.example.pristineseed.DataBaseRepository.Scheduler.FloweringInspectionTable.FloweringInspectionDao;
 import com.example.pristineseed.DataBaseRepository.Scheduler.FloweringInspectionTable.FloweringInspectionTable;
+import com.example.pristineseed.DataBaseRepository.Scheduler.GerminationInspection1_Table;
+import com.example.pristineseed.DataBaseRepository.Scheduler.GerminationInspectionDao;
 import com.example.pristineseed.DataBaseRepository.Scheduler.ScheduleInspectionLineDao;
 import com.example.pristineseed.DataBaseRepository.Scheduler.SchedulerInspectionLineTable;
 import com.example.pristineseed.DataBaseRepository.Scheduler.Scheduler_Header_Table;
@@ -69,6 +73,7 @@ import com.valdesekamdem.library.mdtoast.MDToast;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -98,10 +103,12 @@ public class FloweringInspectionFragment extends Fragment {
 
     private TextInputEditText ed_other_types, ed_date_of_insp, ed_pollen_shedder, ed_remnd_date, ed_actual_date,
             ed_top_dressing, ed_top_dressing_bags, ed_iso_dist, ed_iso_tym, ed_pest_remark, ed_deease_remark, ed_polln_shed_pr, ed_seed_stng_per,
-            ed_seed_setting, ed_grain_remark, ac_crop_stage;
+            ed_seed_setting, ed_grain_remark, ac_crop_stage,ed_target_date_of_dataselling,ed_actual_date_dataselling,ed_net_deviation_days,ed_date_first_pass,
+            ed_standing_acres,ed_pld_acres,ed_net_acres,ed_silk_first_pass,ed_silk_final_pass,ed_male_sheduling_first,ed_male_sheduling_second,ed_date_second_pass,ed_silk_second_pass,ed_date_final_pass,ed_male_sheduling_final,ed_date_first_roughing,
+            ed_off_type_roughing_1,ed_no_off_types_roughing1,ed_no_off_types_roughing2,ed_no_off_types_roughing3,ed_date_second_roughing,ed_date_third_roughing,ed_off_type_roughing_2,ed_off_type_roughing_3;
     private TextInputLayout tv_iso_dis_show, tv_iso_time_show, tv_iso_grain_show;
 
-    private AutoCompleteTextView ac_pest, ac_desease, ac_crop_condn, ac_isolation;
+    private AutoCompleteTextView ac_pest, ac_desease, ac_crop_condn, ac_isolation,ac_pld_reason,ac_male_female_roughing1,ac_male_female_roughing2,ac_male_female_roughing3,ac_pest_insfestation,ac_diseases_insfestation;
 
     private Chip add_attachment;
     private int PICK_IMAGE_SINGLE = 1;
@@ -214,10 +221,19 @@ public class FloweringInspectionFragment extends Fragment {
         ed_date_of_insp = view.findViewById(R.id.ed_date_of_insp);
         ed_pollen_shedder = view.findViewById(R.id.pollen_shedder);
         ed_other_types = view.findViewById(R.id.other_types);
+
         ac_pest = view.findViewById(R.id.ac_pest);
         ac_desease = view.findViewById(R.id.ac_desease);
+        ac_pest_insfestation = view.findViewById(R.id.ac_pest_insfestation);
+        ac_diseases_insfestation = view.findViewById(R.id.ac_diseases_insfestation);
+
+        ac_male_female_roughing1 = view.findViewById(R.id.ac_male_female_roughing1);
+        ac_male_female_roughing2 = view.findViewById(R.id.ac_male_female_roughing2);
+        ac_male_female_roughing3 = view.findViewById(R.id.ac_male_female_roughing3);
+
         ed_remnd_date = view.findViewById(R.id.ed_remnd_date);
         ed_actual_date = view.findViewById(R.id.ed_actual_date);
+
         ac_isolation = view.findViewById(R.id.ac_isolation);
         ac_crop_stage = view.findViewById(R.id.crop_stage);
         ed_top_dressing = view.findViewById(R.id.ed_top_dressing);
@@ -228,10 +244,70 @@ public class FloweringInspectionFragment extends Fragment {
         ac_crop_condn = view.findViewById(R.id.crop_condn);
         ed_deease_remark = view.findViewById(R.id.deease_remark);
         ed_polln_shed_pr = view.findViewById(R.id.ed_polln_shed_pr);
+        // todo new fields initialization.......................
+        ed_standing_acres=view.findViewById(R.id.ed_standing_acres);
+        ed_pld_acres=view.findViewById(R.id.ed_pld_acres);
+        ed_net_acres=view.findViewById(R.id.ed_net_acres);
+        ac_pld_reason=view.findViewById(R.id.ac_pld_reason);
+
+        ed_silk_first_pass=view.findViewById(R.id.ed_silk_first_pass);
+        ed_silk_second_pass=view.findViewById(R.id.ed_silk_second_pass);
+        ed_silk_final_pass=view.findViewById(R.id.ed_silk_final_pass);
+        ed_target_date_of_dataselling=view.findViewById(R.id.ed_target_date_of_dataselling);
+        ed_male_sheduling_first=view.findViewById(R.id.ed_male_sheduling_first);
+        ed_male_sheduling_second=view.findViewById(R.id.ed_male_sheduling_second);
+        ed_male_sheduling_final=view.findViewById(R.id.ed_male_sheduling_final);
+        ed_actual_date_dataselling=view.findViewById(R.id.ed_actual_date_dataselling);
+        ed_date_second_pass=view.findViewById(R.id.ed_date_second_pass);
+
+        ed_date_first_pass=view.findViewById(R.id.ed_date_first_pass);
+        ed_date_second_pass=view.findViewById(R.id.ed_date_second_pass);
+        ed_date_final_pass=view.findViewById(R.id.ed_date_final_pass);
+        ed_net_deviation_days=view.findViewById(R.id.ed_net_deviation_days);
+
+
+        ed_date_first_roughing=view.findViewById(R.id.ed_date_first_roughing);
+        ed_off_type_roughing_1=view.findViewById(R.id.ed_off_type_roughing_1);
+        ed_no_off_types_roughing1=view.findViewById(R.id.ed_no_off_types_roughing1);
+        ed_no_off_types_roughing2=view.findViewById(R.id.ed_no_off_types_roughing2);
+        ed_no_off_types_roughing3=view.findViewById(R.id.ed_no_off_types_roughing3);
+
+        ed_date_second_roughing=view.findViewById(R.id.ed_date_second_roughing);
+        ed_date_third_roughing=view.findViewById(R.id.ed_date_third_roughing);
+        ed_off_type_roughing_2=view.findViewById(R.id.ed_off_type_roughing_2);
+        ed_off_type_roughing_3=view.findViewById(R.id.ed_off_type_roughing_3);
+
 
         back_press_img.setOnClickListener(v -> {
             getFragmentManager().popBackStack();
         });
+
+        //todo for net acres................
+        ed_pld_acres.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int i, int i1, int i2) {
+
+            }
+
+            @RequiresApi(api = Build.VERSION_CODES.N)
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(!s.toString().equalsIgnoreCase("")){
+                    double i=Double.parseDouble(ed_standing_acres.getText().toString());
+                    double i1=Double.parseDouble(ed_pld_acres.getText().toString());
+                    ed_net_acres.setText(String.valueOf(i-i1));
+                }
+                else {
+                    MDToast.makeText(getActivity(),"pld acres can't blank or greater than standing acres",MDToast.LENGTH_SHORT,MDToast.TYPE_ERROR).show();
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
 
         try {
             //set header data....
@@ -282,19 +358,42 @@ public class FloweringInspectionFragment extends Fragment {
 
         List<String> isoList = Arrays.asList(CommonData.isolation_);
         List<String> deaseasList = Arrays.asList(CommonData.desease);
+        List<String> pestList = Arrays.asList(CommonData.pest);
+        List<String> pest_inflation = Arrays.asList(CommonData.pest_infalation);
+        List<String> desease_inflation = Arrays.asList(CommonData.desease_infalation);
+        List<String> pldReasonList = Arrays.asList(CommonData.pld);
+        List<String> male_female = Arrays.asList(CommonData.male_female);
 
         List<String> crop_condn = Arrays.asList(CommonData.crop_condition);
 
         ItemAdapter desease_adapter = new ItemAdapter(getActivity(), R.layout.android_item_view, deaseasList);
         ac_desease.setAdapter(desease_adapter);
 
-        ItemAdapter pest_adapter = new ItemAdapter(getActivity(), R.layout.android_item_view, deaseasList);
+        ItemAdapter ac_pest_inflation_adapter = new ItemAdapter(getActivity(), R.layout.android_item_view, pest_inflation);
+        ac_pest_insfestation.setAdapter(ac_pest_inflation_adapter);
+
+        ItemAdapter ac_desease_inflation_adapter = new ItemAdapter(getActivity(), R.layout.android_item_view, desease_inflation);
+        ac_diseases_insfestation.setAdapter(ac_desease_inflation_adapter);
+
+        ItemAdapter pld_reason_adapter = new ItemAdapter(getActivity(), R.layout.android_item_view, pldReasonList);
+        ac_pld_reason.setAdapter(pld_reason_adapter);
+
+        ItemAdapter pest_adapter = new ItemAdapter(getActivity(), R.layout.android_item_view, pestList);
         ac_pest.setAdapter(pest_adapter);
         ItemAdapter iso_adapter = new ItemAdapter(getActivity(), R.layout.android_item_view, isoList);
         ac_isolation.setAdapter(iso_adapter);
 
         ItemAdapter cropAdapter = new ItemAdapter(getActivity(), R.layout.android_item_view, crop_condn);
         ac_crop_condn.setAdapter(cropAdapter);
+
+        ItemAdapter male_female_adapter1 = new ItemAdapter(getActivity(), R.layout.android_item_view, male_female);
+        ac_male_female_roughing1.setAdapter(male_female_adapter1);
+
+        ItemAdapter male_female_adapter2 = new ItemAdapter(getActivity(), R.layout.android_item_view, male_female);
+        ac_male_female_roughing2.setAdapter(male_female_adapter2);
+
+        ItemAdapter male_female_adapter3 = new ItemAdapter(getActivity(), R.layout.android_item_view, male_female);
+        ac_male_female_roughing3.setAdapter(male_female_adapter3);
 
         ac_crop_stage.setText("Flowering");
 
@@ -303,7 +402,6 @@ public class FloweringInspectionFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if (position == 0) {
                     iso_empty_value = "";
-                    ac_isolation.setText(iso_empty_value);
                     ac_isolation.setText(iso_empty_value);
                     tv_iso_dis_show.setVisibility(View.GONE);
                     tv_iso_grain_show.setVisibility(View.GONE);
@@ -332,12 +430,72 @@ public class FloweringInspectionFragment extends Fragment {
             return true;
         });
 
-        ed_date_of_insp.setOnTouchListener((view1, motionEvent) -> {
+        ed_target_date_of_dataselling.setOnTouchListener((view2, motionEvent) -> {
+            new CustomDatePicker(getActivity()).showDatePickerDialog(ed_target_date_of_dataselling);
+            return true;
+        });
+
+        ed_actual_date_dataselling.setOnTouchListener((view3, motionEvent) -> {
+            new CustomDatePicker(getActivity()).showDatePickerDialog(ed_actual_date_dataselling);
+            return true;
+        });
+
+        //todo for calculate for net deviation days...........................
+        ed_actual_date_dataselling.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                calculateNoOfDays(ed_target_date_of_dataselling.getText().toString(), ed_actual_date_dataselling.getText().toString(), ed_net_deviation_days);
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
+        ed_date_first_pass.setOnTouchListener((view4, motionEvent) -> {
+            new CustomDatePicker(getActivity()).showDatePickerDialog(ed_date_first_pass);
+            return true;
+        });
+
+        ed_date_second_pass.setOnTouchListener((view5, motionEvent) -> {
+            new CustomDatePicker(getActivity()).showDatePickerDialog(ed_date_second_pass);
+            return true;
+        });
+
+        ed_date_final_pass.setOnTouchListener((view1, motionEvent) -> {
+            new CustomDatePicker(getActivity()).showDatePickerDialog(ed_date_final_pass);
+            return true;
+        });
+
+        ed_date_of_insp.setOnTouchListener((view6, motionEvent) -> {
             new CustomDatePicker(getActivity()).showDatePickerDialog(ed_date_of_insp);
             return true;
         });
 
+        ed_date_first_roughing.setOnTouchListener((view7, motionEvent) -> {
+            new CustomDatePicker(getActivity()).showDatePickerDialog(ed_date_first_roughing);
+            return true;
+        });
+
+        ed_date_second_roughing.setOnTouchListener((view8, motionEvent) -> {
+            new CustomDatePicker(getActivity()).showDatePickerDialog(ed_date_second_roughing);
+            return true;
+        });
+
+        ed_date_third_roughing.setOnTouchListener((view9, motionEvent) -> {
+            new CustomDatePicker(getActivity()).showDatePickerDialog(ed_date_third_roughing);
+            return true;
+        });
+
+        //todo for show recommended date from local database................
         ed_remnd_date.setText(getFemaleSowingDate());
+        ed_standing_acres.setText(getStandingAcres());
 
         ed_iso_tym.setOnTouchListener((v, motionEvent) -> {
             new CustomTimePicker(getActivity()).showDialog(ed_iso_tym);
@@ -437,17 +595,144 @@ public class FloweringInspectionFragment extends Fragment {
             ed_pollen_shedder.setFocusable(false);
             ed_pollen_shedder.setEnabled(false);
             ed_other_types.setEnabled(false);
+
             ac_pest.setEnabled(false);
             ac_pest.setDropDownHeight(0);
             ac_pest.setFocusableInTouchMode(false);
             ac_pest.setFocusable(false);
+
             ac_desease.setEnabled(false);
             ac_desease.setDropDownHeight(0);
             ac_desease.setFocusable(false);
+
+            ac_pest_insfestation.setEnabled(false);
+            ac_pest_insfestation.setDropDownHeight(0);
+            ac_pest_insfestation.setFocusable(false);
+            ac_pest_insfestation.setFocusableInTouchMode(false);
+
+            ac_diseases_insfestation.setEnabled(false);
+            ac_diseases_insfestation.setDropDownHeight(0);
+            ac_diseases_insfestation.setFocusable(false);
+            ac_diseases_insfestation.setFocusableInTouchMode(false);
+
+            ac_male_female_roughing1.setEnabled(false);
+            ac_male_female_roughing1.setDropDownHeight(0);
+            ac_male_female_roughing1.setFocusable(false);
+            ac_male_female_roughing1.setFocusableInTouchMode(false);
+
+            ac_male_female_roughing2.setEnabled(false);
+            ac_male_female_roughing2.setDropDownHeight(0);
+            ac_male_female_roughing2.setFocusable(false);
+            ac_male_female_roughing2.setFocusableInTouchMode(false);
+
+            ac_male_female_roughing3.setEnabled(false);
+            ac_male_female_roughing3.setDropDownHeight(0);
+            ac_male_female_roughing3.setFocusable(false);
+            ac_male_female_roughing3.setFocusableInTouchMode(false);
+
+            ed_target_date_of_dataselling.setEnabled(false);
+            ed_target_date_of_dataselling.setFocusableInTouchMode(false);
+
+            ed_actual_date_dataselling.setEnabled(false);
+            ed_actual_date_dataselling.setFocusableInTouchMode(false);
+
+            ed_net_deviation_days.setEnabled(false);
+            ed_net_deviation_days.setFocusableInTouchMode(false);
+
+            ed_date_first_pass.setEnabled(false);
+            ed_date_first_pass.setFocusableInTouchMode(false);
+
+            ed_date_second_pass.setEnabled(false);
+            ed_date_second_pass.setFocusableInTouchMode(false);
+
+            ed_date_final_pass.setEnabled(false);
+            ed_date_final_pass.setFocusable(false);
+            ed_date_final_pass.setFocusableInTouchMode(false);
+
+            ed_silk_first_pass.setEnabled(false);
+            ed_silk_first_pass.setFocusable(false);
+            ed_silk_first_pass.setFocusableInTouchMode(false);//
+
+            ed_silk_second_pass.setEnabled(false);
+            ed_silk_second_pass.setFocusable(false);
+            ed_silk_second_pass.setFocusableInTouchMode(false);
+
+            ed_silk_final_pass.setEnabled(false);
+            ed_silk_final_pass.setFocusable(false);
+            ed_silk_final_pass.setFocusableInTouchMode(false);
+
+            ed_male_sheduling_first.setEnabled(false);
+            ed_male_sheduling_first.setFocusable(false);
+            ed_male_sheduling_first.setFocusableInTouchMode(false);
+
+            ed_male_sheduling_second.setEnabled(false);
+            ed_male_sheduling_second.setFocusable(false);
+            ed_male_sheduling_second.setFocusableInTouchMode(false);
+
+            ed_male_sheduling_final.setEnabled(false);
+            ed_male_sheduling_final.setFocusable(false);
+            ed_male_sheduling_final.setFocusableInTouchMode(false);
+
+            ed_date_first_roughing.setEnabled(false);
+            ed_date_first_roughing.setFocusable(false);
+            ed_date_first_roughing.setFocusableInTouchMode(false);
+
+            ed_date_second_roughing.setEnabled(false);
+            ed_date_second_roughing.setFocusable(false);
+            ed_date_second_roughing.setFocusableInTouchMode(false);
+
+            ed_date_third_roughing.setEnabled(false);
+            ed_date_third_roughing.setFocusable(false);
+            ed_date_third_roughing.setFocusableInTouchMode(false);
+
+            ed_no_off_types_roughing1.setEnabled(false);
+            ed_no_off_types_roughing1.setFocusable(false);
+            ed_no_off_types_roughing1.setFocusableInTouchMode(false);
+
+            ed_no_off_types_roughing2.setEnabled(false);
+            ed_no_off_types_roughing2.setFocusable(false);
+            ed_no_off_types_roughing2.setFocusableInTouchMode(false);
+
+            ed_no_off_types_roughing3.setEnabled(false);
+            ed_no_off_types_roughing3.setFocusable(false);
+            ed_no_off_types_roughing3.setFocusableInTouchMode(false);
+
+            ed_off_type_roughing_1.setEnabled(false);
+            ed_off_type_roughing_1.setFocusable(false);
+            ed_off_type_roughing_1.setFocusableInTouchMode(false);
+
+            ed_off_type_roughing_2.setEnabled(false);
+            ed_off_type_roughing_2.setFocusable(false);
+            ed_off_type_roughing_2.setFocusableInTouchMode(false);
+
+            ed_off_type_roughing_3.setEnabled(false);
+            ed_off_type_roughing_3.setFocusable(false);
+            ed_off_type_roughing_3.setFocusableInTouchMode(false);
+
+            ed_standing_acres.setEnabled(false);
+            ed_standing_acres.setFocusable(false);
+            ed_standing_acres.setFocusableInTouchMode(false);
+
+            ed_pld_acres.setEnabled(false);
+            ed_pld_acres.setFocusable(false);
+            ed_pld_acres.setFocusableInTouchMode(false);
+
+            ed_net_acres.setEnabled(false);
+            ed_net_acres.setFocusable(false);
+            ed_net_acres.setFocusableInTouchMode(false);
+
+            ac_pld_reason.setEnabled(false);
+            ac_pld_reason.setDropDownHeight(0);
+            ac_pld_reason.setFocusable(false);
+            ac_pld_reason.setFocusableInTouchMode(false);
+
+
             ed_remnd_date.setEnabled(false);
             ed_remnd_date.setFocusableInTouchMode(false);
+
             ed_actual_date.setEnabled(false);
             ed_actual_date.setFocusable(false);
+
             ac_isolation.setEnabled(false);
             ac_isolation.setDropDownHeight(0);
             ac_isolation.setFocusableInTouchMode(false);
@@ -498,8 +783,10 @@ public class FloweringInspectionFragment extends Fragment {
                 }
                 ed_pollen_shedder.setText(floweringInspectionTable.get(0).getPollen_shedders());
                 ed_other_types.setText(floweringInspectionTable.get(0).getOther_types());
+
                 ac_pest.setText(floweringInspectionTable.get(0).getPest());
                 ac_desease.setText(floweringInspectionTable.get(0).getDiseases());
+
                 if (floweringInspectionTable.get(0).getIsolation() != null) {
                     ac_isolation.setText(floweringInspectionTable.get(0).getIsolation());
                     if (floweringInspectionTable.get(0).getIsolation().equalsIgnoreCase("Distance")) {
@@ -528,6 +815,48 @@ public class FloweringInspectionFragment extends Fragment {
                 if (floweringInspectionTable.get(0).getActual_date() != null) {
                     ed_actual_date.setText(DateTimeUtilsCustome.splitDateInYYYMMDDslsh(floweringInspectionTable.get(0).getActual_date()));
                 }
+
+                ac_pest_insfestation.setText(floweringInspectionTable.get(0).getPest_infestation_level());
+                ac_diseases_insfestation.setText(floweringInspectionTable.get(0).getDisease_infestation_level());
+                ed_standing_acres.setText(floweringInspectionTable.get(0).getStanding_acres());
+                ed_pld_acres.setText(floweringInspectionTable.get(0).getPld_acre());
+                ed_net_acres.setText(floweringInspectionTable.get(0).getNet_acre());
+                ac_pld_reason.setText(floweringInspectionTable.get(0).getPld_reason());
+
+               ed_target_date_of_dataselling.setText(DateTimeUtilsCustome.splitDateInYYYMMDDslsh(floweringInspectionTable.get(0).getTarget_date_of_detasseling()));
+               ed_actual_date_dataselling.setText(DateTimeUtilsCustome.splitDateInYYYMMDDslsh(floweringInspectionTable.get(0).getActual_date_of_detasseling()));
+
+               ed_net_deviation_days.setText(floweringInspectionTable.get(0).getNet_deviation_days());
+
+               ed_date_final_pass.setText(DateTimeUtilsCustome.splitDateInYYYMMDDslsh(floweringInspectionTable.get(0).getDate_1st_pass()));
+               ed_date_second_pass.setText(DateTimeUtilsCustome.splitDateInYYYMMDDslsh(floweringInspectionTable.get(0).getDate_2nd_pass()));
+               ed_date_final_pass.setText(DateTimeUtilsCustome.splitDateInYYYMMDDslsh(floweringInspectionTable.get(0).getDate_final_pass()));
+
+               ed_silk_first_pass.setText(floweringInspectionTable.get(0).getPrcnt_of_silk_1st_pass());
+               ed_silk_second_pass.setText(floweringInspectionTable.get(0).getPrcnt_of_silk_2nd_pass());
+               ed_silk_final_pass.setText(floweringInspectionTable.get(0).getPrcnt_of_Silk_final_pass());
+
+               ed_male_sheduling_first.setText(floweringInspectionTable.get(0).getPrcnt_of_male_shedding_1st_pass());
+               ed_male_sheduling_second.setText(floweringInspectionTable.get(0).getPrcnt_of_male_shedding_2nd_pass());
+               ed_male_sheduling_final.setText(floweringInspectionTable.get(0).getPrcnt_of_Male_Shedding_final_pass());
+
+               ed_date_first_roughing.setText(DateTimeUtilsCustome.splitDateInYYYMMDDslsh(floweringInspectionTable.get(0).getDate_1st_Roughing()));
+               ed_date_second_roughing.setText(DateTimeUtilsCustome.splitDateInYYYMMDDslsh(floweringInspectionTable.get(0).getDate_Roughing_2()));
+               ed_date_third_roughing.setText(DateTimeUtilsCustome.splitDateInYYYMMDDslsh(floweringInspectionTable.get(0).getDate_Roughing_3()));
+
+               ed_off_type_roughing_1.setText(floweringInspectionTable.get(0).getType_of_Offtype_Roughing_1());
+               ed_off_type_roughing_2.setText(floweringInspectionTable.get(0).getType_of_Offtype_Roughing_2());
+               ed_off_type_roughing_3.setText(floweringInspectionTable.get(0).getType_of_Offtype_Roughing_3());
+
+               ac_male_female_roughing1.setText(floweringInspectionTable.get(0).getIn_Male_or_Female_Roughing_1());
+               ac_male_female_roughing2.setText(floweringInspectionTable.get(0).getIn_Male_or_Female_Roughing_2());
+               ac_male_female_roughing3.setText(floweringInspectionTable.get(0).getIn_Male_or_Female_Roughing_3());
+
+               ed_no_off_types_roughing1.setText(floweringInspectionTable.get(0).getNo_of_Off_types_Roughing_1());
+               ed_no_off_types_roughing2.setText(floweringInspectionTable.get(0).getNo_of_Off_types_Roughing_2());
+               ed_no_off_types_roughing3.setText(floweringInspectionTable.get(0).getNo_of_Off_types_Roughing_3());
+
+
                 if(floweringInspectionTable.get(0).getAttachment()!=null){
                     String getImageId=floweringInspectionTable.get(0).getAttachment();
                     HitShowImageApi(getImageId );
@@ -593,6 +922,55 @@ public class FloweringInspectionFragment extends Fragment {
             } else {
                 floweringInspectionModel.pollen_shedding_plants_per = "0.0";
             }
+
+
+            //todo new fields added.................................
+            floweringInspectionModel.pest_infestation_level = ac_pest_insfestation.getText().toString().trim();
+            floweringInspectionModel.disease_infestation_level = ac_diseases_insfestation.getText().toString().trim();
+
+            floweringInspectionModel.standing_acres = ed_standing_acres.getText().toString().trim();
+            if (!ed_pld_acres.getText().toString().trim().equalsIgnoreCase("")) {
+                String pldAcres = String.valueOf(Float.parseFloat(ed_pld_acres.getText().toString().trim()));
+                floweringInspectionModel.pld_acre = !pldAcres.equalsIgnoreCase("") ? pldAcres : "0.0";
+            } else {
+                floweringInspectionModel.pld_acre = "0.0";
+            }
+
+            floweringInspectionModel.pld_reason = ac_pld_reason.getText().toString().trim();
+
+            floweringInspectionModel.prcnt_of_silk_1st_pass = ed_silk_first_pass.getText().toString().trim();
+            floweringInspectionModel.prcnt_of_silk_2nd_pass = ed_silk_second_pass.getText().toString().trim();
+            floweringInspectionModel.prcnt_of_Silk_final_pass = ed_silk_final_pass.getText().toString().trim();
+
+            floweringInspectionModel.target_date_of_detasseling = DateTimeUtilsCustome.splitDateInYYYMMDD(ed_target_date_of_dataselling.getText().toString().trim());
+            floweringInspectionModel.actual_date_of_detasseling = DateTimeUtilsCustome.splitDateInYYYMMDD(ed_actual_date_dataselling.getText().toString().trim());
+
+            floweringInspectionModel.prcnt_of_male_shedding_1st_pass = ed_male_sheduling_first.getText().toString().trim();
+            floweringInspectionModel.prcnt_of_male_shedding_2nd_pass = ed_male_sheduling_second.getText().toString().trim();
+            floweringInspectionModel.prcnt_of_Male_Shedding_final_pass = ed_male_sheduling_final.getText().toString().trim();
+
+            floweringInspectionModel.date_1st_pass = DateTimeUtilsCustome.splitDateInYYYMMDD(ed_date_first_pass.getText().toString().trim());
+            floweringInspectionModel.date_2nd_pass = DateTimeUtilsCustome.splitDateInYYYMMDD(ed_date_second_pass.getText().toString().trim());
+            floweringInspectionModel.Date_final_pass = DateTimeUtilsCustome.splitDateInYYYMMDD(ed_date_final_pass.getText().toString().trim());
+
+            floweringInspectionModel.net_deviation_days = ed_net_deviation_days.getText().toString().trim();
+
+            floweringInspectionModel.Date_1st_Roughing = DateTimeUtilsCustome.splitDateInYYYMMDD(ed_date_first_roughing.getText().toString().trim());
+            floweringInspectionModel.Date_Roughing_2 = DateTimeUtilsCustome.splitDateInYYYMMDD(ed_date_second_roughing.getText().toString().trim());
+            floweringInspectionModel.Date_Roughing_3 = DateTimeUtilsCustome.splitDateInYYYMMDD(ed_date_third_roughing.getText().toString().trim());
+
+            floweringInspectionModel.Type_of_Offtype_Roughing_1 = ed_off_type_roughing_1.getText().toString().trim();
+            floweringInspectionModel.Type_of_Offtype_Roughing_2 = ed_off_type_roughing_2.getText().toString().trim();
+            floweringInspectionModel.Type_of_Offtype_Roughing_3 = ed_off_type_roughing_3.getText().toString().trim();
+
+            floweringInspectionModel.no_of_Off_types_Roughing_1 = ed_no_off_types_roughing1.getText().toString().trim();
+            floweringInspectionModel.no_of_Off_types_Roughing_2 = ed_no_off_types_roughing2.getText().toString().trim();
+            floweringInspectionModel.no_of_Off_types_Roughing_3 = ed_no_off_types_roughing3.getText().toString().trim();
+
+            floweringInspectionModel.In_Male_or_Female_Roughing_1 = ac_male_female_roughing1.getText().toString().trim();
+            floweringInspectionModel.In_Male_or_Female_Roughing_2 = ac_male_female_roughing2.getText().toString().trim();
+            floweringInspectionModel.In_Male_or_Female_Roughing_3 = ac_male_female_roughing3.getText().toString().trim();
+
             if (selected_file_path != null && !selected_file_path.equalsIgnoreCase("")) {
                 String base_64_image = StaticMethods.convertBase64(selected_file_path);
                 if (base_64_image != null && !base_64_image.equalsIgnoreCase("")) {
@@ -807,7 +1185,7 @@ public class FloweringInspectionFragment extends Fragment {
         super.onResume();
     }
 
-
+    //todo for get date local database.................
     private String getFemaleSowingDate() {
 
         if (production_lot_no != null) {
@@ -844,6 +1222,27 @@ public class FloweringInspectionFragment extends Fragment {
         return "";
     }
 
+    //todo for get standing acres from germination table.................
+    GerminationInspection1_Table germinationInspection1_table;
+    private String getStandingAcres(){
+
+        if(production_lot_no!=null) {
+            PristineDatabase pristineDatabase = PristineDatabase.getAppDatabase(getActivity());
+            try {
+                GerminationInspectionDao germinationInspectionDao = pristineDatabase.germinationInspectionDao();
+                germinationInspection1_table = germinationInspectionDao.getGerminationStandingAcres(production_lot_no);
+                String standing_acres =germinationInspection1_table.getStanding_acres();
+                return standing_acres;
+            }catch (Exception e){
+                e.printStackTrace();
+            }finally {
+                pristineDatabase.close();
+                pristineDatabase.destroyInstance();
+            }
+        }
+        return "";
+    }
+
     private void HitShowImageApi(String getImageId) {
         NetworkInterface mAPIService = ApiUtils.getPristineAPIService();
         Call<ResponseBody> call = mAPIService.getImageInspection(getImageId);
@@ -863,7 +1262,6 @@ public class FloweringInspectionFragment extends Fragment {
                                 .into(imageView);
                     } else {
                         progressDialogLoading.hideDialog();
-                        Toast.makeText(getActivity(), response.message() + ". Error Code:" + response.code(), Toast.LENGTH_SHORT).show();
                     }
 
                 } catch (Exception e) {
@@ -879,5 +1277,24 @@ public class FloweringInspectionFragment extends Fragment {
                 ApiRequestFailure.PostExceptionToServer(t, getClass().getName(), "insert_germination", getActivity());
             }
         });
+    }
+
+    //todo for net deviation target days.............................
+    void calculateNoOfDays(String target_date, String actual_date, TextInputEditText et_calulate_days) {
+        SimpleDateFormat myFormat = new SimpleDateFormat("dd-MM-yyyy");
+        try {
+            Date date1 = myFormat.parse(target_date);
+            Date date2 = myFormat.parse(actual_date);
+            long diff = date2.getTime() - date1.getTime();
+            long seconds = diff / 1000;
+            long minutes = seconds / 60;
+            long hours = minutes / 60;
+            long days = (hours / 24) + 1;
+
+            et_calulate_days.setText(String.valueOf(days));
+            Log.e("days", String.valueOf(days));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 }

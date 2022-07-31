@@ -12,6 +12,14 @@ public class PostFloweringInspectionModel {
 
     public String pest;
     public String diseases;
+
+    public String pest_infestation_level;
+    public String disease_infestation_level;
+    public String yield_estimation;
+    public String standing_acres;
+    public String pld_acre;
+    public String pld_reason;
+
     public String pest_remarks;
     public String diseases_remarks;
     public String recommended_date;

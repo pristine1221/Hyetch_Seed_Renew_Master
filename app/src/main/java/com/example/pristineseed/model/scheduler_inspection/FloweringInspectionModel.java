@@ -26,6 +26,40 @@ public class FloweringInspectionModel {
     public String attachment;
     public String seed_setting;
     public String seed_setting_prcnt;
+
+    public String  standing_acres;
+    public String  net_acre;
+    public String  pld_acre;
+    public String  pld_reason;
+    public String pest_infestation_level;
+    public String disease_infestation_level;
+
+    public String  target_date_of_detasseling;
+    public String  actual_date_of_detasseling;
+    public String  net_deviation_days;
+    public String  date_1st_pass;
+    public String  prcnt_of_silk_1st_pass;
+    public String  prcnt_of_male_shedding_1st_pass;
+    public String  date_2nd_pass;
+    public String  prcnt_of_silk_2nd_pass;
+    public String  prcnt_of_male_shedding_2nd_pass;
+    public String  Date_final_pass;
+    public String  prcnt_of_Silk_final_pass;
+    public String  prcnt_of_Male_Shedding_final_pass;
+    public String  Date_1st_Roughing;
+    public String  Type_of_Offtype_Roughing_1;
+    public String  In_Male_or_Female_Roughing_1;
+    public String  no_of_Off_types_Roughing_1;
+    public String  Date_Roughing_2;
+    public String  Type_of_Offtype_Roughing_2;
+    public String  In_Male_or_Female_Roughing_2;
+    public String  no_of_Off_types_Roughing_2;
+    public String  Date_Roughing_3;
+    public String  Type_of_Offtype_Roughing_3;
+    public String  In_Male_or_Female_Roughing_3;
+    public String  no_of_Off_types_Roughing_3;
+
+
     public int syncwith_api6;
 
     public String male_reciept_no;

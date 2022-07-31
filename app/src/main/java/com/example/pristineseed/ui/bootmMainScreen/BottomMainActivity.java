@@ -1,6 +1,7 @@
 package com.example.pristineseed.ui.bootmMainScreen;
 import android.Manifest;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -90,10 +91,14 @@ public class BottomMainActivity extends AppCompatActivity implements BottomDialo
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bottom_main);
+        NotificationCall("syncing");
         sessionManagement = new SessionManagement(this);
+
+
         try {
             sessionManagement.setSelectedSubGroupMenuName("");
             sessionManagement.setSelectedGroupMenuName("");
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -104,15 +109,19 @@ public class BottomMainActivity extends AppCompatActivity implements BottomDialo
         tv_internet_speed_text=findViewById(R.id.tv_internet_speed_text);
         loadFragments(new DashBoard2Fragment(), "Dashboard");
         bottomDialogFragment = new BottomDialogFragmentNew().newInstance();
+
         //sendReceivePushNotification();
      //   sentFcmTokenToServer();
         AppExceptionSendToTheServer();
         gpsLocationPermission();
+
         requestPemission();
+
         //todo recevice all message from server
         this.registerReceiver(broadcastReceiver, new IntentFilter("checkInterNetBackground"));
         brodcast_internetConnectivity.postDelayed(updateTimerThread, 1000 * 60*8);
         syncAppWithServerAsyTask = new BackgruandSyncing_process(BottomMainActivity.this);
+
         statusCheck();
     }
 
@@ -143,6 +152,7 @@ public class BottomMainActivity extends AppCompatActivity implements BottomDialo
                 if (message) {
                     if (syncAppWithServerAsyTask != null && syncAppWithServerAsyTask.getStatus() != AsyncTask.Status.RUNNING) {
                         backgraund_syncing_is_running=true;
+
                         syncAppWithServerAsyTask = new BackgruandSyncing_process(BottomMainActivity.this);
                         syncAppWithServerAsyTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
                     }
@@ -305,10 +315,12 @@ public class BottomMainActivity extends AppCompatActivity implements BottomDialo
                         }
                     }
                 }
+                //Toast.makeText(getApplicationContext(), "calling...........", Toast.LENGTH_SHORT).show();
             }
             if (check_verify) {
                 getSupportFragmentManager().beginTransaction()
                         .replace(R.id.nav_host_fragment, selectedFragment, fragment_tag).commit();
+
             } else {
                 getSupportFragmentManager().beginTransaction()
                         .replace(R.id.nav_host_fragment, selectedFragment, fragment_tag)
@@ -337,7 +349,7 @@ public class BottomMainActivity extends AppCompatActivity implements BottomDialo
     @Override
     protected void onResume() {
         super.onResume();
-       // this.registerReceiver(broadcastReceiver, new IntentFilter("checkInterNetBackground"));
+        //this.registerReceiver(broadcastReceiver, new IntentFilter("checkInterNetBackground"));
         if (notificationSignalRService != null && !notificationSignalRService.isConnectionState()){
             notificationSignalRService.Connect();
         }
@@ -494,8 +506,6 @@ public class BottomMainActivity extends AppCompatActivity implements BottomDialo
         }
 
     }
-
-
     public void statusCheck() {
         final LocationManager manager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         boolean gps_enabled = false;
@@ -522,5 +532,18 @@ public class BottomMainActivity extends AppCompatActivity implements BottomDialo
 
     }
 
+    void NotificationCall(String message) {
+        NotificationCompat.Builder builder =
+                new NotificationCompat.Builder(getApplicationContext())
+                        .setSmallIcon(R.drawable.ic_notifications_black_24dp)
+                        .setContentTitle(message)
+                        .setContentText("This is a sync notification");
 
+        Intent notificationIntent = new Intent(getApplicationContext(), BottomMainActivity.class);
+        PendingIntent contentIntent = PendingIntent.getActivity(getApplicationContext(), 0, notificationIntent,
+                PendingIntent.FLAG_UPDATE_CURRENT);
+        builder.setContentIntent(contentIntent);
+        NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        manager.notify(0, builder.build());
+    }
 }
