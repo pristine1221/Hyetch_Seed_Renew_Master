@@ -1256,8 +1256,8 @@ public class FloweringInspectionFragment extends Fragment {
                         progressDialogLoading.hideDialog();
                         image_layout.setVisibility(View.VISIBLE);
                         imageView.setVisibility(View.VISIBLE);
-                        Glide.with(getActivity())
-                                .load("https://hytechdev.pristinefulfil.com/api/Inspection/Get_Image?id="+getImageId) // image url
+                        Glide.with(getActivity())//"https://hytechdev.pristinefulfil.com
+                                .load(ApiUtils.BASE_URL+"/api/Inspection/Get_Image?id="+getImageId) // image url
                                 .placeholder(R.drawable.noimage1) // any placeholder to load at start
                                 .into(imageView);
                     } else {
