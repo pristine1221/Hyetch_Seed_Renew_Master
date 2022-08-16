@@ -44,6 +44,9 @@ public class SchedulerModel {
         public String sowing_date_male;
         public String sowing_date_female;
         public String sowing_date_other;
+
+        public String pld_marked;
+
         public int inspection_1;
         public String ins1_completed_on;
         public int ins1_nav_sync;

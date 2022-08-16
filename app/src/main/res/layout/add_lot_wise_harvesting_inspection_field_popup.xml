@@ -701,7 +701,7 @@
                                     android:id="@+id/ed_moister_per"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:inputType="numberDecimal"
+                                    android:inputType="number"
                                     android:textColor="@color/black"
                                     android:maxLines="1" />
 
@@ -965,6 +965,39 @@
                         </LinearLayout>
 
                         <LinearLayout
+                            android:layout_margin="4dp"
+                            android:layout_height="wrap_content"
+                            android:layout_width="match_parent"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="@dimen/_5sdp"
+                                android:layout_gravity="center_vertical"
+                                android:src="@drawable/ic_baseline_verified_user_24">
+                            </ImageView>
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                app:boxCornerRadiusBottomEnd="15dp"
+                                app:boxCornerRadiusTopStart="15dp"
+                                android:hint="Diseases remark">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/deasease_rmrk"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="@color/black"
+                                    android:lines="2" />
+
+                            </com.google.android.material.textfield.TextInputLayout>
+                        </LinearLayout>
+
+                        <LinearLayout
                         android:orientation="horizontal"
                         android:layout_height="wrap_content"
                         android:layout_width="match_parent"
@@ -996,6 +1029,7 @@
                                     android:layout_height="wrap_content"
                                     android:editable="false"
                                     android:enabled="false"
+                                    android:textColor="@color/black"
                                     android:maxLines="1" />
 
                             </com.google.android.material.textfield.TextInputLayout>
@@ -1016,6 +1050,7 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:inputType="number"
+                                    android:textColor="@color/black"
                                     android:maxLines="1" />
 
                             </com.google.android.material.textfield.TextInputLayout>
@@ -1058,11 +1093,12 @@
                         </LinearLayout>
 
                         <LinearLayout
+                            android:id="@+id/ac_pld_reason_layout"
                             android:layout_margin="4dp"
                             android:orientation="horizontal"
+                            android:visibility="gone"
                             android:layout_height="wrap_content"
-                            android:layout_width="match_parent"
-                            >
+                            android:layout_width="match_parent">
 
                             <ImageView
                                 android:layout_width="wrap_content"
@@ -1095,38 +1131,7 @@
 
                         </LinearLayout>
 
-                        <LinearLayout
-                            android:layout_margin="4dp"
-                            android:layout_height="wrap_content"
-                            android:layout_width="match_parent"
-                            android:orientation="horizontal">
 
-                            <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginRight="@dimen/_5sdp"
-                                android:layout_gravity="center_vertical"
-                                android:src="@drawable/ic_baseline_verified_user_24">
-                            </ImageView>
-
-                            <com.google.android.material.textfield.TextInputLayout
-                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                app:boxCornerRadiusBottomEnd="15dp"
-                                app:boxCornerRadiusTopStart="15dp"
-                                android:hint="Diseases remark">
-
-                                <com.google.android.material.textfield.TextInputEditText
-                                    android:id="@+id/deasease_rmrk"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:textColor="@color/black"
-                                    android:lines="2" />
-
-                            </com.google.android.material.textfield.TextInputLayout>
-                        </LinearLayout>
 
                         <LinearLayout
                             android:layout_margin="4dp"

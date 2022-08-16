@@ -430,6 +430,96 @@
                             </com.google.android.material.textfield.TextInputLayout>
                         </LinearLayout>
 
+                        <LinearLayout
+                            android:id="@+id/ed_standing_acres_layout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:visibility="gone">
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="4dp"
+                                android:layout_weight="1"
+                                android:hint="Standing Acres"
+                                app:boxCornerRadiusBottomEnd="15dp"
+                                app:boxCornerRadiusTopStart="15dp">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/ed_standing_acres"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:inputType="numberDecimal"
+                                    android:textColor="@color/black"
+                                    android:fontFamily="@font/product_sans_regular"
+                                    android:textSize="@dimen/_10sdp"
+                                    android:maxLines="1" />
+
+                            </com.google.android.material.textfield.TextInputLayout>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/ed_pld_acres_layout"
+                            android:orientation="horizontal"
+                            android:visibility="gone">
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="4dp"
+                                android:layout_weight="1"
+                                android:hint="PLD Acres"
+                                app:boxCornerRadiusBottomEnd="15dp"
+                                app:boxCornerRadiusTopStart="15dp">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/ed_pld_acres"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:inputType="numberDecimal"
+                                    android:textColor="@color/black"
+                                    android:fontFamily="@font/product_sans_regular"
+                                    android:textSize="@dimen/_10sdp"
+                                    android:maxLines="1" />
+
+                            </com.google.android.material.textfield.TextInputLayout>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/ac_pld_reason_layout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:visibility="gone">
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="4dp"
+                                android:layout_weight="1"
+                                android:hint="PLD Reason"
+                                app:boxCornerRadiusBottomEnd="15dp"
+                                app:boxCornerRadiusTopStart="15dp">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/ac_pld_reason"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:inputType="numberDecimal"
+                                    android:textColor="@color/black"
+                                    android:fontFamily="@font/product_sans_regular"
+                                    android:textSize="@dimen/_10sdp"
+                                    android:maxLines="1" />
+
+                            </com.google.android.material.textfield.TextInputLayout>
+                        </LinearLayout>
+
                     </LinearLayout>
 
 

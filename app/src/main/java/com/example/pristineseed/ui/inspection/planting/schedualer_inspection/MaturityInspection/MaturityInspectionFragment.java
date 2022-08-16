@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.InputFilter;
 import android.text.TextWatcher;
 import android.util.Base64;
 import android.util.Log;
@@ -30,6 +31,11 @@ import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.example.pristineseed.DataBaseRepository.GeographicalRepo.PlantingLineLotListDao;
 import com.example.pristineseed.DataBaseRepository.GeographicalRepo.PlantingLineLotListTable;
 import com.example.pristineseed.DataBaseRepository.Scheduler.GerminationInspection1_Table;
@@ -51,17 +57,20 @@ import com.example.pristineseed.global.CustomDatePicker;
 import com.example.pristineseed.global.DateTimeUtilsCustome;
 import com.example.pristineseed.global.FilePath;
 import com.example.pristineseed.global.LoadingDialog;
+
+import com.example.pristineseed.global.MinMAXFilter;
 import com.example.pristineseed.global.StaticMethods;
 import com.example.pristineseed.model.ResponseModel;
 import com.example.pristineseed.model.scheduler_inspection.CompleteGerminationInspectionModel;
 import com.example.pristineseed.model.scheduler_inspection.MaturityInspectionModel;
-import com.example.pristineseed.model.scheduler_inspection.PostFloweringInspectionModel;
+
 import com.example.pristineseed.retrofitApi.ApiUtils;
 import com.example.pristineseed.retrofitApi.NetworkInterface;
 import com.example.pristineseed.ui.adapter.ItemAdapter;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -90,6 +99,7 @@ public class MaturityInspectionFragment extends Fragment {
     private String scheduler_no = "", production_lot_no = "";
     private Button bt_complete, btn_save_record;
     private SessionManagement sessionManagement;
+    private LinearLayout ac_pld_reason_layout;
 
     private TextInputEditText ed_date_of_inspection, ed_yield_est, ed_pest_remark, ed_desease_remark, ed_remmmdn_date, ac_crop_state,
             ed_actual_date,
@@ -207,6 +217,7 @@ public class MaturityInspectionFragment extends Fragment {
         ac_crop_state = view.findViewById(R.id.crop_stage);
         ac_pest = view.findViewById(R.id.ac_pest);
         ac_disease = view.findViewById(R.id.ac_disease);
+        ac_pld_reason_layout = view.findViewById(R.id.ac_pld_reason_layout);
         ac_pld_reason=view.findViewById(R.id.ac_pld_reason);
         ed_yield_est = view.findViewById(R.id.yeld_estimate);
         ed_abiotic_streess = view.findViewById(R.id.abitoic_stress);
@@ -288,6 +299,9 @@ public class MaturityInspectionFragment extends Fragment {
             return true;
         });
 
+        //todo for input filter on edittext........................
+      /*  ed_seed_stng_per.setFilters( new InputFilter[]{ new MinMAXFilter( "0" , "100" )}) ;*/
+
         //todo for net acres................
         pld_acres.addTextChangedListener(new TextWatcher() {
             @Override
@@ -299,9 +313,21 @@ public class MaturityInspectionFragment extends Fragment {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if(!s.toString().equalsIgnoreCase("")){
-                    double i=Double.parseDouble(standing_acres.getText().toString());
-                    double i1=Double.parseDouble(pld_acres.getText().toString());
-                    net_acres.setText(String.valueOf(i-i1));
+                    try {
+                        double i=Double.parseDouble(standing_acres.getText().toString());
+                        double i1=Double.parseDouble(pld_acres.getText().toString());
+                        net_acres.setText(String.valueOf(i-i1));
+                        if(!pld_acres.getText().toString().equalsIgnoreCase("") && i1>0)
+                            ac_pld_reason_layout.setVisibility(View.VISIBLE);
+
+                        else
+                            ac_pld_reason_layout.setVisibility(View.GONE);
+                    }
+
+                    catch (Exception e){
+                        e.printStackTrace();
+                    }
+
                 }
                 else {
                     MDToast.makeText(getActivity(),"pld acres can't blank or greater than standing acres",MDToast.LENGTH_SHORT,MDToast.TYPE_ERROR).show();
@@ -459,16 +485,76 @@ public class MaturityInspectionFragment extends Fragment {
                 pld_acres.setText(maturityInspectionTable.get(0).getPld_acre());
             }
 
-            ac_pld_reason.setText(maturityInspectionTable.get(0).getPld_reason());
+            if(maturityInspectionTable.get(0).getPld_reason().length()>0) {
+                try {
+                    ac_pld_reason.setText(maturityInspectionTable.get(0).getPld_reason());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+            else {
+                ac_pld_reason_layout.setVisibility(View.GONE);
+            }
 
 
             try {
-                if(maturityInspectionTable.get(0).getAttachment()!=null){
-                    String getImageId=maturityInspectionTable.get(0).getAttachment();
-                    HitShowImageApi(getImageId );
+                if(maturityInspectionTable.get(0).getAttachment()!=null) {
+                    image_layout.setVisibility(View.VISIBLE);
+                    imageView.setVisibility(View.VISIBLE);
+                    try {
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Glide.get(getActivity()).clearDiskCache();
+                            }
+                        }).start();
+                        String file_attachment = maturityInspectionTable.get(0).getAttachment();
+
+                        try {
+                            byte[] decodedString = Base64.decode(file_attachment, Base64.DEFAULT);
+                            Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+                            Glide.with(getActivity())
+                                    .asBitmap()
+                                    .load(decodedByte)
+                                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                                    .skipMemoryCache(true)
+                                    .listener(new RequestListener<Bitmap>() {
+                                        @Override
+                                        public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Bitmap> target, boolean isFirstResource) {
+                                            Glide.with(getActivity())
+                                                    .load(ApiUtils.BASE_URL + "/api/Inspection/Get_Image?id="+file_attachment) // image urlApiUtils.BASE_URL + "/api/Inspection/Get_Image?id=" +
+                                                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                                                    .skipMemoryCache(true)
+                                                    .placeholder(R.drawable.noimage1)
+                                                    // any placeholder to load at start
+                                                    .into(imageView);
+                                            return false;
+                                        }
+
+                                        @Override
+                                        public boolean onResourceReady(Bitmap resource, Object model, Target<Bitmap> target, DataSource dataSource, boolean isFirstResource) {
+                                            return false;
+                                        }
+                                    })
+                                    .placeholder(R.drawable.noimage1)
+                                    .into(imageView);
+                        }
+                        catch (Exception e){
+                            Glide.with(getActivity())
+                                    .load(ApiUtils.BASE_URL + "/api/Inspection/Get_Image?id="+file_attachment) // image urlApiUtils.BASE_URL + "/api/Inspection/Get_Image?id=" +
+                                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                                    .skipMemoryCache(true)
+                                    .placeholder(R.drawable.noimage1)
+                                    // any placeholder to load at start
+                                    .into(imageView);
+                        }
+
+                    } catch (Exception e) {
+                        e.getMessage();
+                    }
                 }
                 else {
-                    Toast.makeText(getActivity(), maturityInspectionTable.get(0).getAttachment(), Toast.LENGTH_SHORT).show();
+                    MDToast.makeText(getActivity(), "no image", MDToast.LENGTH_SHORT,MDToast.TYPE_ERROR).show();
                 }
 
             } catch (Exception e) {
@@ -571,9 +657,9 @@ public class MaturityInspectionFragment extends Fragment {
             maturityInspectionModel.crop_stage = ac_crop_state.getText().toString().trim();
             maturityInspectionModel.abiotic_stress = ed_abiotic_streess.getText().toString().trim();
             maturityInspectionModel.remarks = ed_pest_remark.getText().toString().trim();
-            maturityInspectionModel.pest = ac_pest.getText().toString().trim();
             maturityInspectionModel.pest_remarks = ed_pest_remark.getText().toString().trim();
-            maturityInspectionModel.diseases = ac_pest.getText().toString().trim();
+            maturityInspectionModel.pest = ac_pest.getText().toString().trim();
+            maturityInspectionModel.diseases = ac_disease.getText().toString().trim();
             maturityInspectionModel.diseases_remarks = ed_desease_remark.getText().toString().trim();
             maturityInspectionModel.recommended_date = DateTimeUtilsCustome.splitDateInYYYMMDD(ed_remmmdn_date.getText().toString().trim());
             maturityInspectionModel.actual_date = DateTimeUtilsCustome.splitDateInYYYMMDD(ed_actual_date.getText().toString().trim());
@@ -615,7 +701,7 @@ public class MaturityInspectionFragment extends Fragment {
 
                 maturityInspectionModel.pld_reason =ac_pld_reason.getText().toString().trim();
             } else {
-                maturityInspectionModel.pld_reason = "0.0";
+                maturityInspectionModel.pld_reason = "";
             }
 
             String base_64_image = StaticMethods.convertBase64(selected_file_path);
@@ -666,7 +752,7 @@ public class MaturityInspectionFragment extends Fragment {
                                 List<ResponseModel> inserResponseList = response.body();
                                 if (inserResponseList != null && inserResponseList.size() > 0 && inserResponseList.get(0).condition) {
                                     maturityInspectionModel.syncWithApi8 = 1;
-                                    maturityInspectionModel.attachment = selected_file_path;
+                                    maturityInspectionModel.attachment = inserResponseList.get(0).attachment;
                                     maturityInspectionModelArrayList.add(maturityInspectionModel);
                                     insertMaturitiyInspectionLine(maturityInspectionModelArrayList);
                                     StaticMethods.showMDToast(getActivity(), inserResponseList.get(0).message, MDToast.TYPE_SUCCESS);

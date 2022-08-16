@@ -31,6 +31,12 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.example.pristineseed.DataBaseRepository.GeographicalRepo.PlantingLineLotListDao;
 import com.example.pristineseed.DataBaseRepository.GeographicalRepo.PlantingLineLotListTable;
 import com.example.pristineseed.DataBaseRepository.Scheduler.FloweringInspectionTable.FloweringInspectionDao;
@@ -67,6 +73,7 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.valdesekamdem.library.mdtoast.MDToast;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -524,7 +531,64 @@ public class QCInspectionFragment extends Fragment {
                     ed_actual_date_qc.setText(DateTimeUtilsCustome.splitDateInYYYMMDDslsh(qcInspectionTableList.get(0).getDate_of_actual_date()));
                 }
                 try {
-                    String file_attachment = qcInspectionTableList.get(0).getAttachment();
+                    if(qcInspectionTableList.get(0).getAttachment()!=null) {
+                        image_layout.setVisibility(View.VISIBLE);
+                        imageView.setVisibility(View.VISIBLE);
+                        try {
+                            new Thread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Glide.get(getActivity()).clearDiskCache();
+                                }
+                            }).start();
+                            String file_attachment = qcInspectionTableList.get(0).getAttachment();
+
+                            try {
+                                byte[] decodedString = Base64.decode(file_attachment, Base64.DEFAULT);
+                                Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+                                Glide.with(getActivity())
+                                        .asBitmap()
+                                        .load(decodedByte)
+                                        .diskCacheStrategy(DiskCacheStrategy.NONE)
+                                        .skipMemoryCache(true)
+                                        .listener(new RequestListener<Bitmap>() {
+                                            @Override
+                                            public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Bitmap> target, boolean isFirstResource) {
+                                                Glide.with(getActivity())
+                                                        .load(ApiUtils.BASE_URL + "/api/Inspection/Get_Image?id="+file_attachment) // image urlApiUtils.BASE_URL + "/api/Inspection/Get_Image?id=" +
+                                                        .diskCacheStrategy(DiskCacheStrategy.NONE)
+                                                        .skipMemoryCache(true)
+                                                        .placeholder(R.drawable.noimage1)
+                                                        // any placeholder to load at start
+                                                        .into(imageView);
+                                                return false;
+                                            }
+
+                                            @Override
+                                            public boolean onResourceReady(Bitmap resource, Object model, Target<Bitmap> target, DataSource dataSource, boolean isFirstResource) {
+                                                return false;
+                                            }
+                                        })
+                                        .placeholder(R.drawable.noimage1)
+                                        .into(imageView);
+                            }
+                            catch (Exception e){
+                                Glide.with(getActivity())
+                                        .load(ApiUtils.BASE_URL + "/api/Inspection/Get_Image?id="+file_attachment) // image urlApiUtils.BASE_URL + "/api/Inspection/Get_Image?id=" +
+                                        .diskCacheStrategy(DiskCacheStrategy.NONE)
+                                        .skipMemoryCache(true)
+                                        .placeholder(R.drawable.noimage1)
+                                        // any placeholder to load at start
+                                        .into(imageView);
+                            }
+
+                        } catch (Exception e) {
+                            e.getMessage();
+                        }
+                    }
+                    else {
+                        MDToast.makeText(getActivity(), "no image", MDToast.LENGTH_SHORT,MDToast.TYPE_ERROR).show();
+                    }
 
                 } catch (Exception e) {
                     e.getMessage();
@@ -612,7 +676,7 @@ public class QCInspectionFragment extends Fragment {
                                 List<ResponseModel> inserResponseList = response.body();
                                 if (inserResponseList != null && inserResponseList.size() > 0 && inserResponseList.get(0).condition) {
                                     qc_inspection_model.syncwithQc = 1;
-                                    qc_inspection_model.attachment = selected_file_path;
+                                    qc_inspection_model.attachment = inserResponseList.get(0).attachment;
                                     qc_inspection_modelArrayList.add(qc_inspection_model);
                                     insertQCInspectionLine(qc_inspection_modelArrayList);
                                     Toast.makeText(getActivity(), inserResponseList.get(0).message, Toast.LENGTH_SHORT).show();

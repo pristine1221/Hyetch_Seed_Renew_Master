@@ -1,6 +1,4 @@
 package com.example.pristineseed.ui.inspection.planting.schedualer_inspection.FlowringInspection;
-
-import android.content.ClipData;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -9,6 +7,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.InputFilter;
 import android.text.TextWatcher;
 import android.util.Base64;
 import android.util.Log;
@@ -33,6 +32,11 @@ import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.example.pristineseed.DataBaseRepository.GeographicalRepo.PlantingLineLotListDao;
 import com.example.pristineseed.DataBaseRepository.GeographicalRepo.PlantingLineLotListTable;
 import com.example.pristineseed.DataBaseRepository.Scheduler.FloweringInspectionTable.FloweringInspectionDao;
@@ -53,6 +57,7 @@ import com.example.pristineseed.global.CustomTimePicker;
 import com.example.pristineseed.global.DateTimeUtilsCustome;
 import com.example.pristineseed.global.FilePath;
 import com.example.pristineseed.global.LoadingDialog;
+import com.example.pristineseed.global.MinMAXFilter;
 import com.example.pristineseed.global.StaticMethods;
 import com.example.pristineseed.model.ResponseModel;
 import com.example.pristineseed.model.scheduler_inspection.CompleteGerminationInspectionModel;
@@ -106,7 +111,7 @@ public class FloweringInspectionFragment extends Fragment {
             ed_seed_setting, ed_grain_remark, ac_crop_stage,ed_target_date_of_dataselling,ed_actual_date_dataselling,ed_net_deviation_days,ed_date_first_pass,
             ed_standing_acres,ed_pld_acres,ed_net_acres,ed_silk_first_pass,ed_silk_final_pass,ed_male_sheduling_first,ed_male_sheduling_second,ed_date_second_pass,ed_silk_second_pass,ed_date_final_pass,ed_male_sheduling_final,ed_date_first_roughing,
             ed_off_type_roughing_1,ed_no_off_types_roughing1,ed_no_off_types_roughing2,ed_no_off_types_roughing3,ed_date_second_roughing,ed_date_third_roughing,ed_off_type_roughing_2,ed_off_type_roughing_3;
-    private TextInputLayout tv_iso_dis_show, tv_iso_time_show, tv_iso_grain_show;
+    private TextInputLayout tv_iso_dis_show, tv_iso_time_show, tv_iso_grain_show,ac_pld_reason_layout;
 
     private AutoCompleteTextView ac_pest, ac_desease, ac_crop_condn, ac_isolation,ac_pld_reason,ac_male_female_roughing1,ac_male_female_roughing2,ac_male_female_roughing3,ac_pest_insfestation,ac_diseases_insfestation;
 
@@ -249,38 +254,56 @@ public class FloweringInspectionFragment extends Fragment {
         ed_pld_acres=view.findViewById(R.id.ed_pld_acres);
         ed_net_acres=view.findViewById(R.id.ed_net_acres);
         ac_pld_reason=view.findViewById(R.id.ac_pld_reason);
+        ac_pld_reason_layout=view.findViewById(R.id.ac_pld_reason_layout);
 
         ed_silk_first_pass=view.findViewById(R.id.ed_silk_first_pass);
         ed_silk_second_pass=view.findViewById(R.id.ed_silk_second_pass);
         ed_silk_final_pass=view.findViewById(R.id.ed_silk_final_pass);
-        ed_target_date_of_dataselling=view.findViewById(R.id.ed_target_date_of_dataselling);
+
         ed_male_sheduling_first=view.findViewById(R.id.ed_male_sheduling_first);
         ed_male_sheduling_second=view.findViewById(R.id.ed_male_sheduling_second);
         ed_male_sheduling_final=view.findViewById(R.id.ed_male_sheduling_final);
+
+        ed_target_date_of_dataselling=view.findViewById(R.id.ed_target_date_of_dataselling);
         ed_actual_date_dataselling=view.findViewById(R.id.ed_actual_date_dataselling);
-        ed_date_second_pass=view.findViewById(R.id.ed_date_second_pass);
+
 
         ed_date_first_pass=view.findViewById(R.id.ed_date_first_pass);
         ed_date_second_pass=view.findViewById(R.id.ed_date_second_pass);
         ed_date_final_pass=view.findViewById(R.id.ed_date_final_pass);
+
         ed_net_deviation_days=view.findViewById(R.id.ed_net_deviation_days);
 
 
         ed_date_first_roughing=view.findViewById(R.id.ed_date_first_roughing);
+        ed_date_second_roughing=view.findViewById(R.id.ed_date_second_roughing);
+        ed_date_third_roughing=view.findViewById(R.id.ed_date_third_roughing);
+
         ed_off_type_roughing_1=view.findViewById(R.id.ed_off_type_roughing_1);
+        ed_off_type_roughing_2=view.findViewById(R.id.ed_off_type_roughing_2);
+        ed_off_type_roughing_3=view.findViewById(R.id.ed_off_type_roughing_3);
+
         ed_no_off_types_roughing1=view.findViewById(R.id.ed_no_off_types_roughing1);
         ed_no_off_types_roughing2=view.findViewById(R.id.ed_no_off_types_roughing2);
         ed_no_off_types_roughing3=view.findViewById(R.id.ed_no_off_types_roughing3);
 
-        ed_date_second_roughing=view.findViewById(R.id.ed_date_second_roughing);
-        ed_date_third_roughing=view.findViewById(R.id.ed_date_third_roughing);
-        ed_off_type_roughing_2=view.findViewById(R.id.ed_off_type_roughing_2);
-        ed_off_type_roughing_3=view.findViewById(R.id.ed_off_type_roughing_3);
+        //todo  Assigning filters
+       /* ed_polln_shed_pr.setFilters( new InputFilter[]{ new MinMAXFilter( "1" , "99" )}) ;
+        //ed_polln_shed_pr.setFilters( new InputFilter[]{ new MinMAXFilter( "0" , "100")}) ;
+        ed_silk_first_pass.setFilters( new InputFilter[]{ new MinMAXFilter( "0" , "100" )}) ;
+        ed_silk_second_pass.setFilters( new InputFilter[]{ new MinMAXFilter( "0" , "100" )}) ;
+        ed_silk_final_pass.setFilters( new InputFilter[]{ new MinMAXFilter( "0" , "100" )}) ;
+        ed_male_sheduling_first.setFilters( new InputFilter[]{ new MinMAXFilter( "0" , "100" )}) ;
+        ed_male_sheduling_second.setFilters( new InputFilter[]{ new MinMAXFilter( "0" , "100" )}) ;
+        ed_male_sheduling_final.setFilters( new InputFilter[]{ new MinMAXFilter( "0" , "100" )}) ;
+*/
+
 
 
         back_press_img.setOnClickListener(v -> {
             getFragmentManager().popBackStack();
         });
+
 
         //todo for net acres................
         ed_pld_acres.addTextChangedListener(new TextWatcher() {
@@ -293,9 +316,19 @@ public class FloweringInspectionFragment extends Fragment {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if(!s.toString().equalsIgnoreCase("")){
-                    double i=Double.parseDouble(ed_standing_acres.getText().toString());
-                    double i1=Double.parseDouble(ed_pld_acres.getText().toString());
-                    ed_net_acres.setText(String.valueOf(i-i1));
+                    try {
+                        double i=Double.parseDouble(ed_standing_acres.getText().toString());
+                        double i1=Double.parseDouble(ed_pld_acres.getText().toString());
+                        ed_net_acres.setText(String.valueOf(i-i1));
+                        if(!ed_pld_acres.getText().toString().equalsIgnoreCase("") && i1>0)
+                            ac_pld_reason_layout.setVisibility(View.VISIBLE);
+                        else
+                            ac_pld_reason_layout.setVisibility(View.GONE);
+                    }
+                    catch (Exception e){
+                        e.printStackTrace();
+                    }
+
                 }
                 else {
                     MDToast.makeText(getActivity(),"pld acres can't blank or greater than standing acres",MDToast.LENGTH_SHORT,MDToast.TYPE_ERROR).show();
@@ -307,7 +340,6 @@ public class FloweringInspectionFragment extends Fragment {
 
             }
         });
-
 
         try {
             //set header data....
@@ -525,6 +557,8 @@ public class FloweringInspectionFragment extends Fragment {
             intent.setAction(Intent.ACTION_GET_CONTENT);
             startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_SINGLE);
         });
+
+
     }
 
     private List<FloweringInspectionTable> floweringInspectionTable = new ArrayList<>();
@@ -804,13 +838,15 @@ public class FloweringInspectionFragment extends Fragment {
                 }
                 ac_crop_stage.setText(floweringInspectionTable.get(0).getCrop_stage());
                 ed_top_dressing.setText(floweringInspectionTable.get(0).getSecond_top_dressing());
-                ed_top_dressing_bags.setText(String.valueOf(floweringInspectionTable.get(0).getSecond_top_dressing_bags()));
+                ed_top_dressing_bags.setText(floweringInspectionTable.get(0).getSecond_top_dressing_bags());
                 ed_pest_remark.setText(floweringInspectionTable.get(0).getPest_remarks());
                 ac_crop_condn.setText(floweringInspectionTable.get(0).getCrop_condition());
                 ed_deease_remark.setText(floweringInspectionTable.get(0).getDiseases_remarks());
-                ed_polln_shed_pr.setText(String.valueOf(floweringInspectionTable.get(0).getPollen_shedding_plants_per()));
+
+                ed_polln_shed_pr.setText(floweringInspectionTable.get(0).getPollen_shedding_plants_per());
+
                 if (floweringInspectionTable.get(0).getRecommended_date() != null) {
-                    //ed_remnd_date.setText(DateTimeUtilsCustome.splitDateInYYYMMDDslsh(floweringInspectionTable.get(0).getRecommended_date()));
+                    ed_remnd_date.setText(DateTimeUtilsCustome.splitDateInYYYMMDDslsh(floweringInspectionTable.get(0).getRecommended_date()));
                 }
                 if (floweringInspectionTable.get(0).getActual_date() != null) {
                     ed_actual_date.setText(DateTimeUtilsCustome.splitDateInYYYMMDDslsh(floweringInspectionTable.get(0).getActual_date()));
@@ -821,14 +857,25 @@ public class FloweringInspectionFragment extends Fragment {
                 ed_standing_acres.setText(floweringInspectionTable.get(0).getStanding_acres());
                 ed_pld_acres.setText(floweringInspectionTable.get(0).getPld_acre());
                 ed_net_acres.setText(floweringInspectionTable.get(0).getNet_acre());
-                ac_pld_reason.setText(floweringInspectionTable.get(0).getPld_reason());
+
+
+                if(floweringInspectionTable.get(0).getPld_reason().length()>0) {
+                    try {
+                        ac_pld_reason.setText(floweringInspectionTable.get(0).getPld_reason());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+                else {
+                    ac_pld_reason_layout.setVisibility(View.GONE);
+                }
 
                ed_target_date_of_dataselling.setText(DateTimeUtilsCustome.splitDateInYYYMMDDslsh(floweringInspectionTable.get(0).getTarget_date_of_detasseling()));
                ed_actual_date_dataselling.setText(DateTimeUtilsCustome.splitDateInYYYMMDDslsh(floweringInspectionTable.get(0).getActual_date_of_detasseling()));
 
                ed_net_deviation_days.setText(floweringInspectionTable.get(0).getNet_deviation_days());
 
-               ed_date_final_pass.setText(DateTimeUtilsCustome.splitDateInYYYMMDDslsh(floweringInspectionTable.get(0).getDate_1st_pass()));
+               ed_date_first_pass.setText(DateTimeUtilsCustome.splitDateInYYYMMDDslsh(floweringInspectionTable.get(0).getDate_1st_pass()));
                ed_date_second_pass.setText(DateTimeUtilsCustome.splitDateInYYYMMDDslsh(floweringInspectionTable.get(0).getDate_2nd_pass()));
                ed_date_final_pass.setText(DateTimeUtilsCustome.splitDateInYYYMMDDslsh(floweringInspectionTable.get(0).getDate_final_pass()));
 
@@ -857,13 +904,65 @@ public class FloweringInspectionFragment extends Fragment {
                ed_no_off_types_roughing3.setText(floweringInspectionTable.get(0).getNo_of_Off_types_Roughing_3());
 
 
-                if(floweringInspectionTable.get(0).getAttachment()!=null){
-                    String getImageId=floweringInspectionTable.get(0).getAttachment();
-                    HitShowImageApi(getImageId );
+                if(floweringInspectionTable.get(0).getAttachment()!=null) {
+                    image_layout.setVisibility(View.VISIBLE);
+                    imageView.setVisibility(View.VISIBLE);
+                    try {
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Glide.get(getActivity()).clearDiskCache();
+                            }
+                        }).start();
+                        String file_attachment = floweringInspectionTable.get(0).getAttachment();
+
+                        try {
+                            byte[] decodedString = Base64.decode(file_attachment, Base64.DEFAULT);
+                            Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+                            Glide.with(getActivity())
+                                    .asBitmap()
+                                    .load(decodedByte)
+                                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                                    .skipMemoryCache(true)
+                                    .listener(new RequestListener<Bitmap>() {
+                                        @Override
+                                        public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Bitmap> target, boolean isFirstResource) {
+                                            Glide.with(getActivity())
+                                                    .load(ApiUtils.BASE_URL + "/api/Inspection/Get_Image?id="+file_attachment) // image urlApiUtils.BASE_URL + "/api/Inspection/Get_Image?id=" +
+                                                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                                                    .skipMemoryCache(true)
+                                                    .placeholder(R.drawable.noimage1)
+                                                    // any placeholder to load at start
+                                                    .into(imageView);
+                                            return false;
+                                        }
+
+                                        @Override
+                                        public boolean onResourceReady(Bitmap resource, Object model, Target<Bitmap> target, DataSource dataSource, boolean isFirstResource) {
+                                            return false;
+                                        }
+                                    })
+                                    .placeholder(R.drawable.noimage1)
+                                    .into(imageView);
+                        }
+                        catch (Exception e){
+                            Glide.with(getActivity())
+                                    .load(ApiUtils.BASE_URL + "/api/Inspection/Get_Image?id="+file_attachment) // image urlApiUtils.BASE_URL + "/api/Inspection/Get_Image?id=" +
+                                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                                    .skipMemoryCache(true)
+                                    .placeholder(R.drawable.noimage1)
+                                    // any placeholder to load at start
+                                    .into(imageView);
+                        }
+
+                    } catch (Exception e) {
+                        e.getMessage();
+                    }
                 }
                 else {
-                    Toast.makeText(getActivity(), floweringInspectionTable.get(0).getAttachment(), Toast.LENGTH_SHORT).show();
+                    MDToast.makeText(getActivity(), "no image", MDToast.LENGTH_SHORT,MDToast.TYPE_ERROR).show();
                 }
+
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -942,12 +1041,14 @@ public class FloweringInspectionFragment extends Fragment {
             floweringInspectionModel.prcnt_of_silk_2nd_pass = ed_silk_second_pass.getText().toString().trim();
             floweringInspectionModel.prcnt_of_Silk_final_pass = ed_silk_final_pass.getText().toString().trim();
 
-            floweringInspectionModel.target_date_of_detasseling = DateTimeUtilsCustome.splitDateInYYYMMDD(ed_target_date_of_dataselling.getText().toString().trim());
-            floweringInspectionModel.actual_date_of_detasseling = DateTimeUtilsCustome.splitDateInYYYMMDD(ed_actual_date_dataselling.getText().toString().trim());
-
             floweringInspectionModel.prcnt_of_male_shedding_1st_pass = ed_male_sheduling_first.getText().toString().trim();
             floweringInspectionModel.prcnt_of_male_shedding_2nd_pass = ed_male_sheduling_second.getText().toString().trim();
             floweringInspectionModel.prcnt_of_Male_Shedding_final_pass = ed_male_sheduling_final.getText().toString().trim();
+
+            floweringInspectionModel.target_date_of_detasseling = DateTimeUtilsCustome.splitDateInYYYMMDD(ed_target_date_of_dataselling.getText().toString().trim());
+            floweringInspectionModel.actual_date_of_detasseling = DateTimeUtilsCustome.splitDateInYYYMMDD(ed_actual_date_dataselling.getText().toString().trim());
+
+
 
             floweringInspectionModel.date_1st_pass = DateTimeUtilsCustome.splitDateInYYYMMDD(ed_date_first_pass.getText().toString().trim());
             floweringInspectionModel.date_2nd_pass = DateTimeUtilsCustome.splitDateInYYYMMDD(ed_date_second_pass.getText().toString().trim());
@@ -1000,8 +1101,7 @@ public class FloweringInspectionFragment extends Fragment {
             Toast.makeText(getActivity(), "Please enter actual date. ", Toast.LENGTH_SHORT).show();
         } else if (ac_isolation.getText().toString().trim().equalsIgnoreCase("-")) {
             Toast.makeText(getActivity(), "Invalid input (-) ! ", Toast.LENGTH_SHORT).show();
-        } else if (ac_isolation.getText().toString().trim().equalsIgnoreCase("-")) {
-            Toast.makeText(getActivity(), "Invalid input (-) ! ", Toast.LENGTH_SHORT).show();
+
         } else {
             if (isNetwork) {
                 NetworkInterface mAPIService = ApiUtils.getPristineAPIService();
@@ -1018,7 +1118,7 @@ public class FloweringInspectionFragment extends Fragment {
                                 List<ResponseModel> inserResponseList = response.body();
                                 if (inserResponseList != null && inserResponseList.size() > 0 && inserResponseList.get(0).condition) {
                                     floweringInspectionModel.syncwith_api6 = 1;
-                                    floweringInspectionModel.attachment = selected_file_path;
+                                    floweringInspectionModel.attachment = inserResponseList.get(0).attachment;
                                     flowering_InspectionList.add(floweringInspectionModel);
                                     insertFloweringInspectionLine(flowering_InspectionList);
                                     StaticMethods.showMDToast(getActivity(), inserResponseList.get(0).message, MDToast.TYPE_SUCCESS);
@@ -1297,4 +1397,5 @@ public class FloweringInspectionFragment extends Fragment {
             e.printStackTrace();
         }
     }
+
 }

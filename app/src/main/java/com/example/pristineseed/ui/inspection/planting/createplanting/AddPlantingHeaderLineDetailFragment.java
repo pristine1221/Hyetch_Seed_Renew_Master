@@ -101,11 +101,11 @@ public class AddPlantingHeaderLineDetailFragment extends Fragment implements Org
 
     private SessionManagement sessionManagement;
     private AutoCompleteTextView dropdown_sesion_code, drop_down_parent, ac_select_loc, ac_type, ac_stage_code, ac_doc_sub_type;
-    private TextInputEditText edit_date, ed_total_sowing_area, ed_date_of_harvest, ed_total_land_acres;
+    private TextInputEditText edit_date, ed_total_sowing_area, ed_date_of_harvest, ed_total_land_acres,ac_pld_reason,ed_pld_acres,ed_standing_acres;
     private Button create_header_btn;
     private TextView tv_palnting_no, tv_date, tv_season_code, tv_stage_code, tv_parent_type, tv_header_no, tv_doc_subtype,
             tv_land_acr, tv_sowing_acr_type, tv_org_name, tv_org_code;
-    private LinearLayout header_create_section;
+    private LinearLayout header_create_section,ed_standing_acres_layout,ed_pld_acres_layout,ac_pld_reason_layout;
     private LinearLayout planting_detail_header_section;
     private ListView listview;
     private Chip chip_add_line_planting, delete_header_chip, complete_header;
@@ -421,6 +421,14 @@ public class AddPlantingHeaderLineDetailFragment extends Fragment implements Org
         radio_group_land_lease = popupView.findViewById(R.id.groupradio_land_lease);
         radio_1 = popupView.findViewById(R.id.radia_id1);
         radio_2 = popupView.findViewById(R.id.radia_id2);
+
+        ed_standing_acres_layout = popupView.findViewById(R.id.ed_standing_acres_layout);
+        ed_pld_acres_layout = popupView.findViewById(R.id.ed_pld_acres_layout);
+        ac_pld_reason_layout = popupView.findViewById(R.id.ac_pld_reason_layout);
+
+        ed_standing_acres = popupView.findViewById(R.id.ed_standing_acres);
+        ed_pld_acres = popupView.findViewById(R.id.ed_pld_acres);
+        ac_pld_reason = popupView.findViewById(R.id.ac_pld_reason);
 
         ed_item_clsof_seed = popupView.findViewById(R.id.ed_item_clsof_seed);
         item_crop_type = popupView.findViewById(R.id.item_crop_type);
@@ -962,6 +970,51 @@ public class AddPlantingHeaderLineDetailFragment extends Fragment implements Org
                     ed_sowing_area.setFocusable(false);
                     ed_sowing_area.setEnabled(false);
                 }
+            //todo new fiels add.....................................
+                if(plantingLineModel.standing_acres != null && !plantingLineModel.standing_acres.equalsIgnoreCase("")){
+                    ed_standing_acres_layout.setVisibility(View.VISIBLE);
+                    ed_standing_acres.setText(plantingLineModel.standing_acres);
+                    ed_standing_acres.setFocusableInTouchMode(false);
+                    ed_standing_acres.clearFocus();
+                    ed_standing_acres.setFocusable(false);
+                    ed_standing_acres.setEnabled(false);
+                }
+                else {
+                    ed_standing_acres.setText("");
+                    ed_standing_acres.setFocusableInTouchMode(false);
+                    ed_standing_acres.setFocusable(false);
+                    ed_standing_acres.setEnabled(false);
+                }
+
+                if(plantingLineModel.pld_acre != null && !plantingLineModel.pld_acre.equalsIgnoreCase("")){
+                    ed_pld_acres_layout.setVisibility(View.VISIBLE);
+                    ed_pld_acres.setText(plantingLineModel.pld_acre);
+                    ed_pld_acres.setFocusableInTouchMode(false);
+                    ed_pld_acres.clearFocus();
+                    ed_pld_acres.setFocusable(false);
+                    ed_pld_acres.setEnabled(false);
+                }
+                else {
+                    ed_pld_acres.setText("");
+                    ed_pld_acres.setFocusableInTouchMode(false);
+                    ed_pld_acres.setFocusable(false);
+                    ed_pld_acres.setEnabled(false);
+                }
+
+                if(plantingLineModel.pld_reason != null && !plantingLineModel.pld_reason.equalsIgnoreCase("")){
+                    ac_pld_reason_layout.setVisibility(View.VISIBLE);
+                    ac_pld_reason.setText(plantingLineModel.pld_reason);
+                    ac_pld_reason.setFocusableInTouchMode(false);
+                    ac_pld_reason.clearFocus();
+                    ac_pld_reason.setFocusable(false);
+                    ac_pld_reason.setEnabled(false);
+                }
+                else {
+                    ac_pld_reason.setText("");
+                    ac_pld_reason.setFocusableInTouchMode(false);
+                    ac_pld_reason.setFocusable(false);
+                    ac_pld_reason.setEnabled(false);
+                }
 
                 if(plantingLineModel.zone != null && !plantingLineModel.zone.equalsIgnoreCase("")){
                     ac_zone_.setText(plantingLineModel.zone);
@@ -1313,10 +1366,12 @@ public class AddPlantingHeaderLineDetailFragment extends Fragment implements Org
         ed_date_of_harvest = view.findViewById(R.id.ed_date_of_harvest);
         ed_total_sowing_area = view.findViewById(R.id.ed_total_sowing_area);
         ed_total_land_acres = view.findViewById(R.id.ed_total_land_acres);
+
         ac_doc_sub_type = view.findViewById(R.id.ac_doc_sub_type);
         ac_stage_code = view.findViewById(R.id.ac_stage_code);
         create_header_btn = view.findViewById(R.id.create_header_btn);
         header_create_section = view.findViewById(R.id.header_create_section);
+
         planting_detail_header_section = view.findViewById(R.id.planting_detail_header_section);
         ac_type = view.findViewById(R.id.ac_type);
         loading_content = view.findViewById(R.id.content_loading);

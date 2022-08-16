@@ -768,6 +768,7 @@ android:descendantFocusability="beforeDescendants"-->
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:editable="false"
+                                    android:textColor="@color/black"
                                     android:enabled="false"
                                     android:maxLines="1" />
 
@@ -788,7 +789,8 @@ android:descendantFocusability="beforeDescendants"-->
                                     android:id="@+id/pld_acres"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:maxLines="1" />
+                                    android:maxLines="1"
+                                    android:textColor="@color/black"/>
 
                             </com.google.android.material.textfield.TextInputLayout>
 
@@ -829,6 +831,7 @@ android:descendantFocusability="beforeDescendants"-->
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:editable="false"
+                                    android:textColor="@color/black"
                                     android:enabled="false"
                                     android:maxLines="1" />
 
@@ -862,10 +865,12 @@ android:descendantFocusability="beforeDescendants"-->
 
                             <com.google.android.material.textfield.TextInputLayout
                                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+                                android:id="@+id/ac_pld_reason_layout"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:hint="PLD Reasons"
+                                android:visibility="gone"
                                 app:boxCornerRadiusBottomEnd="15dp"
                                 app:boxCornerRadiusTopStart="15dp">
 

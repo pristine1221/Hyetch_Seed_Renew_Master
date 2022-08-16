@@ -179,6 +179,7 @@ private  SessionManagement sessionManagement;
                                         sessionManagement.setSalePersonCode(getResponse.salespersoncode);
                                        // String menu=sessionManagement.getMenu();
                                         sessionManagement.setLastSession("1");
+                                        //this.deleteDataBase();
                                         Intent mainIntent1 = new Intent(LoginActivity.this, BottomMainActivity.class);
                                         mainIntent1.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                         startActivity(mainIntent1);

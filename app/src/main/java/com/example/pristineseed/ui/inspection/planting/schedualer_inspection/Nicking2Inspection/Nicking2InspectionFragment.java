@@ -26,6 +26,11 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.example.pristineseed.DataBaseRepository.GeographicalRepo.PlantingLineLotListDao;
 import com.example.pristineseed.DataBaseRepository.GeographicalRepo.PlantingLineLotListTable;
 import com.example.pristineseed.DataBaseRepository.Scheduler.NickingInpection.Nickin2InspectionDao;
@@ -397,12 +402,63 @@ public class Nicking2InspectionFragment extends Fragment {
             }
 
             try {
-                if(nicking2InspectionTable.get(0).getAttachment()!=null){
-                    String getImageId=nicking2InspectionTable.get(0).getAttachment();
-                    HitShowImageApi(getImageId );
+                if(nicking2InspectionTable.get(0).getAttachment()!=null) {
+                    image_layout.setVisibility(View.VISIBLE);
+                    imageView.setVisibility(View.VISIBLE);
+                    try {
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Glide.get(getActivity()).clearDiskCache();
+                            }
+                        }).start();
+                        String file_attachment = nicking2InspectionTable.get(0).getAttachment();
+
+                        try {
+                            byte[] decodedString = Base64.decode(file_attachment, Base64.DEFAULT);
+                            Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+                            Glide.with(getActivity())
+                                    .asBitmap()
+                                    .load(decodedByte)
+                                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                                    .skipMemoryCache(true)
+                                    .listener(new RequestListener<Bitmap>() {
+                                        @Override
+                                        public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Bitmap> target, boolean isFirstResource) {
+                                            Glide.with(getActivity())
+                                                    .load(ApiUtils.BASE_URL + "/api/Inspection/Get_Image?id="+file_attachment) // image urlApiUtils.BASE_URL + "/api/Inspection/Get_Image?id=" +
+                                                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                                                    .skipMemoryCache(true)
+                                                    .placeholder(R.drawable.noimage1)
+                                                    // any placeholder to load at start
+                                                    .into(imageView);
+                                            return false;
+                                        }
+
+                                        @Override
+                                        public boolean onResourceReady(Bitmap resource, Object model, Target<Bitmap> target, DataSource dataSource, boolean isFirstResource) {
+                                            return false;
+                                        }
+                                    })
+                                    .placeholder(R.drawable.noimage1)
+                                    .into(imageView);
+                        }
+                        catch (Exception e){
+                            Glide.with(getActivity())
+                                    .load(ApiUtils.BASE_URL + "/api/Inspection/Get_Image?id="+file_attachment) // image urlApiUtils.BASE_URL + "/api/Inspection/Get_Image?id=" +
+                                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                                    .skipMemoryCache(true)
+                                    .placeholder(R.drawable.noimage1)
+                                    // any placeholder to load at start
+                                    .into(imageView);
+                        }
+
+                    } catch (Exception e) {
+                        e.getMessage();
+                    }
                 }
                 else {
-                    Toast.makeText(getActivity(), nicking2InspectionTable.get(0).getAttachment(), Toast.LENGTH_SHORT).show();
+                    MDToast.makeText(getActivity(), "no image", MDToast.LENGTH_SHORT,MDToast.TYPE_ERROR).show();
                 }
 
             } catch (Exception e) {
@@ -475,7 +531,7 @@ public class Nicking2InspectionFragment extends Fragment {
                                     List<ResponseModel> inserResponseList = response.body();
                                     if (inserResponseList != null && inserResponseList.size() > 0 && inserResponseList.get(0).condition) {
                                         nicking2InspectionModel.syncWithApi5 = 1;
-                                        nicking2InspectionModel.attachment = selected_file_path;
+                                        nicking2InspectionModel.attachment = inserResponseList.get(0).attachment;
                                         nicking2InspectionModelArrayList.add(nicking2InspectionModel);
                                         insertNicking2InspectionLineIntoLocal(nicking2InspectionModelArrayList);
                                         MDToast.makeText(getActivity(), inserResponseList.get(0).message, MDToast.LENGTH_SHORT,MDToast.TYPE_SUCCESS).show();

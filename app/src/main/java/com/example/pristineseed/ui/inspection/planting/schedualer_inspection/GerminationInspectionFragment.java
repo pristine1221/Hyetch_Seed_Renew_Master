@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -24,6 +25,11 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.example.pristineseed.DataBaseRepository.GeographicalRepo.PlantingLineLotListDao;
 import com.example.pristineseed.DataBaseRepository.GeographicalRepo.PlantingLineLotListTable;
 import com.example.pristineseed.DataBaseRepository.Scheduler.GerminationInspection1_Table;
@@ -61,6 +67,7 @@ import com.google.gson.JsonParser;
 import com.valdesekamdem.library.mdtoast.MDToast;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -421,12 +428,85 @@ GerminationInspectionFragment extends Fragment {
                 ed_standing_acres.setText(germination_inspection_table.get(0).getStanding_acres());
                 //ac_sowing_acres.setText(germination_inspection_table.get(0).);
                 ac_crop_cond.setText(germination_inspection_table.get(0).getCrop_condition());
-                if(germination_inspection_table.get(0).getAttachment()!=null){
-                    String getImageId=germination_inspection_table.get(0).getAttachment();
-                    HitShowImageApi(getImageId );
+                if(germination_inspection_table.get(0).getAttachment()!=null) {
+                    germinationImage_layout.setVisibility(View.VISIBLE);
+                    germinationImageView.setVisibility(View.VISIBLE);
+                    try {
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Glide.get(getActivity()).clearDiskCache();
+                            }
+                        }).start();
+                        String file_attachment = germination_inspection_table.get(0).getAttachment();
+                        //String base64_image = StaticMethods.convertBase64(file_attachment);
+                        try {
+                            byte[] decodedString = Base64.decode(file_attachment, Base64.DEFAULT);
+                            Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+                            Glide.with(getActivity())
+                                    .asBitmap()
+                                    .load(decodedByte)
+                                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                                    .skipMemoryCache(true)
+                                    .listener(new RequestListener<Bitmap>() {
+                                        @Override
+                                        public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Bitmap> target, boolean isFirstResource) {
+                                            Glide.with(getActivity())
+                                                    .load(ApiUtils.BASE_URL + "/api/Inspection/Get_Image?id="+file_attachment) // image urlApiUtils.BASE_URL + "/api/Inspection/Get_Image?id=" +
+                                                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                                                    .skipMemoryCache(true)
+                                                    .placeholder(R.drawable.noimage1)
+                                                    // any placeholder to load at start
+                                                    .into(germinationImageView);
+                                            return false;
+                                        }
+
+                                        @Override
+                                        public boolean onResourceReady(Bitmap resource, Object model, Target<Bitmap> target, DataSource dataSource, boolean isFirstResource) {
+                                            return false;
+                                        }
+                                    })// image urlApiUtils.BASE_URL + "/api/Inspection/Get_Image?id=" +
+                                    .placeholder(R.drawable.noimage1)
+                                    // any placeholder to load at start
+                                    .into(germinationImageView);
+                        }
+                        catch (Exception e){
+                            Glide.with(getActivity())
+                                    .load(ApiUtils.BASE_URL + "/api/Inspection/Get_Image?id="+file_attachment) // image urlApiUtils.BASE_URL + "/api/Inspection/Get_Image?id=" +
+                                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                                    .skipMemoryCache(true)
+                                    .placeholder(R.drawable.noimage1)
+                                    // any placeholder to load at start
+                                    .into(germinationImageView);
+                        }
+
+
+                        //seedLing_inspectionLineModel.attachment = base64_image != null ? base64_image : "";
+
+                       /* if(base64_image!=null && base64_image.getBytes().length>0) {
+                            image_layout.setVisibility(View.VISIBLE);
+                            setImageView.setVisibility(View.VISIBLE);
+                            Glide.with(getActivity())
+                                    .load(base64_image)
+                                    .placeholder(R.drawable.noimage1)
+                                    .into(setImageView);
+                        }
+                        else {
+                            Glide.with(getActivity())
+                                    .load(file_attachment) // image urlApiUtils.BASE_URL + "/api/Inspection/Get_Image?id=" +
+                                    .placeholder(R.drawable.noimage1)
+                                    // any placeholder to load at start
+                                    .into(setImageView);
+                            //HitShowImageApi(file_attachment);
+                        }*/
+
+
+                    } catch (Exception e) {
+                        e.getMessage();
+                    }
                 }
                 else {
-                    Toast.makeText(getActivity(), germination_inspection_table.get(0).getAttachment(), Toast.LENGTH_SHORT).show();
+                    MDToast.makeText(getActivity(), "no image", MDToast.LENGTH_SHORT,MDToast.TYPE_ERROR).show();
                 }
 
             } catch (Exception e) {
@@ -523,7 +603,7 @@ GerminationInspectionFragment extends Fragment {
                             List<ResponseModel> inserResponseList = response.body();
                             if (inserResponseList != null && inserResponseList.size() > 0 && inserResponseList.get(0).condition) {
                                 germination_inspectionLineModel.sync_with_api = 1;
-                                germination_inspectionLineModel.attachment = selected_file_path;
+                                germination_inspectionLineModel.attachment = inserResponseList.get(0).attachment;
                                 germinationInspectionModelArrayList.add(germination_inspectionLineModel);
                                 insertGerminationInspectionLine(germinationInspectionModelArrayList);
                                 MDToast mdToast = MDToast.makeText(getActivity(), inserResponseList.get(0).message, MDToast.LENGTH_SHORT, MDToast.TYPE_SUCCESS);
@@ -653,13 +733,11 @@ GerminationInspectionFragment extends Fragment {
                 Uri mImageUri = data.getData();
                 selected_file_path = FilePath.getPath(getActivity(), mImageUri);
                 BitmapFactory.Options options = new BitmapFactory.Options();
-                try {
-                    Bitmap bm = BitmapFactory.decodeFile(selected_file_path, options);
-                    setBitmapImage(bm, this.selected_file_path);
-                } catch (Exception e) {
-                    Log.e("image_crash", e.getMessage());
-                }
+
+                Bitmap bm = BitmapFactory.decodeFile(selected_file_path, options);
+                setBitmapImage(bm, this.selected_file_path);
             }
+
         } else {
             Toast.makeText(getActivity(), "You haven't picked Image",
                     Toast.LENGTH_LONG).show();
@@ -732,40 +810,5 @@ GerminationInspectionFragment extends Fragment {
         return "";
     }
 
-    private void HitShowImageApi(String getImageId) {
-        NetworkInterface mAPIService = ApiUtils.getPristineAPIService();
-        Call<ResponseBody> call = mAPIService.getImageInspection(getImageId);
-        LoadingDialog progressDialogLoading = new LoadingDialog();
-        progressDialogLoading.showLoadingDialog(getActivity());
-        call.enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                try {
-                    if (response.isSuccessful()) {
-                        progressDialogLoading.hideDialog();
-                        germinationImage_layout.setVisibility(View.VISIBLE);
-                        germinationImageView.setVisibility(View.VISIBLE);
-                        Glide.with(getActivity())
-                                .load(ApiUtils.BASE_URL+"/api/Inspection/Get_Image?id="+getImageId) // image url
-                                .placeholder(R.drawable.noimage1) // any placeholder to load at start
-                                .into(germinationImageView);
-                    } else {
-                        progressDialogLoading.hideDialog();
-                    }
-
-                } catch (Exception e) {
-                    progressDialogLoading.hideDialog();
-                    Log.e("exception database", e.getMessage() + "cause");
-                    ApiRequestFailure.PostExceptionToServer(e, getClass().getName(), "insert_germination", getActivity());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-                progressDialogLoading.hideDialog();
-                ApiRequestFailure.PostExceptionToServer(t, getClass().getName(), "insert_germination", getActivity());
-            }
-        });
-    }
 }
 

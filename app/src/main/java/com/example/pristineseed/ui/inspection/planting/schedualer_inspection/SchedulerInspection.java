@@ -248,7 +248,7 @@ public class SchedulerInspection extends Fragment {
                                 schedulerInspectionLineTable.getVariety_code(), schedulerInspectionLineTable.getItem_product_group_code(), schedulerInspectionLineTable.getItem_class_of_seeds(),
                                 schedulerInspectionLineTable.getItem_crop_type(), schedulerInspectionLineTable.getItem_name(), schedulerInspectionLineTable.getRevised_yield_raw(),
                                 schedulerInspectionLineTable.getLand_lease(), schedulerInspectionLineTable.getUnit_of_measure_code(), schedulerInspectionLineTable.getSowing_date_male(),
-                                schedulerInspectionLineTable.getSowing_date_female(), schedulerInspectionLineTable.getSowing_date_other(), schedulerInspectionLineTable.getProduction_lot_no(),
+                                schedulerInspectionLineTable.getSowing_date_female(), schedulerInspectionLineTable.getSowing_date_other(),schedulerInspectionLineTable.getPld_marked(), schedulerInspectionLineTable.getProduction_lot_no(),
                                 schedulerInspectionLineTable.getSchedule_no());
                                 //update scheduler column
                     }

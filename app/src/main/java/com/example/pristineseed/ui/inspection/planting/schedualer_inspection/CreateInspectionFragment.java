@@ -85,6 +85,7 @@ import com.google.android.material.chip.ChipGroup;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.valdesekamdem.library.mdtoast.MDToast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -98,10 +99,10 @@ public class CreateInspectionFragment extends Fragment {
     private Scheduler_Header_Table inspectionHeader;
     private SchedulerInspectionLineTable inspectionline = null;
     private String next_plan_action, varity_alias_name;
-    private int contain_pld_status = 0;
     private NickingInspectionTable nickingInspectionTable = null;
 
     private String check_status = "Pending";
+    private int pldMarked=0;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -145,7 +146,7 @@ public class CreateInspectionFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         sessionManagement = new SessionManagement(getActivity());
         activity = getActivity();
-        intiView(view);
+
         //getActivity().registerReceiver(passValueByShedulerBrodcastReceiver, new IntentFilter("passValueBySheduler"));
         try {
             if (getArguments() != null) {
@@ -164,6 +165,7 @@ public class CreateInspectionFragment extends Fragment {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        intiView(view);
     }
 
     @Override
@@ -176,7 +178,8 @@ public class CreateInspectionFragment extends Fragment {
     public void onResume() {
         //getActivity().registerReceiver(passValueByShedulerBrodcastReceiver, new IntentFilter("passValueBySheduler"));
         if (inspectionline == null) {
-            checkPldMarkArea();
+            //checkPldMarkedArea();
+            //checkPldMarkArea(contain_pld_status);
             showInspectionOnUI();
 
 //            if(sessionManagement.getuser_app_inspection_type().equalsIgnoreCase("QC Inspection")){
@@ -200,7 +203,7 @@ public class CreateInspectionFragment extends Fragment {
             //MenuMainPageFragment.viewPager.setCurrentItem(1);
             getDataInspectionFromLocal();
         } else {
-            checkPldMarkArea();
+           // checkPldMarkedArea();
             showInspectionOnUI();
             getDataInspectionFromLocal();
         }
@@ -208,6 +211,7 @@ public class CreateInspectionFragment extends Fragment {
     }
 
     private void intiView(View view) {
+        checkPldMarkedArea();
         tv_scheduler_no = view.findViewById(R.id.schduler_no);
         tv_user_id = view.findViewById(R.id.user_id);
         tv_season = view.findViewById(R.id.season);
@@ -240,9 +244,7 @@ public class CreateInspectionFragment extends Fragment {
 
         germination_insp.setOnClickListener(v -> {
             try {
-                if (contain_pld_status > 0) {
-                    Toast.makeText(getActivity(), "You can't perform any action as PLD Status is mark", Toast.LENGTH_SHORT).show();
-                } else {
+
                     Bundle bundle = new Bundle();
                     bundle.putString("header_detail", new Gson().toJson(inspectionHeader));
                     bundle.putString("scheduler_line_detail", new Gson().toJson(inspectionline));
@@ -251,7 +253,7 @@ public class CreateInspectionFragment extends Fragment {
                     GerminationInspectionFragment inspectionOneFragment = new GerminationInspectionFragment();
                     inspectionOneFragment.setArguments(bundle);
                     StaticMethods.loadFragmentsWithBackStack(getActivity(), inspectionOneFragment, "Germination_inspection1");
-                }
+
             }
             catch (Exception e){
                 e.printStackTrace();
@@ -260,9 +262,7 @@ public class CreateInspectionFragment extends Fragment {
 
         seedling_insp.setOnClickListener(v -> {
             try {
-                if (contain_pld_status > 0) {
-                    Toast.makeText(getActivity(), "You can't perform any action as PLD Status is mark", Toast.LENGTH_SHORT).show();
-                } else {
+
                     if (inspectionline.getInspection_1() > 0 || inspectionline.getIns1_sync_with_server() > 0) {
                         Bundle bundle = new Bundle();
                         bundle.putString("header_detail", new Gson().toJson(inspectionHeader));
@@ -275,7 +275,7 @@ public class CreateInspectionFragment extends Fragment {
                     } else {
                         Toast.makeText(getActivity(), "First complete previous inspection!", Toast.LENGTH_SHORT).show();
                     }
-                }
+
             }
             catch (Exception e){
                 e.printStackTrace();
@@ -284,8 +284,8 @@ public class CreateInspectionFragment extends Fragment {
 
         vegitative_insp.setOnClickListener(v -> {
             try {
-                if (contain_pld_status > 0) {
-                    Toast.makeText(getActivity(), "You can't perform any action as PLD Status is mark", Toast.LENGTH_SHORT).show();
+                if (pldMarked > 0 && inspectionline.getInspection_3() <= 0) {
+                    MDToast.makeText(getActivity(), "You can't perform any action as PLD area is marked.", MDToast.LENGTH_SHORT,MDToast.TYPE_WARNING).show();
                 } else {
                     if (inspectionline.getInspection_2() > 0 || inspectionline.getIns2_sync_with_server() > 0) {
                         Bundle bundle = new Bundle();
@@ -308,8 +308,8 @@ public class CreateInspectionFragment extends Fragment {
 
         nicking_insp.setOnClickListener(v -> {
             try {
-                if (contain_pld_status > 0) {
-                    Toast.makeText(getActivity(), "You can't perform any action as PLD Status is mark", Toast.LENGTH_SHORT).show();
+                if (pldMarked > 0 && inspectionline.getInspection_4() <= 0) {
+                    MDToast.makeText(getActivity(), "You can't perform any action as PLD area is marked.", MDToast.LENGTH_SHORT,MDToast.TYPE_WARNING).show();
                 } else {
                     if (inspectionline.getInspection_3() > 0 || inspectionline.getIns3_sync_with_server() > 0) {
                         Bundle bundle = new Bundle();
@@ -333,8 +333,8 @@ public class CreateInspectionFragment extends Fragment {
 
         nicking2_insp.setOnClickListener(v -> {
             try {
-                if (contain_pld_status > 0) {
-                    Toast.makeText(getActivity(), "You can't perform any action as PLD Status is mark", Toast.LENGTH_SHORT).show();
+                if (pldMarked > 0 && inspectionline.getInspection_5() <= 0) {
+                    MDToast.makeText(getActivity(), "You can't perform any action as PLD area is marked.", MDToast.LENGTH_SHORT,MDToast.TYPE_WARNING).show();
                 } else {
                     if (next_plan_action != null && !next_plan_action.equalsIgnoreCase("")) {
                         if (inspectionline.getInspection_4() > 0 || inspectionline.getIns4_sync_with_server() > 0) {
@@ -361,8 +361,8 @@ public class CreateInspectionFragment extends Fragment {
 
         flowering_insp.setOnClickListener(v -> {
             try {
-                if (contain_pld_status > 0) {
-                    Toast.makeText(getActivity(), "You can't perform any action as PLD Status is mark", Toast.LENGTH_SHORT).show();
+                if (pldMarked > 0 && inspectionline.getInspection_6()<= 0) {
+                    MDToast.makeText(getActivity(), "You can't perform any action as PLD area is marked.", MDToast.LENGTH_SHORT,MDToast.TYPE_WARNING).show();
                 } else {
                     if (next_plan_action != null && !next_plan_action.equalsIgnoreCase("")) {
                         if (inspectionline.getInspection_5() > 0 || inspectionline.getIns5_sync_with_server() > 0) {
@@ -400,8 +400,8 @@ public class CreateInspectionFragment extends Fragment {
 
         post_flowering_insp.setOnClickListener(v -> {
             try {
-                if (contain_pld_status > 0) {
-                    Toast.makeText(getActivity(), "You can't perform any action as PLD Status is mark", Toast.LENGTH_SHORT).show();
+                if (pldMarked > 0 && inspectionline.getInspection_7() <= 0) {
+                    MDToast.makeText(getActivity(), "You can't perform any action as PLD area is marked.", MDToast.LENGTH_SHORT,MDToast.TYPE_WARNING).show();
                 } else {
                     if (inspectionline.getInspection_6() > 0 || inspectionline.getIns6_sync_with_server() > 0) {
                         Bundle bundle = new Bundle();
@@ -426,8 +426,8 @@ public class CreateInspectionFragment extends Fragment {
         maturity_insp.setOnClickListener(v -> {
             try {
 
-                if (contain_pld_status > 0) {
-                    Toast.makeText(getActivity(), "You can't perform any action as PLD Status is mark", Toast.LENGTH_SHORT).show();
+                if (pldMarked > 0 && inspectionline.getInspection_8() <= 0) {
+                    MDToast.makeText(getActivity(), "You can't perform any action as PLD area is marked.", MDToast.LENGTH_SHORT,MDToast.TYPE_WARNING).show();
                 } else {
                     if (inspectionline.getInspection_7() > 0 || inspectionline.getIns7_sync_with_server() > 0) {
                         Bundle bundle = new Bundle();
@@ -449,8 +449,8 @@ public class CreateInspectionFragment extends Fragment {
         });
 
         harvesting_insp.setOnClickListener(v -> {
-            if (contain_pld_status > 0) {
-                Toast.makeText(getActivity(), "You can't perform any action as PLD Status is mark", Toast.LENGTH_SHORT).show();
+            if (pldMarked > 0 && inspectionline.getInspection_9() <= 0 ) {
+                MDToast.makeText(getActivity(), "You can't perform any action as PLD area is marked.", MDToast.LENGTH_SHORT,MDToast.TYPE_WARNING).show();
             } else {
                 try {
 
@@ -475,10 +475,9 @@ public class CreateInspectionFragment extends Fragment {
         });
 
         qc_insp.setOnClickListener(v -> {
-            if (contain_pld_status > 0) {
-                Toast.makeText(getActivity(), "You can't perform any action as PLD Status is mark", Toast.LENGTH_SHORT).show();
-            } else {
-                //if (inspectionline.getInspection_9() > 0 || inspectionline.getIns9_sync_with_server() > 0) {
+            if (pldMarked > 0 && inspectionline.getInspection_qc() <= 0) {
+                MDToast.makeText(getActivity(), "You can't perform any action as PLD area is marked.", MDToast.LENGTH_SHORT,MDToast.TYPE_WARNING).show();
+                if (inspectionline.getInspection_9() > 0 || inspectionline.getIns9_sync_with_server() > 0) {
                 try {
                     Bundle bundle = new Bundle();
                     bundle.putString("header_detail", new Gson().toJson(inspectionHeader));
@@ -492,10 +491,10 @@ public class CreateInspectionFragment extends Fragment {
                 catch (Exception e){
                     e.printStackTrace();
                 }
-            }/*else {
+            }else {
                       Toast.makeText(getActivity(), "First complete previous inspection!", Toast.LENGTH_SHORT).show();
-                  }*/
-            // }
+                  }
+             }
         });
     }
 
@@ -564,7 +563,6 @@ public class CreateInspectionFragment extends Fragment {
         }
 
     }
-
 
     private void checkInspectionOnlineStatus() {
         if (inspectionline != null) {
@@ -1185,7 +1183,7 @@ public class CreateInspectionFragment extends Fragment {
         harvesting_insp.setVisibility(View.VISIBLE);
     }*/
 
-    private void checkPldMarkArea() {
+   /* private void checkPldMarkArea() {
         PristineDatabase pristineDatabase = PristineDatabase.getAppDatabase(getActivity());
         try {
             PlantingLineLotListDao plantingLineLotListDao = pristineDatabase.plantingLineLotListDao();
@@ -1205,6 +1203,26 @@ public class CreateInspectionFragment extends Fragment {
             pristineDatabase.destroyInstance();
 
         }
+    }*/
+
+    //todo for check pld status.............................................................
+    SchedulerInspectionLineTable schedulerInspectionLineTable;
+    private int  checkPldMarkedArea() {
+        PristineDatabase pristineDatabase = PristineDatabase.getAppDatabase(getActivity());
+        try {
+            ScheduleInspectionLineDao scheduleInspectionLineDao = pristineDatabase.scheduleInspectionLineDao();
+                schedulerInspectionLineTable = scheduleInspectionLineDao.getAllDatabyLotNo(scheduler_no,production_lot_no);
+                pldMarked = Integer.parseInt(schedulerInspectionLineTable.getPld_marked());
+                return pldMarked;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            pristineDatabase.close();
+            pristineDatabase.destroyInstance();
+
+        }
+        return 0;
     }
 
 }

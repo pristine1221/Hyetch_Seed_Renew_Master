@@ -841,44 +841,6 @@
 
                         </LinearLayout>
 
-                        <LinearLayout
-                            android:layout_marginTop="4dp"
-                            android:orientation="horizontal"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="4dp">
-
-                            <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:backgroundTint="@color/colorPrimary"
-                                android:layout_marginRight="@dimen/_5sdp"
-                                android:src="@drawable/ic_baseline_supervised_user_circle_24">
-
-                            </ImageView>
-
-                            <com.google.android.material.textfield.TextInputLayout
-                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:layout_marginLeft="@dimen/_4sdp"
-                                app:boxCornerRadiusBottomEnd="15dp"
-                                app:boxCornerRadiusTopStart="15dp"
-                                android:hint="Disease">
-
-                                <AutoCompleteTextView
-                                    android:id="@+id/ac_disease"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:editable="false"
-                                    android:textColor="@color/black"
-                                    android:maxLines="1" />
-
-                            </com.google.android.material.textfield.TextInputLayout>
-
-
-                        </LinearLayout>
 
                         <LinearLayout
                             android:layout_marginTop="4dp"
@@ -918,6 +880,7 @@
 
 
                         </LinearLayout>
+
 
                         <LinearLayout
                             android:layout_marginTop="4dp"
@@ -965,6 +928,43 @@
                             <ImageView
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
+                                android:backgroundTint="@color/colorPrimary"
+                                android:layout_marginRight="@dimen/_5sdp"
+                                android:src="@drawable/ic_baseline_supervised_user_circle_24">
+
+                            </ImageView>
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:layout_marginLeft="@dimen/_4sdp"
+                                app:boxCornerRadiusBottomEnd="15dp"
+                                app:boxCornerRadiusTopStart="15dp"
+                                android:hint="Disease">
+
+                                <AutoCompleteTextView
+                                    android:id="@+id/ac_disease"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:editable="false"
+                                    android:textColor="@color/black"
+                                    android:maxLines="1" />
+
+                            </com.google.android.material.textfield.TextInputLayout>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_marginTop="4dp"
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="4dp">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
                                 android:layout_marginRight="@dimen/_5sdp"
                                 android:backgroundTint="@color/colorPrimary"
                                 android:src="@drawable/ic_baseline_supervised_user_circle_24">
@@ -989,6 +989,42 @@
                                     android:editable="false"
                                     android:maxLines="1"
                                     android:textColor="@color/black" />
+
+                            </com.google.android.material.textfield.TextInputLayout>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_marginTop="4dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_marginBottom="@dimen/_4sdp">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginRight="@dimen/_5sdp"
+                                android:src="@drawable/ic_baseline_supervised_user_circle_24">
+
+                            </ImageView>
+                            <com.google.android.material.textfield.TextInputLayout
+                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/_4sdp"
+                                android:layout_marginBottom="4dp"
+                                android:layout_weight="1"
+                                app:boxCornerRadiusBottomEnd="15dp"
+                                app:boxCornerRadiusTopStart="15dp"
+                                android:hint="Diseases Remarks">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/ed_deses_remark"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="@color/black"
+                                    android:lines="2" />
 
                             </com.google.android.material.textfield.TextInputLayout>
                         </LinearLayout>
@@ -1109,8 +1145,10 @@
                         </LinearLayout>
 
                         <LinearLayout
+                            android:id="@+id/ac_pld_reason_layout"
                             android:layout_marginTop="4dp"
                             android:orientation="horizontal"
+                            android:visibility="gone"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="4dp">
@@ -1126,6 +1164,7 @@
 
                             <com.google.android.material.textfield.TextInputLayout
                                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
@@ -1149,41 +1188,9 @@
 
 
 
-                        <LinearLayout
-                            android:layout_marginTop="4dp"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:layout_marginBottom="@dimen/_4sdp">
 
-                            <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_vertical"
-                                android:layout_marginRight="@dimen/_5sdp"
-                                android:src="@drawable/ic_baseline_supervised_user_circle_24">
 
-                            </ImageView>
-                            <com.google.android.material.textfield.TextInputLayout
-                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="@dimen/_4sdp"
-                                android:layout_marginBottom="4dp"
-                                android:layout_weight="1"
-                                app:boxCornerRadiusBottomEnd="15dp"
-                                app:boxCornerRadiusTopStart="15dp"
-                                android:hint="Diseases Remarks">
 
-                                <com.google.android.material.textfield.TextInputEditText
-                                    android:id="@+id/ed_deses_remark"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:textColor="@color/black"
-                                    android:lines="2" />
-
-                            </com.google.android.material.textfield.TextInputLayout>
-                        </LinearLayout>
                         <LinearLayout
                             android:layout_marginTop="4dp"
                             android:layout_width="match_parent"
@@ -1330,7 +1337,7 @@
                                     android:id="@+id/ed_seed_stng_per"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:inputType="numberDecimal"
+                                    android:inputType="number"
                                     android:textColor="@color/black"
                                     android:maxLines="1" />
 

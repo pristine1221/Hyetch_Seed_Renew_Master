@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.InputFilter;
 import android.text.TextWatcher;
 import android.util.Base64;
 import android.util.Log;
@@ -30,6 +31,11 @@ import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.example.pristineseed.DataBaseRepository.GeographicalRepo.PlantingLineLotListDao;
 import com.example.pristineseed.DataBaseRepository.GeographicalRepo.PlantingLineLotListTable;
 import com.example.pristineseed.DataBaseRepository.Scheduler.GerminationInspection1_Table;
@@ -49,6 +55,8 @@ import com.example.pristineseed.global.CustomDatePicker;
 import com.example.pristineseed.global.DateTimeUtilsCustome;
 import com.example.pristineseed.global.FilePath;
 import com.example.pristineseed.global.LoadingDialog;
+
+import com.example.pristineseed.global.MinMAXFilter;
 import com.example.pristineseed.global.StaticMethods;
 import com.example.pristineseed.model.ResponseModel;
 import com.example.pristineseed.model.scheduler_inspection.CompleteGerminationInspectionModel;
@@ -61,6 +69,7 @@ import com.example.pristineseed.ui.adapter.ItemAdapter;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -88,8 +97,8 @@ public class HarvestingInspectionFragment extends Fragment {
     private SchedulerInspectionLineTable schedulerInspectionLineTable;
 
     private String scheduler_no = "", production_lot_no = "";
-    private Button bt_complete, btn_save_record;
     private SessionManagement sessionManagement;
+    private LinearLayout ac_pld_reason_layout;
     private TextInputEditText ed_date_of_inspection, ed_moister_per, ed_remark, ed_pest_reamrk, ed_remmmdn_date,
             ed_actual_date, ed_sorting_grade, ed_desease_remark, ed_seed_setting,
             ed_seed_stng_per, ed_receipt_male, ed_receipt_female, ed_receipt_other, ac_crop_state,standing_acres,pld_acres,net_acres;
@@ -180,9 +189,11 @@ public class HarvestingInspectionFragment extends Fragment {
 
         ac_disease = view.findViewById(R.id.ac_disease);
         ac_disease_inflaion = view.findViewById(R.id.ac_disease_inflaion);
+        ac_pld_reason_layout = view.findViewById(R.id.ac_pld_reason_layout);
         ac_pld_reason = view.findViewById(R.id.ac_pld_reason);
         standing_acres = view.findViewById(R.id.standing_acres);
         pld_acres = view.findViewById(R.id.pld_acres);
+
         net_acres = view.findViewById(R.id.net_acres);
 
         ac_over_all_agronomy = view.findViewById(R.id.ac_over_all_agronomy);
@@ -198,10 +209,14 @@ public class HarvestingInspectionFragment extends Fragment {
         ed_desease_remark = view.findViewById(R.id.deasease_rmrk);
         complete_btn = view.findViewById(R.id.complt_btn);
         save_record_btn = view.findViewById(R.id.save_btn);
+
         close_dilog_bt.setOnClickListener(v -> {
             getFragmentManager().popBackStack();
         });
+
+        /*ed_moister_per.setFilters( new InputFilter[]{ new MinMAXFilter( "0" , "100" )}) ;*/
         //set header detail...
+
 
         try {
             tv_prod_lot_no.setText(schedulerInspectionLineTable.getProduction_lot_no());
@@ -255,9 +270,20 @@ public class HarvestingInspectionFragment extends Fragment {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if(!s.toString().equalsIgnoreCase("")){
-                    double i=Double.parseDouble(standing_acres.getText().toString());
-                    double i1=Double.parseDouble(pld_acres.getText().toString());
-                    net_acres.setText(String.valueOf(i-i1));
+                    try {
+                        double i=Double.parseDouble(standing_acres.getText().toString());
+                        double i1=Double.parseDouble(pld_acres.getText().toString());
+                        net_acres.setText(String.valueOf(i-i1));
+                        if(!pld_acres.getText().toString().equalsIgnoreCase("") && i1>0)
+                            ac_pld_reason_layout.setVisibility(View.VISIBLE);
+
+                        else
+                            ac_pld_reason_layout.setVisibility(View.GONE);
+                    }
+                    catch (Exception e){
+
+                    }
+
                 }
                 else {
                     MDToast.makeText(getActivity(),"pld acres can't blank or greater than standing acres",MDToast.LENGTH_SHORT,MDToast.TYPE_ERROR).show();
@@ -303,6 +329,7 @@ public class HarvestingInspectionFragment extends Fragment {
         ac_pld_reason.setAdapter(ac_pld_reason_adapter);
 
         ac_crop_state.setText("Harvesting");
+
         ItemAdapter ac_crop_cond_adapter = new ItemAdapter(getActivity(), R.layout.android_item_view, Arrays.asList(CommonData.crop_condition));
         ac_crop_cond.setAdapter(ac_crop_cond_adapter);
 
@@ -413,9 +440,9 @@ public class HarvestingInspectionFragment extends Fragment {
             ac_crop_state.setText(harvestingInspectionTableList.get(0).getCrop_stage());
             ac_over_all_agronomy.setText(harvestingInspectionTableList.get(0).getOverall_agronomy());
             ed_moister_per.setText(harvestingInspectionTableList.get(0).getMoisture_per());
-            if (harvestingInspectionTableList.get(0).getDate_of_inspection() != null) {
+            /*if (harvestingInspectionTableList.get(0).getDate_of_inspection() != null) {
                 ed_date_of_inspection.setText(DateTimeUtilsCustome.splitDateInYYYMMDDslsh(harvestingInspectionTableList.get(0).getDate_of_inspection()));
-            }
+            }*/
             try {
                 if(harvestingInspectionTableList.get(0).getRecommended_date()!=null){
                     ed_remmmdn_date.setText(DateTimeUtilsCustome.splitDateInYYYMMDDslsh(harvestingInspectionTableList.get(0).getRecommended_date()));
@@ -440,16 +467,78 @@ public class HarvestingInspectionFragment extends Fragment {
 
             standing_acres.setText(harvestingInspectionTableList.get(0).getStanding_acres());
             pld_acres.setText(harvestingInspectionTableList.get(0).getPld_acre());
-            net_acres.setText(harvestingInspectionTableList.get(0).getNet_acre());
-            ac_pld_reason.setText(harvestingInspectionTableList.get(0).getPld_reason());
+            //net_acres.setText(harvestingInspectionTableList.get(0).getNet_acre());
+
+            if(harvestingInspectionTableList.get(0).getPld_reason().length()>0) {
+                try {
+                    ac_pld_reason.setText(harvestingInspectionTableList.get(0).getPld_reason());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+            else {
+                ac_pld_reason_layout.setVisibility(View.GONE);
+            }
+
 
             try {
-                if(harvestingInspectionTableList.get(0).getAttachment()!=null){
-                    String getImageId=harvestingInspectionTableList.get(0).getAttachment();
-                    HitShowImageApi(getImageId );
+                if(harvestingInspectionTableList.get(0).getAttachment()!=null) {
+                    image_layout.setVisibility(View.VISIBLE);
+                    imageView.setVisibility(View.VISIBLE);
+                    try {
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Glide.get(getActivity()).clearDiskCache();
+                            }
+                        }).start();
+                        String file_attachment = harvestingInspectionTableList.get(0).getAttachment();
+
+                        try {
+                            byte[] decodedString = Base64.decode(file_attachment, Base64.DEFAULT);
+                            Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+                            Glide.with(getActivity())
+                                    .asBitmap()
+                                    .load(decodedByte)
+                                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                                    .skipMemoryCache(true)
+                                    .listener(new RequestListener<Bitmap>() {
+                                        @Override
+                                        public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Bitmap> target, boolean isFirstResource) {
+                                            Glide.with(getActivity())
+                                                    .load(ApiUtils.BASE_URL + "/api/Inspection/Get_Image?id="+file_attachment) // image urlApiUtils.BASE_URL + "/api/Inspection/Get_Image?id=" +
+                                                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                                                    .skipMemoryCache(true)
+                                                    .placeholder(R.drawable.noimage1)
+                                                    // any placeholder to load at start
+                                                    .into(imageView);
+                                            return false;
+                                        }
+
+                                        @Override
+                                        public boolean onResourceReady(Bitmap resource, Object model, Target<Bitmap> target, DataSource dataSource, boolean isFirstResource) {
+                                            return false;
+                                        }
+                                    })
+                                    .placeholder(R.drawable.noimage1)
+                                    .into(imageView);
+                        }
+                        catch (Exception e){
+                            Glide.with(getActivity())
+                                    .load(ApiUtils.BASE_URL + "/api/Inspection/Get_Image?id="+file_attachment) // image urlApiUtils.BASE_URL + "/api/Inspection/Get_Image?id=" +
+                                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                                    .skipMemoryCache(true)
+                                    .placeholder(R.drawable.noimage1)
+                                    // any placeholder to load at start
+                                    .into(imageView);
+                        }
+
+                    } catch (Exception e) {
+                        e.getMessage();
+                    }
                 }
                 else {
-                    Toast.makeText(getActivity(), harvestingInspectionTableList.get(0).getAttachment(), Toast.LENGTH_SHORT).show();
+                    MDToast.makeText(getActivity(), "no image", MDToast.LENGTH_SHORT,MDToast.TYPE_ERROR).show();
                 }
 
             } catch (Exception e) {
@@ -501,8 +590,8 @@ public class HarvestingInspectionFragment extends Fragment {
         ed_moister_per.setEnabled(false);
         ed_moister_per.setFocusable(false);
         ed_moister_per.setFocusableInTouchMode(false);
-        ed_date_of_inspection.setEnabled(false);
-        ed_date_of_inspection.setFocusable(false);
+//        ed_date_of_inspection.setEnabled(false);
+       // ed_date_of_inspection.setFocusable(false);
         ed_remmmdn_date.setEnabled(false);
         ed_remmmdn_date.setFocusable(false);
         ed_actual_date.setEnabled(false);
@@ -528,7 +617,6 @@ public class HarvestingInspectionFragment extends Fragment {
         disableImageBtn();
     }
 
-
     private void disableImageBtn() {
         add_attachment.setEnabled(false);
         clear_image_btn.setVisibility(View.GONE);
@@ -545,14 +633,13 @@ public class HarvestingInspectionFragment extends Fragment {
             harvestingInspectionModel.scheduler_no = scheduler_no;
             harvestingInspectionModel.arrival_plan_no = scheduler_line_header_data.getArrival_plan_no();
             harvestingInspectionModel.production_lot_no = production_lot_no;
-            harvestingInspectionModel.date_of_inspection = DateTimeUtilsCustome.splitDateInYYYMMDD(ed_date_of_inspection.getText().toString().trim());
+            harvestingInspectionModel.date_of_inspection = DateTimeUtilsCustome.splitDateInYYYMMDD(ed_actual_date.getText().toString().trim());
             harvestingInspectionModel.crop_condition = ac_crop_cond.getText().toString().trim();
             harvestingInspectionModel.crop_stage = ac_crop_state.getText().toString().trim();
             harvestingInspectionModel.sorting_grading = ed_sorting_grade.getText().toString().trim();
             harvestingInspectionModel.overall_agronomy = ac_over_all_agronomy.getText().toString().trim();
             harvestingInspectionModel.recommended_date = DateTimeUtilsCustome.splitDateInYYYMMDD(ed_actual_date.getText().toString().trim());
             harvestingInspectionModel.actual_date = DateTimeUtilsCustome.splitDateInYYYMMDD(ed_actual_date.getText().toString().trim());
-            //harvestingInspectionModel.diseases = ac_disease.getText().toString().trim();
             harvestingInspectionModel.pest_remarks = ed_pest_reamrk.getText().toString().trim();
             harvestingInspectionModel.diseases_remarks = ed_desease_remark.getText().toString().trim();
             harvestingInspectionModel.remarks = ed_remark.getText().toString().trim();
@@ -574,7 +661,8 @@ public class HarvestingInspectionFragment extends Fragment {
             } else {
                 harvestingInspectionModel.moisture_per = "0.0";
             }
-
+            String base_64_image = StaticMethods.convertBase64(selected_file_path);
+            harvestingInspectionModel.attachment = base_64_image != null ? base_64_image : "";
 
             //todo new fields added.................................
             harvestingInspectionModel.diseases = ac_disease.getText().toString().trim();
@@ -592,8 +680,7 @@ public class HarvestingInspectionFragment extends Fragment {
 
             harvestingInspectionModel.pld_reason = ac_pld_reason.getText().toString().trim();
 
-            String base_64_image = StaticMethods.convertBase64(selected_file_path);
-            harvestingInspectionModel.attachment = base_64_image != null ? base_64_image : "";
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -630,7 +717,7 @@ public class HarvestingInspectionFragment extends Fragment {
                                 List<ResponseModel> inserResponseList = response.body();
                                 if (inserResponseList != null && inserResponseList.size() > 0 && inserResponseList.get(0).condition) {
                                     harvestingInspectionModel.synWithApi9 = 1;
-                                    harvestingInspectionModel.attachment = selected_file_path;
+                                    harvestingInspectionModel.attachment = inserResponseList.get(0).attachment;
                                     maturityInspectionModelArrayList.add(harvestingInspectionModel);
                                     insertHarvstingInspectionLine(maturityInspectionModelArrayList);
                                     StaticMethods.showMDToast(getActivity(), inserResponseList.get(0).message, MDToast.TYPE_SUCCESS);
@@ -721,7 +808,6 @@ public class HarvestingInspectionFragment extends Fragment {
             StaticMethods.showMDToast(getActivity(), "Completed Successful!", MDToast.TYPE_SUCCESS);
         }
     }
-
 
     private void completeOnlineOfflineInspection(String flag, int nav_sync, int inspection9, String completed_on, int ins9_sync_with_server, String nav_sync_error) {
         PristineDatabase db = PristineDatabase.getAppDatabase(getActivity());

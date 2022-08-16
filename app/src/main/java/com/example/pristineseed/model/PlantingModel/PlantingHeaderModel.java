@@ -95,5 +95,11 @@ public class PlantingHeaderModel {
 
         public int delete_planting_line = 0;
 
+        //todo new fields......................
+        public String standing_acres;
+        public String pld_acre;
+        public String net_acre;
+        public String pld_reason;
+
     }
 }

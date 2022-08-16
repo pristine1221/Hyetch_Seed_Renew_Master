@@ -882,7 +882,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:visibility="visible"
-                                android:hint="Yield Estimation"
+                                android:hint="Yield Estimation in Kg"
                                 app:boxCornerRadiusBottomEnd="15dp"
                                 app:boxCornerRadiusTopStart="15dp">
 
@@ -945,10 +945,12 @@
 
                             <com.google.android.material.textfield.TextInputLayout
                                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+                               android:id="@+id/ac_pld_reason_layout"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:hint="PLD Reasons"
+                                android:visibility="gone"
                                 app:boxCornerRadiusBottomEnd="15dp"
                                 app:boxCornerRadiusTopStart="15dp">
 
@@ -1107,7 +1109,7 @@
                                     android:id="@+id/ed_seed_stng_per"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:inputType="numberDecimal"
+                                    android:inputType="number"
                                     android:textColor="@color/black"
                                     android:maxLines="1" />
 

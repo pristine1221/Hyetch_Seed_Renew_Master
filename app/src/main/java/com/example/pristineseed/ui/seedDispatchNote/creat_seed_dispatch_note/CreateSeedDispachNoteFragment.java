@@ -693,7 +693,7 @@ public class CreateSeedDispachNoteFragment extends Fragment implements Organizer
         Button filter_apply_bt = popupView.findViewById(R.id.filter_apply_bt);
         TextInputEditText ed_state = popupView.findViewById(R.id.dropdown_state);
         TextInputEditText ed_taluka = popupView.findViewById(R.id.ac_taluka);
-             ac_lot_no = popupView.findViewById(R.id.ac_lot_no);
+        ac_lot_no = popupView.findViewById(R.id.ac_lot_no);
         AutoCompleteTextView ac_hybrid = popupView.findViewById(R.id.ac_hybrid);
         TextInputEditText ed_no_of_bags = popupView.findViewById(R.id.ed_no_of_bags);
         TextInputEditText ed_remarks = popupView.findViewById(R.id.ed_remarks);
@@ -718,7 +718,10 @@ public class CreateSeedDispachNoteFragment extends Fragment implements Organizer
             }
         });
         //getHybrid(ac_hybrid,doc_type);
-      // getPlantingLineListLot(ac_lot_no, doc_type, org_code);
+
+        getPlantingLineListLot(ac_lot_no, seedDispatchHeader_list.document_type, seedDispatchHeader_list.organizer_code);
+
+       //getPlantingLineListLot(ac_lot_no, doc_type, org_code);
 
         new BackgraundThread(getActivity()).execute();
 
@@ -1272,7 +1275,7 @@ public class CreateSeedDispachNoteFragment extends Fragment implements Organizer
                 PlantingProductionLotLineListAdapter plantingLineProductionLotAdapter = new PlantingProductionLotLineListAdapter(getContext(), R.layout.android_item_view, fetchProductionLineLotList);
                 ac_prod_lot.setAdapter(plantingLineProductionLotAdapter);
             }
-          /*  else if(fetchProductionLineLotListFoundation!=null && fetchProductionLineLotListFoundation.size()>0){
+           /* else if(fetchProductionLineLotListFoundation!=null && fetchProductionLineLotListFoundation.size()>0){
                 PlantingProductionLotLineListAdapter plantingLineProductionLotAdapter = new PlantingProductionLotLineListAdapter(getContext(), R.layout.android_item_view, fetchProductionLineLotListFoundation);
                 ac_prod_lot.setAdapter(plantingLineProductionLotAdapter);
             }*/
@@ -1384,6 +1387,7 @@ public class CreateSeedDispachNoteFragment extends Fragment implements Organizer
             } finally {
                 pristineDatabase.close();
                 pristineDatabase.destroyInstance();
+
             }
         }
         @Override

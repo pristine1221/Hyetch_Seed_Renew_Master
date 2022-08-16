@@ -163,12 +163,12 @@ public interface ScheduleInspectionLineDao {
     @Query("update scheduler_line_table set fsio_no=:fsio_no,organizer_code=:organizer_code,organizer_name=:organizer_name,grower_owner=:grower_owner,grower_land_owner_name=:grower_land_owner_name,grower_village=:grower_village ," +
             "grower_taluka_mandal=:grower_taluka_mandal,grower_district=:grower_district,grower_city=:grower_city,supervisor_name=:supervisor_name,crop_code=:crop_code, variety_code=:variety_code,item_product_group_code=:item_product_group_code,"+
             "item_class_of_seeds=:item_class_of_seeds,item_crop_type=:item_crop_type,item_name=:item_name,revised_yield_raw=:revised_yield_raw,land_lease=:land_lease,unit_of_measure_code=:unit_of_measure_code,sowing_date_male=:sowing_date_male,sowing_date_female=:sowing_date_female,"+
-            "sowing_date_other=:sowing_date_other WHERE production_lot_no=:production_lot and schedule_no=:scheduler_no")
+            "sowing_date_other=:sowing_date_other,pld_marked=:pld_marked WHERE production_lot_no=:production_lot and schedule_no=:scheduler_no")
 
     int updateSchedulerLine(String fsio_no,String organizer_code, String organizer_name, String grower_owner, String grower_land_owner_name, String grower_village, String grower_taluka_mandal,
            String grower_district, String grower_city, String supervisor_name, String crop_code, String variety_code, String item_product_group_code,
            String item_class_of_seeds, String item_crop_type, String item_name, String revised_yield_raw, String land_lease, String unit_of_measure_code,
-           String sowing_date_male, String sowing_date_female, String sowing_date_other,String production_lot,String scheduler_no);
+           String sowing_date_male, String sowing_date_female, String sowing_date_other,String pld_marked,String production_lot,String scheduler_no);
 
 
     @Query("update scheduler_line_table set inspection_1=:inspection1,inspection_2=:inspection2,inspection_3=:inspection3,inspection_4=:inspection4,inspection_5=:inspection5,inspection_6=:inspection6,inspection_7=:inspection7," +

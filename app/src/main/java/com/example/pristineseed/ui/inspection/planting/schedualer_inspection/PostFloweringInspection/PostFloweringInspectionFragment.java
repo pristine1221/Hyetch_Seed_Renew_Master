@@ -9,7 +9,9 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.InputFilter;
 import android.text.TextWatcher;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,6 +29,11 @@ import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.example.pristineseed.DataBaseRepository.GeographicalRepo.PlantingLineLotListDao;
 import com.example.pristineseed.DataBaseRepository.GeographicalRepo.PlantingLineLotListTable;
 import com.example.pristineseed.DataBaseRepository.Scheduler.GerminationInspection1_Table;
@@ -47,6 +54,8 @@ import com.example.pristineseed.global.CustomTimePicker;
 import com.example.pristineseed.global.DateTimeUtilsCustome;
 import com.example.pristineseed.global.FilePath;
 import com.example.pristineseed.global.LoadingDialog;
+
+import com.example.pristineseed.global.MinMAXFilter;
 import com.example.pristineseed.global.StaticMethods;
 import com.example.pristineseed.model.ResponseModel;
 import com.example.pristineseed.model.scheduler_inspection.CompleteGerminationInspectionModel;
@@ -59,6 +68,7 @@ import com.example.pristineseed.ui.adapter.ItemAdapter;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -92,6 +102,7 @@ public class PostFloweringInspectionFragment extends Fragment {
 
     private String scheduler_no = "", production_lot_no = "";
     private Button bt_complete, btn_save_record;
+    private TextInputLayout ac_pld_reason_layout;
     private TextInputEditText ed_pollen_shedd, ed_ohter_type, ed_pollen_shed_plants, ed_pollen_shedd_per, ed_pest_remark, ed_desease_remark,
             ed_date_of_insp, recmnd_date, actual_date, ed_seed_stng_per, ed_receipt_male, ed_receipt_female, ed_receipt_other,ac_crop_stg,yield_estimation,standing_acres,pld_acres,net_acres;
 
@@ -200,6 +211,7 @@ public class PostFloweringInspectionFragment extends Fragment {
         standing_acres = view.findViewById(R.id.standing_acres);
         pld_acres = view.findViewById(R.id.pld_acres);
         net_acres = view.findViewById(R.id.net_acres);
+        ac_pld_reason_layout = view.findViewById(R.id.ac_pld_reason_layout);
         ac_pld=view.findViewById(R.id.ac_pld);
         back_press_img.setOnClickListener(v -> {
             getFragmentManager().popBackStack();
@@ -341,9 +353,20 @@ public class PostFloweringInspectionFragment extends Fragment {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if(!s.toString().equalsIgnoreCase("")){
-                    double i=Double.parseDouble(standing_acres.getText().toString());
-                    double i1=Double.parseDouble(pld_acres.getText().toString());
-                    net_acres.setText(String.valueOf(i-i1));
+                    try {
+                        double i=Double.parseDouble(standing_acres.getText().toString());
+                        double i1=Double.parseDouble(pld_acres.getText().toString());
+                        net_acres.setText(String.valueOf(i-i1));
+                        if(!pld_acres.getText().toString().equalsIgnoreCase("") && i1>0)
+                            ac_pld_reason_layout.setVisibility(View.VISIBLE);
+
+                        else
+                            ac_pld_reason_layout.setVisibility(View.GONE);
+
+                    }
+                    catch (Exception e){
+                        e.printStackTrace();
+                    }
                 }
                 else {
                     MDToast.makeText(getActivity(),"pld acres can't blank or greater than standing acres",MDToast.LENGTH_SHORT,MDToast.TYPE_ERROR).show();
@@ -355,6 +378,8 @@ public class PostFloweringInspectionFragment extends Fragment {
 
             }
         });
+
+      /*  ed_seed_stng_per.setFilters( new InputFilter[]{ new MinMAXFilter( "0" , "100" )}) ;*/
 
         //todo for standing acres from germination table........................
 
@@ -455,18 +480,80 @@ public class PostFloweringInspectionFragment extends Fragment {
                 pld_acres.setText(postfloweringInspectionTable.get(0).getPld_acre());
             }
 
-            ac_pld.setText(postfloweringInspectionTable.get(0).getPld_reason());
+            if(postfloweringInspectionTable.get(0).getPld_reason().length()>0) {
+                try {
+                    ac_pld.setText(postfloweringInspectionTable.get(0).getPld_reason());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+            else {
+                ac_pld_reason_layout.setVisibility(View.GONE);
+            }
+
+
 
             yield_estimation.setText(postfloweringInspectionTable.get(0).getYield_estimation());
 
 
             try {
-                if(postfloweringInspectionTable.get(0).getAttachment()!=null){
-                    String getImageId=postfloweringInspectionTable.get(0).getAttachment();
-                    HitShowImageApi(getImageId );
+                if(postfloweringInspectionTable.get(0).getAttachment()!=null) {
+                    image_layout.setVisibility(View.VISIBLE);
+                    imageView.setVisibility(View.VISIBLE);
+                    try {
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Glide.get(getActivity()).clearDiskCache();
+                            }
+                        }).start();
+                        String file_attachment = postfloweringInspectionTable.get(0).getAttachment();
+
+                        try {
+                            byte[] decodedString = Base64.decode(file_attachment, Base64.DEFAULT);
+                            Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+                            Glide.with(getActivity())
+                                    .asBitmap()
+                                    .load(decodedByte)
+                                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                                    .skipMemoryCache(true)
+                                    .listener(new RequestListener<Bitmap>() {
+                                        @Override
+                                        public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Bitmap> target, boolean isFirstResource) {
+                                            Glide.with(getActivity())
+                                                    .load(ApiUtils.BASE_URL + "/api/Inspection/Get_Image?id="+file_attachment) // image urlApiUtils.BASE_URL + "/api/Inspection/Get_Image?id=" +
+                                                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                                                    .skipMemoryCache(true)
+                                                    .placeholder(R.drawable.noimage1)
+                                                    // any placeholder to load at start
+                                                    .into(imageView);
+                                            return false;
+                                        }
+
+                                        @Override
+                                        public boolean onResourceReady(Bitmap resource, Object model, Target<Bitmap> target, DataSource dataSource, boolean isFirstResource) {
+                                            return false;
+                                        }
+                                    })
+                                    .placeholder(R.drawable.noimage1)
+                                    .into(imageView);
+                        }
+                        catch (Exception e){
+                            Glide.with(getActivity())
+                                    .load(ApiUtils.BASE_URL + "/api/Inspection/Get_Image?id="+file_attachment) // image urlApiUtils.BASE_URL + "/api/Inspection/Get_Image?id=" +
+                                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                                    .skipMemoryCache(true)
+                                    .placeholder(R.drawable.noimage1)
+                                    // any placeholder to load at start
+                                    .into(imageView);
+                        }
+
+                    } catch (Exception e) {
+                        e.getMessage();
+                    }
                 }
                 else {
-                    Toast.makeText(getActivity(), postfloweringInspectionTable.get(0).getAttachment(), Toast.LENGTH_SHORT).show();
+                    MDToast.makeText(getActivity(), "no image", MDToast.LENGTH_SHORT,MDToast.TYPE_ERROR).show();
                 }
 
             } catch (Exception e) {
@@ -545,6 +632,10 @@ public class PostFloweringInspectionFragment extends Fragment {
         ed_seed_setting.setFocusable(false);
         ed_pollen_shedd_per.setEnabled(false);
         ed_pollen_shedd_per.setFocusable(false);
+
+        ed_seed_stng_per.setEnabled(false);
+        ed_seed_stng_per.setFocusable(false);
+        ed_seed_stng_per.setFocusableInTouchMode(false);
          disableImageBtn();
     }
 
@@ -612,7 +703,7 @@ public class PostFloweringInspectionFragment extends Fragment {
 
                 postfloweringInspectionModel.pld_reason =ac_pld.getText().toString().trim();
             } else {
-                postfloweringInspectionModel.pld_reason = "0.0";
+                postfloweringInspectionModel.pld_reason = " ";
             }
 
             if (!yield_estimation.getText().toString().trim().equalsIgnoreCase("")) {
@@ -659,7 +750,7 @@ public class PostFloweringInspectionFragment extends Fragment {
                                 List<ResponseModel> inserResponseList = response.body();
                                 if (inserResponseList!=null && inserResponseList.size() > 0 && inserResponseList.get(0).condition) {
                                     postfloweringInspectionModel.synWithApi7 = 1;
-                                    postfloweringInspectionModel.attachment = selected_file_path;
+                                    postfloweringInspectionModel.attachment = inserResponseList.get(0).attachment;
                                     postflowering_InspectionList.add(postfloweringInspectionModel);
                                     insertPostFloweringInspectionLine(postflowering_InspectionList);
                                     StaticMethods.showMDToast(getActivity(), inserResponseList.get(0).message, MDToast.TYPE_SUCCESS);
@@ -887,40 +978,4 @@ public class PostFloweringInspectionFragment extends Fragment {
         return "";
     }
 
-    //todo for get image from api
-    private void HitShowImageApi(String getImageId) {
-        NetworkInterface mAPIService = ApiUtils.getPristineAPIService();
-        Call<ResponseBody> call = mAPIService.getImageInspection(getImageId);
-        LoadingDialog progressDialogLoading = new LoadingDialog();
-        progressDialogLoading.showLoadingDialog(getActivity());
-        call.enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                try {
-                    if (response.isSuccessful()) {
-                        progressDialogLoading.hideDialog();
-                        image_layout.setVisibility(View.VISIBLE);
-                        imageView.setVisibility(View.VISIBLE);
-                        Glide.with(getActivity())
-                                .load(ApiUtils.BASE_URL+"/api/Inspection/Get_Image?id="+getImageId) // image url
-                                .placeholder(R.drawable.noimage1) // any placeholder to load at start
-                                .into(imageView);
-                    } else {
-                        progressDialogLoading.hideDialog();
-                    }
-
-                } catch (Exception e) {
-                    progressDialogLoading.hideDialog();
-                    Log.e("exception database", e.getMessage() + "cause");
-                    ApiRequestFailure.PostExceptionToServer(e, getClass().getName(), "insert_germination", getActivity());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-                progressDialogLoading.hideDialog();
-                ApiRequestFailure.PostExceptionToServer(t, getClass().getName(), "insert_germination", getActivity());
-            }
-        });
-    }
 }

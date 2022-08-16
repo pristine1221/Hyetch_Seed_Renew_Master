@@ -237,6 +237,14 @@ public class SchedulerInspectionLineTable {
         this.sowing_date_other = sowing_date_other;
     }
 
+    public String getPld_marked() {
+        return pld_marked;
+    }
+
+    public void setPld_marked(String pld_marked) {
+        this.pld_marked = pld_marked;
+    }
+
     public int getInspection_1() {
         return inspection_1;
     }
@@ -502,6 +510,10 @@ public class SchedulerInspectionLineTable {
     private String sowing_date_female;
     @ColumnInfo(name = "sowing_date_other")
     private String sowing_date_other;
+
+    @ColumnInfo(name = "pld_marked")
+    private String pld_marked;
+
     @ColumnInfo(name = "inspection_1")
     private int inspection_1;
     @ColumnInfo(name = "ins1_completed_on")
@@ -868,6 +880,7 @@ public class SchedulerInspectionLineTable {
         scheduleInspectionLineTable.setSowing_date_female( DateTimeUtilsCustome.getDateDDMMYYY(passmodel.sowing_date_female));
         scheduleInspectionLineTable.setSowing_date_other( DateTimeUtilsCustome.getDateDDMMYYY(passmodel.sowing_date_other));
         scheduleInspectionLineTable.setUnit_of_measure_code(passmodel.unit_of_measure_code);
+        scheduleInspectionLineTable.setPld_marked(passmodel.pld_marked);
         scheduleInspectionLineTable.setInspection_1(passmodel.inspection_1);
         scheduleInspectionLineTable.setIns1_completed_on(passmodel.ins1_completed_on);
         scheduleInspectionLineTable.setIns1_nav_sync(passmodel.ins1_nav_sync);
@@ -939,6 +952,7 @@ public class SchedulerInspectionLineTable {
         scheduleInspectionLine.sowing_date_male=passData.getSowing_date_male();
         scheduleInspectionLine.sowing_date_female=passData.getSowing_date_female();
         scheduleInspectionLine.sowing_date_other=passData.getSowing_date_other();
+        scheduleInspectionLine.pld_marked=passData.getPld_marked();
         scheduleInspectionLine.inspection_1=passData.getInspection_1();
         scheduleInspectionLine.ins1_completed_on=passData.getIns1_completed_on();
         scheduleInspectionLine.ins1_nav_sync=passData.getIns1_nav_sync();

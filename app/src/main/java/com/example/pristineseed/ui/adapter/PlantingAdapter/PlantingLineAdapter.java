@@ -55,6 +55,8 @@ public class PlantingLineAdapter extends BaseAdapter {
         TextView sowing_area = convertView.findViewById(R.id.sowing_area);
         TextView tv_sowing_date_male = convertView.findViewById(R.id.tv_sowing_date_male);
         TextView tv_sowing_date_female = convertView.findViewById(R.id.tv_sowing_date_female);
+        TextView tv_standing_acres = convertView.findViewById(R.id.tv_standing_acres);
+        TextView tv_pld_acres = convertView.findViewById(R.id.tv_pld_acres);
         TextView tv_planting_no = convertView.findViewById(R.id.tv_planting_no);
         TextView tv_character_ofImageView=convertView.findViewById(R.id.tv_character_ofImageView);
         //todo set the data into list
@@ -62,6 +64,34 @@ public class PlantingLineAdapter extends BaseAdapter {
         sowing_area.setText("Sowing Area(acres) : "+listDataLand.get(position).sowing_area_In_acres);
         tv_sowing_date_male.setText("Sowing Date male : " + listDataLand.get(position).sowing_date_male);
         tv_sowing_date_female.setText("Sowing Date female :" +listDataLand.get(position).sowing_date_female);
+
+
+           if(listDataLand.get(position).standing_acres!=null) {
+               try {
+                   tv_standing_acres.setText("Standing Acres :" + listDataLand.get(position).standing_acres);
+               } catch (Exception e) {
+                   e.printStackTrace();
+               }
+           }
+           else {
+               tv_standing_acres.setVisibility(View.GONE);
+               listDataLand.get(position).standing_acres=null;
+           }
+
+        if(listDataLand.get(position).pld_acre!=null) {
+            try {
+                tv_pld_acres.setText("PLD Acres :" + listDataLand.get(position).pld_acre);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        else {
+            tv_pld_acres.setVisibility(View.GONE);
+            listDataLand.get(position).pld_acre=null;
+        }
+
+
+
         if (listDataLand.get(position).grower_land_owner_name!= null && !listDataLand.get(position).grower_land_owner_name.equalsIgnoreCase("")) {
             tv_character_ofImageView.setText(String.valueOf(listDataLand.get(position).grower_land_owner_name.charAt(0)).toUpperCase());
         }

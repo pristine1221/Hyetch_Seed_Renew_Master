@@ -178,6 +178,9 @@ public class PlantingLineLotListTable {
     @ColumnInfo(name = "plD_Error")
     private String plD_Error;
 
+    @ColumnInfo(name = "pld_mark")
+    private String pld_mark;
+
     @ColumnInfo(name = "posted")
     private String posted;
 
@@ -607,6 +610,14 @@ public class PlantingLineLotListTable {
         this.plD_Error = plD_Error;
     }
 
+    public String getPld_mark() {
+        return pld_mark;
+    }
+
+    public void setPld_mark(String pld_mark) {
+        this.pld_mark = pld_mark;
+    }
+
     public String getPosted() {
         return posted;
     }
@@ -682,6 +693,7 @@ public class PlantingLineLotListTable {
         planting_lot_master_table.plD_Error=plantingLotParentTypeModel.plD_Error;
         planting_lot_master_table.posted=plantingLotParentTypeModel.posted;
         planting_lot_master_table.document_SubType=plantingLotParentTypeModel.document_SubType;
+        planting_lot_master_table.pld_mark=plantingLotParentTypeModel.pld_mark;
         return planting_lot_master_table;
     }
 }

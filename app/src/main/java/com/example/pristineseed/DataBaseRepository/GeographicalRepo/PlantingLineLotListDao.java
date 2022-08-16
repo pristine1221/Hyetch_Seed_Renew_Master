@@ -15,6 +15,9 @@ public interface PlantingLineLotListDao {
     @Insert
     void insert(List<PlantingLineLotListTable> plantingLineLotListTableList );
 
+    @Insert
+      List<Long> insertList(List<PlantingLineLotListTable> plantingLineLotListTableList );
+
     @Query("SELECT * FROM planting_line_lot_table WHERE production_Lot_No not null and production_Lot_No not in('',' ') ")
     List<PlantingLineLotListTable> fetchAllData();
 
@@ -43,6 +46,7 @@ public interface PlantingLineLotListDao {
 
     @Query("SELECT * from planting_line_lot_table WHERE  production_Lot_No=:production_Lot_No")
     PlantingLineLotListTable  getSowingAcre(String production_Lot_No);
+
 
 
     @Query("SELECT * from planting_line_lot_table WHERE production_Lot_No=:production_lot_no ") /*and crop_Code='Corn' OR crop_Code='Millet' OR crop_Code='SSG' OR crop_Code='Mustard' OR crop_Code='F.Sorghum'*/

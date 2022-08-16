@@ -44,16 +44,22 @@ public class FloweringInspectionTable {
 
     @ColumnInfo(name = "pest_infestation_level ")
     private String pest_infestation_level ;
+
     @ColumnInfo(name = "disease_infestation_level  ")
     private String disease_infestation_level  ;
+
     @ColumnInfo(name = "target_date_of_detasseling")
     private String target_date_of_detasseling;
+
     @ColumnInfo(name = "actual_date_of_detasseling")
     private String actual_date_of_detasseling;
+
     @ColumnInfo(name = "net_deviation_days")
     private String net_deviation_days;
+
     @ColumnInfo(name = "date_1st_pass")
     private String date_1st_pass;
+
     @ColumnInfo(name = "prcnt_of_silk_1st_pass")
     private String prcnt_of_silk_1st_pass;
     @ColumnInfo(name = "prcnt_of_male_shedding_1st_pass")
@@ -473,7 +479,7 @@ public class FloweringInspectionTable {
     public String getPrcnt_of_male_shedding_1st_pass(){
         return prcnt_of_male_shedding_1st_pass;
     }
-    public void setPrcnt_of_male_shedding_1st_pass(String disease_infestation_level){
+    public void setPrcnt_of_male_shedding_1st_pass(String prcnt_of_male_shedding_1st_pass){
         this.prcnt_of_male_shedding_1st_pass=prcnt_of_male_shedding_1st_pass;
     }
 
@@ -495,7 +501,7 @@ public class FloweringInspectionTable {
         return prcnt_of_male_shedding_2nd_pass;
     }
     public void setPrcnt_of_male_shedding_2nd_pass(String prcnt_of_male_shedding_2nd_pass){
-        this.prcnt_of_male_shedding_1st_pass=prcnt_of_male_shedding_1st_pass;
+        this.prcnt_of_male_shedding_2nd_pass=prcnt_of_male_shedding_2nd_pass;
     }
 
     public String getDate_final_pass(){
@@ -516,7 +522,7 @@ public class FloweringInspectionTable {
         return prcnt_of_Male_Shedding_final_pass;
     }
     public void setPrcnt_of_Male_Shedding_final_pass(String prcnt_of_male_shedding_final_pass){
-        this.prcnt_of_Male_Shedding_final_pass=prcnt_of_Male_Shedding_final_pass;
+        this.prcnt_of_Male_Shedding_final_pass=prcnt_of_male_shedding_final_pass;
     }
 
     public String getDate_1st_Roughing(){

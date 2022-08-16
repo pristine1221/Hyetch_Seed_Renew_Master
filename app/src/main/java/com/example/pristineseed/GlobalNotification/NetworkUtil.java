@@ -37,7 +37,17 @@ public class NetworkUtil extends BroadcastReceiver {
         }
         return false;
     }
-
+    public static boolean getConnectivityStatusString(Context context) {
+        int conn = getConnectivityStatus(context);
+        if (conn == NetworkUtil.TYPE_WIFI) {
+            return true;       //for wifi
+        } else if (conn == NetworkUtil.TYPE_MOBILE) {
+            return true;       //for mobiledata
+        } else if (conn == NetworkUtil.TYPE_NOT_CONNECTED) {
+            return false;     // for not connected
+        }
+        return false;
+    }
     @Override
     public void onReceive(Context context, Intent intent) {
         boolean speedtest = getConnectivityStatusBoolean(context);

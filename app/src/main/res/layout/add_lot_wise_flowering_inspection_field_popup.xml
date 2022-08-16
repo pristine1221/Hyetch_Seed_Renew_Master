@@ -678,8 +678,7 @@
                                 android:id="@+id/ed_polln_shed_pr"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:inputType="numberDecimal"
-                                android:maxLines="1"
+                                android:inputType="number"
                                 android:textColor="@color/black" />
 
                         </com.google.android.material.textfield.TextInputLayout>
@@ -852,8 +851,10 @@
 
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/ed_pld_acres"
+                                android:inputType="number"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:textColor="@color/black"
                                 android:maxLines="1" />
 
                         </com.google.android.material.textfield.TextInputLayout>
@@ -896,6 +897,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:editable="false"
+                                android:textColor="@color/black"
                                 android:enabled="false"
                                 android:maxLines="1" />
 
@@ -929,10 +931,12 @@
 
                         <com.google.android.material.textfield.TextInputLayout
                             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+                            android:id="@+id/ac_pld_reason_layout"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:hint="PLD Reasons"
+                            android:visibility="gone"
                             app:boxCornerRadiusBottomEnd="15dp"
                             app:boxCornerRadiusTopStart="15dp">
 
@@ -1090,6 +1094,7 @@
                                 android:id="@+id/ed_iso_tym"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:textColor="@color/black"
                                 android:maxLines="1" />
 
                         </com.google.android.material.textfield.TextInputLayout>
@@ -1182,6 +1187,7 @@
                                 android:id="@+id/ed_net_deviation_days"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:textColor="@color/black"
                                 android:maxLines="1" />
 
                         </com.google.android.material.textfield.TextInputLayout>
@@ -1194,7 +1200,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:hint="Date First Pass"
+                            android:hint="Date(1st pass)"
                             app:boxCornerRadiusBottomEnd="15dp"
                             app:boxCornerRadiusTopStart="15dp"
                             app:endIconDrawable="@drawable/ic_baseline_today_24"
@@ -1230,7 +1236,7 @@
                                 android:layout_height="wrap_content"
                                 android:editable="false"
                                 android:maxLines="1"
-                                android:inputType="numberDecimal"
+                                android:inputType="number"
                                 android:textColor="@color/black" />
 
                         </com.google.android.material.textfield.TextInputLayout>
@@ -1241,8 +1247,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/_5sdp"
                             android:layout_weight="1"
-                            android:baselineAligned="false"
-                            android:hint="% male sheduling(1st pass)"
+                            android:hint="% Male shedding(1st pass)"
                             app:boxCornerRadiusBottomEnd="15dp"
                             app:boxCornerRadiusTopStart="15dp"
                             app:endIconMode="custom">
@@ -1252,9 +1257,8 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:editable="false"
-                                android:inputType="numberDecimal"
-                                android:maxLines="1"
-                                android:textColor="@color/black" />
+                                android:inputType="number"
+                                android:textColor="@color/black"/>
 
                         </com.google.android.material.textfield.TextInputLayout>
                     </TableRow>
@@ -1301,7 +1305,7 @@
                                 android:layout_height="wrap_content"
                                 android:editable="false"
                                 android:maxLines="1"
-                                android:inputType="numberDecimal"
+                                android:inputType="number"
                                 android:textColor="@color/black" />
 
                         </com.google.android.material.textfield.TextInputLayout>
@@ -1312,8 +1316,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/_5sdp"
                             android:layout_weight="1"
-                            android:baselineAligned="false"
-                            android:hint="% Male Sheduling(2nd pass)"
+                            android:hint="% Male Shedding(2nd pass)"
                             app:boxCornerRadiusBottomEnd="15dp"
                             app:boxCornerRadiusTopStart="15dp"
                             app:endIconMode="custom">
@@ -1323,8 +1326,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:editable="false"
-                                android:inputType="numberDecimal"
-                                android:maxLines="1"
+                                android:inputType="number"
                                 android:textColor="@color/black" />
 
                         </com.google.android.material.textfield.TextInputLayout>
@@ -1371,7 +1373,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:editable="false"
-                                android:inputType="numberDecimal"
+                                android:inputType="number"
                                 android:maxLines="1"
                                 android:textColor="@color/black" />
 
@@ -1383,8 +1385,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/_5sdp"
                             android:layout_weight="1"
-                            android:baselineAligned="false"
-                            android:hint="% Male Sheduling(final pass)"
+                            android:hint="% Male Shedding(final pass)"
                             app:boxCornerRadiusBottomEnd="15dp"
                             app:boxCornerRadiusTopStart="15dp"
                             app:endIconMode="custom">
@@ -1395,7 +1396,6 @@
                                 android:layout_height="wrap_content"
                                 android:editable="false"
                                 android:inputType="number"
-                                android:maxLines="1"
                                 android:textColor="@color/black" />
 
                         </com.google.android.material.textfield.TextInputLayout>
@@ -1432,7 +1432,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:hint="Offtype(roughing 1)"
+                            android:hint="Type of Off types(rgh1)"
                             app:boxCornerRadiusBottomEnd="15dp"
                             app:boxCornerRadiusTopStart="15dp"
                             app:endIconMode="custom">
@@ -1442,7 +1442,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:editable="false"
-                                android:inputType="number"
+                                android:inputType="text"
                                 android:maxLines="1"
                                 android:textColor="@color/black" />
 
@@ -1526,7 +1526,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:hint="Offtype(roughing 2)"
+                            android:hint="Type of Off types(rgh2)"
                             app:boxCornerRadiusBottomEnd="15dp"
                             app:boxCornerRadiusTopStart="15dp"
                             app:endIconMode="custom">
@@ -1535,8 +1535,6 @@
                                 android:id="@+id/ed_off_type_roughing_2"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:editable="false"
-                                android:inputType="number"
                                 android:maxLines="1"
                                 android:textColor="@color/black" />
 
@@ -1621,7 +1619,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:hint="Offtype(roughing 3)"
+                            android:hint="Type of Off types(rgh3)"
                             app:boxCornerRadiusBottomEnd="15dp"
                             app:boxCornerRadiusTopStart="15dp"
                             app:endIconMode="custom">
@@ -1630,8 +1628,6 @@
                                 android:id="@+id/ed_off_type_roughing_3"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:editable="false"
-                                android:inputType="number"
                                 android:maxLines="1"
                                 android:textColor="@color/black" />
 

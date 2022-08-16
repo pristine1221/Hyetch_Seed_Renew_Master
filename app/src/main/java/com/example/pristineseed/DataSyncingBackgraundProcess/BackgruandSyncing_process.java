@@ -3,11 +3,15 @@ package com.example.pristineseed.DataSyncingBackgraundProcess;
 import static androidx.core.content.ContextCompat.getSystemService;
 
 import android.app.Activity;
+import android.app.Notification;
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
@@ -138,6 +142,7 @@ import com.example.pristineseed.ui.bootmMainScreen.BottomMainActivity;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.valdesekamdem.library.mdtoast.MDToast;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -148,11 +153,12 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class BackgruandSyncing_process extends AsyncTask<Void, Void, Void> {
-
+    public static int syncyStatus=0;
     private Activity activity;
     private SessionManagement sessionManagement;
     private static int Schedulertimercounter = 0;
     private String lastSync;
+
 
     public BackgruandSyncing_process(Activity activity) {
         this.activity = activity;
@@ -167,35 +173,40 @@ public class BackgruandSyncing_process extends AsyncTask<Void, Void, Void> {
     @Override
     protected void onProgressUpdate(Void... values) {
         super.onProgressUpdate(values);
-        //NotificationCall("syncing");
     }
 
     @Override
     protected Void doInBackground(Void... voids) {
         //todo get Inspection Scheduler who exist on server
         try {
-           // NotificationCall("syncing");
-             getAllsecheduleInspectionData();
-            //todo server sync data....
-            syncDataGerminationInspection();
-            syncDataSeedlingInspection();
-            syncDataVegitativeInspection();
-            synDataNickingInspection();
-            synDataNicking2Inspection();
-            synDataFloweringInspection();
-            synDataPostFloweringInspection();
-            synDataPostMaturityInspection();
-            synDataPostHarvestingInspection();
-            synDataPostQcInspection();
-            exceptionSendToServer();
+            if(syncyStatus==0) {
+                NotificationSyncDataStart();
+                syncyStatus = 1;
 
-            if (Schedulertimercounter >= 60000 || Schedulertimercounter == 0) {
-                Schedulertimercounter = 0;
+                publishProgress();
 
                 getAllsecheduleInspectionData();
-                getHybridItemMasterData();
-                getGeoServerData();
-                getPlantingLineListLot();
+                //todo server sync data....
+                syncDataGerminationInspection();
+                syncDataSeedlingInspection();
+                syncDataVegitativeInspection();
+                synDataNickingInspection();
+                synDataNicking2Inspection();
+                synDataFloweringInspection();
+                synDataPostFloweringInspection();
+                synDataPostMaturityInspection();
+                synDataPostHarvestingInspection();
+                synDataPostQcInspection();
+                exceptionSendToServer();
+
+
+
+                if (Schedulertimercounter == 0 || Schedulertimercounter >= 60000) {
+                    Schedulertimercounter = 0;
+                    getAllsecheduleInspectionData();
+                    getHybridItemMasterData();
+                    getGeoServerData();
+                    getPlantingLineListLot();
 
                 /*getCityMaster();
                 getPlantingLotList();
@@ -209,7 +220,7 @@ public class BackgruandSyncing_process extends AsyncTask<Void, Void, Void> {
 
                 getSelectSeason();
                 getOrganizerCode();
-               getFarmermaster();
+                getFarmermaster();
 
                 getRoleMasterData("Dealer");
                 getRoleMasterData("Customer");
@@ -220,18 +231,22 @@ public class BackgruandSyncing_process extends AsyncTask<Void, Void, Void> {
                 getBookingUnitOfPriceData();
                 getBankMasterData();*/
 
+                }
+                Thread.sleep(5000);
+                Schedulertimercounter += 5000;
             }
-            Thread.sleep(5000);
-            Schedulertimercounter += 5000;
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-           // Log.e("time", String.valueOf(Schedulertimercounter));
+            syncyStatus=0;
+            NotificationSyncDataStop();
+
         }
         return null;
     }
 
     private void getAllsecheduleInspectionData() {
+
         try {
             NetworkInterface mAPIService = ApiUtils.getPristineAPIService();
             Call<List<SchedulerModel>> call = mAPIService.getSchedulerInspection(sessionManagement.getUserEmail(), sessionManagement.getuser_app_inspection_type());
@@ -1894,7 +1909,6 @@ public class BackgruandSyncing_process extends AsyncTask<Void, Void, Void> {
         }
     }
 
-
     private void getBankMasterData() {
         NetworkInterface mAPIService = ApiUtils.getPristineAPIService();
         Call<BankMaserModel> call = mAPIService.getBankMasterData();
@@ -2033,7 +2047,6 @@ public class BackgruandSyncing_process extends AsyncTask<Void, Void, Void> {
         }
     }
 
-
     private void  bindShipAdressData(List<ShipToAddressModel.Data> ship_address_list, PristineDatabase db) {
         ShipToAddressDao shipToAddressDao = db.shipToAddressDao();
         shipToAddressDao.deleteAllRecord();
@@ -2070,11 +2083,15 @@ public class BackgruandSyncing_process extends AsyncTask<Void, Void, Void> {
 
     private void bindPlantingLineLotData(List<PlantingProdcutionLotModel> planting_line_lot_list_, PristineDatabase db) {
         PlantingLineLotListDao plantingLineLotListDao = db.plantingLineLotListDao();
+
         plantingLineLotListDao.deleteAllRecord();
+        List<PlantingLineLotListTable> data=new ArrayList<>();
         for (int i = 0; i < planting_line_lot_list_.size(); i++) {
             PlantingLineLotListTable plantingLostParentTable = PlantingLineLotListTable.bindPLantingLotDetail(planting_line_lot_list_.get(i));
-            plantingLineLotListDao.insert(plantingLostParentTable);
+            data.add(plantingLostParentTable);
         }
+        List<Long> a=plantingLineLotListDao.insertList(data);
+       // MDToast.makeText(activity, "list size: "+ String.valueOf(planting_line_lot_list_.size())+" insert record: "+String.valueOf(a.size()), MDToast.LENGTH_LONG,MDToast.TYPE_SUCCESS).show();
     }
 
     private void getFsioBsioSaleOrderNo(){
@@ -2109,23 +2126,138 @@ public class BackgruandSyncing_process extends AsyncTask<Void, Void, Void> {
               }
               }
 
-    // declaring variables
+    //todo for checking syncing notification.....................................
+    private NotificationManager notifManager;
+    public void createNotification(String aMessage, Context context) {
+        final int NOTIFY_ID = 0; // ID of notification
+        //String id = context.getString("kkkk"); // default_channel_id
+        //String title = context.getString(R.string.default_notification_channel_title); // Default Channel
+        Intent intent;
+        PendingIntent pendingIntent;
+        NotificationCompat.Builder builder;
+        if (notifManager == null) {
+            notifManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            int importance = NotificationManager.IMPORTANCE_HIGH;
+            NotificationChannel mChannel = notifManager.getNotificationChannel("channel1");
+            if (mChannel == null) {
+                mChannel = new NotificationChannel("channel1", "MyCannel", importance);
+                mChannel.enableVibration(true);
+                mChannel.setVibrationPattern(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
+                notifManager.createNotificationChannel(mChannel);
+            }
+            builder = new NotificationCompat.Builder(activity, "channel1");
+            intent = new Intent(activity, BottomMainActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_IMMUTABLE);
+            builder.setContentTitle(aMessage)                            // required
+                    .setSmallIcon(android.R.drawable.ic_popup_reminder)   // required
+                    .setContentText(context.getString(R.string.app_name)) // required
+                    .setDefaults(Notification.DEFAULT_ALL)
+                    .setAutoCancel(true)
+                    .setContentIntent(pendingIntent)
+                    .setTicker(aMessage)
+                    .setVibrate(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
+        }
+        else {
+            builder = new NotificationCompat.Builder(activity, "channel1");
+            intent = new Intent(activity, BottomMainActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            pendingIntent = PendingIntent.getActivity(activity, 0, intent, PendingIntent.FLAG_IMMUTABLE);
+            builder.setContentTitle(aMessage)                            // required
+                    .setSmallIcon(android.R.drawable.ic_popup_reminder)   // required
+                    .setContentText(context.getString(R.string.app_name)) // required
+                    .setDefaults(Notification.DEFAULT_ALL)
+                    .setAutoCancel(true)
+                    .setContentIntent(pendingIntent)
+                    .setTicker(aMessage)
+                    .setVibrate(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400})
+                    .setPriority(Notification.PRIORITY_HIGH);
+        }
+        Notification notification = builder.build();
+        notifManager.notify(NOTIFY_ID, notification);
+    }
 
-   /* void NotificationCall(String message) {
-        NotificationCompat.Builder builder =
-                new NotificationCompat.Builder(activity.getApplicationContext())
-                        .setSmallIcon(R.drawable.ic_notifications_black_24dp)
-                        .setContentTitle(message)
-                        .setContentText("This is a sync notification");
-
-        Intent notificationIntent = new Intent(activity.getApplicationContext(), BottomMainActivity.class);
-        PendingIntent contentIntent = PendingIntent.getActivity(activity.getApplicationContext(), 0, notificationIntent,
-                PendingIntent.FLAG_UPDATE_CURRENT);
-        builder.setContentIntent(contentIntent);
-        NotificationManager manager = (NotificationManager) (this.activity.getSystemService(Context.NOTIFICATION_SERVICE));
-        manager.notify(0, builder.build());
-    }*/
+    //todo for notification for staus bar in progress......................
 
 
+    static  NotificationCompat.Builder mBuilder;
+    static NotificationManager manager;
+    int PROGRESS_MAX = 100;
+    int PROGRESS_CURRENT = 0;
+    int notificationId = 1;
+
+    //todo sync data start
+    void NotificationSyncDataStart() {
+        //todo fix notification show
+        mBuilder =
+                new NotificationCompat.Builder(activity.getApplicationContext(), "Offline Data Sync");
+        NotificationCompat.BigTextStyle bigText = new NotificationCompat.BigTextStyle();
+
+        bigText.bigText("Sync Action");
+        bigText.setBigContentTitle("Offline Data Sync");
+        bigText.setSummaryText("Background Sync");
+
+        mBuilder.setLargeIcon(BitmapFactory.decodeResource(activity.getResources(),
+                R.mipmap.ic_launcher));
+        mBuilder.setSmallIcon(R.mipmap.ic_launcher);
+        mBuilder.setContentTitle("Offline Data Sync");
+        mBuilder.setContentText("Sync Action");
+        mBuilder.setPriority(Notification.PRIORITY_MAX);
+        mBuilder.setStyle(bigText);
+
+        manager = (NotificationManager) activity.getSystemService(Context.NOTIFICATION_SERVICE);
+
+// === Removed some obsoletes
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            String channelId = "Offline Data Sync";
+            NotificationChannel channel = new NotificationChannel(
+                    channelId,
+                    "Offline Data Sync",
+                    NotificationManager.IMPORTANCE_LOW);
+            manager.createNotificationChannel(channel);
+            mBuilder.setChannelId(channelId);
+        }
+        mBuilder.setProgress(PROGRESS_MAX, PROGRESS_CURRENT, true);
+        manager.notify(notificationId, mBuilder.build());
+    }
+
+    //todo sync stop
+    void NotificationSyncDataStop() {
+        try {
+            mBuilder.setContentText("Sync complete")
+                    .setProgress(0, 0, false);
+            manager.notify(notificationId, mBuilder.build());
+            Thread.sleep(1000);
+            manager.cancel(notificationId);
+        } catch (Exception e) {
+        }
+    }
+
+    public  static  int minuteWiseTimer=0;
+    public static int timercounter=0;
+
+    void BatchRedyForResetSync() {
+        try {
+            Thread.sleep(10000);
+            if (minuteWiseTimer == 0 || minuteWiseTimer >= 60000) {
+                minuteWiseTimer = 0;
+
+            }
+            minuteWiseTimer += 10000;
+            timercounter += 10000;
+            if (timercounter >= 60000 * 5) {
+                timercounter = 0;
+                NotificationSyncDataStart();
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        } finally {
+
+        }
+    }
 }
 

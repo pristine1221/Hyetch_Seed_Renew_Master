@@ -53,8 +53,8 @@ public class HarvestingInspectionTable {
     private String standing_acres;
     @ColumnInfo(name="pld_acre ")
     private String pld_acre;
-    @ColumnInfo(name = "net_acre")
-    private String net_acre;
+    /*@ColumnInfo(name = "net_acre")
+    private String net_acre;*/
     @ColumnInfo(name="pld_reason")
     private String pld_reason;
     @ColumnInfo(name = "disease_infestation_level ")
@@ -194,13 +194,13 @@ public class HarvestingInspectionTable {
         this.pld_acre=pld_acre;
     }
 
-    public String getNet_acre(){
+  /*  public String getNet_acre(){
         return net_acre;
     }
     public void setNet_acre(String net_acre){
         this.net_acre=net_acre;
     }
-
+*/
     public String getPld_reason(){
         return pld_reason;
     }
@@ -353,7 +353,7 @@ public class HarvestingInspectionTable {
 
         harvestingInspectionTable.disease_infestation_level=harvestingInspectionModel.disease_infestation_level;
         harvestingInspectionTable.diseases =harvestingInspectionModel.diseases;
-        harvestingInspectionTable.net_acre=harvestingInspectionModel.net_acre;
+        //harvestingInspectionTable.net_acre=harvestingInspectionModel.net_acre;
         harvestingInspectionTable.standing_acres=harvestingInspectionModel.standing_acres;
         harvestingInspectionTable.pld_acre=harvestingInspectionModel.pld_acre;
         harvestingInspectionTable.pld_reason=harvestingInspectionModel.pld_reason;

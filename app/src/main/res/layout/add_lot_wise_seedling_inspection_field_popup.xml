@@ -797,6 +797,7 @@
                                     android:id="@+id/ed_pld_acres"
                                   android:layout_width="match_parent"
                                   android:layout_height="wrap_content"
+                                  android:textColor="@color/black"
                                   android:maxLines="1" />
 
                             </com.google.android.material.textfield.TextInputLayout>
@@ -872,9 +873,11 @@
 
                             <com.google.android.material.textfield.TextInputLayout
                                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+                                android:id="@+id/ac_pld_reason_layout"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
+                                android:visibility="gone"
                                 android:hint="PLD Reasons"
                                 app:boxCornerRadiusBottomEnd="15dp"
                                 app:boxCornerRadiusTopStart="15dp">

@@ -56,6 +56,8 @@ public class PlantingProdcutionLotModel {
        public String inspection_VIII_Status;
        public String temp_FSIO_No;
        public String plD_Error;
+       public String pld_mark;
+       public String pld_acre;
        public String posted;
        public String document_SubType;
 

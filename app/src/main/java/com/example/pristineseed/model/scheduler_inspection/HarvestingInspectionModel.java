@@ -14,7 +14,7 @@ public class HarvestingInspectionModel {
     public String actual_date;
 
     public String  standing_acres;
-    public String  net_acre;
+
     public String  pld_acre;
     public String  pld_reason;
     public String disease_infestation_level;

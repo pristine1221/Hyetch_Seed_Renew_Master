@@ -585,7 +585,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:fontFamily="@font/product_sans_bold"
-                                android:text="Doc.SubType:"
+                                android:text="DocSubType:"
                                 android:textColor="@color/profileEditTextColor"
                                 android:textSize="13sp" />
 

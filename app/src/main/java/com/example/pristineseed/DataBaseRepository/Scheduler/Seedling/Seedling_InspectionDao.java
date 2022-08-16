@@ -5,6 +5,7 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 
+import com.example.pristineseed.DataBaseRepository.GeographicalRepo.PlantingLineLotListTable;
 import com.example.pristineseed.DataBaseRepository.Scheduler.GerminationInspection1_Table;
 
 import java.util.List;
@@ -39,6 +40,10 @@ public interface Seedling_InspectionDao {
 
     @Query(("SELECT * FROM seedling_inpection_table WHERE production_lot_no=:production_lot"))
     SeedlingInspectionTable getSeedlingCreatedOnByLot(String production_lot);
+
+    //todo for pld marked....................................
+    @Query("SELECT * from seedling_inpection_table WHERE  production_Lot_No=:production_Lot_No")
+    SeedlingInspectionTable getPld(String production_Lot_No);
 
 
     @Query("SELECT * FROM seedling_inpection_table WHERE  sync_with_api_ins2=0")

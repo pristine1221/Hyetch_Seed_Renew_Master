@@ -33,6 +33,11 @@ import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.example.pristineseed.DataBaseRepository.GeographicalRepo.PlantingLineLotListDao;
 import com.example.pristineseed.DataBaseRepository.GeographicalRepo.PlantingLineLotListTable;
 import com.example.pristineseed.DataBaseRepository.Planting.PlantingLineDao;
@@ -41,6 +46,8 @@ import com.example.pristineseed.DataBaseRepository.Scheduler.GerminationInspecti
 import com.example.pristineseed.DataBaseRepository.Scheduler.ScheduleInspectionLineDao;
 import com.example.pristineseed.DataBaseRepository.Scheduler.SchedulerInspectionLineTable;
 import com.example.pristineseed.DataBaseRepository.Scheduler.Scheduler_Header_Table;
+import com.example.pristineseed.DataBaseRepository.Scheduler.Seedling.SeedlingInspectionTable;
+import com.example.pristineseed.DataBaseRepository.Scheduler.Seedling.Seedling_InspectionDao;
 import com.example.pristineseed.DataBaseRepository.Scheduler.Vegitative.VegitativeInspectionDao;
 import com.example.pristineseed.DataBaseRepository.Scheduler.Vegitative.VegitativeInspectionTable;
 import com.example.pristineseed.GlobalNotification.NetworkUtil;
@@ -89,7 +96,7 @@ import retrofit2.Response;
 import static android.app.Activity.RESULT_OK;
 
 public class Vegitative_Inspection_Fragment extends Fragment {
-
+    String pldMarked="";
     SessionManagement sessionManagement;
     private TextView tv_date, tv_season, tv_season_name, tv_prod_cent_name, tv_prod_center,
             tv_farmer_name, village_address, tv_prod_lot_no, tv_crop_code, tv_varity_code, tv_sd_male, tv_sd_female, tv_org_name,
@@ -104,7 +111,7 @@ public class Vegitative_Inspection_Fragment extends Fragment {
 
     private Scheduler_Header_Table scheduler_header_table;
     private SchedulerInspectionLineTable schedulerInspectionLineTable;
-    private TextInputLayout tv_iso_dis_show, tv_iso_time_show, tv_iso_grain_show;
+    private TextInputLayout tv_iso_dis_show, tv_iso_time_show, tv_iso_grain_show,ac_pld_reason_layout;
 
     private ImageView imageView;
     private FrameLayout close_dilog_bt;
@@ -204,6 +211,7 @@ public class Vegitative_Inspection_Fragment extends Fragment {
         ac_desease = view.findViewById(R.id.ac_diseases);
         ac_pest_insfestation = view.findViewById(R.id.ac_pest_insfestation);
         ac_diseases_insfestation = view.findViewById(R.id.ac_diseases_insfestation);
+        ac_pld_reason_layout = view.findViewById(R.id.ac_pld_reason_layout);
         ac_pld = view.findViewById(R.id.ac_pld);
         ac_crop_codn = view.findViewById(R.id.crop_condn);
         ac_crop_stage = view.findViewById(R.id.crop_stage);
@@ -232,6 +240,21 @@ public class Vegitative_Inspection_Fragment extends Fragment {
         imageView = view.findViewById(R.id.vegi_image_view);
         add_image_btn = view.findViewById(R.id.add_attachment);
         clear_image_btn = view.findViewById(R.id.clear_img);
+
+        //todo for pld marked....................
+        /*try {
+            if();
+            double plld=Double.parseDouble(plantingLineLotListTable.getPld_acre());
+            if (plld>0)
+                MDToast.makeText(getActivity(),"PLD MARKED",MDToast.LENGTH_SHORT,MDToast.TYPE_ERROR);
+            add_image_btn.setVisibility(View.GONE);
+            bt_complete.setVisibility(View.GONE);
+            btn_save_record.setVisibility(View.GONE);
+
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }*/
 
         close_dilog_bt.setOnClickListener(v -> {
             getFragmentManager().popBackStack();
@@ -264,9 +287,20 @@ public class Vegitative_Inspection_Fragment extends Fragment {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if(!s.toString().equalsIgnoreCase("")){
-                    double i=Double.parseDouble(standing_acres.getText().toString());
-                    double i1=Double.parseDouble(pld_acres.getText().toString());
-                    net_acres.setText(String.valueOf(i-i1));
+                    try {
+                        double i=Double.parseDouble(standing_acres.getText().toString());
+                        double i1=Double.parseDouble(pld_acres.getText().toString());
+                        net_acres.setText(String.valueOf(i-i1));
+                        if(!pld_acres.getText().toString().equalsIgnoreCase("") && i1>0)
+                            ac_pld_reason_layout.setVisibility(View.VISIBLE);
+
+                        else
+                            ac_pld_reason_layout.setVisibility(View.GONE);
+                    }
+                    catch (Exception e){
+                        e.printStackTrace();
+                    }
+
                 }
                 else {
                     MDToast.makeText(getActivity(),"pld acres can't blank or greater than standing acres",MDToast.LENGTH_SHORT,MDToast.TYPE_ERROR).show();
@@ -451,7 +485,6 @@ public class Vegitative_Inspection_Fragment extends Fragment {
                     disableAllInputField();
 
                 }
-
             }
         }
     }
@@ -598,7 +631,18 @@ public class Vegitative_Inspection_Fragment extends Fragment {
                 ac_pest_insfestation.setText(vegitativeInspectionTable.get(0).getPest_infestation_level());
                 ac_diseases_insfestation.setText(vegitativeInspectionTable.get(0).getDisease_infestation_level());
 
-                ac_pld.setText(vegitativeInspectionTable.get(0).getPld_reason());
+
+
+                if(vegitativeInspectionTable.get(0).getPld_reason().length()>0) {
+                    try {
+                        ac_pld.setText(vegitativeInspectionTable.get(0).getPld_reason());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+                else {
+                    ac_pld_reason_layout.setVisibility(View.GONE);
+                }
                 pld_acres.setText(vegitativeInspectionTable.get(0).getPld_acres());
                 net_acres.setText(vegitativeInspectionTable.get(0).getNet_acres());
 
@@ -610,17 +654,65 @@ public class Vegitative_Inspection_Fragment extends Fragment {
                 } else {
                     ed_date_of_insp.setText("");
                 }
+                    if(vegitativeInspectionTable.get(0).getAttachment()!=null) {
+                        image_layout.setVisibility(View.VISIBLE);
+                        imageView.setVisibility(View.VISIBLE);
+                        try {
+                            new Thread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Glide.get(getActivity()).clearDiskCache();
+                                }
+                            }).start();
+                            String file_attachment = vegitativeInspectionTable.get(0).getAttachment();
+                            try {
+                                byte[] decodedString = Base64.decode(file_attachment, Base64.DEFAULT);
+                                Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+                                Glide.with(getActivity())
+                                        .asBitmap()
+                                        .load(decodedByte)
+                                        .diskCacheStrategy(DiskCacheStrategy.NONE)
+                                        .skipMemoryCache(true)
+                                        .listener(new RequestListener<Bitmap>() {
+                                            @Override
+                                            public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Bitmap> target, boolean isFirstResource) {
+                                                Glide.with(getActivity())
+                                                        .load(ApiUtils.BASE_URL + "/api/Inspection/Get_Image?id="+file_attachment) // image urlApiUtils.BASE_URL + "/api/Inspection/Get_Image?id=" +
+                                                        .diskCacheStrategy(DiskCacheStrategy.NONE)
+                                                        .skipMemoryCache(true)
+                                                        .placeholder(R.drawable.noimage1)
+                                                        // any placeholder to load at start
+                                                        .into(imageView);
+                                                return false;
+                                            }
 
-                if(vegitativeInspectionTable.get(0).getAttachment()!=null){
-                    image_layout.setVisibility(View.VISIBLE);
-                    imageView.setVisibility(View.VISIBLE);
-                    String getImageId=vegitativeInspectionTable.get(0).getAttachment();
-                    HitShowImageApi(getImageId );
-                }
-                else {
-                    Toast.makeText(getActivity(), vegitativeInspectionTable.get(0).getAttachment(), Toast.LENGTH_SHORT).show();
-                }
+                                            @Override
+                                            public boolean onResourceReady(Bitmap resource, Object model, Target<Bitmap> target, DataSource dataSource, boolean isFirstResource) {
+                                                return false;
+                                            }
+                                        })// image urlApiUtils.BASE_URL + "/api/Inspection/Get_Image?id=" +
+                                        .placeholder(R.drawable.noimage1)
+                                        // any placeholder to load at start
+                                        .into(imageView);
+                            }
+                            catch (Exception e){
+                                Glide.with(getActivity())
+                                        .load(ApiUtils.BASE_URL + "/api/Inspection/Get_Image?id="+file_attachment) // image urlApiUtils.BASE_URL + "/api/Inspection/Get_Image?id=" +
+                                        .diskCacheStrategy(DiskCacheStrategy.NONE)
+                                        .skipMemoryCache(true)
+                                        .placeholder(R.drawable.noimage1)
+                                        // any placeholder to load at start
+                                        .into(imageView);
+                            }
 
+                        } catch (Exception e) {
+                            e.getMessage();
+                        }
+                    }
+                    else {
+                        MDToast.makeText(getActivity(), "no image", MDToast.LENGTH_SHORT,MDToast.TYPE_ERROR).show();
+                    }
+                    //HitShowImageApi(getImageId );
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -721,13 +813,13 @@ public class Vegitative_Inspection_Fragment extends Fragment {
                                 List<ResponseModel> inserResponseList = response.body();
                                 if (inserResponseList != null && inserResponseList.size() > 0 && inserResponseList.get(0).condition) {
                                     vegitative_inspectionModel.syncWithApi = 1;
-                                    vegitative_inspectionModel.attachment = selected_file_path;
+                                    vegitative_inspectionModel.attachment = inserResponseList.get(0).attachment;
                                     vegitativeInspectionList.add(vegitative_inspectionModel);
                                     insertVegitativeInspectionLine(vegitativeInspectionList);
                                     StaticMethods.showMDToast(getActivity(), inserResponseList.get(0).message, MDToast.TYPE_SUCCESS);
                                 } else {
                                     progressDialogLoading.hideDialog();
-                                    StaticMethods.showMDToast(getActivity(), inserResponseList.size() > 0 ? "Record not found !" : "Api not respoding.", MDToast.TYPE_ERROR);
+                                    StaticMethods.showMDToast(getActivity(), inserResponseList.get(0).message, MDToast.TYPE_ERROR);
                                 }
                             } else {
                                 progressDialogLoading.hideDialog();
@@ -831,9 +923,10 @@ public class Vegitative_Inspection_Fragment extends Fragment {
             mdToast.setGravity(Gravity.BOTTOM | Gravity.CENTER, 0, 50);
             mdToast.show();
         }
+        insertVegitativeInspectionLine(new ArrayList<>());
         db.close();
         db.destroyInstance();
-        insertVegitativeInspectionLine(new ArrayList<>());
+
     }
 
 
@@ -894,13 +987,14 @@ public class Vegitative_Inspection_Fragment extends Fragment {
     }
 
     //todo for standing acres from local database...........
+    PlantingLineLotListTable plantingLineLotListTable;
     private String getFemaleSowingDate() {
 
         if (production_lot_no != null) {
             PristineDatabase pristineDatabase = PristineDatabase.getAppDatabase(getActivity());
             try {
                 PlantingLineLotListDao plantingLineLotListDao = pristineDatabase.plantingLineLotListDao();
-                PlantingLineLotListTable plantingLineLotListTable = plantingLineLotListDao.getFemaleSowingDate(production_lot_no);
+                plantingLineLotListTable = plantingLineLotListDao.getFemaleSowingDate(production_lot_no);
 
                 String date = plantingLineLotListTable.getSowing_Date_Female();
                 String date_sub_string = date.substring(0, 10);

@@ -6,5 +6,6 @@ public class ResponseModel {
       public String email_id;
       public String connection_id;
       public String message;
+      public String attachment;
 
 }

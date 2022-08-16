@@ -29,6 +29,11 @@ import androidx.fragment.app.Fragment;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.example.pristineseed.DataBaseRepository.GeographicalRepo.PlantingLineLotListDao;
 import com.example.pristineseed.DataBaseRepository.GeographicalRepo.PlantingLineLotListTable;
 import com.example.pristineseed.DataBaseRepository.Scheduler.NickingInpection.NickingInspInsertDao;
@@ -222,6 +227,9 @@ public class NickingInspectionFragment extends Fragment {
 
         });
 
+        //todo for pld marked....................
+
+
         try {
             tv_date.setText(DateTimeUtilsCustome.getDateMMMDDYYYYSlsh1(scheduler_header_table.getDate()));
             tv_arrno_season_code.setText(scheduler_header_table.getSeason() + "(" + scheduler_header_table.getSeason_name() + ")");
@@ -384,12 +392,63 @@ public class NickingInspectionFragment extends Fragment {
                 edt_date_of_inspection.setText("");
             }
             try {
-                if(nickingInspectionTable.get(0).getAttachment()!=null){
-                    String getImageId=nickingInspectionTable.get(0).getAttachment();
-                    HitShowImageApi(getImageId );
+                if(nickingInspectionTable.get(0).getAttachment()!=null) {
+                    image_layout.setVisibility(View.VISIBLE);
+                    imageView.setVisibility(View.VISIBLE);
+                    try {
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Glide.get(getActivity()).clearDiskCache();
+                            }
+                        }).start();
+                        String file_attachment = nickingInspectionTable.get(0).getAttachment();
+
+                        try {
+                            byte[] decodedString = Base64.decode(file_attachment, Base64.DEFAULT);
+                            Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+                            Glide.with(getActivity())
+                                    .asBitmap()
+                                    .load(decodedByte)
+                                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                                    .skipMemoryCache(true)
+                                    .listener(new RequestListener<Bitmap>() {
+                                        @Override
+                                        public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Bitmap> target, boolean isFirstResource) {
+                                            Glide.with(getActivity())
+                                                    .load(ApiUtils.BASE_URL + "/api/Inspection/Get_Image?id="+file_attachment) // image urlApiUtils.BASE_URL + "/api/Inspection/Get_Image?id=" +
+                                                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                                                    .skipMemoryCache(true)
+                                                    .placeholder(R.drawable.noimage1)
+                                                    // any placeholder to load at start
+                                                    .into(imageView);
+                                            return false;
+                                        }
+
+                                        @Override
+                                        public boolean onResourceReady(Bitmap resource, Object model, Target<Bitmap> target, DataSource dataSource, boolean isFirstResource) {
+                                            return false;
+                                        }
+                                    })
+                                    .placeholder(R.drawable.noimage1)
+                                    .into(imageView);
+                        }
+                        catch (Exception e){
+                            Glide.with(getActivity())
+                                    .load(ApiUtils.BASE_URL + "/api/Inspection/Get_Image?id="+file_attachment) // image urlApiUtils.BASE_URL + "/api/Inspection/Get_Image?id=" +
+                                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                                    .skipMemoryCache(true)
+                                    .placeholder(R.drawable.noimage1)
+                                    // any placeholder to load at start
+                                    .into(imageView);
+                        }
+
+                    } catch (Exception e) {
+                        e.getMessage();
+                    }
                 }
                 else {
-                    MDToast.makeText(getActivity(), nickingInspectionTable.get(0).getAttachment(), MDToast.LENGTH_SHORT,MDToast.TYPE_ERROR).show();
+                    MDToast.makeText(getActivity(), "no image", MDToast.LENGTH_SHORT,MDToast.TYPE_ERROR).show();
                 }
             } catch (Exception e) {
                 e.getMessage();
@@ -463,7 +522,7 @@ public class NickingInspectionFragment extends Fragment {
                                 List<ResponseModel> tempInsert = response.body();
                                 if (tempInsert != null && tempInsert.size() > 0 && tempInsert.get(0).condition) {
                                     tempNickingInspList.sync_with_api_insp4 = 1;
-                                    tempNickingInspList.attachment = selected_file_path;
+                                    tempNickingInspList.attachment = tempInsert.get(0).attachment;
                                     temp_insert_Nicking_list.add(tempNickingInspList);
                                     bindNickingInspWithLocalData(temp_insert_Nicking_list);
                                     StaticMethods.showMDToast(getActivity(), tempInsert.get(0).message, MDToast.TYPE_SUCCESS);
@@ -692,5 +751,27 @@ public class NickingInspectionFragment extends Fragment {
                 ApiRequestFailure.PostExceptionToServer(t, getClass().getName(), "insert_germination", getActivity());
             }
         });
+    }
+
+    //todo for pld marked.....................
+    PlantingLineLotListTable plantingLineLotListTable;
+    private
+    String getPldAcres(String pld_mark){
+
+        if(production_lot_no!=null) {
+            PristineDatabase pristineDatabase = PristineDatabase.getAppDatabase(getActivity());
+            try {
+                PlantingLineLotListDao plantingLineLotListDao = pristineDatabase.plantingLineLotListDao();
+                //plantingLineLotListTable = plantingLineLotListDao.getPld(production_lot_no);
+                pld_mark =plantingLineLotListTable.getPld_mark();
+                return pld_mark;
+            }catch (Exception e){
+                e.printStackTrace();
+            }finally {
+                pristineDatabase.close();
+                pristineDatabase.destroyInstance();
+            }
+        }
+        return " ";
     }
 }

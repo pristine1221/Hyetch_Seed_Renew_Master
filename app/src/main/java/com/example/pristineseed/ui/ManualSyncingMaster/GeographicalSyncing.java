@@ -73,6 +73,7 @@ import com.example.pristineseed.DataBaseRepository.seed_dispatch_note.Organizer_
 import com.example.pristineseed.DataBaseRepository.seed_dispatch_note.Seed_Farmer_master_Table;
 import com.example.pristineseed.DataBaseRepository.travel.CityMasterTable;
 import com.example.pristineseed.DataBaseRepository.travel.City_master_Dao;
+import com.example.pristineseed.DataSyncingBackgraundProcess.BackgruandSyncing_process;
 import com.example.pristineseed.GlobalNotification.NetworkUtil;
 import com.example.pristineseed.R;
 import com.example.pristineseed.RoomDataBase.PristineDatabase;
@@ -389,9 +390,14 @@ public class GeographicalSyncing extends Fragment implements View.OnClickListene
                 public boolean onTouch(View v, MotionEvent event) {
                     if (!clickedButton) {
                         try {
-                            loadingDialog.showLoadingDialog(getActivity());
-                            clickedButton = true;
-                            getServerData();
+                            if(BackgruandSyncing_process.syncyStatus==0){
+                                loadingDialog.showLoadingDialog(getActivity());
+                                clickedButton = true;
+                                getServerData();
+                            }
+                            else {
+                                MDToast.makeText(getActivity(), "Syncing is already processing", MDToast.LENGTH_SHORT,MDToast.TYPE_WARNING).show();
+                            }
               /*  if (!BottomMainActivity.backgraund_syncing_is_running) {
                     sync_data_btn.setEnabled(true);
 
@@ -490,7 +496,6 @@ public class GeographicalSyncing extends Fragment implements View.OnClickListene
                     distric_master_loading.setVisibility(View.GONE);
                     taluka_master_loading.setVisibility(View.GONE);
                     area_master_loading.setVisibility(View.GONE);
-
                     getHybridItemMasterData();
                 }
 
@@ -545,7 +550,6 @@ public class GeographicalSyncing extends Fragment implements View.OnClickListene
 
             countModel.planting_line_lot_list_count = plantingLineLotListDao.getRowCount();
 
-
          /*
             GeographicDao geographicDao = pristineDatabase.geographicDao();
             CropHytechMasterDao hytechCropMasterDao = pristineDatabase.cropHytechMasterDao();
@@ -579,7 +583,6 @@ public class GeographicalSyncing extends Fragment implements View.OnClickListene
             SeedFarmerMasterDao seedFarmerMasterDao = pristineDatabase.seedFarmerMasterDao();
             City_master_Dao city_master_dao = pristineDatabase.city_master_dao();
             Planting_lot_Dao planting_lot_dao = pristineDatabase.planting_lot_dao();*/
-
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -758,6 +761,7 @@ public class GeographicalSyncing extends Fragment implements View.OnClickListene
             for (int i = 0; i < planting_line_lot_list_.size(); i++) {
                 PlantingLineLotListTable plantingLostParentTable = PlantingLineLotListTable.bindPLantingLotDetail(planting_line_lot_list_.get(i));
                 plantingLineLotListDao.insert(plantingLostParentTable);
+
             }
         }
         catch (Exception e){

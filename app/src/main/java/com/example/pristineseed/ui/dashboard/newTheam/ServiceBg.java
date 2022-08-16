@@ -97,23 +97,25 @@ public class ServiceBg extends Service implements com.google.android.gms.locatio
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.e("onstart", "onStartCommand");
+        callLocation();//new................................................................................
         super.onStartCommand(intent, flags, startId);
         return START_STICKY;
     }
 
-    @SuppressLint("MissingPermission")
     @Override
     public void onCreate() {
         Log.e("service_start", "create");
         sessionManagement = new SessionManagement(getApplicationContext());
         sendBroadcast();
-        context = this;
+        context = getApplicationContext();
         if(Build.VERSION.SDK_INT > Build.VERSION_CODES.O) {
-          //  showForegroundNotification();
+           // showForegroundNotification();//uncomment....................................................
         } else {
             startForeground(1, new Notification());
         }
-        initializeLocationManager();
+        callLocation();//add new...................................
+        //////////////////////comment
+        /*initializeLocationManager();
         try {
             mLocationManager.requestLocationUpdates(
                     LocationManager.NETWORK_PROVIDER, LOCATION_INTERVAL, LOCATION_DISTANCE,
@@ -132,24 +134,26 @@ public class ServiceBg extends Service implements com.google.android.gms.locatio
             Log.i(TAG, "fail to request location update, ignore", ex);
         } catch (IllegalArgumentException ex) {
             Log.d(TAG, "gps provider does not exist " + ex.getMessage());
-        }
+        }*///////////////////////////comment
     }
 
-    @SuppressLint("MissingPermission")
+
     @Override
     public void onDestroy() {
-        callBroadcastforrestartService();
+        //callBroadcastforrestartService();//uncomment
         if (mLocationManager != null) {
-            for (LocationListener mLocationListener : mLocationListeners) {
+            for (int i=0;i< mLocationListeners.length; i++) {
                 try {
-                    mLocationManager.removeUpdates(mLocationListener);
+                    mLocationManager.removeUpdates(mLocationListeners[i]);
                 } catch (Exception ex) {
                     Log.i(TAG, "fail to remove location listners, ignore", ex);
                 }
             }
         }
+        callBroadcastforrestartService();
         super.onDestroy();
     }
+
 
     private void callBroadcastforrestartService() {
         Intent broadcastIntent = new Intent();
@@ -158,31 +162,41 @@ public class ServiceBg extends Service implements com.google.android.gms.locatio
         this.sendBroadcast(broadcastIntent);
     }
 
-    @SuppressLint("MissingPermission")
+
     private void callLocation() {
         initializeLocationManager();
-        try {
-            mLocationManager.requestLocationUpdates(
-                    LocationManager.NETWORK_PROVIDER, LOCATION_INTERVAL, LOCATION_DISTANCE,
-                    mLocationListeners[1]);
+        // get GPS status
+        boolean checkGPS = mLocationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+        // get network provider status
+        boolean checkNetwork = mLocationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
 
-            Log.e("network", "network");
-        } catch (SecurityException ex) {
-            Log.i(TAG, "fail to request location update, ignore", ex);
-        } catch (IllegalArgumentException ex) {
-            Log.d(TAG, "network provider does not exist, " + ex.getMessage());
+        if(checkNetwork) {
+            try {
+
+                mLocationManager.requestLocationUpdates(
+                        LocationManager.NETWORK_PROVIDER, LOCATION_INTERVAL, LOCATION_DISTANCE,
+                        mLocationListeners[1]);
+
+                Log.e("network", "network");
+            } catch (SecurityException ex) {
+                Log.i(TAG, "fail to request location update, ignore", ex);
+            } catch (IllegalArgumentException ex) {
+                Log.d(TAG, "network provider does not exist, " + ex.getMessage());
+            }
         }
 
         //for gps provider
-        try {
-            mLocationManager.requestLocationUpdates(
-                    LocationManager.GPS_PROVIDER, LOCATION_INTERVAL, LOCATION_DISTANCE,
-                    mLocationListeners[0]);
-            Log.e("gps_provider", "gps");
-        } catch (SecurityException ex) {
-            Log.i(TAG, "fail to request location update, ignore", ex);
-        } catch (IllegalArgumentException ex) {
-            Log.d(TAG, "gps provider does not exist " + ex.getMessage());
+        if(checkGPS) {
+            try {
+                mLocationManager.requestLocationUpdates(
+                        LocationManager.GPS_PROVIDER, LOCATION_INTERVAL, LOCATION_DISTANCE,
+                        mLocationListeners[0]);
+                Log.e("gps_provider", "gps");
+            } catch (SecurityException ex) {
+                Log.i(TAG, "fail to request location update, ignore", ex);
+            } catch (IllegalArgumentException ex) {
+                Log.d(TAG, "gps provider does not exist " + ex.getMessage());
+            }
         }
     }
 
@@ -317,7 +331,7 @@ public class ServiceBg extends Service implements com.google.android.gms.locatio
 
     private void sendBroadcast() {
         Intent intent = new Intent(this, AlarmNotificationReceiver.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(this.getApplicationContext(), 234324243, intent, 0);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this.getApplicationContext(), 234324243, intent, PendingIntent.FLAG_IMMUTABLE);
         AlarmManager alarmManager = (AlarmManager) getApplicationContext().getSystemService(ALARM_SERVICE);
 
         Calendar calendar = Calendar.getInstance();
@@ -378,5 +392,63 @@ public class ServiceBg extends Service implements com.google.android.gms.locatio
         }
     }
 
+    private void showForegroundNotification() {
+        // Create intent that will bring our app to the front, as if it was tapped in the app
+        // launcher
+        Intent showTaskIntent = new Intent(context, EmployeeAttendanceFragment.class);
+        showTaskIntent.setAction(Intent.ACTION_MAIN);
+        showTaskIntent.addCategory(Intent.CATEGORY_LAUNCHER);
+        showTaskIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+        PendingIntent contentIntent = PendingIntent.getActivity(
+                context,
+                0,
+                showTaskIntent,
+                PendingIntent.FLAG_UPDATE_CURRENT);
+
+        NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+
+        String channelId = "channel-02";
+        String channelName = "Channel Name_1";
+        int importance = 0;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+
+            importance = NotificationManager.IMPORTANCE_HIGH;
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel mChannel = new NotificationChannel(
+                    channelId, channelName, importance);
+            if (notificationManager != null) {
+                notificationManager.createNotificationChannel(mChannel);
+            }
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            Notification notification = new Notification.Builder(context)
+                    .setContentTitle("tracking")
+                    .setContentText(" running")
+                    .setSmallIcon(R.mipmap.hytech_base_logo)
+                    .setWhen(System.currentTimeMillis())
+                    .setContentIntent(contentIntent)
+                    .setChannelId(channelId)
+                    .build();
+            if (notificationManager != null) {
+                notificationManager.notify(NOTIFICATION_ID_1, notification);
+            }
+            startForeground(NOTIFICATION_ID_1, notification);
+
+        } else {
+            Notification notification = new Notification.Builder(context)
+                    .setContentTitle("tracking")
+                    .setContentText("running")
+                    .setSmallIcon(R.mipmap.hytech_base_logo)
+                    .setWhen(System.currentTimeMillis())
+                    .setContentIntent(contentIntent)
+                    .build();
+            if (notificationManager != null) {
+                notificationManager.notify(NOTIFICATION_ID_1, notification);
+            }
+            startForeground(NOTIFICATION_ID_1, notification);
+        }
+    }
 
 }
