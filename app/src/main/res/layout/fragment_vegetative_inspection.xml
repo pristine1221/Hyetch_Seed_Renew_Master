@@ -929,6 +929,7 @@ android:descendantFocusability="beforeDescendants"-->
                             </com.google.android.material.textfield.TextInputLayout>
 
                         </TableRow>
+
                         <TableRow android:layout_marginTop="4dp">
 
 
@@ -953,6 +954,56 @@ android:descendantFocusability="beforeDescendants"-->
 
                         </TableRow>
 
+                        <TableRow android:layout_marginTop="4dp">
+
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="4dp"
+                                android:layout_weight="1"
+                                android:hint="1st Top Dressing"
+                                app:boxCornerRadiusBottomEnd="15dp"
+                                app:boxCornerRadiusTopStart="15dp">
+
+                                <AutoCompleteTextView
+                                    android:id="@+id/ac_top_dressing"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:editable="false"
+                                    android:inputType="none"
+                                    android:textColor="@color/black"
+                                    android:maxLines="1" />
+
+                            </com.google.android.material.textfield.TextInputLayout>
+
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="5dp"
+                                android:layout_marginBottom="4dp"
+                                android:layout_weight="1"
+                                android:hint="Top Dressing Bags"
+                                app:boxCornerRadiusBottomEnd="15dp"
+                                app:boxCornerRadiusTopStart="15dp">
+
+                                <AutoCompleteTextView
+                                    android:id="@+id/ac_top_dressing_bags"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:editable="false"
+                                    android:inputType="none"
+                                    android:textColor="@color/black"
+                                    android:maxLines="1" />
+
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                        </TableRow>
+
+
 
 
 
@@ -972,7 +1023,7 @@ android:descendantFocusability="beforeDescendants"-->
                                 app:boxCornerRadiusTopStart="15dp">
 
                                 <com.google.android.material.textfield.TextInputEditText
-                                    android:id="@+id/tv_recommended_date"
+                                    android:id="@+id/tv1_recommended_date"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:editable="false"
@@ -1103,54 +1154,7 @@ android:descendantFocusability="beforeDescendants"-->
                         </TableRow>
 
 
-                        <TableRow android:layout_marginTop="4dp">
 
-
-                            <com.google.android.material.textfield.TextInputLayout
-                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_marginBottom="4dp"
-                                android:layout_weight="1"
-                                android:hint="1st Top Dressing"
-                                app:boxCornerRadiusBottomEnd="15dp"
-                                app:boxCornerRadiusTopStart="15dp">
-
-                                <AutoCompleteTextView
-                                    android:id="@+id/ac_top_dressing"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:editable="false"
-                                    android:inputType="none"
-                                    android:textColor="@color/black"
-                                    android:maxLines="1" />
-
-                            </com.google.android.material.textfield.TextInputLayout>
-
-
-                            <com.google.android.material.textfield.TextInputLayout
-                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="5dp"
-                                android:layout_marginBottom="4dp"
-                                android:layout_weight="1"
-                                android:hint="Top Dressing Bags"
-                                app:boxCornerRadiusBottomEnd="15dp"
-                                app:boxCornerRadiusTopStart="15dp">
-
-                                <AutoCompleteTextView
-                                    android:id="@+id/ac_top_dressing_bags"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:editable="false"
-                                    android:inputType="none"
-                                    android:textColor="@color/black"
-                                    android:maxLines="1" />
-
-                            </com.google.android.material.textfield.TextInputLayout>
-
-                        </TableRow>
 
                         <TableRow android:layout_marginTop="4dp">
 

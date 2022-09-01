@@ -23,6 +23,7 @@ import com.example.pristineseed.ui.employee.HRPortalEmployee.appliedLeave.LeaveA
 import com.example.pristineseed.ui.employee.HRPortalEmployee.approveLeave.LeaveApprovelPendingDetailFragment;
 import com.example.pristineseed.ui.employee.HRPortalEmployee.employeeAttendanceDetail.EmployeeAttendanceDetailFragment;
 import com.example.pristineseed.ui.employee.HRPortalEmployee.viewLeave.ViewApprovelPendingDetailFragment;
+import com.example.pristineseed.ui.inspection.planting.issue_order.IssueOrderFsioBsioFragment;
 import com.example.pristineseed.ui.inspection.planting.schedualer_inspection.CreateInspectionFragment;
 import com.example.pristineseed.ui.inspection.planting.schedualer_inspection.SchedulerInspection;
 import com.example.pristineseed.ui.reports.LotsDueforInspectionFragment;
@@ -222,6 +223,10 @@ public class MenuTabAdapter extends FragmentStatePagerAdapter {
                         break;
                     case "Scheduler": {
                         fragment = new SchedulerInspection();
+                    }
+                    break;
+                    case "Issue Order (FSIO/BSIO)": {
+                        fragment = new IssueOrderFsioBsioFragment();
                     }
                     break;
                     case "Create Inspection": {

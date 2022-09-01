@@ -288,17 +288,14 @@ public class FloweringInspectionFragment extends Fragment {
         ed_no_off_types_roughing3=view.findViewById(R.id.ed_no_off_types_roughing3);
 
         //todo  Assigning filters
-       /* ed_polln_shed_pr.setFilters( new InputFilter[]{ new MinMAXFilter( "1" , "99" )}) ;
+        /*ed_polln_shed_pr.setFilters( new InputFilter[]{ new MinMAXFilter( "1" , "99" )}) ;
         //ed_polln_shed_pr.setFilters( new InputFilter[]{ new MinMAXFilter( "0" , "100")}) ;
         ed_silk_first_pass.setFilters( new InputFilter[]{ new MinMAXFilter( "0" , "100" )}) ;
         ed_silk_second_pass.setFilters( new InputFilter[]{ new MinMAXFilter( "0" , "100" )}) ;
         ed_silk_final_pass.setFilters( new InputFilter[]{ new MinMAXFilter( "0" , "100" )}) ;
         ed_male_sheduling_first.setFilters( new InputFilter[]{ new MinMAXFilter( "0" , "100" )}) ;
         ed_male_sheduling_second.setFilters( new InputFilter[]{ new MinMAXFilter( "0" , "100" )}) ;
-        ed_male_sheduling_final.setFilters( new InputFilter[]{ new MinMAXFilter( "0" , "100" )}) ;
-*/
-
-
+        ed_male_sheduling_final.setFilters( new InputFilter[]{ new MinMAXFilter( "0" , "100" )}) ;*/
 
         back_press_img.setOnClickListener(v -> {
             getFragmentManager().popBackStack();
@@ -317,13 +314,18 @@ public class FloweringInspectionFragment extends Fragment {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if(!s.toString().equalsIgnoreCase("")){
                     try {
-                        double i=Double.parseDouble(ed_standing_acres.getText().toString());
-                        double i1=Double.parseDouble(ed_pld_acres.getText().toString());
-                        ed_net_acres.setText(String.valueOf(i-i1));
-                        if(!ed_pld_acres.getText().toString().equalsIgnoreCase("") && i1>0)
-                            ac_pld_reason_layout.setVisibility(View.VISIBLE);
-                        else
-                            ac_pld_reason_layout.setVisibility(View.GONE);
+                        double i = Double.parseDouble(ed_standing_acres.getText().toString());
+                        double i1 = Double.parseDouble(ed_pld_acres.getText().toString());
+                        if (i1 > i) {
+                            ed_pld_acres.setText("0");
+                        } else {
+
+                            ed_net_acres.setText(String.valueOf(i - i1));
+                            if (!ed_pld_acres.getText().toString().equalsIgnoreCase("") && i1 > 0)
+                                ac_pld_reason_layout.setVisibility(View.VISIBLE);
+                            else
+                                ac_pld_reason_layout.setVisibility(View.GONE);
+                        }
                     }
                     catch (Exception e){
                         e.printStackTrace();

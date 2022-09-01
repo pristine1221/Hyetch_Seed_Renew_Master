@@ -200,7 +200,7 @@ public class Vegitative_Inspection_Fragment extends Fragment {
         tv_crop_type = view.findViewById(R.id.crop_type);
         posting_error = view.findViewById(R.id.posting_error);
         ed_date_of_insp = view.findViewById(R.id.ed_date_of_insp);
-        ed_recommended_date = view.findViewById(R.id.tv_recommended_date);
+        ed_recommended_date = view.findViewById(R.id.tv1_recommended_date);
         ed_actual_date = view.findViewById(R.id.tv_actual_date);
         ed_isolation_time = view.findViewById(R.id.ed_iso_tym);
         ed_iso_distance = view.findViewById(R.id.ed_iso_dist);
@@ -241,21 +241,6 @@ public class Vegitative_Inspection_Fragment extends Fragment {
         add_image_btn = view.findViewById(R.id.add_attachment);
         clear_image_btn = view.findViewById(R.id.clear_img);
 
-        //todo for pld marked....................
-        /*try {
-            if();
-            double plld=Double.parseDouble(plantingLineLotListTable.getPld_acre());
-            if (plld>0)
-                MDToast.makeText(getActivity(),"PLD MARKED",MDToast.LENGTH_SHORT,MDToast.TYPE_ERROR);
-            add_image_btn.setVisibility(View.GONE);
-            bt_complete.setVisibility(View.GONE);
-            btn_save_record.setVisibility(View.GONE);
-
-        }
-        catch (Exception e){
-            e.printStackTrace();
-        }*/
-
         close_dilog_bt.setOnClickListener(v -> {
             getFragmentManager().popBackStack();
         });
@@ -288,14 +273,17 @@ public class Vegitative_Inspection_Fragment extends Fragment {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if(!s.toString().equalsIgnoreCase("")){
                     try {
-                        double i=Double.parseDouble(standing_acres.getText().toString());
-                        double i1=Double.parseDouble(pld_acres.getText().toString());
-                        net_acres.setText(String.valueOf(i-i1));
-                        if(!pld_acres.getText().toString().equalsIgnoreCase("") && i1>0)
-                            ac_pld_reason_layout.setVisibility(View.VISIBLE);
-
-                        else
-                            ac_pld_reason_layout.setVisibility(View.GONE);
+                        double i = Double.parseDouble(standing_acres.getText().toString());
+                        double i1 = Double.parseDouble(pld_acres.getText().toString());
+                        if (i1 > i) {
+                            pld_acres.setText("0");
+                        } else {
+                            net_acres.setText(String.valueOf(i - i1));
+                            if (!pld_acres.getText().toString().equalsIgnoreCase("") && i1 > 0)
+                                ac_pld_reason_layout.setVisibility(View.VISIBLE);
+                            else
+                                ac_pld_reason_layout.setVisibility(View.GONE);
+                        }
                     }
                     catch (Exception e){
                         e.printStackTrace();
@@ -594,7 +582,7 @@ public class Vegitative_Inspection_Fragment extends Fragment {
                 ac_desease.setText(vegitativeInspectionTable.get(0).getDiseases());
                   if (vegitativeInspectionTable.get(0).getRecommended_date() != null) {
 
-                ed_recommended_date.setText(vegitativeInspectionTable.get(0).getRecommended_date());
+                ed_recommended_date.setText(DateTimeUtilsCustome.splitDateInYYYMMDDslsh(vegitativeInspectionTable.get(0).getRecommended_date()));
                   } else {
                  ed_recommended_date.setText("");
                   }
@@ -630,8 +618,6 @@ public class Vegitative_Inspection_Fragment extends Fragment {
                 ac_pest.setText(vegitativeInspectionTable.get(0).getPest());
                 ac_pest_insfestation.setText(vegitativeInspectionTable.get(0).getPest_infestation_level());
                 ac_diseases_insfestation.setText(vegitativeInspectionTable.get(0).getDisease_infestation_level());
-
-
 
                 if(vegitativeInspectionTable.get(0).getPld_reason().length()>0) {
                     try {
@@ -701,7 +687,6 @@ public class Vegitative_Inspection_Fragment extends Fragment {
                                         .diskCacheStrategy(DiskCacheStrategy.NONE)
                                         .skipMemoryCache(true)
                                         .placeholder(R.drawable.noimage1)
-                                        // any placeholder to load at start
                                         .into(imageView);
                             }
 
@@ -1028,6 +1013,7 @@ public class Vegitative_Inspection_Fragment extends Fragment {
 
     //todo for standing acres from germination table...........
     GerminationInspection1_Table germinationInspection1_table;
+
     private String getStandingAcres(){
 
         if(production_lot_no!=null) {

@@ -644,6 +644,7 @@
                                     android:hint="Date of inspection"
                                     app:boxCornerRadiusBottomEnd="15dp"
                                     app:endIconMode="custom"
+                                    android:visibility="gone"
                                     app:endIconDrawable="@drawable/ic_baseline_today_24"
                                     app:boxCornerRadiusTopStart="15dp">
 

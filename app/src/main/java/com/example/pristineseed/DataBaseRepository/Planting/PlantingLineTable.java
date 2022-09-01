@@ -120,6 +120,14 @@ public class PlantingLineTable {
         this.item_name = item_name;
     }
 
+    public String getAlias_code() {
+        return alias_code;
+    }
+
+    public void setAlias_code(String alias_code) {
+        this.alias_code = alias_code;
+    }
+
     public String getExpected_yield() {
         return expected_yield;
     }
@@ -314,6 +322,8 @@ public class PlantingLineTable {
     public String item_crop_type;
     @ColumnInfo(name = "item_name")
     public String item_name;
+    @ColumnInfo(name = "alias_code")
+    public String alias_code;
     @ColumnInfo(name = "expected_yield")
     public String expected_yield;
     @ColumnInfo(name = "revised_yield_raw")
@@ -620,6 +630,7 @@ public class PlantingLineTable {
        plantingLineTable.setItem_class_of_seeds(passmodel.item_class_of_seeds);
        plantingLineTable.setItem_crop_type(passmodel.item_crop_type);
        plantingLineTable.setItem_name(passmodel.item_name);
+       plantingLineTable.setAlias_code(passmodel.alias_code);
        plantingLineTable.setExpected_yield(passmodel.expected_yield);
        plantingLineTable.setSupervisor_name(passmodel.supervisor_name);
        plantingLineTable.setCrop_code(passmodel.crop_code);
@@ -685,6 +696,7 @@ public class PlantingLineTable {
         plantingLine.item_class_of_seeds=passData.getItem_class_of_seeds();
         plantingLine.item_crop_type=passData.getItem_crop_type();
         plantingLine.item_name=passData.getItem_name();
+        plantingLine.alias_code=passData.getAlias_code();
         plantingLine.expected_yield=passData.getExpected_yield();
         plantingLine.revised_yield_raw=passData.getRevised_yield_raw();
         plantingLine.land_lease=passData.getLand_lease();

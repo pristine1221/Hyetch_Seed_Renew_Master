@@ -20,6 +20,7 @@ public class ExceptionTableModel {
     @ColumnInfo(name = "lineNo")
     private String lineNo;
 
+
     @ColumnInfo(name = "fragment")
     private String fragment;
 

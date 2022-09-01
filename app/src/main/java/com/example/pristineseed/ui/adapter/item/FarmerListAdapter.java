@@ -23,15 +23,15 @@ import java.util.List;
 public class FarmerListAdapter  extends ArrayAdapter<DispatchFarmerModel.Data> {
     Context context;
     int resourceId;
-    List<DispatchFarmerModel.Data> items, tempItems, suggestions;
+    List<DispatchFarmerModel.Data> items;
+
 
     public FarmerListAdapter(@NonNull Context context, int resourceId, List<DispatchFarmerModel.Data> items) {
         super(context, resourceId, items);
         this.items = items;
         this.context = context;
         this.resourceId = resourceId;
-        tempItems = new ArrayList<DispatchFarmerModel.Data>(items);
-        suggestions = new ArrayList<DispatchFarmerModel.Data>();
+        //this.onItemClickListener=onItemClickListener1;
     }
 
     @NonNull
@@ -45,6 +45,9 @@ public class FarmerListAdapter  extends ArrayAdapter<DispatchFarmerModel.Data> {
         DispatchFarmerModel.Data data = getItem(position);
         TextView name = (TextView) view.findViewById(R.id.text_view);
         name.setText(data.No + " (" + data.Name + ")");
+       /* name.setOnClickListener(v->{
+            onItemClickListener.onItemClick(position);
+        });*/
         return view;
     }
 
@@ -64,7 +67,11 @@ public class FarmerListAdapter  extends ArrayAdapter<DispatchFarmerModel.Data> {
         return position;
     }
 
-    @NonNull
+  /*  public void setOnItemClickListener(OnItemClickListener onItemClickListener){
+        this.onItemClickListener=onItemClickListener;
+    }*/
+
+   /* @NonNull
     @Override
     public Filter getFilter() {
         return customerFilter;
@@ -109,5 +116,5 @@ public class FarmerListAdapter  extends ArrayAdapter<DispatchFarmerModel.Data> {
                 }
             }
         }
-    };
+    };*/
 }

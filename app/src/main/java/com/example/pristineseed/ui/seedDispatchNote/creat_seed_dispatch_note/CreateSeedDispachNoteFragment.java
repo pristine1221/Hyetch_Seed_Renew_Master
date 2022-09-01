@@ -1,5 +1,4 @@
 package com.example.pristineseed.ui.seedDispatchNote.creat_seed_dispatch_note;
-
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -104,8 +103,8 @@ public class CreateSeedDispachNoteFragment extends Fragment implements Organizer
 
     // private List<SeedDispatchNoteHeaderTable> seedDispatchNoteHeaderTableList = new ArrayList<>();
     private SeedDispatchLineAdapter seed_dispatch_line_adapter;
-    private List<PlantingLineLotListTable> fetchProductionLineLotList = null;
-    // private List<PlantingLineLotListTable> fetchProductionLineLotListFoundation=null;
+    private List<PlantingLineLotListTable> fetchProductionLineLotList;
+     //private List<PlantingLineLotListTable> fetchProductionLineLotListFoundation=null;
     private TextInputEditText ed_reference_no,ac_orgnizer_code;
     private MaterialProgressBar content_loading;
     private String alias_code = "";
@@ -113,7 +112,6 @@ public class CreateSeedDispachNoteFragment extends Fragment implements Organizer
     private ProgressBar search_loading_item;
     private RecyclerView lv_cust_dist_list;
     private TextInputLayout search_input_layout;
-
     //  private  Hybrid_Item_Table hybrid_item_table=null;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -122,7 +120,6 @@ public class CreateSeedDispachNoteFragment extends Fragment implements Organizer
             seed_dipatch_no = getArguments().getString("SDN_Number", "");
             view_flag = getArguments().getString("flag", "");
             seedDispatchHeader_list = new Gson().fromJson(getArguments().getString("Seed_Dispatch_note_details"), SeedDispatchHeaderModel.class);
-
         }
         return inflater.inflate(R.layout.fragment_create_seed_dispachnote, container, false);
     }
@@ -352,7 +349,6 @@ public class CreateSeedDispachNoteFragment extends Fragment implements Organizer
         }
     }
 
-
     private void bindDispatchHeaderData() {
       /*  PristineDatabase pristineDatabase = PristineDatabase.getAppDatabase(getActivity());
         SeedDispatchHeaderDao dispatchHeaderDao = pristineDatabase.seedDispatchHeaderDao();
@@ -423,9 +419,9 @@ public class CreateSeedDispachNoteFragment extends Fragment implements Organizer
         }
     }
 
-
     private void initView(View view) {
         sessionManagement = new SessionManagement(getActivity());
+        fetchProductionLineLotList=new ArrayList<>();
         back_button_go_topreviousPage = view.findViewById(R.id.back_button_go_topreviousPage);
         edit_date = view.findViewById(R.id.edit_date);
         chip_create_planting_header = view.findViewById(R.id.chip_create_planting_header);
@@ -576,7 +572,6 @@ public class CreateSeedDispachNoteFragment extends Fragment implements Organizer
             }
         });
     }
-
 
     private void getSeasonMaster() {
         content_loading.setVisibility(View.VISIBLE);
@@ -1260,10 +1255,10 @@ public class CreateSeedDispachNoteFragment extends Fragment implements Organizer
         PristineDatabase pristineDatabase = PristineDatabase.getAppDatabase(getActivity());
         try {
             PlantingLineLotListDao plantingLineLotListDao = pristineDatabase.plantingLineLotListDao();
-            if (doc_type.equalsIgnoreCase("Hybrid")) {
-                fetchProductionLineLotList = plantingLineLotListDao.fetchLineLotData("FSIO", org_code);//varity_code,org_code
-            } else if (doc_type.equalsIgnoreCase("Foundation")) {
-                fetchProductionLineLotList = plantingLineLotListDao.fetchLineLotData("BSIO", org_code);//,varity_code,org_code
+            if (doc_type.equalsIgnoreCase("Foundation")) {//BSIO
+                fetchProductionLineLotList = plantingLineLotListDao.fetchLineLotData("BSIO", org_code);//varity_code,org_code
+            } else if (doc_type.equalsIgnoreCase("Hybrid")) {
+                fetchProductionLineLotList = plantingLineLotListDao.fetchLineLotData("FSIO", org_code);//,varity_code,org_code
             }
 
         } catch (Exception e) {
@@ -1314,6 +1309,7 @@ public class CreateSeedDispachNoteFragment extends Fragment implements Organizer
                                 seed_farmer_master_tableList = farmermaster_list;
                                 FarmerListAdapter farmerListAdapter = new FarmerListAdapter(getActivity(), R.layout.android_item_view, seed_farmer_master_tableList);
                                 ac_grwer_name.setAdapter(farmerListAdapter);
+
                             }
                         } else {
                             content_loading.setVisibility(View.GONE);
@@ -1394,7 +1390,7 @@ public class CreateSeedDispachNoteFragment extends Fragment implements Organizer
         public void onPostExecute() {
             if (fetchProductionLineLotList != null && fetchProductionLineLotList.size() > 0) {
                 PlantingProductionLotLineListAdapter plantingLineProductionLotAdapter = new PlantingProductionLotLineListAdapter(getContext(), R.layout.android_item_view, fetchProductionLineLotList);
-                ac_lot_no.setAdapter(plantingLineProductionLotAdapter);
+                //ac_lot_no.setAdapter(plantingLineProductionLotAdapter);
             }
         }
     }

@@ -162,6 +162,9 @@ public class Menu_Child_Adapter extends RecyclerView.Adapter<Menu_Child_Adapter.
                 case "Scheduler":
                     setImage(R.drawable.scheduler);
                     break;
+                case "Issue Order (FSIO/BSIO)":
+                    setImage(R.drawable.ic_issue_order);
+                    break;
                 case "Create Inspection":
                     setImage(R.drawable.create_inspection);
                     break;

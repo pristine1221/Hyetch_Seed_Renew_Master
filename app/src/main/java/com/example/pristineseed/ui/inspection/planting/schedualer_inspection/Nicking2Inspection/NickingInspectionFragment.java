@@ -497,9 +497,7 @@ public class NickingInspectionFragment extends Fragment {
             Toast.makeText(getActivity(), "Please enter crop crod. ", Toast.LENGTH_SHORT).show();
         } else if (dropdown_crop_stage.getText().toString().trim().equalsIgnoreCase("")) {
             Toast.makeText(getActivity(), "Please enter crop stage. ", Toast.LENGTH_SHORT).show();
-        } else if (edt_date_of_inspection.getText().toString().trim().equalsIgnoreCase("")) {
-            Toast.makeText(getActivity(), "Please enter date of inspection. ", Toast.LENGTH_SHORT).show();
-        } else {
+        }  else {
             insertNickingData(tempNickingInspList, asJsonObject);
         }
     }

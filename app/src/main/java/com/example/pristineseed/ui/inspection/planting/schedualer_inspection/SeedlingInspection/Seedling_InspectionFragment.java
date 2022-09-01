@@ -228,13 +228,16 @@ public class Seedling_InspectionFragment extends Fragment {
                     try {
                         double i=Double.parseDouble(ed_standing_acres.getText().toString());
                         double i1=Double.parseDouble(ed_pld_acres.getText().toString());
-                        ed_net_acres.setText(String.valueOf(i-i1));
-                        if(!ed_pld_acres.getText().toString().equalsIgnoreCase("") && i1>0)
-                            ac_pld_reason_layout.setVisibility(View.VISIBLE);
-
-                        else
-                            ac_pld_reason_layout.setVisibility(View.GONE);
-
+                        if(i>i){
+                            ed_pld_acres.setText("0");
+                        }
+                        else {
+                            ed_net_acres.setText(String.valueOf(i - i1));
+                            if (!ed_pld_acres.getText().toString().equalsIgnoreCase("") && i1 > 0)
+                                ac_pld_reason_layout.setVisibility(View.VISIBLE);
+                            else
+                                ac_pld_reason_layout.setVisibility(View.GONE);
+                        }
                     }
                     catch (Exception e){
                         e.printStackTrace();

@@ -49,7 +49,7 @@ public class AppSetting extends Application implements LifecycleObserver {
             public void run() {
                 new UserAsyncTask().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             }
-        }, 0, 1000*60);
+        }, 0, 5000*60);//1000*60=1 minute
         Log.e("MyApp", "App in foreground");
     }
 

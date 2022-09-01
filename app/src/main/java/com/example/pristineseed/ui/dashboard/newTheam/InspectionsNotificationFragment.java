@@ -48,7 +48,7 @@ public class InspectionsNotificationFragment extends Fragment {
     private ImageView filter_date;
     private SessionManagement sessionManagement;
     private RecyclerView notification_list;
-private TextView data_nt_found;
+    private TextView data_nt_found;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -144,6 +144,7 @@ private TextView data_nt_found;
                         if (getResponse!=null && getResponse.size()>0 && getResponse.get(0).condition) {
                             NotificationAdapter notificationAdapter=new NotificationAdapter(getActivity(),getResponse);
                             notification_list.setAdapter(notificationAdapter);
+                            //Toast.makeText(getActivity(), DateTimeUtilsCustome.getDate_Time2(getResponse.get(getResponse.size()-1).created_on), Toast.LENGTH_SHORT).show();
                         }
                     }
                     else {

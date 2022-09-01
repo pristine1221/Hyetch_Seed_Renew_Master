@@ -290,6 +290,10 @@ public interface NetworkInterface {
     @GET("/api/Dispatch/OrganizerList")
     Call<OrganizerModel> getOrgnizerData(@Query("vendor_class") String vendor_class, @Query("Search_Name") String Search_Name);
 
+    @GET("/api/PlantingFSPHSPDocNo/PlantingFSPHSPDocNo_get_Searchable")
+    Call<List<PlantingFsio_bsio_model>> getIssueOrderFsioBsio(@Query("flag") String sub_doc_type, @Query("no") String search_number);
+    //
+
     @GET("/api/Inspection/Lot_ListForPlanting")
     Call<PlantingLotModel> getPlantingLotData(@Query("Document_No") String doc_no, @Query("Document_SubType") String sub_type, @Query("flag") String flag);
 

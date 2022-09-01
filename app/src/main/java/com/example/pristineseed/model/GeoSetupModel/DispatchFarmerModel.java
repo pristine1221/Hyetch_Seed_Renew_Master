@@ -20,6 +20,7 @@ public class DispatchFarmerModel {
            public String  Zone_Name;
            public String  State_Name;
            public String  Territory_Name;
+           public String  Sub_Zone;
            public String  District_Name;
            public String State_Code;
 

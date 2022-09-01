@@ -1,5 +1,6 @@
 package com.example.pristineseed.firebase_notification_service;
 
+import android.app.Activity;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -35,39 +36,15 @@ public class MyNotification extends FirebaseMessagingService {
     private static final String TAG = "MyFirebaseMsgService";
     private NotificationUtils notificationUtils;
     public static int notification_id;
+
     @Override
     public void onMessageReceived(@NonNull RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
-        if (remoteMessage.getData().size() > 0) {
-
-          //  {body=[{"production_centre_name":"ELURU","production_lot_no":"221130040","inspection_type":"INSPECTION 1"}], title=PARAS}
-
-            //String remote_string =remoteMessage.getNotification().getBody();
-
-            /*JsonObject jsonObject=new JsonObject();
-            JsonArray jsonArray=jsonObject.getAsJsonArray("body");
-            for(int i=0;i<jsonArray.size();i++){
-                String production_center_name=jsonArray.get(i).;
-
-            }*/
-         /*   Log.d(TAG, "data payload: " + remoteMessage.getData());
-            Map<String,String> map_string=remoteMessage.getData();
-
-            JSONObject object = new JSONObject(map_string);
-            Log.e("remote_json",object.toString());
-    */
-
-           // map_string.get("production_centre_name");
-
-
-           /* if (remoteMessage.getNotification() != null) {
-                Log.e(TAG, "Notification Body: " + remoteMessage.getNotification().getBody());
-                handleNotification(remoteMessage.getNotification().getBody());
-            }*/
+        Log.d(TAG, "onMessage Received:called");
             if (remoteMessage.getNotification() != null && remoteMessage.getData().size() > 0) {
-                Log.e(TAG, "Data Payload: " + remoteMessage.getData().toString());
+                Log.d(TAG, "Data Payload: " + remoteMessage.getData().toString());
                 Map<String,String> map_string=remoteMessage.getData();
-               // Log.e("map_string",map_string.toString());
+                Log.d(TAG,map_string.toString());
                 JSONObject object = new JSONObject(map_string);
 
                 try {
@@ -79,31 +56,90 @@ public class MyNotification extends FirebaseMessagingService {
                        String inspection_type=jsonArray.getJSONObject(i).getString("inspection_type");
                        String production_center_name= jsonArray.getJSONObject(i).getString("production_centre_name");
 
-                       String body_string=production_lot_no+" : "+"Insp_type : "+inspection_type;
+                       String body_string=production_lot_no+" : "+"Insp_type : "+inspection_type+"pro"+production_center_name;
                         //todo create channnel id
                         notification_id= StaticMethods.generateRandomNumber();
                         sendNotification(body_string,notification_id,title);
                     }
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
 
             } else {
-                Log.e(TAG, "Data Payload:->else " + remoteMessage.getData().toString());
+                Log.d(TAG, "Data Payload:->else " + remoteMessage.getData().toString());
+                Map<String,String> map_string=remoteMessage.getData();
+                Log.d(TAG,map_string.toString());
+                JSONObject object = new JSONObject(map_string);
+
+                try {
+                    String bodyData=object.getString("body");
+                    String title=object.getString("title");
+                    JSONArray jsonArray=new JSONArray(bodyData);
+                    for(int i=0;i<jsonArray.length();i++){
+                        String production_lot_no= jsonArray.getJSONObject(i).getString("production_lot_no");
+                        String inspection_type=jsonArray.getJSONObject(i).getString("inspection_type");
+                        String production_center_name= jsonArray.getJSONObject(i).getString("production_centre_name");
+
+                        String body_string=production_lot_no+" : "+"Insp_type : "+inspection_type;
+                        //todo create channnel id
+                        notification_id= StaticMethods.generateRandomNumber();
+                        sendNotification(body_string,notification_id,title);
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
+
+    }
+
+    private void sendNotification(String messageBody,int channel_id,String title) {
+        Intent intent = new Intent(this, BottomMainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
+                PendingIntent.FLAG_ONE_SHOT);
+
+        Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+        NotificationCompat.Builder notificationBuilder =
+                new NotificationCompat.Builder(this.getApplicationContext(), String.valueOf(channel_id))
+                        .setSmallIcon(R.mipmap.hytech_logo)
+                        .setContentTitle(title)
+                        .setContentText(messageBody)
+                        //.setAutoCancel(true)
+                        .setSound(defaultSoundUri)
+                        .setContentIntent(pendingIntent);
+
+        NotificationManager notificationManager =
+                (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
+
+        // Since android Oreo notification channel is needed.
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel channel = new NotificationChannel(String.valueOf(channel_id),
+                    "Channel human readable title",
+                    NotificationManager.IMPORTANCE_HIGH);
+            notificationManager.createNotificationChannel(channel);
+            notificationBuilder.setChannelId(String.valueOf(channel_id));
         }
+        notificationManager.notify(channel_id, notificationBuilder.build());
     }
 
     @Override
     public void onNewToken(@NonNull String s) {
         super.onNewToken(s);
-        Log.e("token_my_ntoifcation",s.toString());
+        Log.d(TAG,s.toString());
         try {
              SessionManagement sessionManagement=new SessionManagement(getApplicationContext());;
              sessionManagement.setFcmToken(s);
          } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void onDeletedMessages() {
+        super.onDeletedMessages();
+       // Log.d(TAG,"delete method:called");
     }
 
     private void handleNotification(String message){
@@ -118,6 +154,7 @@ public class MyNotification extends FirebaseMessagingService {
             notificationUtils.playNotificationSound();
         }
     }
+
     private void handleDataMessage(JSONObject json){
         Log.e(TAG, "push json: " + json.toString());
         try {
@@ -152,43 +189,11 @@ public class MyNotification extends FirebaseMessagingService {
         }
     }
 
-    private void sendNotification(String messageBody,int channel_id,String title) {
-        Intent intent = new Intent(this, BottomMainActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
-                PendingIntent.FLAG_ONE_SHOT);
-
-       // String channelId = getString(R.string.default_notification_channel_id);
-        Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-        NotificationCompat.Builder notificationBuilder =
-                new NotificationCompat.Builder(this, String.valueOf(channel_id))
-                        .setSmallIcon(R.mipmap.hytech_logo)
-                        .setContentTitle(title)
-                        .setContentText(messageBody)
-                        .setAutoCancel(true)
-                        .setSound(defaultSoundUri)
-                        .setContentIntent(pendingIntent);
-
-        NotificationManager notificationManager =
-                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-
-        // Since android Oreo notification channel is needed.
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            NotificationChannel channel = new NotificationChannel(String.valueOf(channel_id),
-                    "Channel human readable title",
-                    NotificationManager.IMPORTANCE_HIGH);
-            notificationManager.createNotificationChannel(channel);
-        }
-        notificationManager.notify(channel_id/* ID of notification */, notificationBuilder.build());
-    }
-
     private void showNotificationMessage(Context context, String title, String message, String timeStamp, Intent intent,String channel_id) {
         notificationUtils = new NotificationUtils(context);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         notificationUtils.showNotificationMessage(title, message, timeStamp, intent,channel_id);
     }
-
-
 
     private void showNotificationMessageWithBigImage(Context context, String title,String message, String timeStamp, Intent intent, String imageUrl,String imgText,String channel_id) {
         notificationUtils = new NotificationUtils(context);

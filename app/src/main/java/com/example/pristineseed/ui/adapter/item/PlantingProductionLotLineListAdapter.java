@@ -80,9 +80,7 @@ public class PlantingProductionLotLineListAdapter extends ArrayAdapter<PlantingL
 
         @Override
         protected FilterResults performFiltering(CharSequence charSequence) {
-            FilterResults filterResults = new FilterResults();
-            return  filterResults;
-           /* FilterResults filterResults = new FilterResults();
+
             if (charSequence != null) {
                 suggestions.clear();
                 for (PlantingLineLotListTable item : tempItems) {
@@ -90,24 +88,25 @@ public class PlantingProductionLotLineListAdapter extends ArrayAdapter<PlantingL
                         suggestions.add(item);
                     }
                 }
+                FilterResults filterResults = new FilterResults();
                 filterResults.values = suggestions;
                 filterResults.count = suggestions.size();
                 return filterResults;
             } else {
                 return new FilterResults();
-            }*/
+            }
         }
 
         @Override
         protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
-           /* List<PlantingLineLotListTable> filterList = (ArrayList<PlantingLineLotListTable>) filterResults.values;
+            List<PlantingLineLotListTable> filterList = (ArrayList<PlantingLineLotListTable>) filterResults.values;
             if (filterResults != null && filterResults.count > 0) {
                 clear();
                 for (PlantingLineLotListTable people : filterList) {
                     add(people);
                     notifyDataSetChanged();
                 }
-            }*/
+            }
         }
     };
 }

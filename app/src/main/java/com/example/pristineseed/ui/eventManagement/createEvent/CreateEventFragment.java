@@ -164,7 +164,7 @@ public class CreateEventFragment  extends Fragment {
         et_event_desc = view.findViewById(R.id.et_event_desc);
         et_event_date = view.findViewById(R.id.et_event_date);
 
-        et_village = view.findViewById(R.id.et_village);
+       // et_village = view.findViewById(R.id.et_village);
         et_farmer_name = view.findViewById(R.id.et_farmer_name);
 
         et_farmer_contact_no = view.findViewById(R.id.et_farmer_contact_no);

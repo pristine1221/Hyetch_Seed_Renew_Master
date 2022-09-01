@@ -79,7 +79,7 @@ public class ServiceBg extends Service implements com.google.android.gms.locatio
     private LocationManager mLocationManager = null;
     private GoogleMap mMap;
     private LocationListener locationListener;
-    private LocationManager locationManager;
+
     private LatLng latLng;
     private String final_longitude="", final_latitude="", locality="", from_area="", postal_code="", country="";
     //for fused

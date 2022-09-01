@@ -261,6 +261,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginBottom="4dp"
                                     android:hint="Item name"
+                                    android:visibility="gone"
                                     app:boxCornerRadiusBottomEnd="15dp"
                                     app:boxCornerRadiusTopStart="15dp">
 
@@ -281,8 +282,8 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginBottom="4dp"
-                                    android:hint="Alias Name"
-                                    android:visibility="gone"
+                                    android:hint="Alias Code"
+                                    android:visibility="visible"
                                     app:boxCornerRadiusBottomEnd="15dp"
                                     app:boxCornerRadiusTopStart="15dp">
 
@@ -291,6 +292,8 @@
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:editable="false"
+                                        android:enabled="false"
+                                        android:textColor="@color/black"
                                         android:maxLines="1" />
 
                                 </com.google.android.material.textfield.TextInputLayout>
@@ -390,7 +393,7 @@
                                     android:id="@+id/unit_of_msrd_cd"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:editable="false"
+                                    android:enabled="false"
                                     android:inputType="none"
                                     android:fontFamily="@font/product_sans_regular"
                                     android:maxLines="1"
@@ -571,27 +574,6 @@
                             android:layout_height="wrap_content"
                             android:orientation="horizontal">
 
-                           <!-- <com.google.android.material.textfield.TextInputLayout
-                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_marginBottom="4dp"
-                                android:layout_weight="1"
-                                android:hint="Village Name"
-                                app:boxCornerRadiusBottomEnd="15dp"
-                                app:boxCornerRadiusTopStart="15dp">
-
-                                <AutoCompleteTextView
-                                    android:id="@+id/ed_vill_name"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:textColor="@color/black"
-                                    android:fontFamily="@font/product_sans_regular"
-                                    android:textSize="@dimen/_10sdp"
-                                    android:maxLines="1" />
-
-                            </com.google.android.material.textfield.TextInputLayout>-->
-
                             <com.google.android.material.textfield.TextInputLayout
                                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                                 android:id="@+id/village_input_layout"
@@ -694,7 +676,8 @@
                                 <AutoCompleteTextView
                                     android:id="@+id/ac_grwer_name"
                                     android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:editable="false"
                                     android:textSize="@dimen/_10sdp"
                                     android:fontFamily="@font/product_sans_regular"
                                     android:textColor="@color/black"
@@ -702,7 +685,7 @@
 
                             </com.google.android.material.textfield.TextInputLayout>
 
-                            <com.google.android.material.textfield.TextInputLayout
+                           <!-- <com.google.android.material.textfield.TextInputLayout
                                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
@@ -712,13 +695,6 @@
                                 android:hint="Taluka"
                                 app:boxCornerRadiusBottomEnd="15dp"
                                 app:boxCornerRadiusTopStart="15dp">
-
-                                <!--                                <AutoCompleteTextView-->
-                                <!--                                    android:id="@+id/ac_taluka"-->
-                                <!--                                    android:layout_width="match_parent"-->
-                                <!--                                    android:layout_height="wrap_content"-->
-                                <!--                                   android:inputType="none"-->
-                                <!--                                    android:maxLines="1" />-->
 
                                 <com.google.android.material.textfield.TextInputEditText
                                     android:id="@+id/ac_taluka"
@@ -730,9 +706,8 @@
                                     android:textSize="@dimen/_10sdp"
                                     android:maxLines="1" />
 
-                            </com.google.android.material.textfield.TextInputLayout>
+                            </com.google.android.material.textfield.TextInputLayout>-->
                         </LinearLayout>
-
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -781,6 +756,58 @@
                                     android:fontFamily="@font/product_sans_regular"
                                     android:textSize="@dimen/_10sdp"
                                     android:textColor="@color/black"
+                                    android:maxLines="1" />
+
+                            </com.google.android.material.textfield.TextInputLayout>
+                        </LinearLayout>
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="4dp"
+                                android:layout_weight="1"
+                                android:hint="Sub Zone"
+                                app:boxCornerRadiusBottomEnd="15dp"
+                                app:boxCornerRadiusTopStart="15dp">
+
+                                <AutoCompleteTextView
+                                    android:id="@+id/ac_sub_zone"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:editable="false"
+                                    android:textSize="@dimen/_10sdp"
+                                    android:fontFamily="@font/product_sans_regular"
+                                    android:textColor="@color/black"
+                                    android:maxLines="1" />
+
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginBottom="4dp"
+                                android:layout_weight="1"
+                                android:hint="Taluka"
+                                app:boxCornerRadiusBottomEnd="15dp"
+                                app:boxCornerRadiusTopStart="15dp">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/ac_taluka"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:editable="false"
+                                    android:textColor="@color/black"
+                                    android:fontFamily="@font/product_sans_regular"
+                                    android:textSize="@dimen/_10sdp"
                                     android:maxLines="1" />
 
                             </com.google.android.material.textfield.TextInputLayout>

@@ -271,14 +271,18 @@ public class HarvestingInspectionFragment extends Fragment {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if(!s.toString().equalsIgnoreCase("")){
                     try {
-                        double i=Double.parseDouble(standing_acres.getText().toString());
-                        double i1=Double.parseDouble(pld_acres.getText().toString());
-                        net_acres.setText(String.valueOf(i-i1));
-                        if(!pld_acres.getText().toString().equalsIgnoreCase("") && i1>0)
-                            ac_pld_reason_layout.setVisibility(View.VISIBLE);
+                        double i = Double.parseDouble(standing_acres.getText().toString());
+                        double i1 = Double.parseDouble(pld_acres.getText().toString());
+                        if (i1 > i) {
+                            pld_acres.setText("0");
+                        } else {
+                            net_acres.setText(String.valueOf(i - i1));
+                            if (!pld_acres.getText().toString().equalsIgnoreCase("") && i1 > 0)
+                                ac_pld_reason_layout.setVisibility(View.VISIBLE);
 
-                        else
-                            ac_pld_reason_layout.setVisibility(View.GONE);
+                            else
+                                ac_pld_reason_layout.setVisibility(View.GONE);
+                        }
                     }
                     catch (Exception e){
 

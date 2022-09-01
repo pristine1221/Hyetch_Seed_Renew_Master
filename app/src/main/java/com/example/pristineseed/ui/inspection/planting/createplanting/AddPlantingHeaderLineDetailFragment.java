@@ -90,6 +90,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Locale;
 
 import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 import okhttp3.ResponseBody;
@@ -97,15 +98,15 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class AddPlantingHeaderLineDetailFragment extends Fragment implements OrganizerAdapter.OnItemClickListner{
+public class AddPlantingHeaderLineDetailFragment extends Fragment implements OrganizerAdapter.OnItemClickListner {
 
     private SessionManagement sessionManagement;
     private AutoCompleteTextView dropdown_sesion_code, drop_down_parent, ac_select_loc, ac_type, ac_stage_code, ac_doc_sub_type;
-    private TextInputEditText edit_date, ed_total_sowing_area, ed_date_of_harvest, ed_total_land_acres,ac_pld_reason,ed_pld_acres,ed_standing_acres;
+    private TextInputEditText edit_date, ed_total_sowing_area, ed_date_of_harvest, ed_total_land_acres, ac_pld_reason, ed_pld_acres, ed_standing_acres;
     private Button create_header_btn;
     private TextView tv_palnting_no, tv_date, tv_season_code, tv_stage_code, tv_parent_type, tv_header_no, tv_doc_subtype,
             tv_land_acr, tv_sowing_acr_type, tv_org_name, tv_org_code;
-    private LinearLayout header_create_section,ed_standing_acres_layout,ed_pld_acres_layout,ac_pld_reason_layout;
+    private LinearLayout header_create_section, ed_standing_acres_layout, ed_pld_acres_layout, ac_pld_reason_layout;
     private LinearLayout planting_detail_header_section;
     private ListView listview;
     private Chip chip_add_line_planting, delete_header_chip, complete_header;
@@ -120,28 +121,23 @@ public class AddPlantingHeaderLineDetailFragment extends Fragment implements Org
     private PlantingLotModel.Data plantingMasterTable = null;
     private PlantingLotModel.Data plantingMaleTable = null;
     private PlantingLotModel.Data plantingFemaleTable = null;
-
     private List<PlantingLotModel.Data> plantingMaleList = new ArrayList<>();
     private List<PlantingLotModel.Data> plantingLotFemaleList = new ArrayList<>();
     private List<PlantingLotModel.Data> plantingLotOtherList = new ArrayList<>();
-    //  private List<Hybrid_Item_Table> hybrid_item_tableList = null;
     private List<CropHytechMasterTable> cropMasterTableList1 = null;
     private List<Hybrid_Item_Table> varietyList = null;
     private List<SeasonMasterModel> seasonMasterTableList = null;
     private List<UserLocationModel> locationMasterTableList = null;
     private List<Planting_Lot_master_Table> planting_lot_master_List = null;
     private OrganizerModel.Data organizer_master_table = null;
-    private DispatchFarmerModel.Data dispatchVillage_table=null;
-
     private PlantingHeaderModel plantingHeaderModel = null;
-
     private TextInputEditText ed_supervsr_name, ed_grower_code, ed_recept_num, ed_address_,
             ed_parent_male, ed_receiptno_female, ed_receptno_male, ed_parent_female, ed_sowing_female, ed_sowing_male,
             ed_expected_yield, ed_sowing_date_other, revised_yield, ed_sowing_area, ed_land_lease, ed_item_clsof_seed,
             item_crop_type, ed_item_name, item_prod_grp_cd, ed_male_qty, ed_female_qty, ed_other_receipt_no,
-            ed_parent_other, ed_other_qty, dropdown_city, ac_state, ac_taluka, ac_crop_code, ac_organizer_name,et_village;
+            ed_parent_other, ed_other_qty, dropdown_city, ac_state, ac_taluka, ac_crop_code, ac_organizer_name, et_village;
 
-    AutoCompleteTextView ac_doc_no, ac_parent_female_lot, ac_parent_male_lot, ac_parent_other_lot, ac_alias_name, ac_variety_code, ac_grwer_name, unit_of_msrd_cd, ed_vill_name, ac_zone_;
+    AutoCompleteTextView ac_doc_no, ac_parent_female_lot, ac_parent_male_lot, ac_parent_other_lot, ac_sub_zone, ac_alias_name, ac_variety_code, ac_grwer_name, unit_of_msrd_cd, ed_vill_name, ac_zone_;
 
     TextInputLayout recpt_male, recpt_female, recpt_other;
     private RadioGroup radio_group_land_lease;
@@ -152,7 +148,7 @@ public class AddPlantingHeaderLineDetailFragment extends Fragment implements Org
     private UserLocationModel locationMasterTable = null;
     private List<UnitOfMeasureModel.UnitOfMeasureModelList> uomTableList = null;
     private DispatchFarmerModel.Data farmer_grower_model = null;
-    private List<DispatchFarmerModel.Data> farmer_grower_list = null;
+    private List<DispatchFarmerModel.Data> farmer_grower_list;
 
     private SeasonMasterModel seasonMasterTable = null;
     private List<ZoneMasterTable> zoneMasterTableList = null;
@@ -162,13 +158,8 @@ public class AddPlantingHeaderLineDetailFragment extends Fragment implements Org
     private RecyclerView lv_cust_dist_list;
     private TextInputLayout organser_input_layout, unit_of_msrd_cd_layout;
 
-    //todo declare for plantingLine doc details......................................
-    TextView tv_doc_no,tv_order_no,tv_customer_posting_grp,sell_cutomer_no,sell_customer_name,sell_customer_address,sell_customer_city,
-            doc_sub_type,tv_seed_type,tv_seed_name,tv_seed_no,tv_crop_code,tv_business_type,tv_location,tv_location_code,
-            tv_state_name,tv_territory,tv_reagion,tv_district,tv_zone,tv_land_arc,tv_order_date,tv_posting_date,tv_user_id,tv_message;
+    private List<PlantingLineDocNoDetails.Line> plantingDocDetailLineList;
 
-    private List<PlantingLineDocNoDetails.Line> plantingDocDetailLineList ;
-    //private List<PlantingLineDocNoDetails.Line> plantingDocDetailLineList = new ArrayList<>();
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -195,8 +186,6 @@ public class AddPlantingHeaderLineDetailFragment extends Fragment implements Org
         getUserLocation();
         getPlantingHeaderData();
         getSeasonMaster();
-
-
         ac_organizer_name.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
@@ -322,12 +311,9 @@ public class AddPlantingHeaderLineDetailFragment extends Fragment implements Org
         listview.setOnItemLongClickListener((parent, view1, position, id) -> {
             if (plantingHeaderModel == null) {
                 Toast.makeText(getActivity(), "Header is blank", Toast.LENGTH_SHORT).show();
-            }
-
-           else if (plantingHeaderModel.nav_sync!=null && plantingHeaderModel.nav_sync.equals("1")) {
+            } else if (plantingHeaderModel.nav_sync != null && plantingHeaderModel.nav_sync.equals("1")) {
                 Toast.makeText(getActivity(), "You can't delete line as status completed.", Toast.LENGTH_SHORT).show();
-            }
-           else {
+            } else {
                 new MaterialAlertDialogBuilder(getActivity())
                         .setTitle("Header Line" + "(" + plantingLineTableList.get(position).code + ")")
                         .setMessage("Do you want to delete this Line ?")
@@ -371,7 +357,7 @@ public class AddPlantingHeaderLineDetailFragment extends Fragment implements Org
                         .setNegativeButton("CANCEL", null)
                         .show();
             } else {
-                Toast.makeText(getActivity(), "Planting code can't be null.", Toast.LENGTH_SHORT).show();
+                MDToast.makeText(getActivity(), "Planting code can't be null.", MDToast.LENGTH_SHORT, MDToast.TYPE_ERROR).show();
             }
         });
 
@@ -389,14 +375,15 @@ public class AddPlantingHeaderLineDetailFragment extends Fragment implements Org
         dialog.show();
 
         ImageView close_dilog_bt = popupView.findViewById(R.id.close_dilog_bt);
-        frame_layout_org_list=popupView.findViewById(R.id.frame_layout_village_list);
-        et_village=popupView.findViewById(R.id.et_village);
-        village_recyclerView=popupView.findViewById(R.id.village_recyclerView);
+        frame_layout_org_list = popupView.findViewById(R.id.frame_layout_village_list);
+        et_village = popupView.findViewById(R.id.et_village);
+        village_recyclerView = popupView.findViewById(R.id.village_recyclerView);
         ac_grwer_name = popupView.findViewById(R.id.ac_grwer_name);
         ed_supervsr_name = popupView.findViewById(R.id.ed_supervsr_name);
         ed_grower_code = popupView.findViewById(R.id.gr_owner_code);
         ac_doc_no = popupView.findViewById(R.id.ac_doc_no);
         ac_taluka = popupView.findViewById(R.id.ac_taluka);
+        ac_sub_zone = popupView.findViewById(R.id.ac_sub_zone);
         ac_state = popupView.findViewById(R.id.dropdown_state);
         dropdown_city = popupView.findViewById(R.id.dropdown_city);
         ed_address_ = popupView.findViewById(R.id.ed_address_);
@@ -417,7 +404,7 @@ public class AddPlantingHeaderLineDetailFragment extends Fragment implements Org
         revised_yield = popupView.findViewById(R.id.revised_yield);
         ed_sowing_area = popupView.findViewById(R.id.ed_sowing_area);
         unit_of_msrd_cd = popupView.findViewById(R.id.unit_of_msrd_cd);
-        // ed_land_lease = popupView.findViewById(R.id.ed_land_lease);
+        //ed_land_lease = popupView.findViewById(R.id.ed_land_lease);
         radio_group_land_lease = popupView.findViewById(R.id.groupradio_land_lease);
         radio_1 = popupView.findViewById(R.id.radia_id1);
         radio_2 = popupView.findViewById(R.id.radia_id2);
@@ -433,6 +420,7 @@ public class AddPlantingHeaderLineDetailFragment extends Fragment implements Org
         ed_item_clsof_seed = popupView.findViewById(R.id.ed_item_clsof_seed);
         item_crop_type = popupView.findViewById(R.id.item_crop_type);
         ed_item_name = popupView.findViewById(R.id.ed_item_name);
+        ac_alias_name = popupView.findViewById(R.id.ac_alias_name);
         item_prod_grp_cd = popupView.findViewById(R.id.item_prod_grp_cd);
         ac_crop_code = popupView.findViewById(R.id.ac_crop_code);
         ac_parent_male_lot = popupView.findViewById(R.id.ac_parent_male_lot);
@@ -445,29 +433,36 @@ public class AddPlantingHeaderLineDetailFragment extends Fragment implements Org
         ed_parent_other = popupView.findViewById(R.id.ed_parent_others);
         ed_other_qty = popupView.findViewById(R.id.ed_other_qty);
         ac_zone_ = popupView.findViewById(R.id.ac_zone);
-        ac_alias_name = popupView.findViewById(R.id.ac_alias_name);
+
         MaterialProgressBar content_loading = popupView.findViewById(R.id.content_loading);
-        Button filter_apply_bt = popupView.findViewById(R.id.submit_line_btn);
-        ac_grwer_name.setSelection(ac_grwer_name.getText().length());
+        Button submit_line_button = popupView.findViewById(R.id.submit_line_btn);
+        //ac_grwer_name.setSelection(ac_grwer_name.getText().length());
         //ed_vill_name.setSelection(ed_vill_name.getText().length());
+        getAcDocNo(content_loading, Doucment_subtype, organiser_code);
 
-        getAcDocNo(content_loading,Doucment_subtype, organiser_code);
+        //todo for measurement from api
+        // getUnitOfMeasureData(content_loading);
 
-        getUnitOfMeasureData(content_loading);
-
+        unit_of_msrd_cd.setText("KG(kg)");
+        radio_2.setChecked(true);
 
         ac_grwer_name.setOnItemClickListener((parent, view, position, id) -> {
-            farmer_grower_model = farmer_grower_list.get(position);
 
-            if (farmer_grower_model != null) {
-                ac_grwer_name.setText(farmer_grower_model.Name);
-                loading_content.setVisibility(View.VISIBLE);
-                ed_grower_code.setText(village_list.get(0).No);
-                ac_state.setText(village_list.get(0).State_Code);
-                ac_taluka.setText(village_list.get(0).Territory_Name);
-                dropdown_city.setText(village_list.get(0).City);
-                ed_address_.setText(village_list.get(0).Address);
-               /* NetworkInterface mAPIService = ApiUtils.getPristineAPIService();
+            try {
+                farmer_grower_model = farmer_grower_list.get(position);
+                if (farmer_grower_model != null) {
+                    //String farmerName=farmer_grower_model.Name;
+                    //ac_grwer_name.setText(farmerName.substring(0,13));
+                    ac_grwer_name.setText(farmer_grower_model.Name);
+                    loading_content.setVisibility(View.VISIBLE);
+                    //ed_grower_code.setText(village_list.get(position).No);
+                    ed_grower_code.setText(farmer_grower_model.No);
+                    ac_state.setText(farmer_grower_model.State_Code);
+                    ac_taluka.setText(farmer_grower_model.Territory_Name);
+                    ac_sub_zone.setText(farmer_grower_model.Sub_Zone);
+                    dropdown_city.setText(farmer_grower_model.City);
+                    ed_address_.setText(farmer_grower_model.Address);
+                   /* NetworkInterface mAPIService = ApiUtils.getPristineAPIService();
                 Call<DispatchFarmerModel> call = mAPIService.getDispatchFarmerList("");
                 call.enqueue(new Callback<DispatchFarmerModel>() {
                     @Override
@@ -512,14 +507,17 @@ public class AddPlantingHeaderLineDetailFragment extends Fragment implements Org
                         ApiRequestFailure.PostExceptionToServer(t, getClass().getName(), "farmer_list", getActivity());
                     }
                 });*/
+                } else {
+                    ac_grwer_name.setText("");
+                    loading_content.setVisibility(View.GONE);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-            else {
-                ac_grwer_name.setText("");
-                loading_content.setVisibility(View.GONE);
-            }
+
         });
 
-        //todo for filter..................................................
+        //todo for filter...................... ............................
         et_village.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -528,13 +526,21 @@ public class AddPlantingHeaderLineDetailFragment extends Fragment implements Org
 
             @Override
             public void onTextChanged(CharSequence s, int i, int i1, int i2) {
-                et_village.setSelection(s.toString().length());
                 if (!s.toString().equalsIgnoreCase("")) {
                     frame_layout_org_list.setVisibility(View.VISIBLE);
-                    getFarmerAndGrower_master(village_recyclerView,content_loading,s.toString());
+                    getFarmerAndGrower_master(village_recyclerView, content_loading, s.toString());
                 } else {
                     frame_layout_org_list.setVisibility(View.GONE);
                     content_loading.setVisibility(View.GONE);
+                    farmer_grower_list.clear();
+                    ac_grwer_name.setText("");
+                    ed_grower_code.setText("");
+                    ac_state.setText("");
+                    ac_taluka.setText("");
+                    ac_sub_zone.setText("");
+                    dropdown_city.setText("");
+                    ed_address_.setText("");
+
                 }
             }
 
@@ -554,12 +560,14 @@ public class AddPlantingHeaderLineDetailFragment extends Fragment implements Org
                     // getProductGrpCode(planting_doc_table.Child_Seed_Type, planting_doc_table.Crop_Code);
                     if (planting_doc_table.Document_SubType.equalsIgnoreCase("FSIO")) {
                         ed_item_clsof_seed.setEnabled(false);
-                        ed_item_name.setVisibility(View.VISIBLE);
+                        // ed_item_name.setVisibility(View.VISIBLE);
+                        ac_alias_name.setVisibility(View.VISIBLE);
                         recpt_male.setVisibility(View.VISIBLE);
                         recpt_female.setVisibility(View.VISIBLE);
                         recpt_other.setVisibility(View.VISIBLE);
                         ed_item_clsof_seed.setText(planting_doc_table.Child_Seed_Type);
-                        ed_item_name.setText(planting_doc_table.Child_Seed_Name);
+                        //ed_item_name.setText(planting_doc_table.Child_Seed_Name);
+                        ac_alias_name.setText(planting_doc_table.AliasCode);
                         item_crop_type.setText(planting_doc_table.Child_Seed_Type);
                         ac_variety_code.setText(planting_doc_table.Child_Seed);
                         ac_crop_code.setText(planting_doc_table.Crop_Code);
@@ -572,23 +580,25 @@ public class AddPlantingHeaderLineDetailFragment extends Fragment implements Org
                         ac_parent_other_lot.setText("");
                         ed_parent_other.setText("");
                         ed_other_qty.setText("");
-                        getPlantingLotListMale(content_loading, planting_doc_table.No,"FSIO", "Male");
+                        getPlantingLotListMale(content_loading, planting_doc_table.No, "FSIO", "Male");
 
-                        getPlantingLotListFemale(content_loading,  planting_doc_table.No,"FSIO", "Female");
+                        getPlantingLotListFemale(content_loading, planting_doc_table.No, "FSIO", "Female");
 
                     } else if (planting_doc_table.Document_SubType.equalsIgnoreCase("BSIO")) {
-                        ed_item_name.setVisibility(View.VISIBLE);
+                        //ed_item_name.setVisibility(View.VISIBLE);
+                        ac_alias_name.setVisibility(View.VISIBLE);
                         ed_item_clsof_seed.setEnabled(true);
                         recpt_male.setVisibility(View.GONE);
                         recpt_female.setVisibility(View.GONE);
                         recpt_other.setVisibility(View.GONE);
                         ed_item_clsof_seed.setText(planting_doc_table.Child_Seed_Type);
-                        ed_item_name.setText(planting_doc_table.Child_Seed_Name);
+                        //ed_item_name.setText(planting_doc_table.Child_Seed_Name);
+                        ac_alias_name.setText(planting_doc_table.AliasCode);
                         item_crop_type.setText(planting_doc_table.Child_Seed_Type);
                         ac_variety_code.setText(planting_doc_table.Child_Seed);
                         ac_crop_code.setText(planting_doc_table.Crop_Code);
-                        getPlantingLotListMale(content_loading,  planting_doc_table.No,"BSIO", "Male");
-                        getPlantingLotListFemale(content_loading, planting_doc_table.No,"BSIO",  "Female");
+                        getPlantingLotListMale(content_loading, planting_doc_table.No, "BSIO", "Male");
+                        getPlantingLotListFemale(content_loading, planting_doc_table.No, "BSIO", "Female");
 
                     }
 
@@ -680,7 +690,6 @@ public class AddPlantingHeaderLineDetailFragment extends Fragment implements Org
             getPlantingLotListFemale(loading_content,plantingLineModel.doc_no,Doucment_subtype,"FEMALE");
         });*/
 
-
        /*if (hybrid_item_tableList != null && hybrid_item_tableList.size() > 0) {
             HybridItemAliasNameAdapter hybridItemAdapter = new HybridItemAliasNameAdapter(getActivity(), R.layout.android_item_view, hybrid_item_tableList);
             ac_alias_name.setAdapter(hybridItemAdapter);
@@ -705,21 +714,24 @@ public class AddPlantingHeaderLineDetailFragment extends Fragment implements Org
         });
 
         if (flag.equals("insert")) {
-            filter_apply_bt.setOnClickListener(v -> {
+            submit_line_button.setOnClickListener(v -> {
                 if (ac_grwer_name.getText().toString().trim().equalsIgnoreCase("")) {
                     Toast.makeText(getActivity(), "Please select grower name", Toast.LENGTH_SHORT).show();
                 } else {
                     PlantingHeaderModel.PlantingLine plantingLine = new PlantingHeaderModel().new PlantingLine();
                     plantingLine.code = plantingHeaderModel.code;
                     line_series = line_series + 1;
-                    plantingLine.line_no = String.valueOf(line_series);
+                    //plantingLine.line_no = String.valueOf(line_series);
                     plantingLine.doc_no = planting_doc_table.No;
                     plantingLine.parent_male = ed_parent_male.getText().toString().trim();
                     plantingLine.parent_male_lot = ac_parent_male_lot.getText().toString().trim();
                     plantingLine.parent_female = ed_parent_female.getText().toString().trim();
                     plantingLine.parent_female_lot = ac_parent_female_lot.getText().toString().trim();
+                    plantingLine.parent_other = ed_parent_other.getText().toString().trim();
+                    plantingLine.parent_other_lot = ac_parent_other_lot.getText().toString().trim();
                     plantingLine.reciept_no_male = ed_receptno_male.getText().toString().trim();
                     plantingLine.reciept_no_female = ed_receiptno_female.getText().toString().trim();
+                    plantingLine.reciept_no_other = ed_other_receipt_no.getText().toString().trim();
                     plantingLine.grower_owner_code = ed_grower_code.getText().toString().trim();
                     plantingLine.grower_land_owner_name = ac_grwer_name.getText().toString().trim();
                     plantingLine.supervisor_name = ed_supervsr_name.getText().toString().trim() != null ? ed_supervsr_name.getText().toString().trim() : "";
@@ -727,13 +739,30 @@ public class AddPlantingHeaderLineDetailFragment extends Fragment implements Org
                     plantingLine.variety_code = ac_variety_code.getText().toString().trim();
                     plantingLine.item_product_group_code = item_prod_grp_cd.getText().toString().trim() != null ? item_prod_grp_cd.getText().toString().trim() : "";
                     plantingLine.item_class_of_seeds = ed_item_clsof_seed.getText().toString().trim();
+                    plantingLine.item_crop_type = item_crop_type.getText().toString().trim();
                     if (Doucment_subtype.equalsIgnoreCase("FSIO")) {
                         plantingLine.item_name = ed_item_name.getText().toString().trim();
+                        plantingLine.alias_code = ac_alias_name.getText().toString().trim();
+
                     } else if (Doucment_subtype.equalsIgnoreCase("BSIO")) {
                         plantingLine.item_name = ed_item_name.getText().toString().trim() != null ? ed_item_name.getText().toString().trim() : "";
+                        plantingLine.alias_code = ac_alias_name.getText().toString().trim() != null ? ac_alias_name.getText().toString().trim() : "";
                     }
-                    plantingLine.item_crop_type = item_crop_type.getText().toString().trim();
+
                     plantingLine.revised_yield_raw = revised_yield.getText().toString().trim();
+
+                    if (ed_expected_yield.getText().toString().trim().equalsIgnoreCase(".") ||
+                            ed_expected_yield.getText().toString().trim().equalsIgnoreCase(".0")
+                            || ed_expected_yield.getText().toString().trim().equalsIgnoreCase("0.")) {
+                        Toast.makeText(getContext(), "Wrong value in expected yield", Toast.LENGTH_LONG).show();
+                    } else {
+                        if (!ed_expected_yield.getText().toString().trim().equalsIgnoreCase("")) {
+                            plantingLine.expected_yield = String.valueOf(Float.parseFloat(ed_expected_yield.getText().toString().trim()));
+                        } else {
+                            plantingLine.expected_yield = "0.0";
+                        }
+                    }
+
                     plantingLine.land_lease = radio_group_land_lease.getCheckedRadioButtonId() != -1 ? postedString : "0";//ed_land_lease.getText().toString().trim();
                     plantingLine.unit_of_measure_code = unit_of_msrd_cd.getText().toString().trim();
 
@@ -752,26 +781,7 @@ public class AddPlantingHeaderLineDetailFragment extends Fragment implements Org
                     } else {
                         plantingLine.sowing_date_other = DateTimeUtilsCustome.splitDateInYYYMMDD(ed_sowing_date_other.getText().toString().trim());
                     }
-                    if (ed_expected_yield.getText().toString().trim().equalsIgnoreCase(".") ||
-                            ed_expected_yield.getText().toString().trim().equalsIgnoreCase(".0")
-                            || ed_expected_yield.getText().toString().trim().equalsIgnoreCase("0.")) {
-                        Toast.makeText(getContext(), "Wrong value in expected yield", Toast.LENGTH_LONG).show();
-                    } else {
-                        if (!ed_expected_yield.getText().toString().trim().equalsIgnoreCase("")) {
-                            plantingLine.expected_yield = String.valueOf(Float.parseFloat(ed_expected_yield.getText().toString().trim()));
-                        } else {
-                            plantingLine.expected_yield = "0.0";
-                        }
-                    }
-                    plantingLine.village_name = et_village.getText().toString().trim();
-                    plantingLine.address = ed_address_.getText().toString().trim();
-                    plantingLine.zone = zone_code;
-                    plantingLine.taluka = ac_taluka.getText().toString().trim();
-                    plantingLine.state = ac_state.getText().toString().trim();
-                    plantingLine.city = dropdown_city.getText().toString().trim();
-                    plantingLine.quantity_male = !ed_male_qty.getText().toString().trim().equalsIgnoreCase("") ? ed_male_qty.getText().toString().trim() : "0.0";
-                    plantingLine.quantity_female = !ed_female_qty.getText().toString().trim().equalsIgnoreCase("") ? ed_female_qty.getText().toString().trim() : "0.0";
-                    plantingLine.quantity_other = !ed_other_qty.getText().toString().trim().equalsIgnoreCase("") ? ed_other_qty.getText().toString().trim() : "0.0";
+
                     if (ed_sowing_area.getText().toString().equalsIgnoreCase(".") || ed_sowing_area.getText().toString().equalsIgnoreCase("0")) {
                         Toast.makeText(getContext(), "Wrong Values In sowing area", Toast.LENGTH_LONG).show();
                     } else {
@@ -782,9 +792,17 @@ public class AddPlantingHeaderLineDetailFragment extends Fragment implements Org
                             plantingLine.sowing_area_In_acres = "0.0";
                         }
                     }
-                    plantingLine.parent_other = ed_parent_other.getText().toString().trim();
-                    plantingLine.parent_other_lot = ac_parent_other_lot.getText().toString().trim();
-                    plantingLine.reciept_no_other = ed_other_receipt_no.getText().toString().trim();
+
+                    plantingLine.village_name = et_village.getText().toString().trim();
+                    plantingLine.taluka = ac_taluka.getText().toString().trim();
+                    plantingLine.state = ac_state.getText().toString().trim();
+                    plantingLine.city = dropdown_city.getText().toString().trim();
+                    plantingLine.address = ed_address_.getText().toString().trim();
+                    plantingLine.zone = zone_code;
+                    plantingLine.quantity_male = !ed_male_qty.getText().toString().trim().equalsIgnoreCase("") ? ed_male_qty.getText().toString().trim() : "0.0";
+                    plantingLine.quantity_female = !ed_female_qty.getText().toString().trim().equalsIgnoreCase("") ? ed_female_qty.getText().toString().trim() : "0.0";
+                    plantingLine.quantity_other = !ed_other_qty.getText().toString().trim().equalsIgnoreCase("") ? ed_other_qty.getText().toString().trim() : "0.0";
+
                     plantingLine.InspectionI = "0";
                     plantingLine.InspectionII = "0";
                     plantingLine.InspectionIII = "0";
@@ -796,23 +814,21 @@ public class AddPlantingHeaderLineDetailFragment extends Fragment implements Org
                     plantingLine.InspectionIX = "0";
                     plantingLine.InspectionQC = "0";
                     plantingLine.created_by = sessionManagement.getUserEmail();
+                    plantingLine.sub_zone = ac_sub_zone.getText().toString().trim();
                     insertPlantingLine(plantingLine, dialog);
                 }
             });
-        }
-
-        else if (flag.equals("view")) {
-            filter_apply_bt.setVisibility(View.GONE);
+        } else if (flag.equals("view")) {
+            submit_line_button.setVisibility(View.GONE);
 //            PlantingHeaderModel.PlantingLine plantingLine = new PlantingHeaderModel().new PlantingLine();
             if (NetworkUtil.getConnectivityStatusBoolean(getActivity())) {
-                if(radio_1.isChecked()) {
+                if (radio_1.isChecked()) {
                     radio_1.setChecked(true);
                     radio_1.setEnabled(false);
                     radio_1.setFocusable(false);
                     radio_1.setFocusableInTouchMode(false);
                     radio_1.clearFocus();
-                }
-                else {
+                } else {
                     radio_1.setChecked(false);
                     radio_1.setEnabled(false);
                     radio_1.setFocusable(false);
@@ -820,14 +836,13 @@ public class AddPlantingHeaderLineDetailFragment extends Fragment implements Org
                     radio_1.clearFocus();
                 }
 
-                if(radio_2.isChecked()) {
+                if (radio_2.isChecked()) {
                     radio_2.setChecked(true);
                     radio_2.setEnabled(false);
                     radio_2.setFocusable(false);
                     radio_2.setFocusableInTouchMode(false);
                     radio_2.clearFocus();
-                }
-                else {
+                } else {
                     radio_2.setChecked(false);
                     radio_2.setEnabled(false);
                     radio_2.setFocusable(false);
@@ -857,63 +872,59 @@ public class AddPlantingHeaderLineDetailFragment extends Fragment implements Org
                     ac_doc_no.setFocusable(false);
                 }
 
-                if(plantingLineModel.crop_code != null && !plantingLineModel.crop_code.equalsIgnoreCase("")){
+                if (plantingLineModel.crop_code != null && !plantingLineModel.crop_code.equalsIgnoreCase("")) {
                     ac_crop_code.setText(plantingLineModel.crop_code);
                     ac_crop_code.setFocusableInTouchMode(false);
                     ac_crop_code.clearFocus();
                     ac_crop_code.setFocusable(false);
                     ac_crop_code.setEnabled(false);
-                }
-                else {
+                } else {
                     ac_crop_code.setText("");
                     ac_crop_code.setFocusableInTouchMode(false);
                     ac_crop_code.setFocusable(false);
                     ac_crop_code.setEnabled(false);
                 }
 
-                if(plantingLineModel.item_product_group_code != null && !plantingLineModel.item_product_group_code.equalsIgnoreCase("")){
+                if (plantingLineModel.item_product_group_code != null && !plantingLineModel.item_product_group_code.equalsIgnoreCase("")) {
                     item_prod_grp_cd.setText(plantingLineModel.item_product_group_code);
                     item_prod_grp_cd.setFocusableInTouchMode(false);
                     item_prod_grp_cd.clearFocus();
                     item_prod_grp_cd.setFocusable(false);
                     item_prod_grp_cd.setEnabled(false);
-                }
-                else {
+                } else {
                     item_prod_grp_cd.setText("");
                     item_prod_grp_cd.setFocusableInTouchMode(false);
                     item_prod_grp_cd.setFocusable(false);
                     item_prod_grp_cd.setEnabled(false);
                 }
 
-                if(plantingLineModel.item_class_of_seeds != null && !plantingLineModel.item_class_of_seeds.equalsIgnoreCase("")){
+                if (plantingLineModel.item_class_of_seeds != null && !plantingLineModel.item_class_of_seeds.equalsIgnoreCase("")) {
                     ed_item_clsof_seed.setText(plantingLineModel.item_class_of_seeds);
                     ed_item_clsof_seed.setFocusableInTouchMode(false);
                     ed_item_clsof_seed.clearFocus();
                     ed_item_clsof_seed.setFocusable(false);
                     ed_item_clsof_seed.setEnabled(false);
-                }
-                else {
+                } else {
                     ed_item_clsof_seed.setText("");
                     ed_item_clsof_seed.setFocusableInTouchMode(false);
                     ed_item_clsof_seed.setFocusable(false);
                     ed_item_clsof_seed.setEnabled(false);
                 }
 
-                if(plantingLineModel.item_crop_type != null && !plantingLineModel.item_crop_type.equalsIgnoreCase("")){
+                if (plantingLineModel.item_crop_type != null && !plantingLineModel.item_crop_type.equalsIgnoreCase("")) {
                     item_crop_type.setText(plantingLineModel.item_crop_type);
                     item_crop_type.setFocusableInTouchMode(false);
                     item_crop_type.clearFocus();
                     item_crop_type.setFocusable(false);
                     item_crop_type.setEnabled(false);
-                }
-                else {
+                } else {
                     item_crop_type.setText("");
                     item_crop_type.setFocusableInTouchMode(false);
                     item_crop_type.setFocusable(false);
                     item_crop_type.setEnabled(false);
                 }
 
-                if(plantingLineModel.item_name != null && !plantingLineModel.item_name.equalsIgnoreCase("")){
+                /*if(plantingLineModel.item_name != null && !plantingLineModel.item_name.equalsIgnoreCase("")){
                     ed_item_name.setText(plantingLineModel.item_name);
                     ed_item_name.setFocusableInTouchMode(false);
                     ed_item_name.clearFocus();
@@ -925,31 +936,44 @@ public class AddPlantingHeaderLineDetailFragment extends Fragment implements Org
                     ed_item_name.setFocusableInTouchMode(false);
                     ed_item_name.setFocusable(false);
                     ed_item_name.setEnabled(false);
+                }*/
+
+                if (plantingLineModel.alias_code != null && !plantingLineModel.alias_code.equalsIgnoreCase("")) {
+                    ac_alias_name.setText(plantingLineModel.alias_code);
+                    ac_alias_name.setFocusableInTouchMode(false);
+                    ac_alias_name.clearFocus();
+                    ac_alias_name.setDropDownHeight(0);
+                    ac_alias_name.setFocusable(false);
+                    ac_alias_name.setEnabled(false);
+                } else {
+                    ac_alias_name.setText("");
+                    ac_alias_name.setFocusableInTouchMode(false);
+                    ac_alias_name.setDropDownHeight(0);
+                    ac_alias_name.setFocusable(false);
+                    ac_alias_name.setEnabled(false);
                 }
 
-                if(plantingLineModel.expected_yield != null && !plantingLineModel.expected_yield.equalsIgnoreCase("")){
+                if (plantingLineModel.expected_yield != null && !plantingLineModel.expected_yield.equalsIgnoreCase("")) {
                     ed_expected_yield.setText(plantingLineModel.expected_yield);
                     ed_expected_yield.setFocusableInTouchMode(false);
                     ed_expected_yield.clearFocus();
                     ed_expected_yield.setFocusable(false);
                     ed_expected_yield.setEnabled(false);
-                }
-                else {
+                } else {
                     ed_expected_yield.setText("");
                     ed_expected_yield.setFocusableInTouchMode(false);
                     ed_expected_yield.setFocusable(false);
                     ed_expected_yield.setEnabled(false);
                 }
 
-                if(plantingLineModel.unit_of_measure_code != null && !plantingLineModel.unit_of_measure_code.equalsIgnoreCase("")){
+                if (plantingLineModel.unit_of_measure_code != null && !plantingLineModel.unit_of_measure_code.equalsIgnoreCase("")) {
                     unit_of_msrd_cd.setText(plantingLineModel.unit_of_measure_code);
                     unit_of_msrd_cd.clearFocus();
                     unit_of_msrd_cd.setDropDownHeight(0);
                     unit_of_msrd_cd.setFocusableInTouchMode(false);
                     unit_of_msrd_cd.setFocusable(false);
                     unit_of_msrd_cd.setEnabled(false);
-                }
-                else {
+                } else {
                     unit_of_msrd_cd.setText("");
                     unit_of_msrd_cd.setDropDownHeight(0);
                     unit_of_msrd_cd.setFocusableInTouchMode(false);
@@ -957,74 +981,69 @@ public class AddPlantingHeaderLineDetailFragment extends Fragment implements Org
                     unit_of_msrd_cd.setEnabled(false);
                 }
 
-                if(plantingLineModel.sowing_area_In_acres != null && !plantingLineModel.sowing_area_In_acres.equalsIgnoreCase("")){
+                if (plantingLineModel.sowing_area_In_acres != null && !plantingLineModel.sowing_area_In_acres.equalsIgnoreCase("")) {
                     ed_sowing_area.setText(plantingLineModel.sowing_area_In_acres);
                     ed_sowing_area.setFocusableInTouchMode(false);
                     ed_sowing_area.clearFocus();
                     ed_sowing_area.setFocusable(false);
                     ed_sowing_area.setEnabled(false);
-                }
-                else {
+                } else {
                     ed_sowing_area.setText("");
                     ed_sowing_area.setFocusableInTouchMode(false);
                     ed_sowing_area.setFocusable(false);
                     ed_sowing_area.setEnabled(false);
                 }
-            //todo new fiels add.....................................
-                if(plantingLineModel.standing_acres != null && !plantingLineModel.standing_acres.equalsIgnoreCase("")){
+                //todo new fiels add.....................................
+                if (plantingLineModel.standing_acres != null && !plantingLineModel.standing_acres.equalsIgnoreCase("")) {
                     ed_standing_acres_layout.setVisibility(View.VISIBLE);
                     ed_standing_acres.setText(plantingLineModel.standing_acres);
                     ed_standing_acres.setFocusableInTouchMode(false);
                     ed_standing_acres.clearFocus();
                     ed_standing_acres.setFocusable(false);
                     ed_standing_acres.setEnabled(false);
-                }
-                else {
+                } else {
                     ed_standing_acres.setText("");
                     ed_standing_acres.setFocusableInTouchMode(false);
                     ed_standing_acres.setFocusable(false);
                     ed_standing_acres.setEnabled(false);
                 }
 
-                if(plantingLineModel.pld_acre != null && !plantingLineModel.pld_acre.equalsIgnoreCase("")){
+                if (plantingLineModel.pld_acre != null && !plantingLineModel.pld_acre.equalsIgnoreCase("")) {
                     ed_pld_acres_layout.setVisibility(View.VISIBLE);
                     ed_pld_acres.setText(plantingLineModel.pld_acre);
                     ed_pld_acres.setFocusableInTouchMode(false);
                     ed_pld_acres.clearFocus();
                     ed_pld_acres.setFocusable(false);
                     ed_pld_acres.setEnabled(false);
-                }
-                else {
+                } else {
                     ed_pld_acres.setText("");
                     ed_pld_acres.setFocusableInTouchMode(false);
                     ed_pld_acres.setFocusable(false);
                     ed_pld_acres.setEnabled(false);
                 }
 
-                if(plantingLineModel.pld_reason != null && !plantingLineModel.pld_reason.equalsIgnoreCase("")){
+                if (plantingLineModel.pld_reason != null && !plantingLineModel.pld_reason.equalsIgnoreCase("")) {
                     ac_pld_reason_layout.setVisibility(View.VISIBLE);
                     ac_pld_reason.setText(plantingLineModel.pld_reason);
                     ac_pld_reason.setFocusableInTouchMode(false);
                     ac_pld_reason.clearFocus();
                     ac_pld_reason.setFocusable(false);
                     ac_pld_reason.setEnabled(false);
-                }
-                else {
+                } else {
                     ac_pld_reason.setText("");
                     ac_pld_reason.setFocusableInTouchMode(false);
                     ac_pld_reason.setFocusable(false);
                     ac_pld_reason.setEnabled(false);
                 }
 
-                if(plantingLineModel.zone != null && !plantingLineModel.zone.equalsIgnoreCase("")){
+                if (plantingLineModel.zone != null && !plantingLineModel.zone.equalsIgnoreCase("")) {
                     ac_zone_.setText(plantingLineModel.zone);
                     ac_zone_.setDropDownHeight(0);
                     ac_zone_.setFocusableInTouchMode(false);
                     ac_zone_.clearFocus();
                     ac_zone_.setFocusable(false);
                     ac_zone_.setEnabled(false);
-                }
-                else {
+                } else {
                     ac_zone_.setText("");
                     ac_zone_.setDropDownHeight(0);
                     ac_zone_.setFocusableInTouchMode(false);
@@ -1032,85 +1051,92 @@ public class AddPlantingHeaderLineDetailFragment extends Fragment implements Org
                     ac_zone_.setEnabled(false);
                 }
 
-                if(plantingLineModel.village_name != null && !plantingLineModel.village_name.equalsIgnoreCase("")){
+                if (plantingLineModel.village_name != null && !plantingLineModel.village_name.equalsIgnoreCase("")) {
 
-                    et_village.setText(plantingLineModel.village_name);
+                    //et_village.setText(plantingLineModel.village_name);
                     et_village.clearFocus();
                     et_village.setFocusableInTouchMode(false);
                     et_village.setFocusable(false);
                     et_village.setEnabled(false);
-                }
-                else {
+                } else {
                     et_village.setText("");
                     et_village.setFocusable(false);
                     et_village.setEnabled(false);
                 }
 
-                if(plantingLineModel.taluka != null && !plantingLineModel.taluka.equalsIgnoreCase("")){
+                if (plantingLineModel.taluka != null && !plantingLineModel.taluka.equalsIgnoreCase("")) {
                     ac_taluka.setText(plantingLineModel.taluka);
                     ac_taluka.setFocusableInTouchMode(false);
                     ac_taluka.clearFocus();
                     ac_taluka.setFocusable(false);
                     ac_taluka.setEnabled(false);
-                }
-                else {
+                } else {
                     ac_taluka.setText("");
                     ac_taluka.setFocusableInTouchMode(false);
                     ac_taluka.setFocusable(false);
                     ac_taluka.setEnabled(false);
                 }
 
-                if(plantingLineModel.state != null && !plantingLineModel.state.equalsIgnoreCase("")){
+                if (plantingLineModel.sub_zone != null && !plantingLineModel.sub_zone.equalsIgnoreCase("")) {
+                    ac_sub_zone.setText(plantingLineModel.taluka);
+                    ac_sub_zone.setFocusableInTouchMode(false);
+                    ac_sub_zone.clearFocus();
+                    ac_sub_zone.setFocusable(false);
+                    ac_sub_zone.setEnabled(false);
+                } else {
+                    ac_sub_zone.setText("");
+                    ac_sub_zone.setFocusableInTouchMode(false);
+                    ac_sub_zone.setFocusable(false);
+                    ac_sub_zone.setEnabled(false);
+                }
+
+                if (plantingLineModel.state != null && !plantingLineModel.state.equalsIgnoreCase("")) {
                     ac_state.setText(plantingLineModel.state);
                     ac_state.setFocusableInTouchMode(false);
                     ac_state.clearFocus();
                     ac_state.setFocusable(false);
                     ac_state.setEnabled(false);
-                }
-                else {
+                } else {
                     ac_state.setText("");
                     ac_state.setFocusableInTouchMode(false);
                     ac_state.setFocusable(false);
                     ac_state.setEnabled(false);
                 }
 
-                if(plantingLineModel.city != null && !plantingLineModel.city.equalsIgnoreCase("")){
+                if (plantingLineModel.city != null && !plantingLineModel.city.equalsIgnoreCase("")) {
                     dropdown_city.setText(plantingLineModel.city);
                     dropdown_city.setFocusableInTouchMode(false);
                     dropdown_city.clearFocus();
                     dropdown_city.setFocusable(false);
                     dropdown_city.setEnabled(false);
-                }
-                else {
+                } else {
                     dropdown_city.setText("");
                     dropdown_city.setFocusableInTouchMode(false);
                     dropdown_city.setFocusable(false);
                     dropdown_city.setEnabled(false);
                 }
 
-                if(plantingLineModel.address != null && !plantingLineModel.address.equalsIgnoreCase("")){
+                if (plantingLineModel.address != null && !plantingLineModel.address.equalsIgnoreCase("")) {
                     ed_address_.setText(plantingLineModel.address);
                     ed_address_.setFocusableInTouchMode(false);
                     ed_address_.clearFocus();
                     ed_address_.setFocusable(false);
                     ed_address_.setEnabled(false);
-                }
-                else {
+                } else {
                     ed_address_.setText("");
                     ed_address_.setFocusableInTouchMode(false);
                     ed_address_.setFocusable(false);
                     ed_address_.setEnabled(false);
                 }
 
-                if(plantingLineModel.grower_land_owner_name != null && !plantingLineModel.grower_land_owner_name.equalsIgnoreCase("")){
+                if (plantingLineModel.grower_land_owner_name != null && !plantingLineModel.grower_land_owner_name.equalsIgnoreCase("")) {
                     ac_grwer_name.setText(plantingLineModel.grower_land_owner_name);
                     ac_grwer_name.setDropDownHeight(0);
                     ac_grwer_name.clearFocus();
                     ac_grwer_name.setFocusableInTouchMode(false);
                     ac_grwer_name.setFocusable(false);
                     ac_grwer_name.setEnabled(false);
-                }
-                else {
+                } else {
                     ac_grwer_name.setText("");
                     ac_grwer_name.setDropDownHeight(0);
                     ac_grwer_name.setFocusableInTouchMode(false);
@@ -1118,57 +1144,53 @@ public class AddPlantingHeaderLineDetailFragment extends Fragment implements Org
                     ac_grwer_name.setEnabled(false);
                 }
 
-                if(plantingLineModel.grower_owner_code != null && !plantingLineModel.grower_owner_code.equalsIgnoreCase("")){
+                if (plantingLineModel.grower_owner_code != null && !plantingLineModel.grower_owner_code.equalsIgnoreCase("")) {
                     ed_grower_code.setText(plantingLineModel.grower_owner_code);
                     ed_grower_code.setFocusableInTouchMode(false);
                     ed_grower_code.clearFocus();
                     ed_grower_code.setFocusable(false);
                     ed_grower_code.setEnabled(false);
-                }
-                else {
+                } else {
                     ed_grower_code.setText("");
                     ed_grower_code.setFocusableInTouchMode(false);
                     ed_grower_code.setFocusable(false);
                     ed_grower_code.setEnabled(false);
                 }
 
-                if(plantingLineModel.supervisor_name != null && !plantingLineModel.supervisor_name.equalsIgnoreCase("")){
+                if (plantingLineModel.supervisor_name != null && !plantingLineModel.supervisor_name.equalsIgnoreCase("")) {
                     ed_supervsr_name.setText(plantingLineModel.supervisor_name);
                     ed_supervsr_name.setFocusableInTouchMode(false);
                     ed_supervsr_name.clearFocus();
                     ed_supervsr_name.setFocusable(false);
                     ed_supervsr_name.setEnabled(false);
-                }
-                else {
+                } else {
                     ed_supervsr_name.setText("");
                     ed_supervsr_name.setFocusableInTouchMode(false);
                     ed_supervsr_name.setFocusable(false);
                     ed_supervsr_name.setEnabled(false);
                 }
 
-                if(plantingLineModel.sowing_date_male != null && !plantingLineModel.sowing_date_male.equalsIgnoreCase("")){
+                if (plantingLineModel.sowing_date_male != null && !plantingLineModel.sowing_date_male.equalsIgnoreCase("")) {
                     ed_sowing_male.setText(plantingLineModel.sowing_date_male);
                     ed_sowing_male.setFocusableInTouchMode(false);
                     ed_sowing_male.clearFocus();
                     ed_sowing_male.setFocusable(false);
                     ed_sowing_male.setEnabled(false);
-                }
-                else {
+                } else {
                     ed_sowing_male.setText("");
                     ed_sowing_male.setFocusableInTouchMode(false);
                     ed_sowing_male.setFocusable(false);
                     ed_sowing_male.setEnabled(false);
                 }
 
-                if(plantingLineModel.parent_male_lot != null && !plantingLineModel.parent_male_lot.equalsIgnoreCase("")){
+                if (plantingLineModel.parent_male_lot != null && !plantingLineModel.parent_male_lot.equalsIgnoreCase("")) {
                     ac_parent_male_lot.setText(plantingLineModel.parent_male_lot);
                     ac_parent_male_lot.setDropDownHeight(0);
                     ac_parent_male_lot.setFocusableInTouchMode(false);
                     ac_parent_male_lot.clearFocus();
                     ac_parent_male_lot.setFocusable(false);
                     ac_parent_male_lot.setEnabled(false);
-                }
-                else {
+                } else {
                     ac_parent_male_lot.setText("");
                     ac_parent_male_lot.setDropDownHeight(0);
                     ac_parent_male_lot.setFocusableInTouchMode(false);
@@ -1176,57 +1198,53 @@ public class AddPlantingHeaderLineDetailFragment extends Fragment implements Org
                     ac_parent_male_lot.setEnabled(false);
                 }
 
-                if(plantingLineModel.parent_male != null && !plantingLineModel.parent_male.equalsIgnoreCase("")){
+                if (plantingLineModel.parent_male != null && !plantingLineModel.parent_male.equalsIgnoreCase("")) {
                     ed_parent_male.setText(plantingLineModel.parent_male);
                     ed_parent_male.setFocusableInTouchMode(false);
                     ed_parent_male.clearFocus();
                     ed_parent_male.setFocusable(false);
                     ed_parent_male.setEnabled(false);
-                }
-                else {
+                } else {
                     ed_parent_male.setText("");
                     ed_parent_male.setFocusableInTouchMode(false);
                     ed_parent_male.setFocusable(false);
                     ed_parent_male.setEnabled(false);
                 }
 
-                if(plantingLineModel.quantity_male != null && !plantingLineModel.quantity_male.equalsIgnoreCase("")){
+                if (plantingLineModel.quantity_male != null && !plantingLineModel.quantity_male.equalsIgnoreCase("")) {
                     ed_male_qty.setText(plantingLineModel.quantity_male);
                     ed_male_qty.setFocusableInTouchMode(false);
                     ed_male_qty.clearFocus();
                     ed_male_qty.setFocusable(false);
                     ed_male_qty.setEnabled(false);
-                }
-                else {
+                } else {
                     ed_male_qty.setText("");
                     ed_male_qty.setFocusableInTouchMode(false);
                     ed_male_qty.setFocusable(false);
                     ed_male_qty.setEnabled(false);
                 }
 
-                if(plantingLineModel.sowing_date_female != null && !plantingLineModel.sowing_date_female.equalsIgnoreCase("")){
+                if (plantingLineModel.sowing_date_female != null && !plantingLineModel.sowing_date_female.equalsIgnoreCase("")) {
                     ed_sowing_female.setText(plantingLineModel.sowing_date_female);
                     ed_sowing_female.setFocusableInTouchMode(false);
                     ed_sowing_female.clearFocus();
                     ed_sowing_female.setFocusable(false);
                     ed_sowing_female.setEnabled(false);
-                }
-                else {
+                } else {
                     ed_sowing_female.setText("");
                     ed_sowing_female.setFocusableInTouchMode(false);
                     ed_sowing_female.setFocusable(false);
                     ed_sowing_female.setEnabled(false);
                 }
 
-                if(plantingLineModel.parent_female_lot != null && !plantingLineModel.parent_female_lot.equalsIgnoreCase("")){
+                if (plantingLineModel.parent_female_lot != null && !plantingLineModel.parent_female_lot.equalsIgnoreCase("")) {
                     ac_parent_female_lot.setText(plantingLineModel.parent_female_lot);
                     ac_parent_female_lot.setDropDownHeight(0);
                     ac_parent_female_lot.clearFocus();
                     ac_parent_female_lot.setFocusableInTouchMode(false);
                     ac_parent_female_lot.setFocusable(false);
                     ac_parent_female_lot.setEnabled(false);
-                }
-                else {
+                } else {
                     ac_parent_female_lot.setText("");
                     ac_parent_female_lot.setDropDownHeight(0);
                     ac_parent_female_lot.setFocusableInTouchMode(false);
@@ -1234,57 +1252,53 @@ public class AddPlantingHeaderLineDetailFragment extends Fragment implements Org
                     ac_parent_female_lot.setEnabled(false);
                 }
 
-                if(plantingLineModel.parent_female != null && !plantingLineModel.parent_female.equalsIgnoreCase("")){
+                if (plantingLineModel.parent_female != null && !plantingLineModel.parent_female.equalsIgnoreCase("")) {
                     ed_parent_female.setText(plantingLineModel.parent_female);
                     ed_parent_female.setFocusableInTouchMode(false);
                     ed_parent_female.clearFocus();
                     ed_parent_female.setFocusable(false);
                     ed_parent_female.setEnabled(false);
-                }
-                else {
+                } else {
                     ed_parent_female.setText("");
                     ed_parent_female.setFocusableInTouchMode(false);
                     ed_parent_female.setFocusable(false);
                     ed_parent_female.setEnabled(false);
                 }
 
-                if(plantingLineModel.quantity_female != null && !plantingLineModel.quantity_female.equalsIgnoreCase("")){
+                if (plantingLineModel.quantity_female != null && !plantingLineModel.quantity_female.equalsIgnoreCase("")) {
                     ed_female_qty.setText(plantingLineModel.quantity_female);
                     ed_female_qty.setFocusableInTouchMode(false);
                     ed_female_qty.clearFocus();
                     ed_female_qty.setFocusable(false);
                     ed_female_qty.setEnabled(false);
-                }
-                else {
+                } else {
                     ed_female_qty.setText("");
                     ed_female_qty.setFocusableInTouchMode(false);
                     ed_female_qty.setFocusable(false);
                     ed_female_qty.setEnabled(false);
                 }
 
-                if(plantingLineModel.sowing_date_other != null && !plantingLineModel.sowing_date_other.equalsIgnoreCase("")){
+                if (plantingLineModel.sowing_date_other != null && !plantingLineModel.sowing_date_other.equalsIgnoreCase("")) {
                     ed_sowing_date_other.setText(plantingLineModel.sowing_date_other);
                     ed_sowing_date_other.setFocusableInTouchMode(false);
                     ed_sowing_date_other.clearFocus();
                     ed_sowing_date_other.setFocusable(false);
                     ed_sowing_date_other.setEnabled(false);
-                }
-                else {
+                } else {
                     ed_sowing_date_other.setText("");
                     ed_sowing_date_other.setFocusableInTouchMode(false);
                     ed_sowing_date_other.setFocusable(false);
                     ed_sowing_date_other.setEnabled(false);
                 }
 
-                if(plantingLineModel.parent_other_lot != null && !plantingLineModel.parent_other_lot.equalsIgnoreCase("")){
+                if (plantingLineModel.parent_other_lot != null && !plantingLineModel.parent_other_lot.equalsIgnoreCase("")) {
                     ac_parent_other_lot.setText(plantingLineModel.parent_other_lot);
                     ac_parent_other_lot.setDropDownHeight(0);
                     ac_parent_other_lot.clearFocus();
                     ac_parent_other_lot.setFocusableInTouchMode(false);
                     ac_parent_other_lot.setFocusable(false);
                     ac_parent_other_lot.setEnabled(false);
-                }
-                else {
+                } else {
                     ac_parent_other_lot.setText("");
                     ac_parent_other_lot.setDropDownHeight(0);
                     ac_parent_other_lot.setFocusableInTouchMode(false);
@@ -1292,28 +1306,26 @@ public class AddPlantingHeaderLineDetailFragment extends Fragment implements Org
                     ac_parent_other_lot.setEnabled(false);
                 }
 
-                if(plantingLineModel.revised_yield_raw != null && !plantingLineModel.revised_yield_raw.equalsIgnoreCase("")){
+                if (plantingLineModel.revised_yield_raw != null && !plantingLineModel.revised_yield_raw.equalsIgnoreCase("")) {
                     revised_yield.setText(plantingLineModel.revised_yield_raw);
                     revised_yield.setFocusableInTouchMode(false);
                     revised_yield.clearFocus();
                     revised_yield.setFocusable(false);
                     revised_yield.setEnabled(false);
-                }
-                else {
+                } else {
                     revised_yield.setText("");
                     revised_yield.setFocusableInTouchMode(false);
                     revised_yield.setFocusable(false);
                     revised_yield.setEnabled(false);
                 }
 
-                if(plantingLineModel.quantity_other != null && !plantingLineModel.quantity_other.equalsIgnoreCase("")){
+                if (plantingLineModel.quantity_other != null && !plantingLineModel.quantity_other.equalsIgnoreCase("")) {
                     ed_other_qty.setText(plantingLineModel.quantity_other);
                     ed_other_qty.setFocusableInTouchMode(false);
                     ed_other_qty.clearFocus();
                     ed_other_qty.setFocusable(false);
                     ed_other_qty.setEnabled(false);
-                }
-                else {
+                } else {
                     ed_other_qty.setText("");
                     ed_other_qty.setFocusableInTouchMode(false);
                     ed_other_qty.setFocusable(false);
@@ -1323,40 +1335,10 @@ public class AddPlantingHeaderLineDetailFragment extends Fragment implements Org
             }
         }
 
-        //todo for fsio and bsio doc code show details
-        ac_doc_no.setOnClickListener(v->{
-            if(!ac_doc_no.getText().toString().isEmpty()){
-                String acDocNo=ac_doc_no.getText().toString();
-                NetworkInterface networkInterface=ApiUtils.getPristineAPIService();
-                Call<PlantingLineDocNoDetails> call=networkInterface.getPlantingLineDocDetails(acDocNo);
-                call.enqueue(new Callback<PlantingLineDocNoDetails>() {
-                    @Override
-                    public void onResponse(Call<PlantingLineDocNoDetails> call, Response<PlantingLineDocNoDetails> response) {
-                        if(response.isSuccessful()){
-                            PlantingLineDocNoDetails plantingLineDocNoDetails=response.body();
-                            Log.d("ggg",response.body().toString());
-                            showFsioBsioCodeDetails(plantingLineDocNoDetails);
-                        }
-                        else {
-                            MDToast.makeText(getActivity(),response.message(),MDToast.LENGTH_SHORT,MDToast.TYPE_ERROR).show();
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<PlantingLineDocNoDetails> call, Throwable t) {
-                        MDToast.makeText(getActivity(),t.getMessage(),MDToast.LENGTH_SHORT,MDToast.TYPE_ERROR).show();
-                    }
-                });;
-            }
-            else {
-                ac_doc_no.setFocusableInTouchMode(true);
-                ac_doc_no.setEnabled(true);
-                ac_doc_no.setFocusable(true);
-            }
-        });
     }
 
     private void initView(View view) {
+        farmer_grower_list = new ArrayList<>();
         plantingDocDetailLineList = new ArrayList<>();
         dropdown_sesion_code = view.findViewById(R.id.dropdown_sesion_code);
         edit_date = view.findViewById(R.id.ed_date);
@@ -1402,6 +1384,10 @@ public class AddPlantingHeaderLineDetailFragment extends Fragment implements Org
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         lv_cust_dist_list.setLayoutManager(layoutManager);
         unit_of_msrd_cd_layout = view.findViewById(R.id.unit_of_msrd_cd_layout);
+
+        //todo for bydefault
+        drop_down_parent.setText("NA");
+        ac_type.setText("NA");
     }
 
     private void getPlantingHeaderData() {
@@ -1548,22 +1534,22 @@ public class AddPlantingHeaderLineDetailFragment extends Fragment implements Org
 
     private void callSubmitPlantingheader() {
         if (ac_doc_sub_type.getText().toString().trim().equalsIgnoreCase("")) {
-            Toast.makeText(getActivity(), "Please select doc. type", Toast.LENGTH_SHORT).show();
+            MDToast.makeText(getActivity(), "Please select doc. type", MDToast.LENGTH_SHORT, MDToast.TYPE_ERROR).show();
         } else if (ac_select_loc.getText().toString().equalsIgnoreCase("")) {
-            Toast.makeText(getActivity(), "Pleasse select location", Toast.LENGTH_SHORT).show();
+            MDToast.makeText(getActivity(), "Pleasse select location", MDToast.LENGTH_SHORT, MDToast.TYPE_ERROR).show();
 
         } else if (ac_stage_code.getText().toString().trim().equalsIgnoreCase("")) {
-            Toast.makeText(getActivity(), "Please select stage code", Toast.LENGTH_SHORT).show();
+            MDToast.makeText(getActivity(), "Please select stage code", MDToast.LENGTH_SHORT, MDToast.TYPE_ERROR).show();
         } else if (edit_date.getText().toString().trim().equalsIgnoreCase("")) {
-            Toast.makeText(getActivity(), "Please select date.", Toast.LENGTH_SHORT).show();
+            MDToast.makeText(getActivity(), "Please select date.", MDToast.LENGTH_SHORT, MDToast.TYPE_ERROR).show();
         } else if (ed_date_of_harvest.getText().toString().trim().equalsIgnoreCase("")) {
-            Toast.makeText(getActivity(), "Please select date of harvests.", Toast.LENGTH_SHORT).show();
+            MDToast.makeText(getActivity(), "Please select date of harvests.", MDToast.LENGTH_SHORT, MDToast.TYPE_ERROR).show();
         } else if (dropdown_sesion_code.getText().toString().trim().equalsIgnoreCase("")) {
-            Toast.makeText(getActivity(), "Please select season.", Toast.LENGTH_SHORT).show();
+            MDToast.makeText(getActivity(), "Please select season.", MDToast.LENGTH_SHORT, MDToast.TYPE_ERROR).show();
         } else if (ac_organizer_name.getText().toString().trim().equalsIgnoreCase("")) {
-            Toast.makeText(getActivity(), "Please select organizer.", Toast.LENGTH_SHORT).show();
+            MDToast.makeText(getActivity(), "Please select organizer.", MDToast.LENGTH_SHORT, MDToast.TYPE_ERROR).show();
         } else if (organizer_master_table == null || organizer_master_table.No == null) {
-            Toast.makeText(getActivity(), "Please select organiser", Toast.LENGTH_SHORT).show();
+            MDToast.makeText(getActivity(), "Please select organiser", MDToast.LENGTH_SHORT, MDToast.TYPE_ERROR).show();
         } else {
 
             PlantingHeaderModel plantingHeaderModel1 = new PlantingHeaderModel();
@@ -1641,7 +1627,6 @@ public class AddPlantingHeaderLineDetailFragment extends Fragment implements Org
             }
         }
     }
-
 
     private void bindPlantingHeaderData() {
       /*  PristineDatabase pristineDatabase = PristineDatabase.getAppDatabase(getActivity());
@@ -1774,12 +1759,11 @@ public class AddPlantingHeaderLineDetailFragment extends Fragment implements Org
         });
     }
 
-    private List<PlantingLotModel.Data> planting_doc_no = null;
-
     //todo for filter village..........................................................................
 
     private List<DispatchFarmerModel.Data> village_list = null;
-    private void getFarmerAndGrower_master(RecyclerView village_recyclerView,MaterialProgressBar content_loading, String filter_village) {
+
+    private void getFarmerAndGrower_master(RecyclerView village_recyclerView, MaterialProgressBar content_loading, String filter_village) {
         content_loading.setVisibility(View.VISIBLE);
         NetworkInterface mAPIService = ApiUtils.getPristineAPIService();
         Call<DispatchFarmerModel> call = mAPIService.getDispatchFarmerList(filter_village);
@@ -1793,7 +1777,7 @@ public class AddPlantingHeaderLineDetailFragment extends Fragment implements Org
                             List<DispatchFarmerModel.Data> farmermaster_list = farmerMasterModel.data;
                             if (farmermaster_list != null && farmermaster_list.size() > 0) {
 
-                                Collections.sort(farmermaster_list, new Comparator<DispatchFarmerModel.Data>() {
+                                /*Collections.sort(farmermaster_list, new Comparator<DispatchFarmerModel.Data>() {
                                     @Override
                                     public int compare(DispatchFarmerModel.Data o1, DispatchFarmerModel.Data o2) {
                                         return o1.Village.compareTo(o2.Village);
@@ -1807,21 +1791,22 @@ public class AddPlantingHeaderLineDetailFragment extends Fragment implements Org
                                             j--;
                                         }
                                     }
-                                }
+                                }*/
 
                                 if (!filter_village.equalsIgnoreCase("")) {
                                     LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
                                     village_recyclerView.setLayoutManager(layoutManager);
                                     village_list = farmermaster_list;
                                     FarmerVillageAdapter village_adapter = new FarmerVillageAdapter(getActivity(), village_list);
+                                    //village_adapter.setmItemClickListener(this);
                                     village_recyclerView.setAdapter(village_adapter);
 
-                                    if(et_village.getText().toString()!=null) {
-                                        farmer_grower_list = farmermaster_list;
+                                   /* if(et_village.getText().toString()!=null) {
+                                        farmer_grower_list.clear();
+                                        farmer_grower_list.addAll(farmermaster_list) ;
                                         FarmerListAdapter roleMasterAdapter = new FarmerListAdapter(getActivity(), R.layout.android_item_view, farmer_grower_list);
-                                        ac_grwer_name.setThreshold(1);
                                         ac_grwer_name.setAdapter(roleMasterAdapter);
-                                    }
+                                    }*/
                                 }
 
                             }
@@ -1850,13 +1835,27 @@ public class AddPlantingHeaderLineDetailFragment extends Fragment implements Org
                 ApiRequestFailure.PostExceptionToServer(t, getClass().getName(), "farmer_list", getActivity());
             }
         });
+
         village_recyclerView.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
             @Override
             public boolean onInterceptTouchEvent(@NonNull RecyclerView recyclerView, @NonNull MotionEvent motionEvent) {
                 View child =recyclerView.findChildViewUnder(motionEvent.getX(),motionEvent.getY());
                 if(child!=null && village_recyclerView.onTouchEvent(motionEvent)) {
                     int position = recyclerView.getChildLayoutPosition(child);
-                    et_village.setText(village_list.get(position).Village);
+                    String vname=village_list.get(position).Village;
+                    et_village.setText(vname.substring(0, 1).toUpperCase() + vname.substring(1).toLowerCase());//for first letter upper case
+                    //et_village.setText(village_list.get(position).Village);
+                    if(et_village.getText().toString()!=null) {
+                        farmer_grower_list.clear();
+                        farmer_grower_list.addAll(village_list) ;
+                        FarmerListAdapter roleMasterAdapter = new FarmerListAdapter(getActivity(), R.layout.android_item_view, farmer_grower_list);
+                        ac_grwer_name.setAdapter(roleMasterAdapter);
+                        roleMasterAdapter.notifyDataSetChanged();
+                    }
+                    else {
+                        ac_grwer_name.setAdapter(null);
+
+                    }
                     frame_layout_org_list.setVisibility(View.GONE);
                 }
                     return true;
@@ -1924,11 +1923,11 @@ public class AddPlantingHeaderLineDetailFragment extends Fragment implements Org
                                 dialog.dismiss();
                                 // plantingList.add(plantingLine);
                                 // bindInsertLineData(dialog);
-                                MDToast.makeText(getActivity(), insertLine_list.get(0).message, Toast.LENGTH_SHORT,MDToast.TYPE_SUCCESS).show();
+                                MDToast.makeText(getActivity(), insertLine_list.get(0).message, Toast.LENGTH_SHORT, MDToast.TYPE_SUCCESS).show();
 
                             } else {
                                 progressDialogLoading.hideDialog();
-                                Toast.makeText(getActivity(), insertLine_list.size() > 0 ? insertLine_list.get(0).message : "Api not respoding.", Toast.LENGTH_SHORT).show();
+                                MDToast.makeText(getActivity(), insertLine_list.size() > 0 ? insertLine_list.get(0).message : "Api not respoding.", MDToast.LENGTH_SHORT,MDToast.TYPE_ERROR).show();
                             }
                         } else {
                             progressDialogLoading.hideDialog();
@@ -1981,6 +1980,7 @@ public class AddPlantingHeaderLineDetailFragment extends Fragment implements Org
                 plantingLineTable.setItem_class_of_seeds(insertLine_list.get(i).item_class_of_seeds);
                 plantingLineTable.setItem_crop_type(insertLine_list.get(i).item_crop_type);
                 plantingLineTable.setItem_name(insertLine_list.get(i).item_name);
+                plantingLineTable.setAlias_code(insertLine_list.get(i).alias_code);
                 plantingLineTable.setExpected_yield(insertLine_list.get(i).expected_yield);
                 plantingLineTable.setRevised_yield_raw(insertLine_list.get(i).revised_yield_raw);
                 plantingLineTable.setLand_lease(insertLine_list.get(i).land_lease);
@@ -2038,7 +2038,7 @@ public class AddPlantingHeaderLineDetailFragment extends Fragment implements Org
         }
     }
 
-   /* private void getFarmerAndGrower_master(MaterialProgressBar content_loading, String action_flag, String village_name) {
+    /* private void getFarmerAndGrower_master(MaterialProgressBar content_loading, String action_flag, String village_name) {
         content_loading.setVisibility(View.VISIBLE);
         NetworkInterface mAPIService = ApiUtils.getPristineAPIService();
         Call<DispatchFarmerModel> call = mAPIService.getDispatchFarmerList(village_name);
@@ -2105,7 +2105,6 @@ public class AddPlantingHeaderLineDetailFragment extends Fragment implements Org
             }
         });
     }*/
-
 
     private void getUnitOfMeasureData(MaterialProgressBar loading_content) {
         loading_content.setVisibility(View.VISIBLE);
@@ -2358,14 +2357,14 @@ public class AddPlantingHeaderLineDetailFragment extends Fragment implements Org
                                     complete_header.setVisibility(View.GONE);
                                     chip_add_line_planting.setVisibility(View.GONE);
                                     delete_header_chip.setVisibility(View.GONE);
-                                    Toast.makeText(getActivity(), completePlantingList.get(0).message, Toast.LENGTH_SHORT).show();
+                                    MDToast.makeText(getActivity(), completePlantingList.get(0).message, MDToast.LENGTH_SHORT, MDToast.TYPE_SUCCESS).show();
                                 } else {
                                     progressDialogLoading.hideDialog();
-                                    Toast.makeText(getActivity(), completePlantingList.size() > 0 ? completePlantingList.get(0).message : "Api Error !", Toast.LENGTH_SHORT).show();
+                                    MDToast.makeText(getActivity(), completePlantingList.size() > 0 ? completePlantingList.get(0).message : "Api Error !", MDToast.LENGTH_SHORT, MDToast.TYPE_ERROR).show();
                                 }
                             } else {
                                 progressDialogLoading.hideDialog();
-                                Toast.makeText(getActivity(), response.message() + ". Error Code:" + response.code(), Toast.LENGTH_SHORT).show();
+                                MDToast.makeText(getActivity(), response.message() + ". Error Code:" + response.code(), MDToast.LENGTH_SHORT, MDToast.TYPE_ERROR).show();
                             }
                         } catch (Exception e) {
                             progressDialogLoading.hideDialog();
@@ -2455,7 +2454,7 @@ public class AddPlantingHeaderLineDetailFragment extends Fragment implements Org
     }
 
 
-    private void getPlantingLotListFemale(MaterialProgressBar loading_content,String doc_no, String flag,  String gender_flag) {
+    private void getPlantingLotListFemale(MaterialProgressBar loading_content, String doc_no, String flag, String gender_flag) {
         loading_content.setVisibility(View.VISIBLE);
         NetworkInterface mAPIService = ApiUtils.getPristineAPIService();
         Call<PlantingLotModel> call = mAPIService.getPlantingLotData(doc_no, flag, gender_flag);
@@ -2596,91 +2595,6 @@ public class AddPlantingHeaderLineDetailFragment extends Fragment implements Org
         }
     }
 
-    //todo for fsio bsio show popup.............................................
-    private void showFsioBsioCodeDetails(PlantingLineDocNoDetails plantingLineDocNoDetails) {
-        LayoutInflater inflater = getActivity().getLayoutInflater();
-        View popup_view = inflater.inflate(R.layout.fsio_bsio_doc_code_details_popup, null);
-        Dialog dialog = new Dialog(getActivity(), android.R.style.Theme_DeviceDefault_DialogWhenLarge_NoActionBar);
-        dialog.setContentView(popup_view);
-        dialog.getWindow().getAttributes().windowAnimations = R.style.AppTheme_FullScreenDialog;
-        dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
-        dialog.show();
-        ImageView close_dilog_bt = popup_view.findViewById(R.id.close_dilog_bt);
-
-        close_dilog_bt.setOnClickListener(v->{
-            dialog.dismiss();
-        });
-
-        //todo initialization.......................
-        listview=popup_view.findViewById(R.id.doc_detalis_listView);
-
-        tv_doc_no=popup_view.findViewById(R.id.tv_doc_no);
-        tv_order_no=popup_view.findViewById(R.id.tv_order_no);
-        tv_customer_posting_grp=popup_view.findViewById(R.id.tv_customer_posting_grp);
-        sell_cutomer_no=popup_view.findViewById(R.id.sell_cutomer_no);
-        sell_customer_name=popup_view.findViewById(R.id.sell_customer_name);
-        sell_customer_address=popup_view.findViewById(R.id.sell_customer_address);
-        sell_customer_city=popup_view.findViewById(R.id.sell_customer_city);
-        doc_sub_type=popup_view.findViewById(R.id.doc_sub_type);
-        tv_seed_type=popup_view.findViewById(R.id.tv_seed_type);
-        tv_seed_name=popup_view.findViewById(R.id.tv_seed_name);
-        tv_seed_no=popup_view.findViewById(R.id.tv_seed_no);
-        tv_crop_code=popup_view.findViewById(R.id.tv_crop_code);
-        tv_business_type=popup_view.findViewById(R.id.tv_business_type);
-        tv_location=popup_view.findViewById(R.id.tv_location);
-        tv_location_code=popup_view.findViewById(R.id.tv_location_code);
-        tv_state_name=popup_view.findViewById(R.id.tv_state_name);
-        tv_territory=popup_view.findViewById(R.id.tv_territory);
-        tv_reagion=popup_view.findViewById(R.id.tv_reagion);
-        tv_district=popup_view.findViewById(R.id.tv_district);
-        tv_zone=popup_view.findViewById(R.id.tv_zone);
-        tv_land_arc=popup_view.findViewById(R.id.tv_land_arc);
-        tv_order_date=popup_view.findViewById(R.id.tv_order_date);
-        tv_posting_date=popup_view.findViewById(R.id.tv_posting_date);
-        tv_user_id=popup_view.findViewById(R.id.tv_user_id);
-        tv_message=popup_view.findViewById(R.id.tv_message);
-
-        bindPlantingDocHeaderDetilas(plantingLineDocNoDetails);
-        setDocLinesadapter(plantingLineDocNoDetails);
-
-    }
-
-    private void bindPlantingDocHeaderDetilas(PlantingLineDocNoDetails plantingLineDocNoDetails) {
-        //todo bind details.................................
-            tv_doc_no.setText(plantingLineDocNoDetails.getNo());
-            tv_order_no.setText(plantingLineDocNoDetails.getOrderNo());
-            tv_customer_posting_grp.setText(plantingLineDocNoDetails.getCustomerPostingGroup());
-            sell_cutomer_no.setText(plantingLineDocNoDetails.getSellToCustomerNo());
-            sell_customer_name.setText(plantingLineDocNoDetails.getSellToCustomerName());
-            sell_customer_address.setText(plantingLineDocNoDetails.getSellToAddress());
-            sell_customer_city.setText(plantingLineDocNoDetails.getSellToCity());
-            doc_sub_type.setText(plantingLineDocNoDetails.getDocumentSubType());
-            tv_seed_type.setText(plantingLineDocNoDetails.getChildSeedType());
-            tv_seed_name.setText(plantingLineDocNoDetails.getChildSeedName());
-            tv_seed_no.setText(plantingLineDocNoDetails.getChildSeed());
-            tv_crop_code.setText(plantingLineDocNoDetails.getCropCode());
-            tv_business_type.setText(plantingLineDocNoDetails.getBussinessType());
-            tv_location.setText(plantingLineDocNoDetails.getLocationName());
-            tv_location_code.setText(plantingLineDocNoDetails.getLocationCode());
-            tv_state_name.setText(plantingLineDocNoDetails.getStateName());
-            tv_territory.setText(plantingLineDocNoDetails.getTerritoryName());
-            tv_reagion.setText(plantingLineDocNoDetails.getRegionName());
-            tv_district.setText(plantingLineDocNoDetails.getDistrictName());
-            tv_zone.setText(plantingLineDocNoDetails.getZoneCode());
-            tv_land_acr.setText(plantingLineDocNoDetails.getLandInAcres());
-            tv_order_date.setText(plantingLineDocNoDetails.getOrderDate());
-            tv_posting_date.setText(plantingLineDocNoDetails.getPostingDate());
-            tv_user_id.setText(plantingLineDocNoDetails.getUserID());
-            tv_message.setText(plantingLineDocNoDetails.getMessage());
-
-    }
-
-    //todo set adapter for doc no details lines.....................
-    private void setDocLinesadapter(PlantingLineDocNoDetails plantingLineDocNoDetails) {
-        plantingDocDetailLineList=plantingLineDocNoDetails.getLines();
-        PlantingLineDocNoDetailLinesAdapter pladapter=new PlantingLineDocNoDetailLinesAdapter(getActivity(),R.layout.planting_line_doc_no_details_lines_layout,plantingDocDetailLineList);
-        listview.setAdapter(pladapter);
-    }
 
 }
 

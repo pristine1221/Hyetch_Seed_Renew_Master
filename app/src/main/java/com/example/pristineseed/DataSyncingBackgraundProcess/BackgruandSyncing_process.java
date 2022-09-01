@@ -201,8 +201,8 @@ public class BackgruandSyncing_process extends AsyncTask<Void, Void, Void> {
 
 
 
-                if (Schedulertimercounter == 0 || Schedulertimercounter >= 60000) {
-                    Schedulertimercounter = 0;
+               /* if (Schedulertimercounter == 0 || Schedulertimercounter >= 60000) {
+                    Schedulertimercounter = 0;*/
                     getAllsecheduleInspectionData();
                     getHybridItemMasterData();
                     getGeoServerData();
@@ -231,9 +231,9 @@ public class BackgruandSyncing_process extends AsyncTask<Void, Void, Void> {
                 getBookingUnitOfPriceData();
                 getBankMasterData();*/
 
-                }
-                Thread.sleep(5000);
-                Schedulertimercounter += 5000;
+               // }
+               // Thread.sleep(5000);
+                //Schedulertimercounter += 5000;
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -1336,7 +1336,8 @@ public class BackgruandSyncing_process extends AsyncTask<Void, Void, Void> {
         } else {
             lastSync = sessionManagement.getLastSync();
             try {
-                sessionManagement.setLastSync(DateTimeUtilsCustome.getCurrentTime());
+                sessionManagement.setLastSync(DateTimeUtilsCustome.getCurrentTime());//
+                Log.d("sync",DateTimeUtilsCustome.getCurrentTime());
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -1661,9 +1662,9 @@ public class BackgruandSyncing_process extends AsyncTask<Void, Void, Void> {
     }
 
 
-    private void getFarmermaster() {
+    /*private void getFarmermaster() {
         NetworkInterface mAPIService = ApiUtils.getPristineAPIService();
-        Call<DispatchFarmerModel> call = mAPIService.getDispatchFarmerList("");
+        Call<List<DispatchFarmerModel>> call = mAPIService.getDispatchFarmerList("");
         try {
             DispatchFarmerModel farmerMasterModel = call.execute().body();
             if (farmerMasterModel != null && farmerMasterModel.condition) {
@@ -1688,7 +1689,7 @@ public class BackgruandSyncing_process extends AsyncTask<Void, Void, Void> {
         } finally {
             Log.e("farmer_list", "done");
         }
-    }
+    }*/
 
     private int bindFarmerList(List<DispatchFarmerModel.Data> farmermaster_list, PristineDatabase pristineDatabase) {
         SeedFarmerMasterDao seedFarmerMasterDao = pristineDatabase.seedFarmerMasterDao();

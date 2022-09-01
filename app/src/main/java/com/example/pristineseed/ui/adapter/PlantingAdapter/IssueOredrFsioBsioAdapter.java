@@ -1,42 +1,30 @@
-package com.example.pristineseed.ui.adapter.farmer_adapter;
+package com.example.pristineseed.ui.adapter.PlantingAdapter;
 
-import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.EditText;
-import android.widget.Filter;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.pristineseed.R;
-import com.example.pristineseed.model.GeoSetupModel.DispatchFarmerModel;
-import com.example.pristineseed.model.item.OrganizerModel;
+import com.example.pristineseed.model.PlantingModel.PlantingFsio_bsio_model;
 import com.example.pristineseed.ui.adapter.item.OrganizerAdapter;
 
-import java.util.ArrayList;
 import java.util.List;
-
-import retrofit2.Callback;
-
-public class FarmerVillageAdapter extends RecyclerView.Adapter<FarmerVillageAdapter.ViewHolder> {
+public class IssueOredrFsioBsioAdapter extends RecyclerView.Adapter<IssueOredrFsioBsioAdapter.ViewHolder> {
     Context context;
-    List<DispatchFarmerModel.Data> items;
+    public interface OnItemClickListener {
+        void onItemClick(int position);
+    }
+    List<PlantingFsio_bsio_model> items;
+    private  OnItemClickListener listener;
 
-     private  OnItemClickListenerVillage mItemClickListener;
-     public interface OnItemClickListenerVillage{
-      void onItemClickvillage(int position);
-       }
-    public FarmerVillageAdapter(@NonNull Context context, List<DispatchFarmerModel.Data> items) {
+    public IssueOredrFsioBsioAdapter(@NonNull Context context, List<PlantingFsio_bsio_model> items,OnItemClickListener listener) {
         super();
         this.items = items;
         this.context = context;
-        //this.mItemClickListener=onItemClickListener;
+        this.listener=listener;
 
     }
    /* @NonNull
@@ -87,7 +75,7 @@ public class FarmerVillageAdapter extends RecyclerView.Adapter<FarmerVillageAdap
 
     @NonNull
     @Override
-    public FarmerVillageAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public IssueOredrFsioBsioAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         View listItem = layoutInflater.inflate(R.layout.item_view, parent, false);
         ViewHolder viewHolder = new ViewHolder(listItem);
@@ -95,13 +83,14 @@ public class FarmerVillageAdapter extends RecyclerView.Adapter<FarmerVillageAdap
     }
 
     @Override
-    public void onBindViewHolder(@NonNull FarmerVillageAdapter.ViewHolder holder, int position) {
-        DispatchFarmerModel.Data data= items.get(position);
+    public void onBindViewHolder(@NonNull IssueOredrFsioBsioAdapter.ViewHolder holder, int position) {
+        PlantingFsio_bsio_model data= items.get(position);
 
-        holder.tv_name.setText(data.Village + "(" + data.Name + ")");
-       /* holder.tv_name.setOnClickListener(v->{
-            mItemClickListener.onItemClickvillage(position);
-        });*/
+        holder.tv_name.setText(data.No);
+        holder.tv_name.setOnClickListener(v->{
+            listener.onItemClick(position);
+        });
+
     }
 
     @Override
@@ -118,8 +107,7 @@ public class FarmerVillageAdapter extends RecyclerView.Adapter<FarmerVillageAdap
         }
     }
 
-    public void setmItemClickListener(OnItemClickListenerVillage mItemClickListener1){
-        this.mItemClickListener=mItemClickListener1;
-
+    public void setOnItemClickListener(OnItemClickListener mItemClickListener) {
+        this.listener = mItemClickListener;
     }
 }

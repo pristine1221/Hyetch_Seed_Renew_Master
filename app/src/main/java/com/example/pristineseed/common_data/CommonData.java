@@ -41,14 +41,14 @@ public final class CommonData {
 
    public static String[] crop_={"Maize","Sorghum","Pearl Millet","Mustard"};
 
-   public static String[] parent_type={"Single","Cross"};
+   public static String[] parent_type={"Single","Cross","NA"};
 
    public static String[] first_top_dressing_bags={"1","2","3","4"};
 
    public static  String[] first_top_dressing={"2020013","2828","Urea","191919","102626","143514"};
    public static String[] recommend_dose_of_fertilizer={"2020013","2828","Urea","191919","102626","143514"};
 
-   public static String[] type={"Certified","Non-Certified"};
+   public static String[] type={"Certified","Non-Certified","NA"};
 
    public static String[] expense_type={"Own Vehicle", "Company Vehicle"};
 

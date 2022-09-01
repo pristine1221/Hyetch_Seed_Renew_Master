@@ -1,5 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Pristine Projects/Hytech_Android_(11-Apr_2022)/app/src/main/res/drawable/ic_issue_order.xml" value="0.154" />
+        <entry key="..\:/Pristine Projects/Hytech_Android_(11-Apr_2022)/app/src/main/res/drawable/sale_marketing.xml" value="0.154" />
+        <entry key="..\:/Pristine Projects/Hytech_Android_(11-Apr_2022)/app/src/main/res/layout/add_lot_wise_flowering_inspection_field_popup.xml" value="0.22" />
+        <entry key="..\:/Pristine Projects/Hytech_Android_(11-Apr_2022)/app/src/main/res/layout/add_lot_wise_nicking2_inspection_field_popup.xml" value="0.25" />
+        <entry key="..\:/Pristine Projects/Hytech_Android_(11-Apr_2022)/app/src/main/res/layout/add_lot_wise_seedling_inspection_field_popup.xml" value="0.1641025641025641" />
+        <entry key="..\:/Pristine Projects/Hytech_Android_(11-Apr_2022)/app/src/main/res/layout/add_lot_wise_vegetative_inspection_field_popup.xml" value="0.25" />
+        <entry key="..\:/Pristine Projects/Hytech_Android_(11-Apr_2022)/app/src/main/res/layout/add_planting_header_detail_layout.xml" value="0.22" />
+        <entry key="..\:/Pristine Projects/Hytech_Android_(11-Apr_2022)/app/src/main/res/layout/add_planting_line_lot_no_popup.xml" value="0.25" />
+        <entry key="..\:/Pristine Projects/Hytech_Android_(11-Apr_2022)/app/src/main/res/layout/add_seed_dispach_note_line_popup.xml" value="0.25" />
+        <entry key="..\:/Pristine Projects/Hytech_Android_(11-Apr_2022)/app/src/main/res/layout/all_category_display_popup.xml" value="0.20416666666666666" />
+        <entry key="..\:/Pristine Projects/Hytech_Android_(11-Apr_2022)/app/src/main/res/layout/android_item_view.xml" value="0.20416666666666666" />
+        <entry key="..\:/Pristine Projects/Hytech_Android_(11-Apr_2022)/app/src/main/res/layout/bottom_sheet_new_layout.xml" value="0.20416666666666666" />
+        <entry key="..\:/Pristine Projects/Hytech_Android_(11-Apr_2022)/app/src/main/res/layout/fragment_create_seed_dispachnote.xml" value="0.25" />
+        <entry key="..\:/Pristine Projects/Hytech_Android_(11-Apr_2022)/app/src/main/res/layout/fragment_issue_order_fsio_bsio.xml" value="0.16822916666666668" />
+        <entry key="..\:/Pristine Projects/Hytech_Android_(11-Apr_2022)/app/src/main/res/layout/fragment_nicking_inspection.xml" value="0.21" />
+        <entry key="..\:/Pristine Projects/Hytech_Android_(11-Apr_2022)/app/src/main/res/layout/fragment_page_not_found.xml" value="0.16822916666666668" />
+        <entry key="..\:/Pristine Projects/Hytech_Android_(11-Apr_2022)/app/src/main/res/layout/fragment_seed_dispach_note.xml" value="0.16666666666666666" />
+        <entry key="..\:/Pristine Projects/Hytech_Android_(11-Apr_2022)/app/src/main/res/layout/fragment_vegetative_inspection.xml" value="0.22" />
+        <entry key="..\:/Pristine Projects/Hytech_Android_(11-Apr_2022)/app/src/main/res/layout/fsio_bsio_doc_code_details_popup.xml" value="0.20416666666666666" />
+        <entry key="..\:/Pristine Projects/Hytech_Android_(11-Apr_2022)/app/src/main/res/layout/item_row_autocomplte.xml" value="0.203125" />
+        <entry key="..\:/Pristine Projects/Hytech_Android_(11-Apr_2022)/app/src/main/res/layout/item_view.xml" value="0.16822916666666668" />
+        <entry key="..\:/Pristine Projects/Hytech_Android_(11-Apr_2022)/app/src/main/res/layout/planting_detail_fragment.xml" value="0.20416666666666666" />
+        <entry key="..\:/Pristine Projects/Hytech_Android_(11-Apr_2022)/app/src/main/res/layout/pop_up_menu_layout.xml" value="0.15648148148148147" />
+        <entry key="..\:/Pristine Projects/Hytech_Android_(11-Apr_2022)/app/src/main/res/layout/post__flowering_inspection_fragment.xml" value="0.21" />
+      </map>
+    </option>
+  </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>

@@ -55,6 +55,7 @@ public class PlantingHeaderModel {
         public String item_product_group_code;
         public String item_class_of_seeds;
         public String item_crop_type;
+        public String alias_code;
         public String item_name;
         public String expected_yield;
         public String revised_yield_raw;
@@ -66,6 +67,7 @@ public class PlantingHeaderModel {
         public String sowing_area_In_acres;
         public String village_name;
         public String taluka;
+        public String sub_zone;
         public String state;
         public String city;
         public String zone;

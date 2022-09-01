@@ -10,4 +10,5 @@ public class PlantingFsio_bsio_model {
     public String Child_Seed;
     public String Child_Seed_Name;
     public String Crop_Code;
+    public String AliasCode;
 }
