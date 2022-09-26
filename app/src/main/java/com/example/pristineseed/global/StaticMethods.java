@@ -104,7 +104,6 @@ public class StaticMethods {
         return Bitmap.createScaledBitmap(image, width, height, true);
     }
 
-
     public static String convertBase64(String imgage_file) {
         Bitmap bm = BitmapFactory.decodeFile(imgage_file);
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -115,7 +114,6 @@ public class StaticMethods {
         }
         return null;
     }
-
 
     public static void showMDToast(Context context,String message,int error_type){
         if(context!=null) {

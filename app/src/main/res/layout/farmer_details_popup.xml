@@ -1,0 +1,367 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/fsio_bsio_custom_layout"
+    android:background="@color/my_app_background_color"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:background="@color/my_app_background_color"
+            android:elevation="5dp"
+            app:cardCornerRadius="3dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/bg_green2"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/_5sdp">
+
+                    <ImageView
+                        android:id="@+id/close_dilog_bt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:clickable="true"
+                        android:elevation="2dp"
+                        app:srcCompat="@drawable/ic_baseline_close_24" />
+
+                    <TextView
+                        style="@style/TextAppearance.MaterialComponents.Headline6"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical|center_horizontal"
+                        android:text="Farmer Details"
+                        android:textAlignment="center" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="@drawable/bottom_shadow_gradient">
+
+                </View>
+
+                <LinearLayout
+                    android:id="@+id/planting_detail_header_section"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="visible">
+
+                    <TableLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="5dp">
+
+                        <TableRow
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_bold"
+                                android:text="Grower Number : "
+                                android:textColor="@color/profileEditTextColor"
+                                android:textSize="12sp" />
+
+                            <TextView
+                                android:id="@+id/tv_gr_no"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_regular"
+                                android:textColor="@color/dark_green"
+                                android:textSize="10sp" />
+                        </TableRow>
+
+                        <TableRow
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_bold"
+                                android:text="Grower Name : "
+                                android:textColor="@color/profileEditTextColor"
+                                android:textSize="12sp" />
+
+                            <TextView
+                                android:id="@+id/tv_gr_name"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_regular"
+                                android:textColor="@color/dark_green"
+                                android:textSize="10sp" />
+                        </TableRow>
+
+                        <TableRow
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_bold"
+                                android:text="Grower Address : "
+                                android:textColor="@color/profileEditTextColor"
+                                android:textSize="12sp" />
+
+                            <TextView
+                                android:id="@+id/tv_gr_address"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_regular"
+                                android:textColor="@color/dark_green"
+                                android:textSize="10sp" />
+                        </TableRow>
+
+                        <TableRow
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_bold"
+                                android:text="State Name:"
+                                android:textColor="@color/profileEditTextColor"
+                                android:textSize="12sp" />
+
+                            <TextView
+                                android:id="@+id/tv_gr_state_name"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_regular"
+                                android:textColor="@color/black"
+                                android:textSize="10sp" />
+
+                        </TableRow>
+
+                        <TableRow
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_bold"
+                                android:text="State Code:"
+                                android:textColor="@color/profileEditTextColor"
+                                android:textSize="12sp" />
+
+                            <TextView
+                                android:id="@+id/tv_gr_state_code"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_regular"
+                                android:textColor="@color/black"
+                                android:textSize="10sp" />
+
+                        </TableRow>
+
+                        <TableRow
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_bold"
+                                android:text="District Name: "
+                                android:textColor="@color/profileEditTextColor"
+                                android:textSize="12sp" />
+
+                            <TextView
+                                android:id="@+id/tv_gr_district"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_regular"
+                                android:textColor="@color/black"
+                                android:textSize="10sp" />
+
+                        </TableRow>
+
+                        <TableRow
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_bold"
+                                android:text="Territory Name: "
+                                android:textColor="@color/profileEditTextColor"
+                                android:textSize="12sp" />
+
+                            <TextView
+                                android:id="@+id/tv_gr_territory_name"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_regular"
+                                android:textColor="@color/black"
+                                android:textSize="10sp" />
+
+                        </TableRow>
+
+                        <TableRow
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_bold"
+                                android:text="Zone name:"
+                                android:textColor="@color/profileEditTextColor"
+                                android:textSize="12sp" />
+
+                            <TextView
+                                android:id="@+id/tv_zone_name"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_regular"
+                                android:textColor="@color/black"
+                                android:textSize="10sp" />
+
+                        </TableRow>
+
+                        <TableRow
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_bold"
+                                android:text="Sub-Zone name:"
+                                android:textColor="@color/profileEditTextColor"
+                                android:textSize="12sp" />
+
+                            <TextView
+                                android:id="@+id/tv_sub_zone_name"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_regular"
+                                android:textColor="@color/black"
+                                android:textSize="10sp" />
+
+                        </TableRow>
+
+                        <TableRow
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_bold"
+                                android:text="Village Name : "
+                                android:textColor="@color/profileEditTextColor"
+                                android:textSize="12sp" />
+
+                            <TextView
+                                android:id="@+id/tv_gr_village_name"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_regular"
+                                android:textColor="@color/black"
+                                android:textSize="10sp" />
+
+
+                        </TableRow>
+
+                        <TableRow
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_bold"
+                                android:text="Region Name : "
+                                android:textColor="@color/profileEditTextColor"
+                                android:textSize="12sp" />
+
+                            <TextView
+                                android:id="@+id/tv_gr_region_name"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_regular"
+                                android:textColor="@color/black"
+                                android:textSize="10sp" />
+
+
+                        </TableRow>
+
+                        <TableRow
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_bold"
+                                android:text="City Name : "
+                                android:textColor="@color/profileEditTextColor"
+                                android:textSize="12sp" />
+
+                            <TextView
+                                android:id="@+id/tv_gr_city_name"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/product_sans_regular"
+                                android:textColor="@color/black"
+                                android:textSize="10sp" />
+
+
+                        </TableRow>
+
+                    </TableLayout>
+
+                </LinearLayout>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+    </LinearLayout>
+</RelativeLayout>

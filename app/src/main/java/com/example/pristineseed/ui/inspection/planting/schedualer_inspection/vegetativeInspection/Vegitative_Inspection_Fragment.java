@@ -256,10 +256,10 @@ public class Vegitative_Inspection_Fragment extends Fragment {
             return true;
         });
 
-        ed_isolation_time.setOnTouchListener((v, event) -> {
+       /* ed_isolation_time.setOnTouchListener((v, event) -> {
             new CustomTimePicker(getActivity()).showDialog(ed_isolation_time);
             return true;
-        });
+        });*/
 
         //todo for net acres................
         pld_acres.addTextChangedListener(new TextWatcher() {

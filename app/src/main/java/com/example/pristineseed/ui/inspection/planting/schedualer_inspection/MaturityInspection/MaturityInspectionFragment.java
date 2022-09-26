@@ -165,7 +165,7 @@ public class MaturityInspectionFragment extends Fragment {
                         if (maturityInspectionTable != null && maturityInspectionTable.size() > 0) {
                             completeFloweringInspection();
                         } else {
-                            Toast.makeText(getActivity(), "first insert line", Toast.LENGTH_SHORT).show();
+                            MDToast.makeText(getActivity(), "first insert line", Toast.LENGTH_SHORT,MDToast.TYPE_ERROR).show();
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -177,7 +177,6 @@ public class MaturityInspectionFragment extends Fragment {
         });
 
     }
-
 
     private void initView(View view) {
         tv_date = view.findViewById(R.id.tv_date);
@@ -390,7 +389,6 @@ public class MaturityInspectionFragment extends Fragment {
             startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_SINGLE);
         });
     }
-
 
     private List<MaturityInspectionTable> maturityInspectionTable=new ArrayList<>();
     private SchedulerInspectionLineTable scheduler_line_header_data = null;

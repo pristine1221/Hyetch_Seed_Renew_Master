@@ -790,6 +790,7 @@ android:descendantFocusability="beforeDescendants"-->
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:maxLines="1"
+                                    android:inputType="number"
                                     android:textColor="@color/black"/>
 
                             </com.google.android.material.textfield.TextInputLayout>
@@ -1111,7 +1112,7 @@ android:descendantFocusability="beforeDescendants"-->
                                 android:layout_height="wrap_content"
                                 android:layout_marginBottom="4dp"
                                 android:layout_weight="1"
-                                android:hint="Time"
+                                android:hint="No of days"
                                 android:visibility="gone"
                                 android:id="@+id/iso_time_show"
                                 app:boxCornerRadiusBottomEnd="15dp"
@@ -1122,6 +1123,7 @@ android:descendantFocusability="beforeDescendants"-->
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:textColor="@color/black"
+                                    android:inputType="number"
                                     android:maxLines="1" />
 
                             </com.google.android.material.textfield.TextInputLayout>

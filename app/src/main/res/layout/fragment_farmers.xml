@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_weight="1"
+        android:layout_height="0dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:padding="@dimen/_6sdp"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="0dp"
+                android:text="Farmers Details : "
+                android:textStyle="bold"
+                android:layout_weight="1"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_13sdp"
+                android:layout_height="wrap_content"/>
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/add_planting_header"
+                android:layout_width="wrap_content"
+                android:text="Add Header"
+                android:visibility="gone"
+                app:chipBackgroundColor="@color/white_chip_border"
+                android:textColor="@color/colorPrimary"
+                app:chipStrokeWidth="@dimen/_1sdp"
+                app:chipStrokeColor="@color/colorPrimaryDark"
+                app:rippleColor="@color/chip_ripple"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:background="@color/gray4"
+            android:layout_height="@dimen/_3sdp"/>
+        <me.zhanghai.android.materialprogressbar.MaterialProgressBar
+            android:id="@+id/content_loading"
+            style="@style/Widget.MaterialProgressBar.ProgressBar.Horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="@dimen/_11sdp"
+            android:indeterminate="true"
+            android:visibility="gone"
+            android:layout_gravity="center"
+            android:indeterminateTint="@color/colorPrimary"
+            app:mpb_progressStyle="horizontal" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:id="@+id/et_search_item_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_6sdp"
+                android:hint="Search code"
+                app:startIconDrawable="@drawable/ic_search_black_24dp"
+                app:startIconTint="@color/color_trans_gray"
+                app:boxCornerRadiusBottomEnd="15dp"
+                app:boxCornerRadiusTopStart="15dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_search"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/product_sans_regular"
+                    android:textSize="@dimen/_10sdp"
+                    android:maxLines="1" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</LinearLayout>

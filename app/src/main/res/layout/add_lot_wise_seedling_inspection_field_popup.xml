@@ -794,9 +794,10 @@
                                 app:boxCornerRadiusTopStart="15dp">
 
                               <com.google.android.material.textfield.TextInputEditText
-                                    android:id="@+id/ed_pld_acres"
+                                  android:id="@+id/ed_pld_acres"
                                   android:layout_width="match_parent"
                                   android:layout_height="wrap_content"
+                                  android:inputType="number"
                                   android:textColor="@color/black"
                                   android:maxLines="1" />
 
@@ -1025,7 +1026,7 @@
                                 android:layout_marginBottom="4dp"
                                 android:layout_weight="1"
                                 android:visibility="gone"
-                                android:hint=" Iso. Time"
+                                android:hint=" No of days"
                                 app:boxCornerRadiusBottomEnd="15dp"
                                 app:boxCornerRadiusTopStart="15dp">
 
@@ -1033,8 +1034,8 @@
                                     android:id="@+id/ed_iso_time"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:editable="false"
                                     android:textColor="@color/black"
+                                    android:inputType="number"
                                     android:maxLines="1" />
 
                             </com.google.android.material.textfield.TextInputLayout>

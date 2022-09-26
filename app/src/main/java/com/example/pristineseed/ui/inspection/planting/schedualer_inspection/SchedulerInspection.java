@@ -177,7 +177,6 @@ public class SchedulerInspection extends Fragment {
             });
         }
 
-
     private void InsertInspectionShedulerHeaderLine(List<SchedulerModel> scheduleInspectionModelList) {
         PristineDatabase db = PristineDatabase.getAppDatabase(getActivity());
         try {
@@ -262,7 +261,6 @@ public class SchedulerInspection extends Fragment {
             db.destroyInstance();
         }
     }
-
 
     private void getDataFromLocal() {
         scheduleInspectionModelList.clear();

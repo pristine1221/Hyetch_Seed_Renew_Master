@@ -1,8 +1,6 @@
 package com.example.pristineseed.model.PlantingModel;
-
 import java.util.ArrayList;
 import java.util.List;
-
 public class PlantingHeaderModel {
     public boolean condition;
     public String created_on;
@@ -12,6 +10,7 @@ public class PlantingHeaderModel {
     public String organizer_code;
     public String organizer_name;
     public String production_centre_loc;
+    public String sub_zone ;
     public String production_centre_name;
     public String date;
     public String date_of_harvest;
@@ -94,9 +93,7 @@ public class PlantingHeaderModel {
         public String parent_other;
         public String parent_other_lot;
         public String reciept_no_other;
-
         public int delete_planting_line = 0;
-
         //todo new fields......................
         public String standing_acres;
         public String pld_acre;

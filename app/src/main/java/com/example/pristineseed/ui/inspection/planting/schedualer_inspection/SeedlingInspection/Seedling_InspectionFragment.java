@@ -335,10 +335,10 @@ public class Seedling_InspectionFragment extends Fragment {
             return true;
         });
 
-        ed_isolation_time.setOnTouchListener((v, motionEvent) -> {
+       /* ed_isolation_time.setOnTouchListener((v, motionEvent) -> {
             new CustomTimePicker(getActivity()).showDialog(ed_isolation_time);
             return true;
-        });
+        });*/
 
         ItemAdapter iso_adapter = new ItemAdapter(getActivity(), R.layout.android_item_view, isoList);
         ed_isolation.setAdapter(iso_adapter);

@@ -530,11 +530,11 @@ public class FloweringInspectionFragment extends Fragment {
         //todo for show recommended date from local database................
         ed_remnd_date.setText(getFemaleSowingDate());
         ed_standing_acres.setText(getStandingAcres());
-
+/*
         ed_iso_tym.setOnTouchListener((v, motionEvent) -> {
             new CustomTimePicker(getActivity()).showDialog(ed_iso_tym);
             return true;
-        });
+        });*/
 
         ed_seed_setting.addTextChangedListener(new TextWatcher() {
             @Override

@@ -267,7 +267,7 @@ public interface NetworkInterface {
 
     //todo seedDispatchNot.........
     @GET("/api/Dispatch/FarmerList")
-    Call<DispatchFarmerModel> getDispatchFarmerList(@Query("Village") String village);
+    Call<DispatchFarmerModel> getDispatchFarmerList(@Query("Sub_Zone") String village);
 
     @GET("/api/Dispatch/Get_dispatch_header_line")
     Call<List<SeedDispatchHeaderModel>> getSeedDispatchNoteData(@Query("created_by") String created_by);

@@ -475,26 +475,28 @@ public class CreateInspectionFragment extends Fragment {
         });
 
         qc_insp.setOnClickListener(v -> {
-            if (pldMarked > 0 && inspectionline.getInspection_qc() <= 0) {
+
+            if (pldMarked > 0 && inspectionline.getInspection_qc() <= 0 ) {
                 MDToast.makeText(getActivity(), "You can't perform any action as PLD area is marked.", MDToast.LENGTH_SHORT,MDToast.TYPE_WARNING).show();
-                if (inspectionline.getInspection_9() > 0 || inspectionline.getIns9_sync_with_server() > 0) {
+            } else {
                 try {
-                    Bundle bundle = new Bundle();
-                    bundle.putString("header_detail", new Gson().toJson(inspectionHeader));
-                    bundle.putString("production_lot_no", inspectionline.getProduction_lot_no());
-                    bundle.putString("scheduler_no", inspectionline != null ? inspectionline.getSchedule_no() : "");
-                    bundle.putString("scheduler_line_detail", new Gson().toJson(inspectionline));
-                    QCInspectionFragment qcInspectionFragment = new QCInspectionFragment();
-                    qcInspectionFragment.setArguments(bundle);
-                    StaticMethods.loadFragmentsWithBackStack(getActivity(), qcInspectionFragment, "harvesting_inspection10");
+                    if (inspectionline.getInspection_9() >= 0 || inspectionline.getIns9_sync_with_server() >= 0) {
+                        Bundle bundle = new Bundle();
+                        bundle.putString("header_detail", new Gson().toJson(inspectionHeader));
+                        bundle.putString("production_lot_no", inspectionline.getProduction_lot_no());
+                        bundle.putString("scheduler_no", inspectionline != null ? inspectionline.getSchedule_no() : "");
+                        bundle.putString("scheduler_line_detail", new Gson().toJson(inspectionline));
+                        QCInspectionFragment qcInspectionFragment = new QCInspectionFragment();
+                        qcInspectionFragment.setArguments(bundle);
+                        StaticMethods.loadFragmentsWithBackStack(getActivity(), qcInspectionFragment, "qc_inspection");
+                    } else {
+                        Toast.makeText(getActivity(), "First complete previous inspection!", Toast.LENGTH_SHORT).show();
+                    }
                 }
                 catch (Exception e){
                     e.printStackTrace();
                 }
-            }else {
-                      Toast.makeText(getActivity(), "First complete previous inspection!", Toast.LENGTH_SHORT).show();
-                  }
-             }
+            }
         });
     }
 

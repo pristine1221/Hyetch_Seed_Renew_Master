@@ -451,6 +451,7 @@ public class BottomMainActivity extends AppCompatActivity implements BottomDialo
     }
 
     MaterialAlertDialogBuilder materialAlertDialogBuilder;
+
     private void buildAlertMessageNoGps() {
         materialAlertDialogBuilder = new MaterialAlertDialogBuilder(this);
         materialAlertDialogBuilder.setTitle("Confirm ...")
@@ -464,7 +465,6 @@ public class BottomMainActivity extends AppCompatActivity implements BottomDialo
                 })
                 .show();
     }
-
 
     private void requestPemission(){
         if (ContextCompat.checkSelfPermission(this,

@@ -303,6 +303,7 @@ GerminationInspectionFragment extends Fragment {
     }
 
     private List<GerminationInspection1_Table> germination_inspection_table = new ArrayList<>();
+
     private SchedulerInspectionLineTable scheduler_line_header_data = null;
 
     private void insertGerminationInspectionLine(List<Germination_InspectionLineModel> schedule_scan_lot_list) {
@@ -456,7 +457,6 @@ GerminationInspectionFragment extends Fragment {
                                                     .diskCacheStrategy(DiskCacheStrategy.NONE)
                                                     .skipMemoryCache(true)
                                                     .placeholder(R.drawable.noimage1)
-                                                    // any placeholder to load at start
                                                     .into(germinationImageView);
                                             return false;
                                         }
@@ -465,9 +465,8 @@ GerminationInspectionFragment extends Fragment {
                                         public boolean onResourceReady(Bitmap resource, Object model, Target<Bitmap> target, DataSource dataSource, boolean isFirstResource) {
                                             return false;
                                         }
-                                    })// image urlApiUtils.BASE_URL + "/api/Inspection/Get_Image?id=" +
+                                    })
                                     .placeholder(R.drawable.noimage1)
-                                    // any placeholder to load at start
                                     .into(germinationImageView);
                         }
                         catch (Exception e){
@@ -479,7 +478,6 @@ GerminationInspectionFragment extends Fragment {
                                     // any placeholder to load at start
                                     .into(germinationImageView);
                         }
-
 
                         //seedLing_inspectionLineModel.attachment = base64_image != null ? base64_image : "";
 
@@ -499,7 +497,6 @@ GerminationInspectionFragment extends Fragment {
                                     .into(setImageView);
                             //HitShowImageApi(file_attachment);
                         }*/
-
 
                     } catch (Exception e) {
                         e.getMessage();
@@ -774,7 +771,6 @@ GerminationInspectionFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-
     }
     PlantingLineLotListTable plantingLineLotListTable;
     private String getFemaleSowingDate() {

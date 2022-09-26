@@ -24,6 +24,8 @@ public final class CommonData {
 
    public static  String[] vigor={"Good","Average","Weak"};
 
+   public static String[] sub_zone={"Bellary","Bhadrachalam","Eluru 1","Eluru 2","Haveri","Jaipur ","Nandyal","Nizambad","Porumamilla","Proddtur","Rajahmundry","Sathupally","Warangal"};
+
    public static String[] pest={"Stem Borer","Fall Army Worm","Leaf Hopper","Leaf Folder","Pink Stem Borer","Cut Worm","Cob Borer","Thrips","Aphids","Shoot Fly","Nematode","Termites"};
    public static String[] desease={"Bacterial Leaf Blight (BLB)","Leaf Blast","Brown Spot","Bacterial Stalk Rot","Rust","Wilt","mosiac Virus","Roor Rot","Downy Mildew"};
    public static String[] pld={"Poor Male Germination","Poor Female Germination","Low Plant Population","Irrigation Stress","Water Logging Condition","Heavy Weeds"," Un-inform field","Poor Crop Estabilishment","Pest / Disease Damage","Male - Female Mixing","Animal Damage","Poor Grower Managament"};
